@@ -389,6 +389,15 @@ create trigger receipts_set_receipt_number
 before insert on public.receipts
 for each row execute function public.set_receipt_number();
 
+-- Function execution privileges.
+-- Internal trigger functions and sequencing helpers should not be callable
+-- directly through Supabase RPC by authenticated clients.
+revoke execute on function public.set_updated_at() from public;
+revoke execute on function public.next_receipt_number(uuid, timestamptz) from public;
+revoke execute on function public.set_receipt_number() from public;
+revoke execute on function public.current_organization_id() from public;
+grant execute on function public.current_organization_id() to authenticated;
+
 -- Row Level Security.
 alter table public.organizations enable row level security;
 alter table public.profiles enable row level security;
