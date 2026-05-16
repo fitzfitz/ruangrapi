@@ -23,14 +23,14 @@
 
 ## Phase 2: Tooling Baseline
 
-Next phase: tooling baseline. Do not start migrations yet.
+Phase 2 tooling baseline is complete. Do not start migrations yet.
 
 - [x] Configure formatting
 - [x] Configure linting
 - [x] Confirm TypeScript strict mode
 - [x] Confirm project builds
 - [x] Confirm project lints
-- [ ] Confirm dev server runs
+- [x] Confirm dev server runs
 
 Validation commands for setup/tooling tasks:
 
