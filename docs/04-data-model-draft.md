@@ -25,20 +25,24 @@ Do not create Supabase migrations from this document until the draft is reviewed
 6. Late fees are out of scope for the initial MVP.
 7. Owner/admin role separation should stay simple.
 8. Invoice lifecycle starts as `draft`, then moves to `unpaid` when issued.
-9. Receipt numbers should be scoped per organization.
+9. Receipt numbers should be scoped per organization using the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
 10. Overpayment allocation is out of scope. Payment amount should not exceed invoice remaining balance.
-11. Cancelled records should be preserved but hidden by default in normal views.
-12. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
-13. Unit names should be unique within a property.
-14. Tenant phone numbers should not be unique in the MVP.
-15. `billing_period` should use the first day of the month as a date, for example `2026-05-01`.
-16. Invoice totals should be stored on invoices and calculated from line items, with consistency validation.
-17. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
-18. Draft invoices may have no `issued_at` value. Issued invoices should have `issued_at`.
-19. Cancelled records should use both `status = cancelled` and nullable `cancelled_at` where useful.
-20. `updated_at` should be maintained by database trigger when migrations are introduced.
-21. Unit type should use a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
-22. `identity_number` should be deferred for MVP. Use optional `identity_notes` instead.
+11. Payments should be editable before receipt generation. After receipt generation, direct payment edits should be avoided. A proper payment correction workflow can be added later.
+12. Cancelled records should be preserved but hidden by default in normal views.
+13. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
+14. Unit names should be unique within a property.
+15. Tenant phone numbers should not be unique in the MVP.
+16. `billing_period` should use the first day of the month as a date, for example `2026-05-01`.
+17. Invoice totals should be stored on invoices and calculated from line items, with consistency validation starting in application logic.
+18. Database enforcement for invoice total consistency may be considered later, but should not be required for initial migrations.
+19. Utility readings should allow only one active reading per unit, billing period, and utility type in the MVP. Corrections should edit the same reading instead of creating separate correction records.
+20. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
+21. Draft invoices may have no `issued_at` value. Issued invoices should have `issued_at`.
+22. `cancelled_at` should exist only where useful for MVP: `leases`, `invoices`, `maintenance_tickets`, and `reminders`.
+23. `updated_at` should be maintained by database trigger when migrations are introduced.
+24. Unit type should use a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
+25. `identity_number` should be deferred for MVP. Use optional `identity_notes` instead.
+26. Detailed RLS policy planning should live in `docs/07-rls-strategy.md` instead of being duplicated in this data model draft.
 
 ## Common Field Conventions
 
@@ -364,7 +368,8 @@ Planning constraints:
 - `issued_at` should be set when status moves from `draft` to `unpaid`.
 - `subtotal_amount` should be greater than or equal to zero and stored on the invoice.
 - `total_amount` should be greater than or equal to zero and stored on the invoice.
-- Invoice totals should be calculated from invoice line items with consistency validation.
+- Invoice totals should be calculated from invoice line items with application validation first.
+- Database enforcement for invoice total consistency may be considered later, but should not be required for initial migrations.
 - `status` should be one of the allowed status values.
 - `cancelled_at` should be set when status becomes `cancelled`.
 - Lease, tenant, and unit should belong to the same organization as the invoice.
@@ -426,7 +431,7 @@ Planning constraints:
 - `quantity` should be greater than zero.
 - `unit_amount` should be greater than or equal to zero.
 - `total_amount` should be greater than or equal to zero.
-- `total_amount` should match `quantity * unit_amount` at the application or database rule level.
+- `total_amount` should match `quantity * unit_amount` through application validation first. Database enforcement may be considered later, but should not be required for initial migrations.
 - Invoice line items should belong to the same organization as the invoice.
 
 Planning indexes:
@@ -470,6 +475,9 @@ MVP payment rules:
 - One invoice can have many payments.
 - Payment amount must be greater than zero.
 - Payment amount should not exceed the invoice remaining balance.
+- Payments should be editable before receipt generation.
+- After receipt generation, direct payment edits should be avoided.
+- A proper payment correction workflow can be added later if needed.
 - Overpayment allocation is out of scope for the initial MVP.
 - Payment gateway settlement, failed payment states, refunds, and automated reconciliation are out of scope.
 
@@ -481,7 +489,8 @@ Planning constraints:
 - `payment_date` should be required.
 - `payment_method` should be one of the allowed payment method values.
 - Payment should belong to the same organization as the invoice.
-- Application logic, database logic, or both should prevent total payments from exceeding invoice total amount.
+- Application validation should prevent total payments from exceeding invoice total amount in the initial MVP.
+- Database enforcement may be considered later, but should not be required for initial migrations.
 
 Planning indexes:
 
@@ -513,7 +522,7 @@ MVP receipt rules:
 
 - A receipt belongs to one payment.
 - A payment should have at most one receipt.
-- Receipt numbers are scoped per organization.
+- Receipt numbers are scoped per organization using the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
 - Receipt generation is simple structured data; advanced PDF generation is not required in the earliest version.
 
 Planning constraints:
@@ -566,6 +575,8 @@ MVP utility rules:
 - Utility readings are simple operational records.
 - Utility charges should be included in invoices as `utility` invoice line items.
 - A utility reading may be used to calculate a utility invoice line item.
+- Only one active reading should exist per unit, billing period, and utility type in the MVP.
+- Corrections should edit the same utility reading instead of creating separate correction records.
 - Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
 - This table should not become a complex utility billing engine in the initial MVP.
 
@@ -580,6 +591,7 @@ Planning constraints:
 - `rate` should be greater than or equal to zero.
 - `total_amount` should be greater than or equal to zero.
 - Utility reading should belong to the same organization as the unit.
+- Utility readings should be unique by organization, unit, billing period, and utility type for the active MVP record.
 
 Planning indexes and uniqueness:
 
@@ -587,7 +599,7 @@ Planning indexes and uniqueness:
 - Index on `organization_id`.
 - Index on `unit_id`.
 - Index on `(organization_id, billing_period)`.
-- Optional unique constraint on `(organization_id, unit_id, billing_period, utility_type)` if each utility type should only be recorded once per unit per billing period.
+- Unique constraint on `(organization_id, unit_id, billing_period, utility_type)` for one active reading per unit, billing period, and utility type.
 
 ### maintenance_tickets
 
@@ -758,20 +770,24 @@ Reason:
 11. An invoice belongs to one organization, one lease, one tenant, one unit, and one billing period.
 12. `billing_period` uses the first day of the month as a date, for example `2026-05-01`.
 13. One lease should not have more than one non-cancelled invoice for the same billing period.
-14. Invoice totals are stored on invoices and calculated from invoice line items with consistency validation.
+14. Invoice totals are stored on invoices and calculated from invoice line items with application validation first.
 15. Utility charges should appear as invoice line items.
-16. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
-17. Draft invoices may have no `issued_at`; issued invoices should have `issued_at`.
-18. A payment belongs to one invoice.
-19. Total payments for an invoice should not exceed the invoice total.
-20. A receipt belongs to one payment.
-21. A receipt number is unique within an organization.
-22. A utility reading belongs to one unit and billing period.
-23. A maintenance ticket belongs to one property and may belong to one unit.
-24. A reminder belongs to one invoice and one tenant.
-25. Records with `cancelled` status should be preserved but hidden by default in normal views.
-26. Cancelled records should use nullable `cancelled_at` where useful.
-27. `updated_at` should be maintained by database trigger when migrations are introduced.
+16. Utility readings allow only one active reading per unit, billing period, and utility type in the MVP.
+17. Utility reading corrections edit the same reading instead of creating separate correction records.
+18. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
+19. Draft invoices may have no `issued_at`; issued invoices should have `issued_at`.
+20. A payment belongs to one invoice.
+21. Total payments for an invoice should not exceed the invoice total.
+22. Payments should be editable before receipt generation; after receipt generation, direct payment edits should be avoided.
+23. A proper payment correction workflow can be added later.
+24. A receipt belongs to one payment.
+25. A receipt number is unique within an organization and uses the format `RR-{YYYY}-{0001}`.
+26. A utility reading belongs to one unit and billing period.
+27. A maintenance ticket belongs to one property and may belong to one unit.
+28. A reminder belongs to one invoice and one tenant.
+29. Records with `cancelled` status should be preserved but hidden by default in normal views.
+30. `cancelled_at` should exist only on `leases`, `invoices`, `maintenance_tickets`, and `reminders` for MVP.
+31. `updated_at` should be maintained by database trigger when migrations are introduced.
 
 ## Lifecycle Summary
 
@@ -837,6 +853,9 @@ Notes:
 - A payment record means the owner/admin recorded a received payment.
 - Payment amount must be greater than zero.
 - Payment amount must not exceed invoice remaining balance.
+- Payments should be editable before receipt generation.
+- After receipt generation, direct payment edits should be avoided.
+- A proper payment correction workflow can be added later.
 
 ### Maintenance Ticket
 
@@ -883,6 +902,7 @@ Likely important indexes:
 - `receipts (organization_id, receipt_number)`
 - `utility_readings.unit_id`
 - `utility_readings (organization_id, billing_period)`
+- `utility_readings (organization_id, unit_id, billing_period, utility_type)` unique for one active reading per unit, billing period, and utility type
 - `maintenance_tickets.property_id`
 - `maintenance_tickets.unit_id`
 - `maintenance_tickets (organization_id, status)`
@@ -901,10 +921,13 @@ Likely important unique constraints:
 - One unit name per property.
 - One receipt per payment.
 - One receipt number per organization.
+- One utility reading per unit, billing period, and utility type.
 
 ## Row Level Security Planning Notes
 
 RLS should be planned before migrations are created.
+
+Detailed RLS strategy belongs in `docs/07-rls-strategy.md`. This data model draft only records the data-model assumptions needed to support RLS.
 
 At a high level:
 
@@ -913,7 +936,7 @@ At a high level:
 - Most business table policies can use `organization_id` to restrict access.
 - `organizations` access should be limited to users whose profile belongs to that organization.
 
-This section is only a planning note. Exact RLS policies should be drafted separately before SQL migrations are created.
+This section is only a planning note. Do not duplicate detailed policy design here, and do not write SQL policies before the data model and RLS strategy are reviewed and approved.
 
 ## Out of Scope for Initial MVP Data Model
 
@@ -939,9 +962,8 @@ Do not add these in the initial MVP data model:
 
 These decisions still need confirmation before migrations are written:
 
-1. What exact receipt number format should be used within each organization?
-2. Should utility readings be limited to one reading per unit, billing period, and utility type, or can owners record corrections as separate readings?
-3. Should cancelled records use `cancelled_at` on every cancellable table, or only on leases, invoices, maintenance tickets, and reminders for MVP?
-4. Should invoice total consistency be enforced first through application validation only, or also through database triggers/functions when migrations are introduced?
-5. What exact RLS policy pattern should be used for organization-scoped tables?
-6. Should payment records be editable after receipt generation, or should corrections require a separate owner-approved workflow later?
+1. Should setup mistakes be physically deletable before records have dependent history, or should the app always prefer inactive/cancelled states where supported?
+2. Should same-organization relationship protection rely on application validation plus normal foreign keys for initial migrations, or should database checks/triggers be planned for critical relationships later?
+3. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
+
+RLS policy questions are tracked in `docs/07-rls-strategy.md` and should not be duplicated here.
