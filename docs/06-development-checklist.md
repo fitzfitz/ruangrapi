@@ -25,7 +25,7 @@
 
 Next phase: tooling baseline. Do not start migrations yet.
 
-- [ ] Configure formatting
+- [x] Configure formatting
 - [x] Configure linting
 - [x] Confirm TypeScript strict mode
 - [x] Confirm project builds

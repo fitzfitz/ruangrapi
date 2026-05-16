@@ -219,7 +219,6 @@ Invoice lifecycle rules:
 14. Cancelled invoices should be preserved but hidden by default in normal views.
 15. Invoice history should be preserved for reporting and receipts.
 
-
 ### Invoice Line Item
 
 A simple charge line that makes up an invoice total.

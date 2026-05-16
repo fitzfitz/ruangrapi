@@ -10,3 +10,4 @@ Planned future contents:
 supabase/
   migrations/
   seed.sql
+```
