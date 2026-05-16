@@ -26,10 +26,10 @@
 Next phase: tooling baseline. Do not start migrations yet.
 
 - [ ] Configure formatting
-- [ ] Configure linting
-- [ ] Confirm TypeScript strict mode
-- [ ] Confirm project builds
-- [ ] Confirm project lints
+- [x] Configure linting
+- [x] Confirm TypeScript strict mode
+- [x] Confirm project builds
+- [x] Confirm project lints
 - [ ] Confirm dev server runs
 
 Validation commands for setup/tooling tasks:
