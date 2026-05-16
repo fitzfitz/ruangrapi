@@ -308,7 +308,8 @@ MVP data decisions relevant to this module:
 - One tenant can only have one active lease at a time.
 - One unit can only have one active lease at a time.
 - Deposits may be tracked on the lease, but no complex deposit workflow yet.
-- Cancelled records should use `status = cancelled` and nullable `cancelled_at` where useful.
+- Ended or cancelled leases should preserve business history.
+- Physical delete is allowed only for setup mistakes before dependent history exists.
 
 Not responsible for:
 
@@ -332,13 +333,14 @@ Examples:
 MVP data decisions relevant to this module:
 
 - `billing_period` should use the first day of the month as a date, for example `2026-05-01`.
-- Invoices start as `draft`.
+- Invoices start as `draft`, then become `unpaid` when issued.
 - Draft invoices may have no `issued_at` value.
 - Issued invoices should have `issued_at`.
+- Invoices support simple invoice line items.
 - Invoice totals should be stored on invoices and calculated from line items, with consistency validation.
 - Utility charges should be represented as invoice line items.
 - Late fees are out of scope for the initial MVP.
-- Cancelled invoices should use `status = cancelled` and nullable `cancelled_at` where useful.
+- Cancelled invoices should preserve history and be hidden by default in normal views.
 
 Not responsible for:
 
@@ -361,6 +363,8 @@ Examples:
 MVP data decisions relevant to this module:
 
 - Payment amount should not exceed invoice remaining balance.
+- Payments should be editable before receipt generation.
+- Direct payment edits should be avoided after receipt generation.
 - Overpayment allocation is out of scope for the initial MVP.
 - Payment gateway states are out of scope.
 
@@ -383,6 +387,7 @@ Examples:
 MVP data decisions relevant to this module:
 
 - Receipt numbers should be scoped per organization.
+- Receipt numbers use the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
 - Advanced PDF generation is not required in the earliest version.
 
 Not responsible for:
@@ -421,6 +426,8 @@ Examples:
 MVP data decisions relevant to this module:
 
 - Utility charges should be included as invoice line items.
+- Only one active utility reading should exist per unit, billing period, and utility type.
+- Utility reading corrections should edit the same reading in the MVP.
 - Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
 
 Not responsible for:
@@ -490,7 +497,18 @@ Application responsibilities:
 - Validate form input with Zod.
 - Use React Hook Form for forms.
 - Use TanStack Query for server state.
+- Enforce MVP workflow rules in domain modules before database enforcement is introduced.
 - Calculate invoice line item totals in application logic and validate consistency with stored invoice totals.
+- Prevent payments from exceeding the invoice remaining balance.
+- Allow payment edits before receipt generation, and avoid direct payment edits after receipt generation.
+- Keep utility reading correction simple by editing the same reading in the MVP.
+
+Destructive action responsibilities:
+
+- Treat destructive actions conservatively.
+- Physical delete is allowed only for setup mistakes before dependent history exists.
+- Once a record has dependent business history, preserve it with statuses such as `inactive`, `cancelled`, `ended`, or `resolved` where supported.
+- Hide preserved inactive, cancelled, ended, or resolved records by default in normal views when appropriate.
 
 Database responsibility later, when migrations are approved:
 
@@ -498,36 +516,23 @@ Database responsibility later, when migrations are approved:
 - Enforce uniqueness such as unit names within a property.
 - Enforce one active lease per tenant and unit.
 - Enforce receipt number uniqueness per organization.
+- Enforce one active utility reading per unit, billing period, and utility type.
 - Enforce allowed status values.
 - Maintain `updated_at` automatically.
 
-Do not create migrations until the data model and RLS plan are approved.
+Do not create migrations until the data model draft is reviewed, the RLS strategy is reviewed, remaining data model and RLS questions are resolved, and owner approval is given.
 
 ## Row Level Security Planning
 
-RLS is required for multi-tenant safety.
+RLS is required for multi-tenant safety, but detailed RLS planning belongs in `docs/07-rls-strategy.md`. This architecture document should only capture the high-level boundary.
 
-High-level plan:
+High-level architecture rules:
 
-- Every business table should include `organization_id`, except `organizations` itself.
-- `profiles` connects an authenticated Supabase user to an organization.
+- Most business tables should be scoped by `organization_id`.
+- `profiles` connects an authenticated Supabase user to one organization in the MVP.
 - Users should only read and write rows for their organization.
 - `organizations` should only be accessible by users whose profile belongs to that organization.
-- RLS policies should be drafted before SQL migrations are created.
-
-RLS should protect at least:
-
-- properties
-- units
-- tenants
-- leases
-- invoices
-- invoice_line_items
-- payments
-- receipts
-- utility_readings
-- maintenance_tickets
-- reminders
+- RLS policy details must be reviewed in `docs/07-rls-strategy.md` before SQL migrations are created.
 
 MVP role handling:
 
@@ -657,18 +662,26 @@ Domain modules should use TanStack Query through their own query functions/hooks
 
 ## Data Model Decisions That Affect Architecture
 
-The following decisions should guide future implementation:
+The following decisions should guide future implementation without duplicating the full data model draft:
 
 1. Unit names are unique within a property.
 2. Tenant phone numbers are normalized but not unique in the MVP.
 3. `billing_period` uses the first day of the month as a date, for example `2026-05-01`.
-4. Invoice totals are stored on invoices and calculated from line items, with consistency validation.
-5. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
-6. Draft invoices may have no `issued_at` value. Issued invoices should have `issued_at`.
-7. Cancelled records should use both `status = cancelled` and nullable `cancelled_at` where useful.
-8. `updated_at` should be maintained by database trigger when migrations are introduced.
-9. Unit type uses a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
-10. `identity_number` is deferred for MVP. Use optional `identity_notes` instead.
+4. Invoices start as `draft`, then become `unpaid` when issued.
+5. Invoices support simple invoice line items, including utility charges.
+6. Invoice totals are stored on invoices and calculated from line items, with consistency validation starting in application logic.
+7. Payment amount should not exceed invoice remaining balance.
+8. Payments are editable before receipt generation; direct payment edits should be avoided after receipt generation.
+9. Receipt numbers are organization-scoped using `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
+10. Utility readings allow one active reading per unit, billing period, and utility type.
+11. Utility reading corrections edit the same reading in the MVP.
+12. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
+13. Draft invoices may have no `issued_at` value. Issued invoices should have `issued_at`.
+14. Physical delete is allowed only for setup mistakes before dependent history exists.
+15. Once a record has dependent business history, prefer status-based preservation such as `inactive`, `cancelled`, `ended`, or `resolved`.
+16. `updated_at` should be maintained by database trigger when migrations are introduced.
+17. Unit type uses a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
+18. `identity_number` is deferred for MVP. Use optional `identity_notes` instead.
 
 These decisions should be reflected in future data model and implementation tasks before migrations are created.
 
@@ -688,15 +701,17 @@ Good architecture workflow:
 Recommended implementation sequence after documentation approval:
 
 1. Confirm data model decisions in `docs/04-data-model-draft.md`.
-2. Draft RLS strategy documentation.
-3. Add app provider structure.
-4. Add Supabase client wrapper.
-5. Add TanStack Query provider.
-6. Decide routing approach.
-7. Add basic app shell.
-8. Start the first domain module with properties and units.
+2. Review RLS strategy in `docs/07-rls-strategy.md`.
+3. Resolve remaining data model and RLS questions needed for migrations.
+4. Get owner approval before creating migrations, SQL files, or policies.
+5. Add app provider structure.
+6. Add Supabase client wrapper.
+7. Add TanStack Query provider.
+8. Decide routing approach.
+9. Add basic app shell.
+10. Start the first domain module with properties and units.
 
-Do not create database migrations before the data model draft and RLS strategy are approved.
+Do not create database migrations before the data model draft and RLS strategy are reviewed, remaining questions are resolved, and owner approval is given.
 
 ## Explicit Non-Goals
 
@@ -727,6 +742,7 @@ These decisions can be made later, before implementation reaches the relevant ar
 5. How should form error messages be written for Indonesian users?
 6. Where should phone normalization helpers live: `shared/utils`, `shared/lib`, or the tenants module with shared export later?
 7. Should dashboard queries be direct read queries, database views, or RPC functions later?
-8. What exact RLS policy patterns should be used for organization-scoped tables?
-9. Should cancelled-record filtering be handled in every module query, shared query helpers, or database views later?
-10. Should invoice total consistency be enforced with application validation only at first, or with database triggers/functions when migrations are introduced?
+8. Should preserved-record filtering be handled in every module query, shared query helpers, or database views later?
+9. Should invoice total consistency remain application validation only at first, or move to database triggers/functions after migrations are approved?
+
+Detailed RLS policy questions are tracked in `docs/07-rls-strategy.md`, not in this architecture document.
