@@ -141,6 +141,32 @@ Until then, database work must remain planning documentation only.
 - If a validation script does not exist, report that instead of inventing a replacement.
 - Before final response, check changed files when useful to confirm the task stayed in scope.
 
+## Source File Naming Rules
+
+For any non-Markdown file created inside `src/`, use kebab-case filenames.
+
+Good examples:
+
+- `app-providers.tsx`
+- `query-client-provider.tsx`
+- `supabase-client.ts`
+- `property-form.tsx`
+- `lease-schema.ts`
+- `invoice-list.tsx`
+
+Do not use PascalCase or camelCase filenames inside `src/` for non-Markdown files.
+
+Not allowed:
+
+- `AppProviders.tsx`
+- `QueryClientProvider.tsx`
+- `supabaseClient.ts`
+- `PropertyForm.tsx`
+- `leaseSchema.ts`
+- `InvoiceList.tsx`
+
+Markdown files may keep normal documentation names such as `README.md`.
+
 ## Domain-Driven Design-lite Rules
 
 Use DDD-lite pragmatically.

@@ -118,6 +118,21 @@ src/
 
 This is a target structure. Do not create every folder before it is needed.
 
+### Source file naming
+
+For any non-Markdown file created inside `src/`, use kebab-case filenames.
+
+Good examples:
+
+- `app-providers.tsx`
+- `query-client-provider.tsx`
+- `supabase-client.ts`
+- `property-form.tsx`
+- `lease-schema.ts`
+- `invoice-list.tsx`
+
+Do not use PascalCase or camelCase filenames inside `src/` for non-Markdown files. Markdown files may keep normal documentation names such as `README.md`.
+
 ### app/
 
 The `app/` folder is for application initialization and composition.

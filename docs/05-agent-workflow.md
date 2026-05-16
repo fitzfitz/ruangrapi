@@ -153,6 +153,8 @@ Rules:
 - Do not expand MVP scope while editing docs or setup files.
 - Do not add new dependencies without explaining why and asking first.
 - Do not create folders or modules until there is a clear current need.
+- Use kebab-case filenames for any non-Markdown file created inside `src/`.
+- Markdown files may keep normal documentation names such as `README.md`.
 - Do not build screens before the domain model and data model are clear.
 
 Good examples:
