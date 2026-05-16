@@ -84,7 +84,7 @@ Do not begin until repository setup, documentation, architecture, and tooling ar
 - [x] Create app provider structure
 - [x] Add TanStack Query provider
 - [ ] Add Supabase client wrapper
-- [ ] Decide routing approach
+- [x] Decide routing approach
 - [ ] Create basic layout shell
 
 ## Phase 5: First Domain Module
