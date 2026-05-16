@@ -50,7 +50,7 @@ For MVP:
 - Each user belongs to one organization through `profiles.organization_id`.
 - Multi-organization membership is out of scope for the MVP.
 - Enterprise role and permission tables are out of scope for the MVP.
-- Owner/admin role differences should stay simple and can initially behave the same unless a later owner-approved decision says otherwise.
+- Owner/admin have identical database access for MVP.
 
 ## Role of Core Identity Tables
 
@@ -85,6 +85,8 @@ Planning rules:
 - `profiles.organization_id` is the key lookup used by organization-scoped RLS policies.
 - A user should not be able to read or write rows for another organization.
 - Role differences should not become an enterprise permission system in the MVP.
+- Users may update their own `profiles.full_name` only.
+- Users may not update their own `organization_id` or `role`.
 
 ### organizations
 
@@ -105,6 +107,7 @@ Planning rules:
 
 - `organizations` does not need its own `organization_id` because it is the boundary.
 - A user should only access the organization referenced by their profile.
+- Initial signup/onboarding creates one organization and one owner profile.
 
 ### organization_id
 
@@ -120,6 +123,8 @@ Planning rules:
 
 - Most business tables should include `organization_id`.
 - Foreign-key relationships should stay within the same organization.
+- Same-organization relationship protection starts with application validation plus normal foreign keys.
+- Database checks or triggers for cross-organization relationship protection are deferred until clearly needed.
 - Application queries should still filter by organization where useful, but RLS is the required safety boundary.
 
 ## Organization-Scoped Tables
@@ -181,7 +186,7 @@ Planning expectations:
 
 - Inserted rows must use the user's profile organization.
 - A user should not be able to insert a row into another organization by manually changing `organization_id`.
-- Related rows should belong to the same organization.
+- Related rows should belong to the same organization. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Examples:
 
@@ -198,7 +203,7 @@ Users should be able to update rows for their own organization only.
 Planning expectations:
 
 - Updates must not move a business row into another organization.
-- Related row changes must stay within the same organization.
+- Related row changes must stay within the same organization. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 - Application validation should enforce MVP workflow rules before save.
 
 MVP workflow notes:
@@ -255,6 +260,13 @@ These owner-approved decisions should guide later migration and policy work:
 6. RLS should use organization-scoped policies through `profiles.organization_id`.
 7. Users can access organization-scoped rows only when `row.organization_id` matches their `profiles.organization_id`.
 8. Payments should be editable before receipt generation. After receipt generation, direct payment edits should be avoided. A correction workflow can be added later.
+9. Initial signup/onboarding creates one organization and one owner profile.
+10. Users may update their own `profiles.full_name` only; users may not update their own `organization_id` or `role`.
+11. Owner/admin have identical database access for MVP.
+12. Profiles and organizations access should remain conservative and organization-scoped.
+13. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
+14. Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk.
+15. Exact SQL, migration, and RLS policy implementation will be designed later during approved migration planning.
 
 ## Table-Specific Notes
 
@@ -266,11 +278,16 @@ For MVP planning, profile access should stay simple:
 
 - Users can read their own profile.
 - Users should not read profiles from other organizations unless an owner-approved admin workflow requires it later.
-- Profile creation/update workflows need careful planning because profiles connect auth users to organizations.
+- Initial signup/onboarding creates one organization and one owner profile.
+- Users may update their own `profiles.full_name` only.
+- Users may not update their own `organization_id` or `role`.
+- Profile creation/update workflows need careful implementation planning because profiles connect auth users to organizations.
 
 ### organizations
 
 Users should only access the organization connected to their profile.
+
+Organization access should remain conservative and organization-scoped. Organization updates can be planned later with an owner-approved account settings workflow.
 
 The MVP does not need organization hierarchy, multi-organization switching, or enterprise account management.
 
@@ -280,7 +297,9 @@ These are core operational records.
 
 Access should be limited by `organization_id` for select, insert, update, and any allowed delete.
 
-Cross-organization references must not be allowed:
+Cross-organization references must not be allowed. For MVP, protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
+
+Examples:
 
 - A unit cannot reference a property from another organization.
 - A tenant record belongs to exactly one organization in the MVP.
@@ -289,7 +308,7 @@ Cross-organization references must not be allowed:
 
 Leases connect tenants and units.
 
-RLS should limit leases to the user's organization, and later database constraints should ensure referenced tenant and unit records belong to the same organization.
+RLS should limit leases to the user's organization. Application validation plus normal foreign keys should initially ensure referenced tenant and unit records belong to the same organization; database checks or triggers are deferred until clearly needed.
 
 Cancelled leases should be preserved and should use `cancelled_at`.
 
@@ -331,7 +350,7 @@ MVP rule:
 - Only one active reading should exist per unit, billing period, and utility type.
 - Corrections should edit the same reading rather than creating separate correction records.
 
-RLS should limit access by `organization_id`, and later constraints should ensure the referenced unit belongs to the same organization.
+RLS should limit access by `organization_id`. Application validation plus normal foreign keys should initially ensure the referenced unit belongs to the same organization; database checks or triggers are deferred until clearly needed.
 
 ### maintenance_tickets
 
@@ -374,22 +393,27 @@ Before Supabase migrations are created, the project should review and approve:
 
 1. `docs/04-data-model-draft.md`
 2. This RLS strategy document
-3. The exact organization-scoped policy pattern
-4. The exact profile creation/onboarding flow
-5. The table constraints that protect same-organization relationships
+3. The approved organization-scoped policy direction
+4. The approved profile creation/onboarding direction
+5. The approved same-organization relationship protection direction
+6. A separate owner-approved migration planning task for exact SQL, migration files, constraints, and RLS policy implementation
 
 No real SQL policies are being written in this document.
 
-No migrations should be created until the data model and RLS strategy are reviewed.
+Migrations remain locked until a separate owner-approved migration planning task.
 
 ## Remaining RLS Questions
 
-These questions should be answered before writing migrations or SQL policies:
+No RLS planning questions remain open from `docs/08-supabase-planning-decisions.md`.
 
-1. How should the first organization and first owner profile be created during signup?
-2. Should users be allowed to update their own `profiles.full_name`, or should profile edits be handled through an owner/admin screen later?
-3. Should `owner` and `admin` have identical database access in the first MVP, or should any minimal difference exist?
-4. What exact policy pattern should be used for `profiles` so users can read their own profile without exposing other organizations?
-5. What exact policy pattern should be used for `organizations` so users can read only their own organization?
-6. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
-7. Should cross-organization relationship protection rely first on application validation plus foreign keys, or should database checks/triggers be planned for critical relationships later?
+The approved MVP direction is:
+
+1. Initial signup/onboarding creates one organization and one owner profile.
+2. Users may update their own `profiles.full_name` only.
+3. Users may not update their own `organization_id` or `role`.
+4. Owner/admin have identical database access for MVP.
+5. Profiles and organizations access remains conservative and organization-scoped.
+6. Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk.
+7. Same-organization relationship protection starts with application validation plus normal foreign keys.
+8. Database checks or triggers for cross-organization relationship protection are deferred until clearly needed.
+9. Exact SQL, migration, constraints, trigger/function design, and RLS policy implementation are deferred to a separate owner-approved migration planning task.

@@ -44,6 +44,12 @@ Do not create Supabase migrations from this document until the draft is reviewed
 25. `identity_number` should be deferred for MVP. Use optional `identity_notes` instead.
 26. Detailed RLS policy planning should live in `docs/07-rls-strategy.md` instead of being duplicated in this data model draft.
 27. Physical delete is allowed only for setup mistakes before dependent business history exists. Once dependent history exists, preserve records with statuses such as `inactive`, `cancelled`, `ended`, or `resolved` where supported.
+28. Same-organization relationship protection starts with application validation plus normal foreign keys. Database checks or triggers for cross-organization relationship protection are deferred until clearly needed.
+29. Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk. The exact mechanism will be designed later during approved migration planning.
+30. Initial signup/onboarding creates one organization and one owner profile.
+31. Users may update their own `profiles.full_name` only; users may not update their own `organization_id` or `role`.
+32. Owner/admin have identical database access for MVP.
+33. Exact SQL, migration, and RLS policy implementation will be designed later during approved migration planning.
 
 ## Common Field Conventions
 
@@ -125,7 +131,7 @@ Allowed MVP roles:
 MVP role rule:
 
 - Keep role separation simple.
-- Both roles may initially behave similarly in the app until more detailed authorization is approved.
+- Both roles have identical database access for MVP.
 - Do not add enterprise permission tables yet.
 
 Planning constraints:
@@ -213,7 +219,7 @@ Planning constraints:
 - `type` should be one of the allowed type values.
 - `status` should be one of the allowed status values.
 - `base_rent_amount` should be greater than or equal to zero when present.
-- A unit should only belong to a property in the same organization.
+- A unit should only belong to a property in the same organization. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 - Unit names should be unique within the same property.
 
 Planning indexes:
@@ -316,7 +322,7 @@ Planning constraints:
 - `deposit_amount` should be greater than or equal to zero when present.
 - `status` should be one of the allowed status values.
 - `cancelled_at` should be set when status becomes `cancelled`.
-- Tenant and unit should belong to the same organization as the lease.
+- Tenant and unit should belong to the same organization as the lease. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Planning indexes and uniqueness:
 
@@ -389,7 +395,7 @@ Planning constraints:
 - Database enforcement for invoice total consistency may be considered later, but should not be required for initial migrations.
 - `status` should be one of the allowed status values.
 - `cancelled_at` should be set when status becomes `cancelled`.
-- Lease, tenant, and unit should belong to the same organization as the invoice.
+- Lease, tenant, and unit should belong to the same organization as the invoice. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Planning indexes and uniqueness:
 
@@ -449,7 +455,7 @@ Planning constraints:
 - `unit_amount` should be greater than or equal to zero.
 - `total_amount` should be greater than or equal to zero.
 - `total_amount` should match `quantity * unit_amount` through application validation first. Database enforcement may be considered later, but should not be required for initial migrations.
-- Invoice line items should belong to the same organization as the invoice.
+- Invoice line items should belong to the same organization as the invoice. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Planning indexes:
 
@@ -505,7 +511,7 @@ Planning constraints:
 - `amount` should be greater than zero.
 - `payment_date` should be required.
 - `payment_method` should be one of the allowed payment method values.
-- Payment should belong to the same organization as the invoice.
+- Payment should belong to the same organization as the invoice. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 - Application validation should prevent total payments from exceeding invoice total amount in the initial MVP.
 - Database enforcement may be considered later, but should not be required for initial migrations.
 
@@ -540,6 +546,7 @@ MVP receipt rules:
 - A receipt belongs to one payment.
 - A payment should have at most one receipt.
 - Receipt numbers are scoped per organization using the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
+- Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk. The exact mechanism will be designed later during approved migration planning.
 - Receipt generation is simple structured data; advanced PDF generation is not required in the earliest version.
 
 Planning constraints:
@@ -548,7 +555,7 @@ Planning constraints:
 - `payment_id` should reference `payments.id`.
 - `receipt_number` should be required.
 - `issued_at` should be required.
-- Receipt should belong to the same organization as the payment.
+- Receipt should belong to the same organization as the payment. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Planning indexes and uniqueness:
 
@@ -607,7 +614,7 @@ Planning constraints:
 - `usage_amount` should be greater than or equal to zero.
 - `rate` should be greater than or equal to zero.
 - `total_amount` should be greater than or equal to zero.
-- Utility reading should belong to the same organization as the unit.
+- Utility reading should belong to the same organization as the unit. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 - Utility readings should be unique by organization, unit, billing period, and utility type for the active MVP record.
 
 Planning indexes and uniqueness:
@@ -674,7 +681,7 @@ Planning constraints:
 - `reported_at` should be required.
 - `resolved_at` should be set when status becomes `resolved`.
 - `cancelled_at` should be set when status becomes `cancelled`.
-- Property and unit should belong to the same organization as the ticket.
+- Property and unit should belong to the same organization as the ticket. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 - If `unit_id` is present, the unit should belong to the selected property.
 
 Planning indexes:
@@ -735,7 +742,7 @@ Planning constraints:
 - `message` should be required.
 - `status` should be one of the allowed status values.
 - `cancelled_at` should be set when status becomes `cancelled`.
-- Reminder, invoice, and tenant should belong to the same organization.
+- Reminder, invoice, and tenant should belong to the same organization. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
 
 Planning indexes:
 
@@ -806,6 +813,8 @@ Reason:
 30. `cancelled_at` should exist only on `leases`, `invoices`, `maintenance_tickets`, and `reminders` for MVP.
 31. `updated_at` should be maintained by database trigger when migrations are introduced.
 32. Physical delete is allowed only for setup mistakes before dependent business history exists.
+33. Same-organization relationship protection starts with application validation plus normal foreign keys; database checks or triggers are deferred until clearly needed.
+34. Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk; exact implementation is deferred to approved migration planning.
 
 ## Lifecycle Summary
 
@@ -978,9 +987,13 @@ Do not add these in the initial MVP data model:
 
 ## Remaining Data Model Questions
 
-These decisions still need confirmation before migrations are written:
+No data model planning questions remain open from `docs/08-supabase-planning-decisions.md`.
 
-1. Should same-organization relationship protection rely on application validation plus normal foreign keys for initial migrations, or should database checks/triggers be planned for critical relationships later?
-2. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
+The approved MVP direction is:
 
-RLS policy questions are tracked in `docs/07-rls-strategy.md` and should not be duplicated here.
+1. Same-organization relationship protection starts with application validation plus normal foreign keys.
+2. Database checks or triggers for cross-organization relationship protection are deferred until clearly needed.
+3. Receipt number sequencing should be database-backed conceptually to reduce duplicate receipt number risk.
+4. Exact SQL, migration, constraints, trigger/function design, and RLS policy implementation are deferred to a separate owner-approved migration planning task.
+
+RLS policy implementation details are tracked in `docs/07-rls-strategy.md` and should not be duplicated here.

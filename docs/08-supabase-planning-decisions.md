@@ -1,30 +1,30 @@
-# Supabase Planning Decisions Proposal
+# Supabase Planning Decisions
 
-This document proposes answers to the remaining data model and RLS planning questions before Supabase migrations are allowed.
+This document records owner-approved answers to the remaining data model and RLS planning questions before Supabase migrations are allowed.
 
-Status: proposed until owner approval.
+Status: approved for MVP documentation planning.
 
 This is planning documentation only. It does not contain SQL, migration instructions, source code, product features, or implementation steps.
 
 ## Decision Summary
 
-| Area       | Question                                      | Proposed MVP decision                                                                                                                       | Status   |
+| Area       | Question                                      | Approved MVP decision                                                                                                                       | Status   |
 | ---------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Data model | Same-organization relationship protection     | Use application validation plus normal foreign keys first. Add database checks or triggers later only for critical proven needs.            | Proposed |
-| Data model | Receipt number sequencing                     | Use database-backed receipt sequencing when migrations are introduced, while keeping receipt generation simple in the app.                  | Proposed |
-| RLS        | First organization and owner profile creation | Create one organization and one owner profile during the initial signup/onboarding flow. Keep one organization per user for MVP.            | Proposed |
-| RLS        | User profile updates                          | Allow users to update their own `profiles.full_name` only. Do not allow users to change their own `organization_id` or `role`.              | Proposed |
-| RLS        | Owner/admin access                            | Treat `owner` and `admin` as identical for database access in the MVP. Keep role differences as future product scope.                       | Proposed |
-| RLS        | `profiles` policy pattern                     | Users can read their own profile. Organization-wide profile access should be deferred unless an owner-approved admin screen needs it later. | Proposed |
-| RLS        | `organizations` policy pattern                | Users can read only the organization referenced by their own profile.                                                                       | Proposed |
-| RLS        | Receipt number sequencing                     | Use the same database-backed receipt sequencing proposal as the data model decision.                                                        | Proposed |
-| RLS        | Cross-organization relationship protection    | Use application validation plus foreign keys first. Add database checks or triggers later only for critical proven needs.                   | Proposed |
+| Data model | Same-organization relationship protection     | Use application validation plus normal foreign keys first. Add database checks or triggers later only for critical proven needs.            | Approved |
+| Data model | Receipt number sequencing                     | Use database-backed receipt sequencing when migrations are introduced, while keeping receipt generation simple in the app.                  | Approved |
+| RLS        | First organization and owner profile creation | Create one organization and one owner profile during the initial signup/onboarding flow. Keep one organization per user for MVP.            | Approved |
+| RLS        | User profile updates                          | Allow users to update their own `profiles.full_name` only. Do not allow users to change their own `organization_id` or `role`.              | Approved |
+| RLS        | Owner/admin access                            | Treat `owner` and `admin` as identical for database access in the MVP. Keep role differences as future product scope.                       | Approved |
+| RLS        | `profiles` policy pattern                     | Users can read their own profile. Organization-wide profile access should be deferred unless an owner-approved admin screen needs it later. | Approved |
+| RLS        | `organizations` policy pattern                | Users can read only the organization referenced by their own profile.                                                                       | Approved |
+| RLS        | Receipt number sequencing                     | Use the same database-backed receipt sequencing decision as the data model decision.                                                        | Approved |
+| RLS        | Cross-organization relationship protection    | Use application validation plus foreign keys first. Add database checks or triggers later only for critical proven needs.                   | Approved |
 
-## Proposed Decisions
+## Approved Decisions
 
 ### 1. Same-organization relationship protection
 
-Status: proposed.
+Status: approved.
 
 Use application validation plus normal foreign keys for the initial MVP migrations.
 
@@ -44,7 +44,7 @@ Reasoning:
 
 ### 2. Receipt number sequencing
 
-Status: proposed.
+Status: approved.
 
 Use database-backed receipt sequencing when migrations are introduced.
 
@@ -64,7 +64,7 @@ Reasoning:
 
 ### 3. First organization and owner profile creation
 
-Status: proposed.
+Status: approved.
 
 Create one organization and one owner profile during the initial signup/onboarding flow.
 
@@ -83,7 +83,7 @@ Reasoning:
 
 ### 4. User profile updates
 
-Status: proposed.
+Status: approved.
 
 Allow users to update their own `profiles.full_name` only.
 
@@ -102,7 +102,7 @@ Reasoning:
 
 ### 5. Owner/admin database access
 
-Status: proposed.
+Status: approved.
 
 Treat `owner` and `admin` as identical for database access in the first MVP.
 
@@ -120,7 +120,7 @@ Reasoning:
 
 ### 6. `profiles` access pattern
 
-Status: proposed.
+Status: approved.
 
 Users can read their own profile.
 
@@ -139,7 +139,7 @@ Reasoning:
 
 ### 7. `organizations` access pattern
 
-Status: proposed.
+Status: approved.
 
 Users can read only the organization referenced by their own profile.
 
@@ -157,7 +157,7 @@ Reasoning:
 
 ### 8. Cross-organization relationship protection
 
-Status: proposed.
+Status: approved.
 
 Use application validation plus foreign keys first, and plan database checks or triggers later only for critical proven needs.
 
@@ -179,18 +179,13 @@ Reasoning:
 
 ## Migration Gate Impact
 
-If the owner approves these proposals, the remaining planning blockers can be reconciled into:
+The owner approved these decisions for MVP documentation planning. The resolved planning blockers have been reconciled into:
 
 - `docs/04-data-model-draft.md`
 - `docs/07-rls-strategy.md`
 - `docs/06-development-checklist.md`
 
-Migrations should still wait until:
-
-1. The owner approves these proposed decisions.
-2. The data model draft is updated to reflect approved decisions.
-3. The RLS strategy is updated to reflect approved decisions.
-4. The migration scope is reviewed separately.
+Migrations remain locked until a separate owner-approved migration planning task reviews exact SQL, migration files, constraints, and RLS policy implementation.
 
 ## Out of Scope
 
