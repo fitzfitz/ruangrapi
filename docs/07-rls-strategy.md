@@ -211,13 +211,26 @@ MVP workflow notes:
 
 ### DELETE
 
-Deletes should be avoided for important business history in the MVP.
+DELETE policies should be conservative in the MVP.
 
 Planning expectations:
 
+- Physical delete is allowed only for setup mistakes before dependent business history exists.
+- Any allowed delete must still be limited to the user's own organization.
 - Historical records that affect invoices, payments, receipts, reminders, leases, utility readings, maintenance tickets, or reporting should be preserved.
-- Application workflows should prefer status changes or cancellation over deletion where history matters.
-- If delete is allowed for setup mistakes later, it should still be limited to the user's own organization.
+- Once dependent business history exists, application workflows should prefer status-based preservation such as `inactive`, `cancelled`, `ended`, or `resolved`.
+
+Practical MVP guidance:
+
+- Property: delete only if no units or history exist.
+- Unit: delete only if no leases, invoices, tickets, or readings exist.
+- Tenant: delete only if no lease or payment history exists.
+- Lease: prefer `ended` or `cancelled`.
+- Invoice: prefer `cancelled`.
+- Payment: avoid delete after receipt generation.
+- Receipt: do not delete in normal flow.
+- Maintenance ticket: prefer `cancelled` or `resolved`.
+- Reminder: can cancel or archive.
 
 MVP cancellation note:
 
@@ -237,10 +250,11 @@ These owner-approved decisions should guide later migration and policy work:
 1. Receipt numbers should be organization-scoped using the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
 2. Utility readings should allow only one active reading per unit, billing period, and utility type for MVP. Corrections edit the same reading.
 3. `cancelled_at` should exist only where useful for MVP: `leases`, `invoices`, `maintenance_tickets`, and `reminders`.
-4. Invoice total consistency should start with application validation. Database enforcement can be planned later.
-5. RLS should use organization-scoped policies through `profiles.organization_id`.
-6. Users can access organization-scoped rows only when `row.organization_id` matches their `profiles.organization_id`.
-7. Payments should be editable before receipt generation. After receipt generation, direct payment edits should be avoided. A correction workflow can be added later.
+4. Physical delete is allowed only for setup mistakes before dependent business history exists; historical records should use status preservation where supported.
+5. Invoice total consistency should start with application validation. Database enforcement can be planned later.
+6. RLS should use organization-scoped policies through `profiles.organization_id`.
+7. Users can access organization-scoped rows only when `row.organization_id` matches their `profiles.organization_id`.
+8. Payments should be editable before receipt generation. After receipt generation, direct payment edits should be avoided. A correction workflow can be added later.
 
 ## Table-Specific Notes
 
@@ -375,8 +389,7 @@ These questions should be answered before writing migrations or SQL policies:
 1. How should the first organization and first owner profile be created during signup?
 2. Should users be allowed to update their own `profiles.full_name`, or should profile edits be handled through an owner/admin screen later?
 3. Should `owner` and `admin` have identical database access in the first MVP, or should any minimal difference exist?
-4. Should setup mistakes be physically deletable before records have dependent history, or should the app always prefer inactive/cancelled states?
-5. What exact policy pattern should be used for `profiles` so users can read their own profile without exposing other organizations?
-6. What exact policy pattern should be used for `organizations` so users can read only their own organization?
-7. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
-8. Should cross-organization relationship protection rely first on application validation plus foreign keys, or should database checks/triggers be planned for critical relationships later?
+4. What exact policy pattern should be used for `profiles` so users can read their own profile without exposing other organizations?
+5. What exact policy pattern should be used for `organizations` so users can read only their own organization?
+6. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
+7. Should cross-organization relationship protection rely first on application validation plus foreign keys, or should database checks/triggers be planned for critical relationships later?
