@@ -53,9 +53,10 @@ Do not create migrations in this phase. Keep work at planning and review level u
 - [x] Resolve remaining RLS questions needed before migration planning
 - [x] Record owner-approved MVP Supabase planning decisions in `docs/08-supabase-planning-decisions.md`
 - [x] Reconcile approved planning decisions into data model and RLS documentation
-- [ ] Separately plan exact SQL, migration files, constraints, triggers/functions, and RLS policies
-- [ ] Get owner approval for the exact migration plan
-- [ ] Only after separate owner-approved migration planning, create the first Supabase migrations
+- [x] Separately plan exact SQL, migration files, constraints, triggers/functions, and RLS policies
+- [x] Get owner approval for the exact migration plan
+- [x] Only after separate owner-approved migration planning, create the first Supabase migration
+- [x] Locally validate `supabase/migrations/20260516165311_initial_schema.sql` with Supabase CLI
 
 Approved data model planning decisions:
 
@@ -83,8 +84,9 @@ Migration gate:
 - [x] Do not create migrations until remaining data model planning questions are resolved
 - [x] Do not create migrations until remaining RLS planning questions are resolved
 - [x] Do not create migrations until owner approval is given for MVP Supabase planning decisions
-- [ ] Do not create migrations until exact SQL, constraints, triggers/functions, RLS policy implementation, and migration scope are planned separately
-- [ ] Do not create migrations until owner approval is given for that exact migration plan
+- [x] Do not create migrations until exact SQL, constraints, triggers/functions, RLS policy implementation, and migration scope are planned separately
+- [x] Do not create migrations until owner approval is given for that exact migration plan
+- [x] Initial migration has been locally validated with Supabase CLI
 
 ## Phase 4: App Shell
 
