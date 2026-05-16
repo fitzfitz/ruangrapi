@@ -94,7 +94,7 @@ Do not begin until repository setup, documentation, architecture, and tooling ar
 
 - [x] Create app provider structure
 - [x] Add TanStack Query provider
-- [ ] Add Supabase client wrapper
+- [x] Add Supabase client wrapper
 - [x] Decide routing approach
 - [ ] Create basic layout shell
 
