@@ -2,9 +2,9 @@
 
 ## 1. Status
 
-Status: planning only.
+Status: approved at planning level.
 
-This document plans the secure database RPC needed for RuangRapi MVP onboarding bootstrap. It does not implement SQL, create migrations, modify existing migration SQL, create source code, create auth UI, create signup/login screens, create routes, or implement product features.
+This document records the owner-approved secure database RPC design for RuangRapi MVP onboarding bootstrap. It does not implement SQL, create migrations, modify existing migration SQL, create source code, create auth UI, create signup/login screens, create routes, or implement product features.
 
 The RPC implementation remains locked until a separate owner-approved migration implementation task.
 
@@ -34,9 +34,9 @@ The plan follows the approved auth and onboarding direction:
 - Use a secure database RPC for MVP onboarding bootstrap.
 - Do not introduce a server-side/service-role backend layer for MVP unless the RPC approach proves insufficient.
 
-## 4. Proposed RPC Name
+## 4. Approved RPC Name
 
-Proposed function name:
+Approved function name:
 
 - `public.complete_onboarding`
 
@@ -46,7 +46,7 @@ Reasoning:
 - It keeps the implementation focused on completing onboarding once, not on general organization or profile creation.
 - It can be called from the future onboarding screen after the user is authenticated and has submitted the minimum required fields.
 
-## 5. Proposed Inputs
+## 5. Approved Inputs
 
 The RPC should accept only the fields the onboarding form needs:
 
@@ -66,17 +66,18 @@ The RPC should not accept:
 
 The current user must be derived from Supabase Auth context inside the database function, conceptually through the authenticated request identity.
 
-## 6. Proposed Output
+## 6. Approved Output
 
 The RPC should return a small success payload that lets the app continue to the normal app context.
 
-Recommended payload fields:
+Approved payload fields:
 
 - `organization_id`
 - `profile_id`
 - `role`
+- `onboarding_completed = true`
 
-The role should be returned as `owner` after the server-side creation succeeds.
+The role should be returned as `owner` after the server-side creation succeeds. The `onboarding_completed` value should be returned as `true` only after both the organization and profile have been created successfully.
 
 The payload should not return unrelated business data, tenant data, dashboard metrics, or any broader organization records.
 
@@ -84,20 +85,23 @@ The payload should not return unrelated business data, tenant data, dashboard me
 
 The RPC should validate inputs before creating rows.
 
-Recommended validation rules:
+Approved validation rules:
 
 1. The caller must be authenticated.
 2. `organization_name` is required.
 3. `organization_name` must not be blank after trimming whitespace.
-4. `full_name` is required.
-5. `full_name` must not be blank after trimming whitespace.
-6. Input values should be stored in normalized trimmed form.
-7. The authenticated user must not already have a profile.
-8. The RPC must not accept or trust a client-provided role.
-9. The RPC must not accept or trust a client-provided user id.
-10. The RPC must set `profiles.role` to `owner` server-side.
+4. `organization_name` must be stored in trimmed form.
+5. Trimmed `organization_name` must be 2 to 120 characters.
+6. `full_name` is required.
+7. `full_name` must not be blank after trimming whitespace.
+8. `full_name` must be stored in trimmed form.
+9. Trimmed `full_name` must be 2 to 120 characters.
+10. The authenticated user must not already have a profile.
+11. The RPC must not accept or trust a client-provided role.
+12. The RPC must not accept or trust a client-provided user id.
+13. The RPC must set `profiles.role` to `owner` server-side.
 
-Length limits can be added during SQL implementation if the owner approves exact limits. Until then, required non-blank strings are the minimum planning rule.
+These length limits are approved at planning level. The exact SQL expression for enforcing them belongs in the separate migration implementation task.
 
 ## 8. Expected Behavior
 
@@ -116,7 +120,7 @@ Expected successful flow:
    - `profiles.organization_id` references the newly created organization.
    - `profiles.full_name` is the validated full name.
    - `profiles.role` is `owner`.
-8. Return a small success payload containing the new organization/profile identifiers and role.
+8. Return a small success payload containing the new organization/profile identifiers, role, and `onboarding_completed = true`.
 
 The organization and profile should be created together atomically. If profile creation fails, the organization creation should not be left behind as an orphan onboarding artifact.
 
@@ -137,14 +141,16 @@ The future implementation should fail safely for these cases:
 11. The database transaction cannot complete.
 12. The function is called with unexpected or malformed input.
 
-Recommended failure behavior:
+Approved failure behavior:
 
-- Return or raise a clear error that the application can map to onboarding UI states later.
+- Use clear SQL exceptions for invalid input.
+- Use clear SQL exceptions for unauthenticated calls.
+- Use clear SQL exceptions for already-onboarded users.
 - Do not partially create onboarding records.
 - Do not expose internal database details that are unnecessary for users.
 - Log or expose enough developer detail in local development to diagnose setup, grants, or RLS issues.
 
-Exact error codes and user-facing copy should be decided during the implementation task.
+Exact SQLSTATE choices and user-facing copy should be decided during the implementation task.
 
 ## 10. Security Rules
 
@@ -202,7 +208,7 @@ The RPC should reduce that risk by:
 5. Not supporting organization switching, invitations, or joins in this RPC.
 6. Treating retry behavior carefully: if the first call succeeds but the client does not receive the response, a retry should fail with an already-onboarded state rather than creating another organization.
 
-A future implementation may choose an idempotent response for already-onboarded users only if that behavior is explicitly approved. The simpler MVP direction is to reject when a profile already exists.
+Already-onboarded retry must hard-fail for MVP. The RPC must not return an idempotent success payload when a profile already exists.
 
 ## 14. Interaction With Existing RLS Model
 
@@ -218,25 +224,27 @@ This RPC should not weaken the broader RLS model. It should only handle the init
 
 ## 15. Local Testing Expectations After Implementation
 
-After the RPC is implemented in a separate approved task, local validation should test at least these cases:
+After the RPC is implemented in a separate approved migration task, local validation should test at least these cases:
 
-1. Authenticated user without a profile can complete onboarding successfully.
-2. The successful call creates exactly one organization row.
-3. The successful call creates exactly one profile row for the authenticated user.
-4. The created profile has `role = owner`.
-5. The created profile references the newly created organization.
-6. The RPC response contains the expected basic identifiers or success payload.
-7. Repeating the RPC for the same authenticated user fails safely or returns the approved already-onboarded behavior.
-8. Anonymous/unauthenticated callers cannot execute the RPC.
+1. Anonymous/unauthenticated callers cannot execute the RPC and receive a clear failure.
+2. Authenticated user without a profile can complete onboarding successfully.
+3. Repeating the RPC for the same authenticated user hard-fails as already onboarded.
+4. The successful call creates exactly one organization row.
+5. The successful call creates exactly one profile row for the authenticated user.
+6. The created profile has `role = owner`.
+7. The created profile references the newly created organization.
+8. The RPC response contains `organization_id`, `profile_id`, `role`, and `onboarding_completed = true`.
 9. The RPC is not executable through broad `public` access.
-10. Blank organization names are rejected.
-11. Blank full names are rejected.
-12. Client-provided user id or role cannot affect created rows.
-13. If profile creation fails, no orphan organization remains.
-14. After onboarding, the user can read their own profile under RLS.
-15. After onboarding, the user can read their own organization under RLS.
-16. After onboarding, the user still cannot read another user's organization.
-17. The existing table policies and grants continue to work for organization-scoped MVP data.
+10. Missing, blank, too-short, or too-long `organization_name` values are rejected after trimming.
+11. Missing, blank, too-short, or too-long `full_name` values are rejected after trimming.
+12. Stored `organization_name` and `full_name` values are trimmed.
+13. Client-provided user id, organization id, role, profile id, invitation id, tenant id, membership data, or permission data cannot affect created rows.
+14. If profile creation fails, no orphan organization remains.
+15. After onboarding, the user can read their own profile under RLS.
+16. After onboarding, the user can read their own organization under RLS.
+17. After onboarding, normal organization-scoped RLS works for MVP data.
+18. After onboarding, the user still cannot read another user's organization.
+19. The existing table policies and grants continue to work for organization-scoped MVP data.
 
 Validation should use the local Supabase workflow and project validation commands defined in the implementation task.
 
@@ -266,13 +274,24 @@ This RPC plan does not add or approve:
 
 ## 17. Remaining RPC Questions
 
-These details should be finalized in the separate owner-approved implementation task:
+Resolved owner-approved RPC decisions:
 
-1. Exact SQL function return shape and error signaling style.
+1. RPC name remains `public.complete_onboarding`.
+2. Inputs are exactly `organization_name` and `full_name`.
+3. The RPC must not accept `user_id`, `organization_id`, `role`, arbitrary profile ids, invitation ids, tenant ids, organization membership data, or permission data.
+4. Return shape is `organization_id`, `profile_id`, `role`, and `onboarding_completed = true`.
+5. Error signaling uses clear SQL exceptions for invalid input, unauthenticated calls, and already-onboarded users.
+6. `organization_name` is required, trimmed, and 2 to 120 characters.
+7. `full_name` is required, trimmed, and 2 to 120 characters.
+8. Already-onboarded retry must hard-fail for MVP.
+9. Local validation must cover anonymous failure, authenticated success, duplicate authenticated failure, organization/profile row creation, `role = owner`, and normal organization-scoped RLS after onboarding.
+10. The RPC implementation must happen in a separate migration task.
+
+Remaining RPC questions before implementation:
+
+1. Exact SQLSTATE choices for each exception.
 2. Exact user-facing copy for each onboarding failure state.
-3. Exact string length limits for `organization_name` and `full_name`, if any.
-4. Whether an already-onboarded retry should hard-fail or return an approved idempotent success payload.
-5. Exact local Supabase test commands and fixtures for authenticated and anonymous RPC calls.
+3. Exact local Supabase test commands and fixtures for authenticated and anonymous RPC calls.
 
 ## 18. Implementation Lock
 
@@ -288,4 +307,4 @@ A separate owner-approved migration implementation task is required before creat
 - Source code.
 - Auth or onboarding UI.
 
-The suggested next gate is owner review and approval of this RPC plan before any SQL or implementation work begins.
+The next gate is a separate owner-approved task to create the onboarding RPC migration. Until that task is approved, do not write SQL, create migrations, modify existing migrations, create SQL files, or implement onboarding code.
