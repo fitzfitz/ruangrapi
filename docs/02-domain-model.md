@@ -491,10 +491,28 @@ Note: Tenant is shown both under Organization and Lease because tenant records b
 30. Dashboard numbers should be derived from properties, units, leases, invoices, payments, and maintenance tickets.
 31. Historical records should be preserved where they affect invoices, payments, receipts, reminders, leases, utility readings, maintenance tickets, and reporting.
 32. Cancelled records should be preserved but hidden by default in normal views.
-33. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
-34. Owner/admin role separation should stay simple in the MVP.
-35. Marketplace listing, tenant acquisition, payment gateway integration, automated WhatsApp API integration, late fee workflows, and complex accounting are out of scope.
-36. Most business records should belong to an organization for future multi-tenant safety.
+33. Physical delete is allowed only for setup mistakes before dependent business history exists.
+34. Once dependent business history exists, prefer status-based preservation such as `inactive`, `cancelled`, `ended`, or `resolved`.
+35. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
+36. Owner/admin role separation should stay simple in the MVP.
+37. Marketplace listing, tenant acquisition, payment gateway integration, automated WhatsApp API integration, late fee workflows, and complex accounting are out of scope.
+38. Most business records should belong to an organization for future multi-tenant safety.
+
+## Destructive Action Rules
+
+For MVP, physical delete is only for setup mistakes before dependent history exists.
+
+Practical guidance:
+
+- Property: delete only if no units or history exist.
+- Unit: delete only if no leases, invoices, tickets, or readings exist.
+- Tenant: delete only if no lease or payment history exists.
+- Lease: prefer `ended` or `cancelled`.
+- Invoice: prefer `cancelled`.
+- Payment: avoid delete after receipt generation.
+- Receipt: do not delete in normal flow.
+- Maintenance ticket: prefer `cancelled` or `resolved`.
+- Reminder: can cancel or archive.
 
 ## Practical DDD-lite Guidance
 
@@ -532,9 +550,3 @@ Keep modules practical:
 - Do not add abstractions before there is a clear use case.
 - Prefer simple types, schemas, query functions, forms, and UI components grouped by domain.
 - Let documentation guide the first implementation steps.
-
-## Open Questions
-
-This domain decision is still unresolved and needs owner approval before implementation details depend on it:
-
-1. Should setup mistakes be physically deletable before records have dependent history, or should the app always prefer inactive/cancelled states where supported?

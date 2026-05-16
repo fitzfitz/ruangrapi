@@ -43,6 +43,7 @@ Do not create Supabase migrations from this document until the draft is reviewed
 24. Unit type should use a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
 25. `identity_number` should be deferred for MVP. Use optional `identity_notes` instead.
 26. Detailed RLS policy planning should live in `docs/07-rls-strategy.md` instead of being duplicated in this data model draft.
+27. Physical delete is allowed only for setup mistakes before dependent business history exists. Once dependent history exists, preserve records with statuses such as `inactive`, `cancelled`, `ended`, or `resolved` where supported.
 
 ## Common Field Conventions
 
@@ -61,6 +62,22 @@ Planning notes:
 - Timestamps should use timezone-aware values where appropriate.
 - Phone numbers should be stored normalized, preferably in `+62` format.
 - Status fields should be constrained to the allowed values listed in this document.
+
+## Deletion and Preservation Rules
+
+Physical delete is allowed only for setup mistakes before dependent business history exists.
+
+Practical MVP rules:
+
+- `properties`: delete only if no units or history exist.
+- `units`: delete only if no leases, invoices, tickets, or readings exist.
+- `tenants`: delete only if no lease or payment history exists.
+- `leases`: prefer `ended` or `cancelled`.
+- `invoices`: prefer `cancelled`.
+- `payments`: avoid delete after receipt generation.
+- `receipts`: do not delete in normal flow.
+- `maintenance_tickets`: prefer `cancelled` or `resolved`.
+- `reminders`: can cancel or archive.
 
 ## Draft Tables
 
@@ -788,6 +805,7 @@ Reason:
 29. Records with `cancelled` status should be preserved but hidden by default in normal views.
 30. `cancelled_at` should exist only on `leases`, `invoices`, `maintenance_tickets`, and `reminders` for MVP.
 31. `updated_at` should be maintained by database trigger when migrations are introduced.
+32. Physical delete is allowed only for setup mistakes before dependent business history exists.
 
 ## Lifecycle Summary
 
@@ -962,8 +980,7 @@ Do not add these in the initial MVP data model:
 
 These decisions still need confirmation before migrations are written:
 
-1. Should setup mistakes be physically deletable before records have dependent history, or should the app always prefer inactive/cancelled states where supported?
-2. Should same-organization relationship protection rely on application validation plus normal foreign keys for initial migrations, or should database checks/triggers be planned for critical relationships later?
-3. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
+1. Should same-organization relationship protection rely on application validation plus normal foreign keys for initial migrations, or should database checks/triggers be planned for critical relationships later?
+2. Should receipt number sequencing be generated in application logic first, or through a database-backed sequence/function when migrations are introduced?
 
 RLS policy questions are tracked in `docs/07-rls-strategy.md` and should not be duplicated here.
