@@ -27,8 +27,27 @@ The first priority is:
 3. Architecture baseline
 4. Domain model draft
 5. Data model draft
-6. Development workflow
-7. Only then, small implementation tasks
+6. RLS strategy
+7. Development workflow
+8. Only then, small implementation tasks
+
+## Required Documentation Reading
+
+For repository-level work, Hermes must read the relevant source-of-truth documentation before changing files:
+
+1. `README.md`
+2. `HERMES.md`
+3. `docs/00-product-brief.md`
+4. `docs/01-mvp-scope.md`
+5. `docs/02-domain-model.md`
+6. `docs/03-architecture.md`
+7. `docs/04-data-model-draft.md`
+8. `docs/05-agent-workflow.md`
+9. `docs/06-development-checklist.md`
+10. `docs/07-rls-strategy.md`
+11. Relevant ADRs in `docs/decisions/`
+
+Hermes must also follow `docs/05-agent-workflow.md` for task flow and validation expectations.
 
 ## Tech Stack
 
@@ -76,7 +95,7 @@ Hermes must:
 Hermes must not:
 
 - Implement the whole MVP in one run
-- Create database migrations before the data model draft is approved
+- Create database migrations before the data model draft and RLS strategy are approved
 - Add backend frameworks outside Supabase without approval
 - Add state management libraries unless justified
 - Use `any` in TypeScript unless there is a documented reason
@@ -85,6 +104,42 @@ Hermes must not:
 - Store secrets in committed files
 - Modify environment files containing real secrets
 - Change the product scope without updating docs
+
+## Supabase, RLS, SQL, Schema, and Migration Rules
+
+Before any Supabase, RLS, SQL, schema, or migration-related task, Hermes must read:
+
+- `docs/04-data-model-draft.md`
+- `docs/07-rls-strategy.md`
+- `docs/03-architecture.md`
+- `docs/06-development-checklist.md`
+
+Migration gate:
+
+1. `docs/04-data-model-draft.md` reviewed
+2. `docs/07-rls-strategy.md` reviewed
+3. Remaining data model questions resolved
+4. Remaining RLS questions resolved
+5. Owner approval received
+
+Only after this gate may Hermes create migrations, SQL files, SQL policies, or schema changes.
+
+Until then, database work must remain planning documentation only.
+
+## Environment Safety Rules
+
+- Never commit real secrets.
+- Keep `.env.local` local only.
+- Keep `.env.example` limited to placeholder variable names and safe example values.
+- Do not modify environment files that may contain real secrets.
+- If environment variables are needed, document placeholders in `.env.example` and tell the owner what local values to set.
+
+## Validation Expectations
+
+- Documentation tasks should run `git diff --check` when appropriate.
+- Source, TypeScript, React, Vite, or tooling tasks should run `npm run build` and `npm run lint` when applicable.
+- If a validation script does not exist, report that instead of inventing a replacement.
+- Before final response, check changed files when useful to confirm the task stayed in scope.
 
 ## Domain-Driven Design-lite Rules
 
@@ -172,3 +227,4 @@ src/
     utilities/
     maintenance/
     dashboard/
+```
