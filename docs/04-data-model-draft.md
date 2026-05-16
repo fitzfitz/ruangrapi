@@ -29,6 +29,16 @@ Do not create Supabase migrations from this document until the draft is reviewed
 10. Overpayment allocation is out of scope. Payment amount should not exceed invoice remaining balance.
 11. Cancelled records should be preserved but hidden by default in normal views.
 12. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
+13. Unit names should be unique within a property.
+14. Tenant phone numbers should not be unique in the MVP.
+15. `billing_period` should use the first day of the month as a date, for example `2026-05-01`.
+16. Invoice totals should be stored on invoices and calculated from line items, with consistency validation.
+17. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
+18. Draft invoices may have no `issued_at` value. Issued invoices should have `issued_at`.
+19. Cancelled records should use both `status = cancelled` and nullable `cancelled_at` where useful.
+20. `updated_at` should be maintained by database trigger when migrations are introduced.
+21. Unit type should use a constrained list: `room`, `house`, `apartment`, `studio`, `other`.
+22. `identity_number` should be deferred for MVP. Use optional `identity_notes` instead.
 
 ## Common Field Conventions
 
@@ -41,6 +51,7 @@ Most tables should use:
 
 Planning notes:
 
+- `updated_at` should be maintained by database trigger when migrations are introduced.
 - Monetary amounts should use integer values in Indonesian Rupiah cents are not needed for IDR. Example: `1500000` for Rp1.500.000.
 - Dates should use date fields when time of day is not important.
 - Timestamps should use timezone-aware values where appropriate.
@@ -161,6 +172,14 @@ Allowed status values:
 - `maintenance`
 - `inactive`
 
+Allowed type values:
+
+- `room`
+- `house`
+- `apartment`
+- `studio`
+- `other`
+
 Organization rule:
 
 - Must include `organization_id`.
@@ -170,9 +189,11 @@ Planning constraints:
 - `organization_id` should reference `organizations.id`.
 - `property_id` should reference `properties.id`.
 - `name` should be required.
+- `type` should be one of the allowed type values.
 - `status` should be one of the allowed status values.
 - `base_rent_amount` should be greater than or equal to zero when present.
 - A unit should only belong to a property in the same organization.
+- Unit names should be unique within the same property.
 
 Planning indexes:
 
@@ -180,7 +201,7 @@ Planning indexes:
 - Index on `organization_id`.
 - Index on `property_id`.
 - Index on `(organization_id, status)` for dashboard counts.
-- Optional unique constraint on `(organization_id, property_id, name)` if unit names should be unique within a property.
+- Unique constraint on `(organization_id, property_id, name)` for unit-name uniqueness within a property.
 
 ### tenants
 
@@ -193,7 +214,7 @@ Fields:
 - `full_name`
 - `phone`
 - `email`
-- `identity_number`
+- `identity_notes`
 - `emergency_contact_name`
 - `emergency_contact_phone`
 - `notes`
@@ -215,6 +236,8 @@ Planning constraints:
 - `phone` should be optional but recommended.
 - If present, `phone` should use the normalized format.
 - If present, `emergency_contact_phone` should use the normalized format.
+- Tenant phone numbers should not be unique in the MVP because family/shared numbers may repeat.
+- `identity_notes` is optional free text for MVP identity context; `identity_number` is deferred.
 
 Planning indexes:
 
@@ -239,6 +262,7 @@ Fields:
 - `billing_day`
 - `deposit_amount`
 - `status`
+- `cancelled_at`
 - `created_at`
 - `updated_at`
 
@@ -270,6 +294,7 @@ Planning constraints:
 - `billing_day` should be a valid day number, likely 1 through 31.
 - `deposit_amount` should be greater than or equal to zero when present.
 - `status` should be one of the allowed status values.
+- `cancelled_at` should be set when status becomes `cancelled`.
 - Tenant and unit should belong to the same organization as the lease.
 
 Planning indexes and uniqueness:
@@ -294,11 +319,12 @@ Fields:
 - `tenant_id`
 - `unit_id`
 - `billing_period`
-- `issue_date`
+- `issued_at`
 - `due_date`
 - `subtotal_amount`
 - `total_amount`
 - `status`
+- `cancelled_at`
 - `notes`
 - `created_at`
 - `updated_at`
@@ -332,12 +358,15 @@ Planning constraints:
 - `lease_id` should reference `leases.id`.
 - `tenant_id` should reference `tenants.id`.
 - `unit_id` should reference `units.id`.
-- `billing_period` should be required.
+- `billing_period` should be required and should use the first day of the month as a date, for example `2026-05-01`.
 - `due_date` should be required when an invoice is issued.
-- `issue_date` should be set when status moves from `draft` to `unpaid`.
-- `subtotal_amount` should be greater than or equal to zero.
-- `total_amount` should be greater than or equal to zero.
+- Draft invoices may have no `issued_at` value.
+- `issued_at` should be set when status moves from `draft` to `unpaid`.
+- `subtotal_amount` should be greater than or equal to zero and stored on the invoice.
+- `total_amount` should be greater than or equal to zero and stored on the invoice.
+- Invoice totals should be calculated from invoice line items with consistency validation.
 - `status` should be one of the allowed status values.
+- `cancelled_at` should be set when status becomes `cancelled`.
 - Lease, tenant, and unit should belong to the same organization as the invoice.
 
 Planning indexes and uniqueness:
@@ -537,6 +566,7 @@ MVP utility rules:
 - Utility readings are simple operational records.
 - Utility charges should be included in invoices as `utility` invoice line items.
 - A utility reading may be used to calculate a utility invoice line item.
+- Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
 - This table should not become a complex utility billing engine in the initial MVP.
 
 Planning constraints:
@@ -575,6 +605,7 @@ Fields:
 - `priority`
 - `reported_at`
 - `resolved_at`
+- `cancelled_at`
 - `created_at`
 - `updated_at`
 
@@ -613,6 +644,7 @@ Planning constraints:
 - `priority` should be one of the allowed priority values.
 - `reported_at` should be required.
 - `resolved_at` should be set when status becomes `resolved`.
+- `cancelled_at` should be set when status becomes `cancelled`.
 - Property and unit should belong to the same organization as the ticket.
 - If `unit_id` is present, the unit should belong to the selected property.
 
@@ -638,6 +670,7 @@ Fields:
 - `channel`
 - `message`
 - `status`
+- `cancelled_at`
 - `created_at`
 - `updated_at`
 
@@ -672,6 +705,7 @@ Planning constraints:
 - `channel` should be one of the allowed channel values.
 - `message` should be required.
 - `status` should be one of the allowed status values.
+- `cancelled_at` should be set when status becomes `cancelled`.
 - Reminder, invoice, and tenant should belong to the same organization.
 
 Planning indexes:
@@ -713,22 +747,31 @@ Reason:
 
 1. A property belongs to one organization.
 2. A unit belongs to one property and one organization.
-3. A tenant belongs to one organization.
-4. A lease belongs to one organization, one tenant, and one unit.
-5. One tenant can have only one active lease at a time.
-6. One unit can have only one active lease at a time.
-7. An invoice belongs to one organization, one lease, one tenant, one unit, and one billing period.
-8. One lease should not have more than one non-cancelled invoice for the same billing period.
-9. An invoice total should equal the sum of its invoice line items.
-10. Utility charges should appear as invoice line items.
-11. A payment belongs to one invoice.
-12. Total payments for an invoice should not exceed the invoice total.
-13. A receipt belongs to one payment.
-14. A receipt number is unique within an organization.
-15. A utility reading belongs to one unit and billing period.
-16. A maintenance ticket belongs to one property and may belong to one unit.
-17. A reminder belongs to one invoice and one tenant.
-18. Records with `cancelled` status should be preserved but hidden by default in normal views.
+3. Unit names are unique within a property.
+4. Unit type uses the constrained list: `room`, `house`, `apartment`, `studio`, `other`.
+5. A tenant belongs to one organization.
+6. Tenant phone numbers should be normalized but are not unique in the MVP.
+7. Tenant identity number is deferred; use optional `identity_notes` for MVP.
+8. A lease belongs to one organization, one tenant, and one unit.
+9. One tenant can have only one active lease at a time.
+10. One unit can have only one active lease at a time.
+11. An invoice belongs to one organization, one lease, one tenant, one unit, and one billing period.
+12. `billing_period` uses the first day of the month as a date, for example `2026-05-01`.
+13. One lease should not have more than one non-cancelled invoice for the same billing period.
+14. Invoice totals are stored on invoices and calculated from invoice line items with consistency validation.
+15. Utility charges should appear as invoice line items.
+16. Utility readings may optionally link to invoice line items later, but this is not mandatory for initial implementation.
+17. Draft invoices may have no `issued_at`; issued invoices should have `issued_at`.
+18. A payment belongs to one invoice.
+19. Total payments for an invoice should not exceed the invoice total.
+20. A receipt belongs to one payment.
+21. A receipt number is unique within an organization.
+22. A utility reading belongs to one unit and billing period.
+23. A maintenance ticket belongs to one property and may belong to one unit.
+24. A reminder belongs to one invoice and one tenant.
+25. Records with `cancelled` status should be preserved but hidden by default in normal views.
+26. Cancelled records should use nullable `cancelled_at` where useful.
+27. `updated_at` should be maintained by database trigger when migrations are introduced.
 
 ## Lifecycle Summary
 
@@ -746,6 +789,8 @@ Notes:
 - `occupied` should reflect an active lease.
 - `maintenance` means not ready to rent.
 - `inactive` means preserved but not available for new rental activity.
+- Unit names are unique within a property.
+- Unit type uses `room`, `house`, `apartment`, `studio`, or `other`.
 
 ### Lease
 
@@ -760,6 +805,7 @@ Notes:
 - Only one active lease per tenant.
 - Only one active lease per unit.
 - Ended and cancelled leases remain in history.
+- Cancelled leases should use `status = cancelled` and `cancelled_at` where useful.
 
 ### Invoice
 
@@ -775,10 +821,12 @@ Allowed statuses:
 Notes:
 
 - Starts as `draft`.
-- Moves to `unpaid` when issued.
+- Draft invoices may have no `issued_at` value.
+- Moves to `unpaid` when issued, and issued invoices should have `issued_at`.
 - Moves to `partially_paid` or `paid` based on payments.
 - May become `overdue` after due date if not fully paid.
 - Cancelled invoices remain in history but are hidden by default.
+- Cancelled invoices should use `status = cancelled` and `cancelled_at` where useful.
 
 ### Payment
 
@@ -804,6 +852,7 @@ Notes:
 - New tickets normally start as `open`.
 - Resolved tickets should have `resolved_at`.
 - Cancelled tickets remain in history but are hidden by default.
+- Cancelled tickets should use `status = cancelled` and `cancelled_at` where useful.
 
 ## Planning-Level Index Summary
 
@@ -814,6 +863,7 @@ Likely important indexes:
 - `units.organization_id`
 - `units.property_id`
 - `units (organization_id, status)`
+- `units (organization_id, property_id, name)` unique for unit names within a property
 - `tenants.organization_id`
 - `leases.organization_id`
 - `leases.tenant_id`
@@ -848,6 +898,7 @@ Likely important partial unique constraints:
 
 Likely important unique constraints:
 
+- One unit name per property.
 - One receipt per payment.
 - One receipt number per organization.
 
@@ -870,6 +921,7 @@ Do not add these in the initial MVP data model:
 
 - Marketplace listings
 - Tenant acquisition flows
+- Identity number storage for tenants in the initial MVP
 - Payment gateway transactions
 - Bank reconciliation
 - Refund workflows
@@ -887,13 +939,9 @@ Do not add these in the initial MVP data model:
 
 These decisions still need confirmation before migrations are written:
 
-1. Should unit names be unique within a property?
-2. Should tenant phone numbers be unique within an organization, or can family/shared numbers repeat?
-3. What exact format should `billing_period` use: date for first day of month, `YYYY-MM` text, or another representation?
-4. Should invoice totals be stored directly, calculated from line items, or both stored and validated?
-5. Should utility readings link directly to invoice line items, or is matching by unit and billing period enough for MVP?
-6. Should `issue_date` be required only after an invoice leaves `draft`?
-7. Should cancelled records use only `status = cancelled`, or also include a `cancelled_at` timestamp later?
-8. Should `updated_at` be maintained by database trigger or application code?
-9. Should `type` on units be constrained to a fixed list such as `room`, `house`, `apartment`, `other`, or stay free text for MVP?
-10. Should `identity_number` be stored as plain text, encrypted, or deferred until privacy requirements are clearer?
+1. What exact receipt number format should be used within each organization?
+2. Should utility readings be limited to one reading per unit, billing period, and utility type, or can owners record corrections as separate readings?
+3. Should cancelled records use `cancelled_at` on every cancellable table, or only on leases, invoices, maintenance tickets, and reminders for MVP?
+4. Should invoice total consistency be enforced first through application validation only, or also through database triggers/functions when migrations are introduced?
+5. What exact RLS policy pattern should be used for organization-scoped tables?
+6. Should payment records be editable after receipt generation, or should corrections require a separate owner-approved workflow later?
