@@ -81,8 +81,8 @@ Migration gate:
 
 Do not begin until repository setup, documentation, architecture, and tooling are ready.
 
-- [ ] Create app provider structure
-- [ ] Add TanStack Query provider
+- [x] Create app provider structure
+- [x] Add TanStack Query provider
 - [ ] Add Supabase client wrapper
 - [ ] Decide routing approach
 - [ ] Create basic layout shell
