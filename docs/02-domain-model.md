@@ -40,7 +40,8 @@ MVP meaning:
 
 - Most business data belongs to one organization.
 - Users should only see data for their organization.
-- Detailed role separation is not part of the first MVP unless approved later.
+- Owner/admin role separation should stay simple in the MVP.
+- Detailed role and permission rules are out of scope unless approved later.
 
 ### Owner
 
@@ -111,7 +112,7 @@ A tenant may have:
 - Full name
 - Phone number
 - Email
-- Identity notes or identity number
+- Identity notes
 - Emergency contact
 - Notes
 
@@ -120,6 +121,8 @@ MVP meaning:
 - Tenant records are kept so the owner knows who is renting and how to contact them.
 - A tenant is connected to a unit through a lease, not directly.
 - Phone number is important because reminders may prepare WhatsApp message text or links.
+- Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
+- Identity number storage is deferred for MVP; use optional identity notes instead.
 
 ### Lease
 
@@ -145,12 +148,15 @@ Allowed MVP statuses:
 Lease lifecycle rules:
 
 1. A lease connects exactly one tenant to exactly one unit.
-2. A lease can only be `active` if the unit does not already have another active lease.
-3. A unit with an active lease should be treated as `occupied`.
-4. A lease may have no end date for month-to-month rental.
-5. Ending a lease should stop future invoice generation for that lease.
-6. Historical invoices and payments should remain connected to the lease even after it ends.
-7. Cancelling a lease should be used carefully and should not delete historical payment records.
+2. A tenant should have only one active lease at a time in the MVP.
+3. A unit should have only one active lease at a time.
+4. A lease can only be `active` if the tenant and unit do not already have active leases.
+5. A unit with an active lease should be treated as `occupied`.
+6. A lease may have no end date for month-to-month rental.
+7. Deposits may be tracked on the lease, but no complex deposit workflow is included in the MVP.
+8. Ending a lease should stop future invoice generation for that lease.
+9. Historical invoices and payments should remain connected to the lease even after it ends.
+10. Cancelling a lease should preserve history and hide the cancelled lease by default in normal views.
 
 ### Billing Period
 
@@ -180,7 +186,9 @@ An invoice has:
 - Unit
 - Billing period
 - Due date
-- Amount
+- Invoice line items
+- Subtotal amount
+- Total amount
 - Status
 - Notes, if needed
 
@@ -196,14 +204,47 @@ Allowed MVP statuses:
 Invoice lifecycle rules:
 
 1. An invoice is normally created from an active lease for a billing period.
-2. One lease should not have duplicate active invoices for the same billing period unless explicitly approved later.
-3. An invoice starts as `draft` or `unpaid`, depending on the workflow chosen later.
-4. Recording a payment should update the invoice payment status.
-5. An invoice becomes `partially_paid` when some payment has been recorded but the invoice is not fully paid.
-6. An invoice becomes `paid` when recorded payments cover the invoice amount.
-7. An invoice may become `overdue` when the due date has passed and it is not fully paid.
-8. A cancelled invoice should not be counted as collectible rent.
-9. Invoice history should be preserved for reporting and receipts.
+2. One lease should not have duplicate active invoices for the same billing period.
+3. An invoice starts as `draft`.
+4. A draft invoice becomes `unpaid` when issued.
+5. Simple invoice line items make up the invoice total.
+6. Rent should be represented as a rent line item.
+7. Utility charges should be included as utility invoice line items.
+8. Late fees are out of scope for the initial MVP.
+9. Recording a payment should update the invoice payment status.
+10. An invoice becomes `partially_paid` when some payment has been recorded but the invoice is not fully paid.
+11. An invoice becomes `paid` when recorded payments cover the invoice amount.
+12. An invoice may become `overdue` when the due date has passed and it is not fully paid.
+13. A cancelled invoice should not be counted as collectible rent.
+14. Cancelled invoices should be preserved but hidden by default in normal views.
+15. Invoice history should be preserved for reporting and receipts.
+
+
+### Invoice Line Item
+
+A simple charge line that makes up an invoice total.
+
+Examples:
+
+- Monthly rent
+- Electricity charge
+- Water charge
+- Other simple owner-approved charge
+
+Allowed MVP line types:
+
+- `rent`
+- `utility`
+- `other`
+
+MVP meaning:
+
+- Invoice line items keep invoice totals understandable without turning billing into complex accounting.
+- Rent should be represented as a `rent` line item.
+- Utility charges should be represented as `utility` line items.
+- `other` should be used sparingly for simple owner-approved charges.
+- Late fees are out of scope for the initial MVP.
+- Line items should remain simple and should not become a full accounting ledger.
 
 ### Payment
 
@@ -235,9 +276,13 @@ Rules:
 2. One invoice can have many payments.
 3. A payment amount must be greater than zero.
 4. Total payments for an invoice determine whether the invoice is unpaid, partially paid, or paid.
-5. Overpayment handling is not a first-class MVP workflow unless approved later.
-6. Payment gateway settlement, failed payments, refunds, and automated reconciliation are out of scope for the MVP.
-7. Payment records should not be deleted casually because they support receipts and monthly reporting.
+5. Payment amount should not exceed the invoice remaining balance.
+6. Overpayment allocation is out of scope for the initial MVP.
+7. Payments should be editable before receipt generation.
+8. After receipt generation, direct payment edits should be avoided.
+9. A proper payment correction workflow can be added later.
+10. Payment gateway settlement, failed payments, refunds, and automated reconciliation are out of scope for the MVP.
+11. Payment records should not be deleted casually because they support receipts and monthly reporting.
 
 ### Receipt
 
@@ -259,7 +304,8 @@ MVP meaning:
 
 - A receipt is generated from a recorded payment.
 - A payment may have one receipt.
-- Receipt numbering rules still need owner approval.
+- Receipt numbers are scoped per organization.
+- Receipt numbers use the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
 
 ### Reminder
 
@@ -318,7 +364,9 @@ MVP meaning:
 
 - Utility readings are tracked simply.
 - Utility charges may be calculated with a simple formula.
-- Whether utility charges are included in rent invoices or handled separately remains an open question.
+- Utility charges should be included as invoice line items.
+- Only one active utility reading should exist per unit, billing period, and utility type in the MVP.
+- Utility reading corrections should edit the same reading instead of creating separate correction records.
 
 ### Maintenance Ticket
 
@@ -380,12 +428,14 @@ Primary relationships:
 6. A lease connects one tenant and one unit.
 7. A lease generates invoices.
 8. An invoice belongs to one lease, one tenant, one unit, and one billing period.
-9. An invoice can have many payments.
-10. A payment belongs to one invoice in the MVP.
-11. A payment can generate one receipt.
-12. A reminder is prepared from invoice and tenant information.
-13. A utility reading usually belongs to one unit and one billing period.
-14. A maintenance ticket belongs to one property and may belong to one unit.
+9. An invoice contains simple invoice line items.
+10. Utility charges are represented as invoice line items.
+11. An invoice can have many payments.
+12. A payment belongs to one invoice in the MVP.
+13. A payment can generate one receipt.
+14. A reminder is prepared from invoice and tenant information.
+15. A utility reading belongs to one unit and one billing period.
+16. A maintenance ticket belongs to one property and may belong to one unit.
 
 Text model:
 
@@ -395,6 +445,7 @@ Organization
   │   └─ Unit
   │       ├─ Lease
   │       │   ├─ Invoice
+  │       │   │   ├─ Invoice Line Item
   │       │   │   ├─ Payment
   │       │   │   │   └─ Receipt
   │       │   │   └─ Reminder
@@ -411,23 +462,39 @@ Note: Tenant is shown both under Organization and Lease because tenant records b
 1. The MVP is monthly-rental focused.
 2. A property must exist before units are created under it.
 3. A unit can only have one active lease at a time.
-4. A tenant can have an active lease, but whether one tenant may rent multiple units is still an open question.
-5. A lease is the source for recurring monthly invoice creation.
-6. An invoice belongs to one billing period.
-7. Duplicate invoices for the same lease and billing period should be avoided.
-8. An invoice can be unpaid, partially paid, paid, overdue, draft, or cancelled.
-9. A payment is recorded manually by the owner/admin.
-10. A payment belongs to one invoice in the MVP.
-11. An invoice can have multiple payments.
-12. A receipt is generated from a recorded payment.
-13. Reminder messages are derived from invoice and tenant data.
-14. WhatsApp reminders are manually sent by the owner/admin in the MVP.
-15. Utility readings are simple records and should not become a complex billing engine in the MVP.
-16. Maintenance tickets are operational tracking records, not vendor/work-order management.
-17. Dashboard numbers should be derived from properties, units, leases, invoices, payments, and maintenance tickets.
-18. Historical records should be preserved where they affect invoices, payments, receipts, and reporting.
-19. Marketplace listing, tenant acquisition, payment gateway integration, automated WhatsApp API integration, and complex accounting are out of scope.
-20. Most business records should belong to an organization for future multi-tenant safety.
+4. A tenant should have only one active lease at a time in the MVP.
+5. A lease may track a deposit amount, but complex deposit workflows are out of scope for the MVP.
+6. A lease is the source for recurring monthly invoice creation.
+7. An invoice belongs to one billing period.
+8. Duplicate invoices for the same lease and billing period should be avoided.
+9. An invoice starts as `draft`, then becomes `unpaid` when issued.
+10. An invoice supports simple invoice line items.
+11. Utility charges should be included as invoice line items.
+12. Late fee workflows are out of scope for the initial MVP.
+13. An invoice can be draft, unpaid, partially paid, paid, overdue, or cancelled.
+14. A payment is recorded manually by the owner/admin.
+15. A payment belongs to one invoice in the MVP.
+16. An invoice can have multiple payments.
+17. Payment amount should not exceed invoice remaining balance.
+18. Overpayment allocation is out of scope for the initial MVP.
+19. Payments should be editable before receipt generation.
+20. After receipt generation, direct payment edits should be avoided.
+21. A proper payment correction workflow can be added later.
+22. A receipt is generated from a recorded payment.
+23. Receipt numbers are organization-scoped using the format `RR-{YYYY}-{0001}`, for example `RR-2026-0001`.
+24. Reminder messages are derived from invoice and tenant data.
+25. WhatsApp reminders are manually sent by the owner/admin in the MVP.
+26. Utility readings are simple records and should not become a complex billing engine in the MVP.
+27. Only one active utility reading should exist per unit, billing period, and utility type.
+28. Utility reading corrections should edit the same reading in the MVP.
+29. Maintenance tickets are operational tracking records, not vendor/work-order management.
+30. Dashboard numbers should be derived from properties, units, leases, invoices, payments, and maintenance tickets.
+31. Historical records should be preserved where they affect invoices, payments, receipts, reminders, leases, utility readings, maintenance tickets, and reporting.
+32. Cancelled records should be preserved but hidden by default in normal views.
+33. Indonesian phone numbers should be normalized before saving, preferably to `+62` format.
+34. Owner/admin role separation should stay simple in the MVP.
+35. Marketplace listing, tenant acquisition, payment gateway integration, automated WhatsApp API integration, late fee workflows, and complex accounting are out of scope.
+36. Most business records should belong to an organization for future multi-tenant safety.
 
 ## Practical DDD-lite Guidance
 
@@ -443,6 +510,7 @@ Preferred terms:
 - Lease
 - Billing Period
 - Invoice
+- Invoice Line Item
 - Payment
 - Receipt
 - Reminder
@@ -467,16 +535,6 @@ Keep modules practical:
 
 ## Open Questions
 
-These decisions are not final and need owner approval before implementation details depend on them:
+This domain decision is still unresolved and needs owner approval before implementation details depend on it:
 
-1. Should one tenant be allowed to rent multiple units at the same time?
-2. Should one invoice support multiple line items?
-3. Should utility charges be included in rent invoices or handled as separate invoices?
-4. Should deposits be tracked in the MVP?
-5. Should late fees be included in the MVP?
-6. Should owner/admin roles be separated in the first MVP?
-7. Should invoice creation start as `draft` first or immediately as `unpaid`?
-8. Should receipt numbers be globally unique or scoped per organization?
-9. How should overpayments be handled?
-10. Should cancelled leases or invoices be hidden by default but preserved for audit/history?
-11. Should phone numbers be normalized to Indonesian format before saving?
+1. Should setup mistakes be physically deletable before records have dependent history, or should the app always prefer inactive/cancelled states where supported?
