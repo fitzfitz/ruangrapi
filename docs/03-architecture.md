@@ -650,12 +650,14 @@ Possible providers:
 
 Routing is not implemented yet.
 
+ADR 0002 selects React Router for MVP routing when routing implementation begins.
+
 When routing is introduced:
 
 - Keep route definitions centralized enough to understand the app structure.
 - Route pages may compose domain module components.
 - Avoid putting domain rules inside route files.
-- Do not add a routing library until the routing approach is chosen and approved.
+- Do not add React Router until routing implementation begins.
 
 ### Supabase Client
 
