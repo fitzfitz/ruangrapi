@@ -2,13 +2,13 @@
 
 ## 1. Status
 
-Status: planning only.
+Status: approved at planning level.
 
 This document plans the first frontend auth/session implementation steps for RuangRapi after the backend onboarding RPC and focused RPC behavior tests passed locally.
 
 It does not implement source code, routes, auth UI, signup, login, onboarding forms, Supabase migrations, SQL files, package changes, or product features.
 
-Implementation remains locked until a separate owner-approved implementation task defines the exact file scope.
+The owner-approved frontend auth/session decisions in this document are ready to guide the first source implementation task. Implementation remains locked until a separate owner-approved implementation task defines the exact file scope.
 
 ## 2. Purpose
 
@@ -39,9 +39,13 @@ Approved frontend decisions for this area:
 
 - Use Supabase Auth session from the existing Supabase client.
 - Use TanStack Query for profile and organization server state.
+- Use both a React provider for auth/session state and a custom hook for consuming auth/session state.
+- Include a `signOut` capability in the provider/hook, but do not create a sign-out UI button yet.
+- Clear user-specific TanStack Query cache on sign-out and user switch.
 - Do not add Redux, Zustand, or another global state library.
 - Do not implement React Router yet unless planned separately.
 - Do not add auth UI in this planning task.
+- Routing, auth UI, signup/login forms, onboarding form, and product features remain separate future tasks.
 
 ## 4. Responsibilities
 
@@ -52,10 +56,12 @@ The app initialization layer should be responsible for:
 - Reading the initial Supabase Auth session from the existing Supabase client.
 - Subscribing to Supabase Auth state changes.
 - Exposing a small session state to the app tree.
-- Clearing user-specific query data when the user signs out.
+- Exposing a `signOut` capability through the provider and hook, without creating a sign-out UI button yet.
+- Clearing user-specific TanStack Query cache when the user signs out.
+- Clearing user-specific TanStack Query cache when the authenticated user switches.
 - Avoiding organization-scoped queries until a valid profile and organization are available.
 
-The session state should represent only authentication state. It should not store domain data or replace TanStack Query.
+The session state should represent only authentication state. It should not store domain data or replace TanStack Query. Consumers should use the owner-approved custom hook instead of reaching into context directly.
 
 ### Profile server state
 
@@ -105,6 +111,7 @@ Expected behavior:
 
 - Do not run profile, organization, or organization-scoped domain queries.
 - Show a simple logged-out placeholder in the current static shell until a separate auth UI task is approved.
+- Use this placeholder copy: "Please sign in to continue."
 - Do not create signup or login UI in the first auth/session implementation unless separately approved.
 
 ### User is logged in but has no profile
@@ -115,6 +122,7 @@ Expected behavior:
 - Do not show normal app content or dashboard data.
 - Do not run organization-scoped domain queries.
 - Show a simple onboarding-needed placeholder until a separate onboarding UI task is approved.
+- Use this placeholder copy: "Complete your workspace setup to continue."
 - Future onboarding UI should call `public.complete_onboarding` with `organization_name` and `full_name`.
 
 ### User has profile and organization
@@ -134,7 +142,8 @@ Expected behavior:
 - Do not continue to normal app content.
 - Do not run organization-scoped domain queries.
 - In development, log enough detail to diagnose a profile/organization mismatch, missing organization row, or RLS issue.
-- User-facing copy should remain minimal until a separate copy/UI task is approved.
+- Do not log developer details in production.
+- Use this user-facing copy: "Your account setup is incomplete. Please contact support or try again."
 
 ## 7. TanStack Query Planning
 
@@ -160,27 +169,48 @@ Guidelines:
 - Enable the organization query only when `organizationId` exists.
 - Keep query functions small and Supabase-specific.
 - Do not put domain module data in the identity queries.
-- Do not broadly invalidate all queries unless sign-out requires clearing user-specific cache.
+- Clear user-specific TanStack Query cache on sign-out and user switch.
+- Do not broadly invalidate or clear cache for unrelated reasons.
 
-## 8. First Small Implementation Tasks
+## 8. Next Implementation Gate
 
-These tasks should be implemented separately after owner approval.
+The next gate is a separate owner-approved source task to implement the auth/session provider and consumer hook only.
 
-### Task 1: Add auth session provider
+That next task should not create routes, auth UI, signup/login forms, onboarding forms, Supabase migrations, SQL files, package changes, or product features.
+
+### Next task: Add auth/session provider and hook
 
 Purpose:
 
 - Add a small provider under the app initialization layer that reads the initial Supabase session and listens for auth changes.
+- Add a custom hook for consuming auth/session state.
 
 Expected scope:
 
 - Use the existing Supabase client wrapper.
-- Expose session, user, loading state, and sign-out cache cleanup behavior if needed.
+- Use the existing TanStack Query client/provider for approved cache cleanup behavior.
+- Expose session, user, loading state, and `signOut` capability through the provider/hook.
+- Clear user-specific TanStack Query cache on sign-out and user switch.
+- Do not create a sign-out UI button yet.
 - Do not add auth UI.
 - Do not add routes.
 - Do not add a global state library.
 
-### Task 2: Add identity profile query planning implementation
+Expected validation for that future source task:
+
+```txt
+npm run build
+npm run lint
+npm run format:check
+git diff --check
+git status --short
+```
+
+## 9. Later Separate Implementation Tasks
+
+These tasks remain separate future tasks after the provider/hook gate.
+
+### Later task: Add identity profile query planning implementation
 
 Purpose:
 
@@ -193,7 +223,7 @@ Expected scope:
 - Handle missing profile as `needs_onboarding`.
 - Do not create onboarding UI.
 
-### Task 3: Add identity organization query planning implementation
+### Later task: Add identity organization query planning implementation
 
 Purpose:
 
@@ -205,7 +235,7 @@ Expected scope:
 - Treat missing or blocked organization reads as `account_setup_error`.
 - Do not implement organization settings or product features.
 
-### Task 4: Wire derived app state into the existing shell
+### Later task: Wire derived app state into the existing shell
 
 Purpose:
 
@@ -213,13 +243,13 @@ Purpose:
 
 Expected scope:
 
-- Logged out placeholder.
-- Onboarding-needed placeholder.
-- Account setup error placeholder.
+- Logged out placeholder: "Please sign in to continue."
+- Onboarding-needed placeholder: "Complete your workspace setup to continue."
+- Account setup error placeholder: "Your account setup is incomplete. Please contact support or try again."
 - Ready state continues to show the existing dashboard shell placeholder.
 - No routes, auth forms, signup, login, or onboarding forms.
 
-### Task 5: Validate the implementation
+### Later task: Validate the implementation
 
 Purpose:
 
@@ -235,40 +265,50 @@ git diff --check
 git status --short
 ```
 
-## 9. Future Separate Tasks
+## 10. Future Separate Tasks
 
 Keep these out of the first auth/session implementation unless separately planned and approved:
 
 - React Router setup.
 - Signup UI.
 - Login UI.
-- Logout UI beyond any minimal provider action needed for session cleanup.
+- Logout UI or sign-out button.
 - Onboarding route.
 - Onboarding form.
 - Calling `public.complete_onboarding` from a form.
-- User-facing error copy refinement.
+- User-facing error copy refinement beyond the approved placeholder copy.
 - Protected route structure.
 - Organization settings.
 - Profile editing UI.
 - Product/domain features.
 
-## 10. Remaining Frontend Auth/Session Questions
+## 11. Remaining Frontend Auth/Session Questions
 
-These questions can be resolved during the next owner-approved implementation task or a focused follow-up planning task:
+Resolved owner-approved decisions:
 
-1. Should the initial implementation expose auth/session through React context, a custom hook, or both?
-2. What exact placeholder copy should be shown for logged-out, onboarding-needed, and account setup error states?
-3. Should the first implementation include a minimal sign-out action for development testing, or defer all auth actions to the auth UI task?
-4. Should user-specific TanStack Query cache be cleared on every auth state change or only on sign-out/user switch?
-5. How much developer-only logging should be included for account setup errors?
+1. The first implementation should use both a React provider for auth/session state and a custom hook for consuming auth/session state.
+2. Logged-out placeholder copy: "Please sign in to continue."
+3. Needs-onboarding placeholder copy: "Complete your workspace setup to continue."
+4. Account setup error copy: "Your account setup is incomplete. Please contact support or try again."
+5. Include a `signOut` capability in the provider/hook, but do not create a sign-out UI button yet.
+6. Clear TanStack Query cache on sign-out and user switch.
+7. For account setup errors, log developer details only in development.
+8. Routing, auth UI, signup/login forms, onboarding form, and product features remain separate future tasks.
 
-## 11. Implementation Lock
+Remaining questions before implementing the provider/hook gate:
+
+- None from this planning document. The exact source file scope still requires a separate owner-approved implementation task.
+
+## 12. Implementation Lock
 
 Implementation is still locked.
+
+The next unlock gate is a separate owner-approved source task for auth/session provider and hook code only. That future task may define the exact provider/hook file scope, but it must still exclude routes, auth UI, signup/login screens, onboarding UI, product features, package changes, Supabase migrations, and SQL files unless separately approved.
 
 A separate owner-approved implementation task is required before creating or modifying source files for:
 
 - Auth/session provider code.
+- Auth/session consumer hook code.
 - Identity module query files.
 - Shell state wiring.
 - Auth UI.
