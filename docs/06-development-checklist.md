@@ -59,7 +59,7 @@ Do not create migrations in this phase. Keep work at planning and review level u
 - [x] Locally validate `supabase/migrations/20260516165311_initial_schema.sql` with Supabase CLI
 - [x] Create owner-approved onboarding RPC migration: `supabase/migrations/20260516231814_complete_onboarding_rpc.sql`
 - [x] Locally validate onboarding RPC migration with Supabase CLI (`supabase db reset`)
-- [ ] Run focused onboarding RPC behavior tests for anonymous failure, authenticated success, duplicate failure, and post-onboarding RLS
+- [x] Run focused onboarding RPC behavior tests for anonymous failure, authenticated success, duplicate failure, and post-onboarding RLS
 
 Approved data model planning decisions:
 
@@ -93,7 +93,7 @@ Migration gate:
 
 ## Phase 4: App Shell
 
-Do not begin until repository setup, documentation, architecture, and tooling are ready. Auth/onboarding UI remains a separate owner-approved app task after focused RPC behavior tests.
+Do not begin until repository setup, documentation, architecture, and tooling are ready. Focused onboarding RPC behavior tests passed locally; frontend auth/onboarding implementation may now be planned separately as an owner-approved app task.
 
 - [x] Create app provider structure
 - [x] Add TanStack Query provider
