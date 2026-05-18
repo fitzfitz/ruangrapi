@@ -118,3 +118,26 @@ Keep first domain work small:
 
 - [ ] Start with types, schemas, and simple queries only after the data model and RLS strategy are approved
 - [ ] Do not build unrelated product features in the same task
+
+### Manual validation: read-only Properties module
+
+Validate the first Properties slice manually before the owner commits it. This checklist is for the read-only `/dashboard/properties` page only.
+
+- [ ] `/dashboard/properties` is inaccessible to unauthenticated users and redirects through the existing auth gate.
+- [ ] Authenticated and onboarded users can access `/dashboard/properties`.
+- [ ] The sidebar Properties link navigates to `/dashboard/properties`.
+- [ ] The sidebar Dashboard link still navigates to `/dashboard`.
+- [ ] The Properties page shows a loading state while the properties query is pending.
+- [ ] The Properties page shows an empty state when the current organization has no properties.
+- [ ] The Properties page shows an error state when the properties query fails.
+- [ ] The Properties page shows a populated list when the current organization has existing properties.
+- [ ] Existing properties listed on the page belong to the current organization.
+- [ ] The disabled Add Property button is clearly unavailable and does not start a create flow.
+- [ ] Refreshing `/dashboard/properties` keeps the user on the protected Properties route after account state checks finish.
+- [ ] No browser console errors appear during navigation, refresh, or properties loading.
+- [ ] Existing route gating still works for `/auth`, `/signup`, `/onboarding`, and `/dashboard`.
+
+Manual validation boundaries:
+
+- [ ] No create, edit, or delete property flows are introduced during this validation.
+- [ ] No Units, Tenants, Leases, Billing, Payments, Maintenance, receipts, dashboard metrics, migrations, or unrelated modules are introduced during this validation.
