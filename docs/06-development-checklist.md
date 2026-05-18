@@ -114,6 +114,7 @@ Module status:
 
 - [x] Properties MVP baseline documented and implemented as the first domain slice
 - [x] Units module planning documented separately after owner approval to move beyond Properties
+- [x] Units MVP baseline documented and implemented as a property-scoped child module
 
 Keep first domain work small:
 
@@ -531,3 +532,42 @@ Manual validation boundaries:
 - [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No top-level Units navigation is part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Units module MVP baseline closeout
+
+Current completed Units baseline:
+
+- Units are child records under Properties.
+- Units are managed from the selected Property detail context.
+- `/dashboard/properties/:propertyId` shows a read-only Units section.
+- `/dashboard/properties/:propertyId/units/new` creates a Unit under the selected Property.
+- `/dashboard/properties/:propertyId/units/:unitId/edit` edits a Unit under the selected Property.
+- Supported Unit fields are `name`, `type`, and `notes`.
+- `type` is required and limited to `room`, `house`, `apartment`, `studio`, and `other`.
+- Organization and property scoping rely on existing Supabase RLS and trusted app context: `organization_id` comes from the profile/organization flow, and `property_id` comes from the selected Property route/context.
+- Manual validation checklists exist for the read-only Units section, create Unit flow, and edit Unit flow.
+
+Intentionally deferred from the Units MVP baseline:
+
+- No standalone Unit detail page yet.
+- No occupancy or status workflow.
+- No rent pricing or `base_rent_amount` workflow.
+- No Unit delete, archive, or status-management flow.
+- No tenants.
+- No leases.
+- No billing or payments.
+- No maintenance.
+- No receipts.
+- No reporting or dashboard metrics.
+- No top-level Units navigation.
+- No images or files.
+- No search, filter, or pagination.
+- No import or export.
+
+Recommended next module:
+
+- Tenants or Leases should be planned separately before implementation.
+- Choose Tenants next if the product wants to capture people and contact records first.
+- Choose Leases next if the product wants to connect Properties and Units to rental agreements first.
+- Do not choose or implement the next module in this Units closeout task.
+- Start the next module in a separate module-focused planning task.
