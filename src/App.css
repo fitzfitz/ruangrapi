@@ -84,14 +84,16 @@
 }
 
 .properties-page,
-.property-detail-page {
+.property-detail-page,
+.edit-property-page {
   display: grid;
   gap: 24px;
   max-width: 880px;
 }
 
 .properties-page__header,
-.property-detail-page__header {
+.property-detail-page__header,
+.edit-property-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -99,7 +101,8 @@
 }
 
 .properties-page__header h2,
-.property-detail-page__header h2 {
+.property-detail-page__header h2,
+.edit-property-page__header h2 {
   margin: 0 0 8px;
 }
 
@@ -107,12 +110,15 @@
 .properties-page__status,
 .property-detail-page__header p,
 .property-detail-page__status,
+.edit-property-page__header p,
+.edit-property-page__status,
 .create-property-page__header p {
   color: var(--text);
 }
 
 .properties-page__header a,
 .property-detail-page__header a,
+.edit-property-page__header a,
 .create-property-page__header a {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -124,7 +130,8 @@
 }
 
 .properties-page__error,
-.property-detail-page__error {
+.property-detail-page__error,
+.edit-property-page__error {
   border: 1px solid #fecdca;
   border-radius: 12px;
   padding: 16px;
@@ -134,6 +141,7 @@
 
 .properties-page__empty,
 .property-detail-page__empty,
+.edit-property-page__empty,
 .property-card,
 .property-detail-card {
   border: 1px solid var(--border);
@@ -142,12 +150,14 @@
 }
 
 .properties-page__empty,
-.property-detail-page__empty {
+.property-detail-page__empty,
+.edit-property-page__empty {
   padding: 24px;
 }
 
 .properties-page__empty h3,
 .property-detail-page__empty h3,
+.edit-property-page__empty h3,
 .property-card h3 {
   margin: 0 0 8px;
   color: var(--text-h);
@@ -214,6 +224,13 @@
   padding-top: 20px;
 }
 
+.property-detail-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
 .account-state-placeholder {
   max-width: 560px;
 }
@@ -253,7 +270,8 @@
 .sign-in-form,
 .sign-up-form,
 .onboarding-form,
-.create-property-form {
+.create-property-form,
+.edit-property-form {
   display: grid;
   gap: 16px;
   border: 1px solid var(--border);
@@ -265,7 +283,8 @@
 .sign-in-form__field,
 .sign-up-form__field,
 .onboarding-form__field,
-.create-property-form__field {
+.create-property-form__field,
+.edit-property-form__field {
   display: grid;
   gap: 6px;
 }
@@ -273,7 +292,8 @@
 .sign-in-form__field label,
 .sign-up-form__field label,
 .onboarding-form__field label,
-.create-property-form__field label {
+.create-property-form__field label,
+.edit-property-form__field label {
   color: var(--text-h);
   font-size: 14px;
   font-weight: 600;
@@ -283,7 +303,9 @@
 .sign-up-form__field input,
 .onboarding-form__field input,
 .create-property-form__field input,
-.create-property-form__field textarea {
+.create-property-form__field textarea,
+.edit-property-form__field input,
+.edit-property-form__field textarea {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -292,7 +314,8 @@
   background: #ffffff;
 }
 
-.create-property-form__field textarea {
+.create-property-form__field textarea,
+.edit-property-form__field textarea {
   resize: vertical;
 }
 
@@ -300,7 +323,9 @@
 .sign-up-form__field input:disabled,
 .onboarding-form__field input:disabled,
 .create-property-form__field input:disabled,
-.create-property-form__field textarea:disabled {
+.create-property-form__field textarea:disabled,
+.edit-property-form__field input:disabled,
+.edit-property-form__field textarea:disabled {
   color: var(--text);
   background: #f1f5f9;
 }
@@ -308,7 +333,8 @@
 .sign-in-form__error,
 .sign-up-form__error,
 .onboarding-form__error,
-.create-property-form__error {
+.create-property-form__error,
+.edit-property-form__error {
   color: #b42318;
   font-size: 14px;
 }
@@ -343,36 +369,42 @@
   max-width: 420px;
 }
 
-.create-property-page {
+.create-property-page,
+.edit-property-page {
   display: grid;
   gap: 24px;
   max-width: 640px;
 }
 
-.create-property-page__header {
+.create-property-page__header,
+.edit-property-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
 }
 
-.create-property-page__header h2 {
+.create-property-page__header h2,
+.edit-property-page__header h2 {
   margin: 0 0 8px;
 }
 
-.create-property-form__actions {
+.create-property-form__actions,
+.edit-property-form__actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
 }
 
-.create-property-form__actions a {
+.create-property-form__actions a,
+.edit-property-form__actions a {
   color: var(--text-h);
   font-weight: 700;
 }
 
-.create-property-form__actions button {
+.create-property-form__actions button,
+.edit-property-form__actions button {
   border: 0;
   border-radius: 8px;
   padding: 10px 14px;
@@ -382,7 +414,8 @@
   cursor: pointer;
 }
 
-.create-property-form__actions button:disabled {
+.create-property-form__actions button:disabled,
+.edit-property-form__actions button:disabled {
   cursor: not-allowed;
   opacity: 0.72;
 }

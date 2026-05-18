@@ -16,6 +16,10 @@ function formatPropertyDate(value: string) {
   }).format(new Date(value))
 }
 
+function getPropertyEditPath(propertyId: string) {
+  return `${routePaths.dashboardProperties}/${propertyId}/edit`
+}
+
 function PropertyDetailContent({ property }: { property: Property }) {
   return (
     <div className="property-detail-card">
@@ -69,7 +73,12 @@ export function PropertyDetailPage() {
               intentionally outside this slice.
             </p>
           </div>
-          <Link to={routePaths.dashboardProperties}>Back to properties</Link>
+          <div className="property-detail-page__actions">
+            {propertyId ? (
+              <Link to={getPropertyEditPath(propertyId)}>Edit property</Link>
+            ) : null}
+            <Link to={routePaths.dashboardProperties}>Back to properties</Link>
+          </div>
         </div>
 
         {!propertyId ? (

@@ -1,6 +1,7 @@
 import { supabaseClient } from '../../../shared/lib'
 import type { CreatePropertyInput } from '../domain/create-property-schema'
 import type { Property } from '../domain/property'
+import type { UpdatePropertyInput } from '../domain/update-property-schema'
 
 export const propertiesQueryKey = ['properties'] as const
 
@@ -64,6 +65,28 @@ export async function createProperty({
 
   if (error !== null) {
     throw error
+  }
+
+  return data
+}
+
+export async function updateProperty(
+  propertyId: string,
+  { name, address, notes }: UpdatePropertyInput,
+): Promise<Property> {
+  const { data, error } = await supabaseClient
+    .from('properties')
+    .update({
+      name,
+      address,
+      notes,
+    })
+    .eq('id', propertyId)
+    .select(propertySelectColumns)
+    .single<Property>()
+
+  if (error !== null) {
+    throw new Error(`Could not update property: ${error.message}`)
   }
 
   return data

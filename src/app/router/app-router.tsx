@@ -10,6 +10,7 @@ import {
 } from '../../modules/identity'
 import {
   CreatePropertyPage,
+  EditPropertyPage,
   PropertiesPage,
   PropertyDetailPage,
 } from '../../modules/properties'
@@ -58,6 +59,14 @@ export function AppRouter() {
           element={
             <RouteAccessGate route="dashboard">
               <CreatePropertyPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboardPropertyEdit}
+          element={
+            <RouteAccessGate route="dashboard">
+              <EditPropertyPage />
             </RouteAccessGate>
           }
         />
