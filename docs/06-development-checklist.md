@@ -141,3 +141,32 @@ Manual validation boundaries:
 
 - [ ] No create, edit, or delete property flows are introduced during this validation.
 - [ ] No Units, Tenants, Leases, Billing, Payments, Maintenance, receipts, dashboard metrics, migrations, or unrelated modules are introduced during this validation.
+
+### Manual validation: create Property flow
+
+Validate the committed create Property slice manually before the owner commits the validation documentation. This checklist is for `/dashboard/properties/new` and the post-create return to `/dashboard/properties` only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties/new`.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/new` and are redirected through the existing auth gate.
+- [ ] The Back to properties link returns to `/dashboard/properties`.
+- [ ] The Cancel link returns to `/dashboard/properties`.
+- [ ] Submitting with an empty name shows the property-name validation error.
+- [ ] Submitting with a valid name creates one property.
+- [ ] Address can be left blank.
+- [ ] Notes can be left blank.
+- [ ] Blank address is stored as `null`.
+- [ ] Blank notes are stored as `null`.
+- [ ] After successful creation, the user is redirected to `/dashboard/properties`.
+- [ ] The newly created property appears in the Properties list after redirect.
+- [ ] The created property has the correct `organization_id` for the current onboarded user.
+- [ ] Existing `/dashboard/properties` page still works after the create flow.
+- [ ] Existing `/dashboard` page still works after the create flow.
+- [ ] Browser console has no errors during create-page load, validation failure, successful creation, redirect, or list refresh.
+
+Manual validation boundaries:
+
+- [ ] No edit flow is part of this slice.
+- [ ] No delete flow is part of this slice.
+- [ ] No property detail page is part of this slice.
+- [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No migrations are introduced for this validation task.
