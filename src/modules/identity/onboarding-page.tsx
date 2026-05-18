@@ -1,14 +1,19 @@
 import { AppLayout } from '../../app/layouts'
+import { OnboardingForm } from './onboarding-form'
 
 export function OnboardingPage() {
   return (
     <AppLayout>
-      <section
-        className="account-state-placeholder"
-        aria-labelledby="onboarding-title"
-      >
-        <h2 id="onboarding-title">Workspace setup required</h2>
-        <p>Complete your workspace setup to continue.</p>
+      <section className="onboarding-page" aria-labelledby="onboarding-title">
+        <div className="onboarding-page__intro">
+          <h2 id="onboarding-title">Set up your workspace</h2>
+          <p>
+            Add the basics for your rental business workspace before continuing
+            to RuangRapi.
+          </p>
+        </div>
+
+        <OnboardingForm />
       </section>
     </AppLayout>
   )
