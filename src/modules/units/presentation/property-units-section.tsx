@@ -12,6 +12,10 @@ function getCreateUnitPath(propertyId: string) {
   return `${routePaths.dashboardProperties}/${propertyId}/units/new`
 }
 
+function getEditUnitPath(propertyId: string, unitId: string) {
+  return `${routePaths.dashboardProperties}/${propertyId}/units/${unitId}/edit`
+}
+
 function formatUnitType(unit: Unit) {
   return unit.type.replace('_', ' ')
 }
@@ -64,9 +68,12 @@ export function PropertyUnitsSection({
         <div className="property-units-section__list" aria-label="Units list">
           {unitsQuery.data.map((unit) => (
             <article className="unit-card" key={unit.id}>
-              <div>
-                <h4>{unit.name}</h4>
-                <p className="unit-card__type">{formatUnitType(unit)}</p>
+              <div className="unit-card__header">
+                <div>
+                  <h4>{unit.name}</h4>
+                  <p className="unit-card__type">{formatUnitType(unit)}</p>
+                </div>
+                <Link to={getEditUnitPath(propertyId, unit.id)}>Edit</Link>
               </div>
               <p className="unit-card__notes">
                 {formatOptionalText(unit.notes)}

@@ -8,6 +8,8 @@ export const routePaths = {
   dashboardPropertyDetail: '/dashboard/properties/:propertyId',
   dashboardPropertyEdit: '/dashboard/properties/:propertyId/edit',
   dashboardPropertyUnitNew: '/dashboard/properties/:propertyId/units/new',
+  dashboardPropertyUnitEdit:
+    '/dashboard/properties/:propertyId/units/:unitId/edit',
   dashboardPropertiesNew: '/dashboard/properties/new',
 } as const
 
