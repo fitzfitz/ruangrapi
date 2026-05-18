@@ -354,3 +354,35 @@ Decision notes:
 - Keep Units out of the top-level dashboard navigation until a product navigation need is approved.
 - Do not start tenants or leases until the read-only, property-scoped Units baseline is stable.
 - Future Units create/edit/status work should be planned as separate, owner-approved slices.
+
+### Manual validation: read-only Units section
+
+Validate the committed read-only Units section manually before the owner commits the validation documentation. This checklist is for the Units section inside `/dashboard/properties/:propertyId` and the existing Properties route neighbors only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties`.
+- [ ] User can open an existing property detail page at `/dashboard/properties/:propertyId`.
+- [ ] The property detail page shows a Units section below the main property details.
+- [ ] The Units section shows a loading state while units for the selected property are loading.
+- [ ] A property with no units shows the Units empty state.
+- [ ] A property with units shows the Units populated state.
+- [ ] Each listed Unit displays the unit name.
+- [ ] Unit type is displayed only as simple read-only metadata when present.
+- [ ] Unit notes are displayed when present.
+- [ ] Missing unit notes are handled gracefully.
+- [ ] Unit status is not treated as an occupancy workflow in this slice.
+- [ ] Unit base rent amount is not treated as a pricing or billing workflow in this slice.
+- [ ] An invalid or inaccessible property detail page does not render the Units section.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/:propertyId` or the Units section and are redirected through the existing auth gate.
+- [ ] Existing `/dashboard/properties` list route still works.
+- [ ] Existing `/dashboard/properties/new` create route still works.
+- [ ] Existing `/dashboard/properties/:propertyId/edit` edit route still works.
+- [ ] Browser console has no errors during list navigation, detail-page load, Units loading, empty state, populated state, invalid/inaccessible property handling, or auth redirect checks.
+
+Manual validation boundaries:
+
+- [ ] No Units create flow is part of this slice.
+- [ ] No Units edit flow is part of this slice.
+- [ ] No Units delete, archive, or status-management flow is part of this slice.
+- [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No top-level Units navigation is part of this slice.
+- [ ] No migrations are introduced for this validation task.
