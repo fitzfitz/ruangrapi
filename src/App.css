@@ -85,7 +85,8 @@
 
 .properties-page,
 .property-detail-page,
-.edit-property-page {
+.edit-property-page,
+.create-unit-page {
   display: grid;
   gap: 24px;
   max-width: 880px;
@@ -93,7 +94,8 @@
 
 .properties-page__header,
 .property-detail-page__header,
-.edit-property-page__header {
+.edit-property-page__header,
+.create-unit-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -102,7 +104,8 @@
 
 .properties-page__header h2,
 .property-detail-page__header h2,
-.edit-property-page__header h2 {
+.edit-property-page__header h2,
+.create-unit-page__header h2 {
   margin: 0 0 8px;
 }
 
@@ -112,14 +115,18 @@
 .property-detail-page__status,
 .edit-property-page__header p,
 .edit-property-page__status,
-.create-property-page__header p {
+.create-property-page__header p,
+.create-unit-page__header p,
+.create-unit-page__status {
   color: var(--text);
 }
 
 .properties-page__header a,
 .property-detail-page__header a,
 .edit-property-page__header a,
-.create-property-page__header a {
+.create-property-page__header a,
+.create-unit-page__header a,
+.property-units-section__header a {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px 14px;
@@ -132,6 +139,7 @@
 .properties-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
+.create-unit-page__error,
 .property-units-section__error {
   border: 1px solid #fecdca;
   border-radius: 12px;
@@ -143,6 +151,7 @@
 .properties-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
+.create-unit-page__empty,
 .property-units-section__empty,
 .property-card,
 .property-detail-card,
@@ -156,6 +165,7 @@
 .properties-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
+.create-unit-page__empty,
 .property-units-section__empty {
   padding: 24px;
 }
@@ -163,6 +173,7 @@
 .properties-page__empty h3,
 .property-detail-page__empty h3,
 .edit-property-page__empty h3,
+.create-unit-page__empty h3,
 .property-card h3,
 .property-units-section__empty h4,
 .unit-card h4 {
@@ -235,6 +246,13 @@
   display: grid;
   gap: 20px;
   padding: 24px;
+}
+
+.property-units-section__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .property-units-section__header h3 {
@@ -317,7 +335,8 @@
 .sign-up-form,
 .onboarding-form,
 .create-property-form,
-.edit-property-form {
+.edit-property-form,
+.create-unit-form {
   display: grid;
   gap: 16px;
   border: 1px solid var(--border);
@@ -330,7 +349,8 @@
 .sign-up-form__field,
 .onboarding-form__field,
 .create-property-form__field,
-.edit-property-form__field {
+.edit-property-form__field,
+.create-unit-form__field {
   display: grid;
   gap: 6px;
 }
@@ -339,7 +359,9 @@
 .sign-up-form__field label,
 .onboarding-form__field label,
 .create-property-form__field label,
-.edit-property-form__field label {
+.edit-property-form__field label,
+.create-unit-form__field label,
+.create-unit-form__context-label {
   color: var(--text-h);
   font-size: 14px;
   font-weight: 600;
@@ -351,7 +373,10 @@
 .create-property-form__field input,
 .create-property-form__field textarea,
 .edit-property-form__field input,
-.edit-property-form__field textarea {
+.edit-property-form__field textarea,
+.create-unit-form__field input,
+.create-unit-form__field select,
+.create-unit-form__field textarea {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -361,7 +386,8 @@
 }
 
 .create-property-form__field textarea,
-.edit-property-form__field textarea {
+.edit-property-form__field textarea,
+.create-unit-form__field textarea {
   resize: vertical;
 }
 
@@ -371,7 +397,10 @@
 .create-property-form__field input:disabled,
 .create-property-form__field textarea:disabled,
 .edit-property-form__field input:disabled,
-.edit-property-form__field textarea:disabled {
+.edit-property-form__field textarea:disabled,
+.create-unit-form__field input:disabled,
+.create-unit-form__field select:disabled,
+.create-unit-form__field textarea:disabled {
   color: var(--text);
   background: #f1f5f9;
 }
@@ -380,7 +409,8 @@
 .sign-up-form__error,
 .onboarding-form__error,
 .create-property-form__error,
-.edit-property-form__error {
+.edit-property-form__error,
+.create-unit-form__error {
   color: #b42318;
   font-size: 14px;
 }
@@ -416,14 +446,16 @@
 }
 
 .create-property-page,
-.edit-property-page {
+.edit-property-page,
+.create-unit-page {
   display: grid;
   gap: 24px;
   max-width: 640px;
 }
 
 .create-property-page__header,
-.edit-property-page__header {
+.edit-property-page__header,
+.create-unit-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -431,12 +463,14 @@
 }
 
 .create-property-page__header h2,
-.edit-property-page__header h2 {
+.edit-property-page__header h2,
+.create-unit-page__header h2 {
   margin: 0 0 8px;
 }
 
 .create-property-form__actions,
-.edit-property-form__actions {
+.edit-property-form__actions,
+.create-unit-form__actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -444,13 +478,15 @@
 }
 
 .create-property-form__actions a,
-.edit-property-form__actions a {
+.edit-property-form__actions a,
+.create-unit-form__actions a {
   color: var(--text-h);
   font-weight: 700;
 }
 
 .create-property-form__actions button,
-.edit-property-form__actions button {
+.edit-property-form__actions button,
+.create-unit-form__actions button {
   border: 0;
   border-radius: 8px;
   padding: 10px 14px;
@@ -461,9 +497,22 @@
 }
 
 .create-property-form__actions button:disabled,
-.edit-property-form__actions button:disabled {
+.edit-property-form__actions button:disabled,
+.create-unit-form__actions button:disabled {
   cursor: not-allowed;
   opacity: 0.72;
+}
+
+.create-unit-form__context {
+  display: grid;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.create-unit-form__context p {
+  margin: 0;
+  color: var(--text);
 }
 
 .onboarding-page__intro h2 {

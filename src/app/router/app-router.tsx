@@ -14,6 +14,7 @@ import {
   PropertiesPage,
   PropertyDetailPage,
 } from '../../modules/properties'
+import { CreateUnitPage } from '../../modules/units'
 import { routePaths } from './route-paths'
 
 export function AppRouter() {
@@ -67,6 +68,14 @@ export function AppRouter() {
           element={
             <RouteAccessGate route="dashboard">
               <EditPropertyPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboardPropertyUnitNew}
+          element={
+            <RouteAccessGate route="dashboard">
+              <CreateUnitPage />
             </RouteAccessGate>
           }
         />
