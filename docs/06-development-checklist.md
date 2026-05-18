@@ -93,19 +93,18 @@ Migration gate:
 
 ## Phase 4: App Shell
 
-Do not begin until repository setup, documentation, architecture, and tooling are ready. Focused onboarding RPC behavior tests passed locally; frontend auth/onboarding implementation may now be planned separately as an owner-approved app task.
+Do not begin until repository setup, documentation, architecture, and tooling are ready. Focused onboarding RPC behavior tests passed locally; minimal signup/auth/onboarding browser flow has been manually validated locally.
 
 - [x] Create app provider structure
 - [x] Add TanStack Query provider
 - [x] Add Supabase client wrapper
 - [x] Decide routing approach
 - [x] Create basic layout shell
-- [x] Manually validate local minimal auth/onboarding flow: `/auth` sign-in, no-profile user redirects to `/onboarding`, onboarding calls `complete_onboarding`, identity queries refresh, ready user redirects to `/dashboard`, and invalid short input is blocked client-side
+- [x] Manually validate local minimal signup/auth/onboarding browser flow: `/auth` sign-in, `/signup` navigation and form validation, valid signup success message, confirmed-user sign-in, no-profile redirect to `/onboarding`, successful onboarding, and landing on `/dashboard`
 
-Auth/onboarding follow-up boundaries:
+Post-validation boundaries:
 
-- [x] Keep signup UI as a separate future task
-- [ ] Keep product features gated until auth/onboarding remains stable and separately approved
+- [ ] Keep product features gated until separately approved
 
 ## Phase 5: First Domain Module
 
