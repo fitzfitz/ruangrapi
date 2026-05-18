@@ -1,8 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { AppGate } from '../../modules/identity'
 import { DashboardPage } from '../../modules/dashboard'
-import { AuthPage, OnboardingPage } from '../../modules/identity'
+import {
+  AppGate,
+  AuthPage,
+  OnboardingPage,
+  RouteAccessGate,
+} from '../../modules/identity'
 import { routePaths } from './route-paths'
 
 export function AppRouter() {
@@ -10,9 +14,30 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path={routePaths.home} element={<AppGate />} />
-        <Route path={routePaths.auth} element={<AuthPage />} />
-        <Route path={routePaths.onboarding} element={<OnboardingPage />} />
-        <Route path={routePaths.dashboard} element={<DashboardPage />} />
+        <Route
+          path={routePaths.auth}
+          element={
+            <RouteAccessGate route="auth">
+              <AuthPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.onboarding}
+          element={
+            <RouteAccessGate route="onboarding">
+              <OnboardingPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboard}
+          element={
+            <RouteAccessGate route="dashboard">
+              <DashboardPage />
+            </RouteAccessGate>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )

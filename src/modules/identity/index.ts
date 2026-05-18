@@ -22,6 +22,7 @@ export {
 export { AppGate } from './app-gate'
 export { AuthPage } from './auth-page'
 export { OnboardingPage } from './onboarding-page'
+export { RouteAccessGate } from './route-access-gate'
 export { useAppAccountState } from './use-app-account-state'
 export { useAuthSession } from './use-auth-session'
 export { useCurrentOrganizationQuery } from './use-current-organization-query'
