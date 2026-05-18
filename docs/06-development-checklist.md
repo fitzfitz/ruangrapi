@@ -113,7 +113,7 @@ Do not begin until phases 1 to 4 are complete and product feature work is separa
 Module status:
 
 - [x] Properties MVP baseline documented and implemented as the first domain slice
-- [ ] Units module planned separately after owner approval to move beyond Properties
+- [x] Units module planning documented separately after owner approval to move beyond Properties
 
 Keep first domain work small:
 
@@ -286,5 +286,71 @@ Intentionally deferred from the Properties MVP baseline:
 Recommended next module:
 
 - Units should be the next domain module only after the owner approves moving beyond Properties.
-- Units should be planned in a separate module-focused session or task.
+- Units planning now lives in the Units module planning section below.
 - Do not add Units implementation inside this Properties closeout task.
+
+### Units module planning
+
+Purpose:
+
+- Units represent rentable spaces under a Property.
+- Examples include a kost room, apartment unit, house unit, shop or ruko unit, and a floor or space inside a property.
+- Units belong to a property and should be planned as a child module of Properties.
+- Units are not tenants, leases, payments, maintenance, billing, receipts, or reporting.
+
+Existing schema note:
+
+- The existing initial migration appears to include a `public.units` table.
+- Supported fields in the existing migration include `organization_id`, `property_id`, `name`, `type`, `status`, `base_rent_amount`, `notes`, `created_at`, and `updated_at`.
+- There is no separate `unit_number` column in the inspected migration; use `name` for the MVP unless a later approved migration changes the schema.
+- Because `status` and `base_rent_amount` already exist in the migration but touch occupancy and rent-pricing concerns, do not make them part of the first Units implementation slice unless the owner explicitly approves that scope.
+- No Units schema or migration changes are planned in this documentation task.
+
+Suggested MVP fields for the first read-only planning slice:
+
+- `property_id` to keep every Unit scoped to a selected Property.
+- `name` as the display label for the Unit.
+- `type` only as a simple existing-schema descriptor if the UI needs it.
+- `notes` if useful for read-only context.
+- `created_at` and `updated_at` if timestamps are displayed consistently with the Properties detail pattern.
+
+Explicitly out of scope for the first Units slice:
+
+- Tenants.
+- Leases.
+- Rent pricing.
+- Deposits.
+- Payment status.
+- Occupancy status, unless intentionally approved later.
+- Maintenance requests.
+- Meter readings.
+- Images or files.
+- Reporting or dashboard metrics.
+- Delete, archive, or status-management flow.
+
+First recommended implementation slice:
+
+- Build a read-only Units list scoped to a selected property.
+- Prefer starting from property context, either as a Units section on `/dashboard/properties/:propertyId` or as a narrow child route such as `/dashboard/properties/:propertyId/units`.
+- Do not add Units to the top-level dashboard navigation yet unless product navigation requires it later.
+- Do not add create, edit, delete, archive, or status actions in the first Units slice.
+- Do not start tenants, leases, billing, payments, maintenance, receipts, or dashboard metrics during the first Units slice.
+
+Validation strategy for the first Units slice:
+
+- Route protection for the Units route or Units section.
+- Authenticated and onboarded access only.
+- Property scoping: Units must be loaded for the selected property only.
+- Organization and RLS scoping: Units must remain limited to the current user's organization.
+- Empty state for a property with no units.
+- Populated state for a property with existing units.
+- Invalid or inaccessible property handling.
+- Regression checks for existing Properties routes: `/dashboard/properties`, `/dashboard/properties/new`, `/dashboard/properties/:propertyId`, and `/dashboard/properties/:propertyId/edit`.
+
+Decision notes:
+
+- Units should remain a child module of Properties for the MVP workflow.
+- Start from property context first to avoid orphaned Units UX.
+- Keep Units out of the top-level dashboard navigation until a product navigation need is approved.
+- Do not start tenants or leases until the read-only, property-scoped Units baseline is stable.
+- Future Units create/edit/status work should be planned as separate, owner-approved slices.
