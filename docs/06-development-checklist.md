@@ -355,6 +355,37 @@ Decision notes:
 - Do not start tenants or leases until the read-only, property-scoped Units baseline is stable.
 - Future Units create/edit/status work should be planned as separate, owner-approved slices.
 
+### Future decision: Units create flow
+
+Future Units creation should remain property-scoped. Prefer the route:
+
+```txt
+/dashboard/properties/:propertyId/units/new
+```
+
+Product and navigation boundaries:
+
+- Do not add top-level Units navigation yet.
+- Do not implement Units create, edit, delete, archive, or status-management behavior in this documentation task.
+- Do not introduce tenants, leases, billing, payments, maintenance, receipts, reporting, dashboard metrics, or unrelated modules as part of the first Units create flow.
+
+First create-flow field scope:
+
+- Include `name` as the required Unit display label.
+- Include `type` only if useful as simple metadata and supported by the existing schema.
+- Include `notes` as optional free text.
+- Do not expose `status` in the first create flow because it can imply occupancy or lifecycle workflow and should be handled in a separate owner-approved slice.
+- Do not expose `base_rent_amount` in the first create flow because rent pricing touches lease, billing, and payment concerns and should be handled in a separate owner-approved slice.
+
+Implementation notes for a later approved task:
+
+- The existing schema requires both `organization_id` and `property_id`.
+- Set `organization_id` from the trusted existing profile/organization flow.
+- Set `property_id` from the current property route/context.
+- No implementation is approved yet.
+- No migration is planned for this decision note.
+- Revisit pricing and status only after basic Units CRUD is stable.
+
 ### Manual validation: read-only Units section
 
 Validate the committed read-only Units section manually before the owner commits the validation documentation. This checklist is for the Units section inside `/dashboard/properties/:propertyId` and the existing Properties route neighbors only.
