@@ -44,7 +44,26 @@
   color: var(--text-h);
   font-size: 15px;
   font-weight: 500;
+}
+
+.app-sidebar a,
+.app-sidebar__coming-soon {
+  display: block;
+  border-radius: 8px;
   padding: 10px 12px;
+}
+
+.app-sidebar a {
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+.app-sidebar a.active {
+  background: #e2e8f0;
+}
+
+.app-sidebar__coming-soon {
+  color: var(--text);
 }
 
 .app-main {
@@ -62,6 +81,83 @@
 
 .dashboard-shell p {
   color: var(--text);
+}
+
+.properties-page {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+}
+
+.properties-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.properties-page__header h2 {
+  margin: 0 0 8px;
+}
+
+.properties-page__header p,
+.properties-page__status {
+  color: var(--text);
+}
+
+.properties-page__header button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: var(--surface);
+  font-weight: 700;
+  cursor: not-allowed;
+}
+
+.properties-page__error {
+  border: 1px solid #fecdca;
+  border-radius: 12px;
+  padding: 16px;
+  color: #b42318;
+  background: #fffbfa;
+}
+
+.properties-page__empty,
+.property-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.properties-page__empty {
+  padding: 24px;
+}
+
+.properties-page__empty h3,
+.property-card h3 {
+  margin: 0 0 8px;
+  color: var(--text-h);
+}
+
+.properties-page__list {
+  display: grid;
+  gap: 12px;
+}
+
+.property-card {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.property-card p {
+  color: var(--text);
+}
+
+.property-card__notes {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
 }
 
 .account-state-placeholder {

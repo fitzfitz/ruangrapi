@@ -4,6 +4,7 @@ export const routePaths = {
   signup: '/signup',
   onboarding: '/onboarding',
   dashboard: '/dashboard',
+  dashboardProperties: '/dashboard/properties',
 } as const
 
 export type RoutePath = (typeof routePaths)[keyof typeof routePaths]

@@ -1,13 +1,14 @@
 import type { ReactNode } from 'react'
+import { NavLink } from 'react-router-dom'
 
-const sidebarItems = [
-  'Dashboard',
-  'Properties',
-  'Units',
-  'Tenants',
-  'Billing',
-  'Maintenance',
+import { routePaths } from '../router/route-paths'
+
+const sidebarLinks = [
+  { label: 'Dashboard', path: routePaths.dashboard },
+  { label: 'Properties', path: routePaths.dashboardProperties },
 ]
+
+const futureSidebarItems = ['Units', 'Tenants', 'Billing', 'Maintenance']
 
 type AppLayoutProps = {
   children: ReactNode
@@ -22,10 +23,22 @@ export function AppLayout({ children }: AppLayoutProps) {
 
       <div className="app-layout__body">
         <aside className="app-sidebar" aria-label="Primary sections">
-          <nav aria-label="Static app sections">
+          <nav aria-label="Primary app sections">
             <ul>
-              {sidebarItems.map((item) => (
-                <li key={item}>{item}</li>
+              {sidebarLinks.map((item) => (
+                <li key={item.path}>
+                  <NavLink
+                    end={item.path === routePaths.dashboard}
+                    to={item.path}
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+              {futureSidebarItems.map((item) => (
+                <li className="app-sidebar__coming-soon" key={item}>
+                  {item}
+                </li>
               ))}
             </ul>
           </nav>
