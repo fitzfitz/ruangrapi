@@ -231,3 +231,26 @@ Manual validation boundaries:
 - [ ] No delete or archive flow is part of this slice.
 - [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Future decision: Property archive/delete behavior
+
+Do not implement hard delete for properties in the MVP. Prefer a future archive or inactive approach instead.
+
+Reason:
+
+- A property will later become the parent of units, leases, payments, maintenance, and operational history.
+- Hard deletion can break historical data, reporting, auditability, and support workflows.
+- Archive or inactive behavior keeps historical records intact while hiding inactive properties from default operational views.
+
+Current action:
+
+- No archive or delete implementation yet.
+- No status or archive migration yet.
+- Revisit when the product needs property lifecycle management.
+
+Future implementation may require:
+
+- A status or archive column on properties.
+- Active properties filtered by default in operational views.
+- Clear UI copy for archived or inactive properties.
+- Archive rules that prevent archiving when active leases or unresolved maintenance exist, if relevant later.
