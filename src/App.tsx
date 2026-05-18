@@ -1,8 +1,8 @@
 import './App.css'
-import { AppGate } from './modules/identity'
+import { AppRouter } from './app/router'
 
 function App() {
-  return <AppGate />
+  return <AppRouter />
 }
 
 export default App
