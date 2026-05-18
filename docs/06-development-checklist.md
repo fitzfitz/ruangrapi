@@ -484,3 +484,50 @@ Manual validation boundaries:
 - [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No top-level Units navigation is part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Manual validation: edit Unit flow
+
+Validate the committed edit Unit slice manually before the owner commits the validation documentation. This checklist is for `/dashboard/properties/:propertyId/units/:unitId/edit`, the post-update return to `/dashboard/properties/:propertyId`, and the existing route neighbors only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties`.
+- [ ] User can open a property detail page with units at `/dashboard/properties/:propertyId`.
+- [ ] Each listed Unit shows an Edit action.
+- [ ] The Edit action navigates to `/dashboard/properties/:propertyId/units/:unitId/edit`.
+- [ ] The edit Unit page loads only for an accessible property.
+- [ ] The edit Unit page loads only for a Unit under the selected property.
+- [ ] The edit Unit page pre-fills name for the selected Unit.
+- [ ] The edit Unit page pre-fills type for the selected Unit.
+- [ ] The edit Unit page pre-fills notes when notes are present.
+- [ ] Missing notes are handled gracefully and load as an empty notes field.
+- [ ] Submitting with an empty name shows the unit-name validation error.
+- [ ] Type is required.
+- [ ] Type only allows `room`, `house`, `apartment`, `studio`, and `other`.
+- [ ] The status field is not shown.
+- [ ] The base rent amount field is not shown.
+- [ ] Updating the Unit name succeeds.
+- [ ] Updating the Unit type succeeds.
+- [ ] Updating the Unit notes succeeds.
+- [ ] Clearing notes stores them as `null` and the Units section displays them consistently as missing text.
+- [ ] After a successful update, the user is redirected to `/dashboard/properties/:propertyId`.
+- [ ] The Units section reflects the updated Unit after redirect and refetch.
+- [ ] The Cancel link returns to `/dashboard/properties/:propertyId`.
+- [ ] The Back to property link returns to `/dashboard/properties/:propertyId`.
+- [ ] An invalid or inaccessible property ID blocks the edit form and shows the not-found or inaccessible state.
+- [ ] An invalid or inaccessible unit ID shows the not-found or inaccessible state.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/:propertyId/units/:unitId/edit` and are redirected through the existing auth gate.
+- [ ] Existing `/dashboard/properties/:propertyId/units/new` create Unit route still works.
+- [ ] Existing `/dashboard/properties` list route still works.
+- [ ] Existing `/dashboard/properties/new` create Property route still works.
+- [ ] Existing `/dashboard/properties/:propertyId` detail route still works.
+- [ ] Existing `/dashboard/properties/:propertyId/edit` edit Property route still works.
+- [ ] Browser console has no errors during list navigation, detail-page load, edit-page load, validation failure, successful update, redirect, Units refetch, invalid/inaccessible property handling, invalid/inaccessible unit handling, or auth redirect checks.
+
+Manual validation boundaries:
+
+- [ ] No standalone Unit detail page is part of this slice.
+- [ ] No Units delete, archive, or status-management flow is part of this slice.
+- [ ] `status` remains deferred.
+- [ ] `base_rent_amount` remains deferred.
+- [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No top-level Units navigation is part of this slice.
+- [ ] No migrations are introduced for this validation task.
