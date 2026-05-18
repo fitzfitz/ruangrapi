@@ -10,6 +10,7 @@ export type {
 } from './auth-session-types'
 export type { CurrentOrganization } from './organization-types'
 export type { CurrentProfile, ProfileRole } from './profile-types'
+export { AccountStatePlaceholder } from './account-state-placeholder'
 export {
   currentOrganizationQueryKey,
   fetchCurrentOrganization,
@@ -18,6 +19,7 @@ export {
   currentProfileQueryKey,
   fetchCurrentProfile,
 } from './current-profile-query'
+export { AppGate } from './app-gate'
 export { useAppAccountState } from './use-app-account-state'
 export { useAuthSession } from './use-auth-session'
 export { useCurrentOrganizationQuery } from './use-current-organization-query'

@@ -1,13 +1,8 @@
 import './App.css'
-import { AppLayout } from './app/layouts'
-import { DashboardShell } from './modules/dashboard'
+import { AppGate } from './modules/identity'
 
 function App() {
-  return (
-    <AppLayout>
-      <DashboardShell />
-    </AppLayout>
-  )
+  return <AppGate />
 }
 
 export default App

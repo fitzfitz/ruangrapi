@@ -64,6 +64,18 @@
   color: var(--text);
 }
 
+.account-state-placeholder {
+  max-width: 560px;
+}
+
+.account-state-placeholder h2 {
+  margin: 0 0 8px;
+}
+
+.account-state-placeholder p {
+  color: var(--text);
+}
+
 @media (max-width: 720px) {
   .app-header,
   .app-main {
