@@ -55,7 +55,13 @@ export function PropertiesPage() {
             {propertiesQuery.data.map((property) => (
               <article className="property-card" key={property.id}>
                 <div>
-                  <h3>{property.name}</h3>
+                  <h3>
+                    <Link
+                      to={`${routePaths.dashboardProperties}/${property.id}`}
+                    >
+                      {property.name}
+                    </Link>
+                  </h3>
                   <p>{formatPropertyAddress(property)}</p>
                 </div>
                 <p className="property-card__notes">

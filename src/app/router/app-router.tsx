@@ -8,7 +8,11 @@ import {
   RouteAccessGate,
   SignUpPage,
 } from '../../modules/identity'
-import { CreatePropertyPage, PropertiesPage } from '../../modules/properties'
+import {
+  CreatePropertyPage,
+  PropertiesPage,
+  PropertyDetailPage,
+} from '../../modules/properties'
 import { routePaths } from './route-paths'
 
 export function AppRouter() {
@@ -54,6 +58,14 @@ export function AppRouter() {
           element={
             <RouteAccessGate route="dashboard">
               <CreatePropertyPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboardPropertyDetail}
+          element={
+            <RouteAccessGate route="dashboard">
+              <PropertyDetailPage />
             </RouteAccessGate>
           }
         />

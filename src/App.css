@@ -83,30 +83,36 @@
   color: var(--text);
 }
 
-.properties-page {
+.properties-page,
+.property-detail-page {
   display: grid;
   gap: 24px;
   max-width: 880px;
 }
 
-.properties-page__header {
+.properties-page__header,
+.property-detail-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
 }
 
-.properties-page__header h2 {
+.properties-page__header h2,
+.property-detail-page__header h2 {
   margin: 0 0 8px;
 }
 
 .properties-page__header p,
 .properties-page__status,
+.property-detail-page__header p,
+.property-detail-page__status,
 .create-property-page__header p {
   color: var(--text);
 }
 
 .properties-page__header a,
+.property-detail-page__header a,
 .create-property-page__header a {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -117,7 +123,8 @@
   text-decoration: none;
 }
 
-.properties-page__error {
+.properties-page__error,
+.property-detail-page__error {
   border: 1px solid #fecdca;
   border-radius: 12px;
   padding: 16px;
@@ -126,17 +133,21 @@
 }
 
 .properties-page__empty,
-.property-card {
+.property-detail-page__empty,
+.property-card,
+.property-detail-card {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
 }
 
-.properties-page__empty {
+.properties-page__empty,
+.property-detail-page__empty {
   padding: 24px;
 }
 
 .properties-page__empty h3,
+.property-detail-page__empty h3,
 .property-card h3 {
   margin: 0 0 8px;
   color: var(--text-h);
@@ -157,9 +168,50 @@
   color: var(--text);
 }
 
+.property-card a {
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+.property-card a:hover,
+.property-card a:focus-visible {
+  text-decoration: underline;
+}
+
 .property-card__notes {
   border-top: 1px solid var(--border);
   padding-top: 16px;
+}
+
+.property-detail-card {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+}
+
+.property-detail-card__section {
+  display: grid;
+  gap: 6px;
+}
+
+.property-detail-card__section p,
+.property-detail-card__meta p {
+  margin: 0;
+  color: var(--text);
+}
+
+.property-detail-card__label {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.property-detail-card__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
 }
 
 .account-state-placeholder {

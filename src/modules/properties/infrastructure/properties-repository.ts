@@ -4,6 +4,10 @@ import type { Property } from '../domain/property'
 
 export const propertiesQueryKey = ['properties'] as const
 
+export function propertyQueryKey(propertyId: string) {
+  return [...propertiesQueryKey, propertyId] as const
+}
+
 const propertySelectColumns =
   'id, organization_id, name, address, notes, created_at, updated_at'
 
@@ -20,6 +24,22 @@ export async function listProperties(): Promise<Property[]> {
 
   if (error !== null) {
     throw error
+  }
+
+  return data
+}
+
+export async function getPropertyById(
+  propertyId: string,
+): Promise<Property | null> {
+  const { data, error } = await supabaseClient
+    .from('properties')
+    .select(propertySelectColumns)
+    .eq('id', propertyId)
+    .maybeSingle<Property>()
+
+  if (error !== null) {
+    throw new Error(`Could not load property: ${error.message}`)
   }
 
   return data

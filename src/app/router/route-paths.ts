@@ -5,6 +5,7 @@ export const routePaths = {
   onboarding: '/onboarding',
   dashboard: '/dashboard',
   dashboardProperties: '/dashboard/properties',
+  dashboardPropertyDetail: '/dashboard/properties/:propertyId',
   dashboardPropertiesNew: '/dashboard/properties/new',
 } as const
 
