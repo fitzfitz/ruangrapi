@@ -101,18 +101,20 @@
 }
 
 .properties-page__header p,
-.properties-page__status {
+.properties-page__status,
+.create-property-page__header p {
   color: var(--text);
 }
 
-.properties-page__header button {
+.properties-page__header a,
+.create-property-page__header a {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px 14px;
-  color: var(--text);
+  color: var(--text-h);
   background: var(--surface);
   font-weight: 700;
-  cursor: not-allowed;
+  text-decoration: none;
 }
 
 .properties-page__error {
@@ -198,7 +200,8 @@
 
 .sign-in-form,
 .sign-up-form,
-.onboarding-form {
+.onboarding-form,
+.create-property-form {
   display: grid;
   gap: 16px;
   border: 1px solid var(--border);
@@ -209,14 +212,16 @@
 
 .sign-in-form__field,
 .sign-up-form__field,
-.onboarding-form__field {
+.onboarding-form__field,
+.create-property-form__field {
   display: grid;
   gap: 6px;
 }
 
 .sign-in-form__field label,
 .sign-up-form__field label,
-.onboarding-form__field label {
+.onboarding-form__field label,
+.create-property-form__field label {
   color: var(--text-h);
   font-size: 14px;
   font-weight: 600;
@@ -224,7 +229,9 @@
 
 .sign-in-form__field input,
 .sign-up-form__field input,
-.onboarding-form__field input {
+.onboarding-form__field input,
+.create-property-form__field input,
+.create-property-form__field textarea {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -233,16 +240,23 @@
   background: #ffffff;
 }
 
+.create-property-form__field textarea {
+  resize: vertical;
+}
+
 .sign-in-form__field input:disabled,
 .sign-up-form__field input:disabled,
-.onboarding-form__field input:disabled {
+.onboarding-form__field input:disabled,
+.create-property-form__field input:disabled,
+.create-property-form__field textarea:disabled {
   color: var(--text);
   background: #f1f5f9;
 }
 
 .sign-in-form__error,
 .sign-up-form__error,
-.onboarding-form__error {
+.onboarding-form__error,
+.create-property-form__error {
   color: #b42318;
   font-size: 14px;
 }
@@ -275,6 +289,50 @@
   display: grid;
   gap: 24px;
   max-width: 420px;
+}
+
+.create-property-page {
+  display: grid;
+  gap: 24px;
+  max-width: 640px;
+}
+
+.create-property-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.create-property-page__header h2 {
+  margin: 0 0 8px;
+}
+
+.create-property-form__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.create-property-form__actions a {
+  color: var(--text-h);
+  font-weight: 700;
+}
+
+.create-property-form__actions button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #ffffff;
+  background: var(--text-h);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-property-form__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
 }
 
 .onboarding-page__intro h2 {

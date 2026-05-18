@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import { AppLayout } from '../../../app/layouts'
+import { routePaths } from '../../../app/router/route-paths'
 import { usePropertiesQuery } from '../application/use-properties-query'
 import type { Property } from '../domain/property'
 
@@ -20,13 +23,11 @@ export function PropertiesPage() {
           <div>
             <h2 id="properties-title">Properties</h2>
             <p>
-              View rental properties for your organization. Property creation
-              and editing will be added in a later slice.
+              View rental properties for your organization. Add new properties
+              here before future slices connect units and rental operations.
             </p>
           </div>
-          <button type="button" disabled>
-            Add property coming later
-          </button>
+          <Link to={routePaths.dashboardPropertiesNew}>Add property</Link>
         </div>
 
         {propertiesQuery.isLoading ? (
