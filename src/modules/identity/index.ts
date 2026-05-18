@@ -1,4 +1,9 @@
 export type {
+  AppAccountState,
+  AppAccountStateError,
+  AppAccountStateStatus,
+} from './app-account-state-types'
+export type {
   AuthSessionError,
   AuthSessionState,
   SignOut,
@@ -13,6 +18,7 @@ export {
   currentProfileQueryKey,
   fetchCurrentProfile,
 } from './current-profile-query'
+export { useAppAccountState } from './use-app-account-state'
 export { useAuthSession } from './use-auth-session'
 export { useCurrentOrganizationQuery } from './use-current-organization-query'
 export { useCurrentProfileQuery } from './use-current-profile-query'
