@@ -6,6 +6,7 @@ import {
   AuthPage,
   OnboardingPage,
   RouteAccessGate,
+  SignUpPage,
 } from '../../modules/identity'
 import { routePaths } from './route-paths'
 
@@ -22,6 +23,7 @@ export function AppRouter() {
             </RouteAccessGate>
           }
         />
+        <Route path={routePaths.signup} element={<SignUpPage />} />
         <Route
           path={routePaths.onboarding}
           element={

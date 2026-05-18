@@ -90,7 +90,18 @@
   color: var(--text);
 }
 
+.auth-page__link {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.auth-page__link a {
+  color: var(--text-h);
+  font-weight: 700;
+}
+
 .sign-in-form,
+.sign-up-form,
 .onboarding-form {
   display: grid;
   gap: 16px;
@@ -101,12 +112,14 @@
 }
 
 .sign-in-form__field,
+.sign-up-form__field,
 .onboarding-form__field {
   display: grid;
   gap: 6px;
 }
 
 .sign-in-form__field label,
+.sign-up-form__field label,
 .onboarding-form__field label {
   color: var(--text-h);
   font-size: 14px;
@@ -114,6 +127,7 @@
 }
 
 .sign-in-form__field input,
+.sign-up-form__field input,
 .onboarding-form__field input {
   width: 100%;
   border: 1px solid var(--border);
@@ -124,18 +138,26 @@
 }
 
 .sign-in-form__field input:disabled,
+.sign-up-form__field input:disabled,
 .onboarding-form__field input:disabled {
   color: var(--text);
   background: #f1f5f9;
 }
 
 .sign-in-form__error,
+.sign-up-form__error,
 .onboarding-form__error {
   color: #b42318;
   font-size: 14px;
 }
 
+.sign-up-form__success {
+  color: #027a48;
+  font-size: 14px;
+}
+
 .sign-in-form button,
+.sign-up-form button,
 .onboarding-form button {
   border: 0;
   border-radius: 8px;
@@ -147,6 +169,7 @@
 }
 
 .sign-in-form button:disabled,
+.sign-up-form button:disabled,
 .onboarding-form button:disabled {
   cursor: not-allowed;
   opacity: 0.72;

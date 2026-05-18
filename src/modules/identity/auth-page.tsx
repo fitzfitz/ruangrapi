@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import { AppLayout } from '../../app/layouts'
+import { routePaths } from '../../app/router/route-paths'
 import { SignInForm } from './sign-in-form'
 
 export function AuthPage() {
@@ -11,6 +14,10 @@ export function AuthPage() {
         </div>
 
         <SignInForm />
+
+        <p className="auth-page__link">
+          Need an account? <Link to={routePaths.signup}>Create one</Link>.
+        </p>
       </section>
     </AppLayout>
   )

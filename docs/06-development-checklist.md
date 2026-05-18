@@ -104,7 +104,7 @@ Do not begin until repository setup, documentation, architecture, and tooling ar
 
 Auth/onboarding follow-up boundaries:
 
-- [ ] Keep signup UI as a separate future task
+- [x] Keep signup UI as a separate future task
 - [ ] Keep product features gated until auth/onboarding remains stable and separately approved
 
 ## Phase 5: First Domain Module
