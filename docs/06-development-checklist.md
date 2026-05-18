@@ -198,3 +198,36 @@ Manual validation boundaries:
 - [ ] No delete or archive flow is part of this slice.
 - [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Manual validation: edit Property flow
+
+Validate the committed edit Property slice manually before the owner commits the validation documentation. This checklist is for `/dashboard/properties/:propertyId/edit`, the post-update return to `/dashboard/properties/:propertyId`, and the existing route neighbors only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties`.
+- [ ] User can open an existing property detail page at `/dashboard/properties/:propertyId`.
+- [ ] The detail page shows an Edit property link.
+- [ ] The Edit property link navigates to `/dashboard/properties/:propertyId/edit`.
+- [ ] The edit page pre-fills name, address, and notes for the selected property.
+- [ ] Submitting with an empty name shows the property-name validation error.
+- [ ] Updating the property name succeeds.
+- [ ] Updating the property address succeeds.
+- [ ] Updating the property notes succeeds.
+- [ ] Clearing address stores it as `null` and the detail page displays it consistently as missing text.
+- [ ] Clearing notes stores them as `null` and the detail page displays them consistently as missing text.
+- [ ] After a successful update, the user is redirected back to `/dashboard/properties/:propertyId`.
+- [ ] The detail page shows the updated values after redirect.
+- [ ] Returning to `/dashboard/properties` shows the updated values after query invalidation and refetch.
+- [ ] The Cancel link returns to `/dashboard/properties/:propertyId`.
+- [ ] The Back to property link returns to `/dashboard/properties/:propertyId`.
+- [ ] An invalid or inaccessible property ID on the edit page shows the not-found or inaccessible state.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/:propertyId/edit` and are redirected through the existing auth gate.
+- [ ] Existing `/dashboard/properties/new` create route still works.
+- [ ] Existing `/dashboard/properties/:propertyId` detail route still works.
+- [ ] Existing `/dashboard/properties` list route still works.
+- [ ] Browser console has no errors during list navigation, detail-page load, edit-page load, validation failure, successful update, redirect, list refetch, not-found/inaccessible state, or auth redirect checks.
+
+Manual validation boundaries:
+
+- [ ] No delete or archive flow is part of this slice.
+- [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No migrations are introduced for this validation task.
