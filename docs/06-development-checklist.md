@@ -100,10 +100,16 @@ Do not begin until repository setup, documentation, architecture, and tooling ar
 - [x] Add Supabase client wrapper
 - [x] Decide routing approach
 - [x] Create basic layout shell
+- [x] Manually validate local minimal auth/onboarding flow: `/auth` sign-in, no-profile user redirects to `/onboarding`, onboarding calls `complete_onboarding`, identity queries refresh, ready user redirects to `/dashboard`, and invalid short input is blocked client-side
+
+Auth/onboarding follow-up boundaries:
+
+- [ ] Keep signup UI as a separate future task
+- [ ] Keep product features gated until auth/onboarding remains stable and separately approved
 
 ## Phase 5: First Domain Module
 
-Do not begin until phases 1 to 4 are complete.
+Do not begin until phases 1 to 4 are complete and product feature work is separately approved.
 
 Recommended first module:
 
