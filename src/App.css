@@ -131,7 +131,8 @@
 
 .properties-page__error,
 .property-detail-page__error,
-.edit-property-page__error {
+.edit-property-page__error,
+.property-units-section__error {
   border: 1px solid #fecdca;
   border-radius: 12px;
   padding: 16px;
@@ -142,8 +143,11 @@
 .properties-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
+.property-units-section__empty,
 .property-card,
-.property-detail-card {
+.property-detail-card,
+.property-units-section,
+.unit-card {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
@@ -151,14 +155,17 @@
 
 .properties-page__empty,
 .property-detail-page__empty,
-.edit-property-page__empty {
+.edit-property-page__empty,
+.property-units-section__empty {
   padding: 24px;
 }
 
 .properties-page__empty h3,
 .property-detail-page__empty h3,
 .edit-property-page__empty h3,
-.property-card h3 {
+.property-card h3,
+.property-units-section__empty h4,
+.unit-card h4 {
   margin: 0 0 8px;
   color: var(--text-h);
 }
@@ -222,6 +229,45 @@
   gap: 16px;
   border-top: 1px solid var(--border);
   padding-top: 20px;
+}
+
+.property-units-section {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+}
+
+.property-units-section__header h3 {
+  margin: 0 0 8px;
+  color: var(--text-h);
+}
+
+.property-units-section__header p,
+.property-units-section__status,
+.property-units-section__empty p,
+.unit-card p {
+  color: var(--text);
+}
+
+.property-units-section__list {
+  display: grid;
+  gap: 12px;
+}
+
+.unit-card {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.unit-card__type {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.unit-card__notes {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
 }
 
 .property-detail-page__actions {

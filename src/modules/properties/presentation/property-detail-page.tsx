@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { AppLayout } from '../../../app/layouts'
 import { routePaths } from '../../../app/router/route-paths'
+import { PropertyUnitsSection } from '../../units'
 import { usePropertyQuery } from '../application/use-property-query'
 import type { Property } from '../domain/property'
 
@@ -111,7 +112,10 @@ export function PropertyDetailPage() {
         ) : null}
 
         {propertyQuery.isSuccess && propertyQuery.data !== null ? (
-          <PropertyDetailContent property={propertyQuery.data} />
+          <>
+            <PropertyDetailContent property={propertyQuery.data} />
+            <PropertyUnitsSection propertyId={propertyQuery.data.id} />
+          </>
         ) : null}
       </section>
     </AppLayout>
