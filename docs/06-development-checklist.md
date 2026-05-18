@@ -170,3 +170,31 @@ Manual validation boundaries:
 - [ ] No property detail page is part of this slice.
 - [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Manual validation: read-only Property detail page
+
+Validate the committed read-only Property detail slice manually before the owner commits the validation documentation. This checklist is for `/dashboard/properties/:propertyId` and its existing route neighbors only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties`.
+- [ ] An existing property name or card links to `/dashboard/properties/:propertyId`.
+- [ ] `/dashboard/properties/:propertyId` displays the correct property for the selected property record.
+- [ ] The detail page shows the property name.
+- [ ] The detail page shows the address when the property has an address.
+- [ ] The detail page handles a missing address gracefully.
+- [ ] The detail page shows notes when the property has notes.
+- [ ] The detail page handles missing notes gracefully.
+- [ ] The detail page shows created and updated timestamps.
+- [ ] The Back to properties link returns to `/dashboard/properties`.
+- [ ] Refreshing `/dashboard/properties/:propertyId` keeps the user on the protected Property detail route after account state checks finish.
+- [ ] An invalid or inaccessible property ID shows the not-found or inaccessible state.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/:propertyId` and are redirected through the existing auth gate.
+- [ ] Existing `/dashboard/properties/new` create route still works.
+- [ ] Existing `/dashboard/properties` list route still works.
+- [ ] Browser console has no errors during list navigation, detail-page load, refresh, not-found/inaccessible state, or auth redirect checks.
+
+Manual validation boundaries:
+
+- [ ] No edit flow is part of this slice.
+- [ ] No delete or archive flow is part of this slice.
+- [ ] No Units, tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No migrations are introduced for this validation task.
