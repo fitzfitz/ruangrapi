@@ -110,13 +110,14 @@ Post-validation boundaries:
 
 Do not begin until phases 1 to 4 are complete and product feature work is separately approved.
 
-Recommended first module:
+Module status:
 
-- [ ] Properties and units
+- [x] Properties MVP baseline documented and implemented as the first domain slice
+- [ ] Units module planned separately after owner approval to move beyond Properties
 
 Keep first domain work small:
 
-- [ ] Start with types, schemas, and simple queries only after the data model and RLS strategy are approved
+- [x] Start with types, schemas, and simple queries only after the data model and RLS strategy are approved
 - [ ] Do not build unrelated product features in the same task
 
 ### Manual validation: read-only Properties module
@@ -254,3 +255,36 @@ Future implementation may require:
 - Active properties filtered by default in operational views.
 - Clear UI copy for archived or inactive properties.
 - Archive rules that prevent archiving when active leases or unresolved maintenance exist, if relevant later.
+
+### Properties module MVP baseline closeout
+
+Current completed Properties baseline:
+
+- `/dashboard/properties` lists organization-scoped properties.
+- `/dashboard/properties/new` creates a property.
+- `/dashboard/properties/:propertyId` shows read-only property details.
+- `/dashboard/properties/:propertyId/edit` edits basic property fields.
+- Supported property fields are `name`, `address`, and `notes`.
+- Organization scoping relies on existing Supabase RLS and the existing app organization/profile flow.
+- Manual validation checklists exist for list, create, detail, and edit flows.
+
+Intentionally deferred from the Properties MVP baseline:
+
+- No Units yet.
+- No tenants.
+- No leases.
+- No billing or payments.
+- No maintenance.
+- No receipts.
+- No reporting or dashboard metrics.
+- No delete, archive, or status flow in the MVP.
+- No property images or files.
+- No search, filter, or pagination.
+- No advanced address or location fields.
+- No import or export.
+
+Recommended next module:
+
+- Units should be the next domain module only after the owner approves moving beyond Properties.
+- Units should be planned in a separate module-focused session or task.
+- Do not add Units implementation inside this Properties closeout task.
