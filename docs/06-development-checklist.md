@@ -417,3 +417,43 @@ Manual validation boundaries:
 - [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
 - [ ] No top-level Units navigation is part of this slice.
 - [ ] No migrations are introduced for this validation task.
+
+### Manual validation: create Unit flow
+
+Validate the committed create Unit slice manually before the owner commits the validation documentation. This checklist is for `/dashboard/properties/:propertyId/units/new`, the post-create return to `/dashboard/properties/:propertyId`, and the existing Properties route neighbors only.
+
+- [ ] Authenticated and onboarded users can open `/dashboard/properties`.
+- [ ] User can open an existing property detail page at `/dashboard/properties/:propertyId`.
+- [ ] The property detail page shows the Units section.
+- [ ] The Units section has an Add unit action.
+- [ ] The Add unit action navigates to `/dashboard/properties/:propertyId/units/new`.
+- [ ] The create Unit page loads only for an accessible property.
+- [ ] Submitting with an empty name shows the unit-name validation error.
+- [ ] Submitting without a type shows the unit-type validation error.
+- [ ] Type uses only schema-supported values: `room`, `house`, `apartment`, `studio`, and `other`.
+- [ ] Notes can be left blank.
+- [ ] Blank notes are stored as `null` and the Units section displays them consistently as missing text.
+- [ ] The status field is not shown.
+- [ ] The base rent amount field is not shown.
+- [ ] Submitting with a valid name and type creates one Unit.
+- [ ] After successful creation, the user is redirected to `/dashboard/properties/:propertyId`.
+- [ ] The newly created Unit appears in the Units section after redirect and refetch.
+- [ ] The created Unit has the correct `organization_id` for the current onboarded user.
+- [ ] The created Unit has the correct `property_id` from the current property route/context.
+- [ ] An invalid or inaccessible property ID blocks the create form.
+- [ ] Unauthenticated users cannot access `/dashboard/properties/:propertyId/units/new` and are redirected through the existing auth gate.
+- [ ] Existing `/dashboard/properties` list route still works.
+- [ ] Existing `/dashboard/properties/new` create Property route still works.
+- [ ] Existing `/dashboard/properties/:propertyId` detail route still works.
+- [ ] Existing `/dashboard/properties/:propertyId/edit` edit Property route still works.
+- [ ] Browser console has no errors during list navigation, detail-page load, create-page load, validation failure, successful creation, redirect, Units refetch, invalid/inaccessible property handling, or auth redirect checks.
+
+Manual validation boundaries:
+
+- [ ] No Units edit flow is part of this slice.
+- [ ] No Units delete, archive, or status-management flow is part of this slice.
+- [ ] `status` remains deferred.
+- [ ] `base_rent_amount` remains deferred.
+- [ ] No tenants, leases, billing, payments, maintenance, receipts, reporting, or dashboard metrics are part of this slice.
+- [ ] No top-level Units navigation is part of this slice.
+- [ ] No migrations are introduced for this validation task.
