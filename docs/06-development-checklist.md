@@ -386,6 +386,33 @@ Implementation notes for a later approved task:
 - No migration is planned for this decision note.
 - Revisit pricing and status only after basic Units CRUD is stable.
 
+### Future decision: Unit detail/edit sequencing
+
+Do not add a standalone Unit detail page yet.
+
+Reason:
+
+- Current Unit UI fields are intentionally minimal: `name`, `type`, and `notes`.
+- A standalone Unit detail page does not add enough product value while Units only expose these basic fields.
+- Unit detail can be revisited later when Units include richer data such as occupancy, leases, pricing, maintenance, files, or history.
+
+Prefer the next Units implementation slice to be property-scoped Unit edit. Suggested future route:
+
+```txt
+/dashboard/properties/:propertyId/units/:unitId/edit
+```
+
+Future Unit edit scope:
+
+- Keep Unit edit property-scoped under the selected Property.
+- Include only `name`, `type`, and `notes`.
+- Continue deferring `status` because occupancy and lifecycle workflow need a separate owner-approved slice.
+- Continue deferring `base_rent_amount` because rent pricing touches leases, billing, and payments.
+- Continue deferring delete, archive, and status-management behavior.
+- Do not introduce tenants, leases, billing, payments, maintenance, receipts, reporting, dashboard metrics, or top-level Units navigation as part of Unit edit.
+- No implementation is approved yet.
+- No migration is planned for this decision note.
+
 ### Manual validation: read-only Units section
 
 Validate the committed read-only Units section manually before the owner commits the validation documentation. This checklist is for the Units section inside `/dashboard/properties/:propertyId` and the existing Properties route neighbors only.
