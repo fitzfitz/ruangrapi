@@ -473,6 +473,11 @@
   font-weight: 700;
 }
 
+.route-loading {
+  padding: 32px;
+  color: var(--text);
+}
+
 .sign-in-form,
 .sign-up-form,
 .onboarding-form,
