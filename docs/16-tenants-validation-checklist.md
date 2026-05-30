@@ -23,6 +23,10 @@ Status: ready for manual validation after the Tenants implementation slices are 
 - [ ] The Tenants page shows a populated list when the current organization has existing tenants.
 - [ ] Existing tenants listed on the page belong to the current organization.
 - [ ] Tenant rows show full name.
+- [ ] Tenant rows show saved phone when present.
+- [ ] Tenant rows show saved email when present.
+- [ ] Tenant rows show saved emergency contact when present.
+- [ ] Tenant rows show saved notes when present.
 - [ ] Tenant rows handle missing phone gracefully.
 - [ ] Tenant rows handle missing email gracefully.
 - [ ] Tenant rows handle missing emergency contact gracefully.
@@ -33,6 +37,7 @@ Status: ready for manual validation after the Tenants implementation slices are 
 
 - [ ] Authenticated and onboarded users can open `/dashboard/tenants/new`.
 - [ ] Unauthenticated users cannot access `/dashboard/tenants/new` and are redirected through the existing auth gate.
+- [ ] The Tenants page Add tenant link or action navigates to `/dashboard/tenants/new`.
 - [ ] The Back to tenants link returns to `/dashboard/tenants`.
 - [ ] The Cancel link returns to `/dashboard/tenants`.
 - [ ] Submitting with an empty full name shows the full-name validation error.
@@ -54,6 +59,7 @@ Status: ready for manual validation after the Tenants implementation slices are 
 - [ ] Authenticated and onboarded users can open `/dashboard/tenants`.
 - [ ] Existing tenant rows expose an Edit action.
 - [ ] The Edit action navigates to `/dashboard/tenants/:tenantId/edit`.
+- [ ] Unauthenticated users cannot access `/dashboard/tenants/:tenantId/edit` and are redirected through the existing auth gate.
 - [ ] The edit page pre-fills all saved tenant fields.
 - [ ] Submitting with an empty full name shows the full-name validation error.
 - [ ] Submitting with an invalid email shows the email validation error.
