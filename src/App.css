@@ -221,6 +221,11 @@
   color: var(--text);
 }
 
+.tenant-card p,
+.tenant-card__details dd {
+  overflow-wrap: anywhere;
+}
+
 .property-card a,
 .tenant-card a {
   color: var(--text-h);
@@ -640,5 +645,9 @@
 
   .app-sidebar ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tenant-card__details {
+    grid-template-columns: 1fr;
   }
 }

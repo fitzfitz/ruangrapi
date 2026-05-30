@@ -295,10 +295,7 @@ export function useTenantsQuery() {
 Create `src/modules/tenants/presentation/tenants-page.tsx`:
 
 ```tsx
-import { Link } from 'react-router-dom'
-
 import { AppLayout } from '../../../app/layouts'
-import { routePaths } from '../../../app/router/route-paths'
 import { useTenantsQuery } from '../application/use-tenants-query'
 import type { Tenant } from '../domain/tenant'
 
@@ -327,7 +324,6 @@ export function TenantsPage() {
               connect tenants to units in a later module.
             </p>
           </div>
-          <Link to={routePaths.dashboardTenantsNew}>Add tenant</Link>
         </div>
 
         {tenantsQuery.isLoading ? (
@@ -359,9 +355,6 @@ export function TenantsPage() {
                     <h3>{tenant.full_name}</h3>
                     <p>{formatTenantContact(tenant)}</p>
                   </div>
-                  <Link to={`${routePaths.dashboardTenants}/${tenant.id}/edit`}>
-                    Edit
-                  </Link>
                 </div>
 
                 <dl className="tenant-card__details">
@@ -388,6 +381,10 @@ export function TenantsPage() {
   )
 }
 ```
+
+Task 2 intentionally keeps the Tenants list read-only. Task 3 introduces
+the active Add tenant link when the create route is registered, and Task 4
+introduces Edit links when the edit route is registered.
 
 - [ ] **Step 5: Add Tenants module exports**
 
@@ -423,8 +420,6 @@ export const routePaths = {
     '/dashboard/properties/:propertyId/units/:unitId/edit',
   dashboardPropertiesNew: '/dashboard/properties/new',
   dashboardTenants: '/dashboard/tenants',
-  dashboardTenantsNew: '/dashboard/tenants/new',
-  dashboardTenantEdit: '/dashboard/tenants/:tenantId/edit',
 } as const
 
 export type RoutePath = (typeof routePaths)[keyof typeof routePaths]
@@ -493,16 +488,6 @@ Modify `src/App.css` by adding Tenants selectors alongside the existing Properti
   color: var(--text);
 }
 
-.tenants-page__header a {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: var(--text-h);
-  background: var(--surface);
-  font-weight: 700;
-  text-decoration: none;
-}
-
 .tenants-page__error {
   border: 1px solid #fecdca;
   border-radius: 12px;
@@ -539,16 +524,16 @@ Modify `src/App.css` by adding Tenants selectors alongside the existing Properti
   padding: 20px;
 }
 
+.tenant-card p,
+.tenant-card__details dd {
+  overflow-wrap: anywhere;
+}
+
 .tenant-card__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-}
-
-.tenant-card__header a {
-  color: var(--text-h);
-  font-weight: 700;
 }
 
 .tenant-card__details {
@@ -574,6 +559,12 @@ Modify `src/App.css` by adding Tenants selectors alongside the existing Properti
 .tenant-card__details dd {
   margin: 0;
   color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .tenant-card__details {
+    grid-template-columns: 1fr;
+  }
 }
 ```
 
@@ -615,6 +606,8 @@ Expected: one commit containing the Tenants list, route, navigation, and styles.
 - Create: `src/modules/tenants/presentation/create-tenant-page.tsx`
 - Modify: `src/modules/tenants/infrastructure/tenants-repository.ts`
 - Modify: `src/modules/tenants/index.ts`
+- Modify: `src/modules/tenants/presentation/tenants-page.tsx`
+- Modify: `src/app/router/route-paths.ts`
 - Modify: `src/app/router/app-router.tsx`
 - Modify: `src/App.css`
 
@@ -957,7 +950,29 @@ export function CreateTenantPage() {
 }
 ```
 
-- [ ] **Step 5: Register create route**
+- [ ] **Step 5: Add create route path and list action**
+
+Modify `src/app/router/route-paths.ts` so the object includes the create route:
+
+```ts
+dashboardTenantsNew: '/dashboard/tenants/new',
+```
+
+Modify `src/modules/tenants/presentation/tenants-page.tsx` to import:
+
+```ts
+import { Link } from 'react-router-dom'
+
+import { routePaths } from '../../../app/router/route-paths'
+```
+
+Add the link in `.tenants-page__header` after the copy wrapper:
+
+```tsx
+<Link to={routePaths.dashboardTenantsNew}>Add tenant</Link>
+```
+
+- [ ] **Step 6: Register create route**
 
 Modify `src/app/router/app-router.tsx` Tenants import:
 
@@ -978,7 +993,7 @@ Add this route before `dashboardTenants` is acceptable because React Router v7 r
 />
 ```
 
-- [ ] **Step 6: Export create flow pieces**
+- [ ] **Step 7: Export create flow pieces**
 
 Modify `src/modules/tenants/index.ts` to include:
 
@@ -993,7 +1008,7 @@ export { useCreateTenantMutation } from './application/use-create-tenant-mutatio
 export { CreateTenantPage } from './presentation/create-tenant-page'
 ```
 
-- [ ] **Step 7: Add create form CSS**
+- [ ] **Step 8: Add create form CSS**
 
 Modify `src/App.css` by adding this block near existing form rules:
 
@@ -1102,7 +1117,7 @@ Modify `src/App.css` by adding this block near existing form rules:
 }
 ```
 
-- [ ] **Step 8: Verify create flow**
+- [ ] **Step 9: Verify create flow**
 
 Run:
 
@@ -1114,12 +1129,12 @@ git diff --check
 
 Expected all commands exit `0`.
 
-- [ ] **Step 9: Commit Task 3**
+- [ ] **Step 10: Commit Task 3**
 
 Run:
 
 ```bash
-git add src/modules/tenants src/app/router/app-router.tsx src/App.css
+git add src/modules/tenants src/app/router/route-paths.ts src/app/router/app-router.tsx src/App.css
 git commit -m "Add create Tenant flow"
 ```
 
@@ -1136,6 +1151,8 @@ Expected: one commit containing the create flow.
 - Create: `src/modules/tenants/presentation/edit-tenant-page.tsx`
 - Modify: `src/modules/tenants/infrastructure/tenants-repository.ts`
 - Modify: `src/modules/tenants/index.ts`
+- Modify: `src/modules/tenants/presentation/tenants-page.tsx`
+- Modify: `src/app/router/route-paths.ts`
 - Modify: `src/app/router/app-router.tsx`
 - Modify: `src/App.css`
 
@@ -1518,7 +1535,22 @@ export function EditTenantPage() {
 }
 ```
 
-- [ ] **Step 5: Register edit route**
+- [ ] **Step 5: Add edit route path and list actions**
+
+Modify `src/app/router/route-paths.ts` so the object includes the edit route:
+
+```ts
+dashboardTenantEdit: '/dashboard/tenants/:tenantId/edit',
+```
+
+Modify `src/modules/tenants/presentation/tenants-page.tsx` to render an edit
+link in each `.tenant-card__header`:
+
+```tsx
+<Link to={`${routePaths.dashboardTenants}/${tenant.id}/edit`}>Edit</Link>
+```
+
+- [ ] **Step 6: Register edit route**
 
 Modify `src/app/router/app-router.tsx` Tenants import:
 
@@ -1543,7 +1575,7 @@ Add:
 />
 ```
 
-- [ ] **Step 6: Export edit flow pieces**
+- [ ] **Step 7: Export edit flow pieces**
 
 Modify `src/modules/tenants/index.ts` to include:
 
@@ -1557,7 +1589,7 @@ export { useUpdateTenantMutation } from './application/use-update-tenant-mutatio
 export { EditTenantPage } from './presentation/edit-tenant-page'
 ```
 
-- [ ] **Step 7: Add edit page CSS**
+- [ ] **Step 8: Add edit page CSS**
 
 Modify `src/App.css`:
 
@@ -1615,7 +1647,7 @@ Modify `src/App.css`:
 }
 ```
 
-- [ ] **Step 8: Verify edit flow**
+- [ ] **Step 9: Verify edit flow**
 
 Run:
 
@@ -1627,12 +1659,12 @@ git diff --check
 
 Expected all commands exit `0`.
 
-- [ ] **Step 9: Commit Task 4**
+- [ ] **Step 10: Commit Task 4**
 
 Run:
 
 ```bash
-git add src/modules/tenants src/app/router/app-router.tsx src/App.css
+git add src/modules/tenants src/app/router/route-paths.ts src/app/router/app-router.tsx src/App.css
 git commit -m "Add edit Tenant flow"
 ```
 

@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom'
-
 import { AppLayout } from '../../../app/layouts'
-import { routePaths } from '../../../app/router/route-paths'
 import { useTenantsQuery } from '../application/use-tenants-query'
 import type { Tenant } from '../domain/tenant'
 
@@ -30,7 +27,6 @@ export function TenantsPage() {
               connect tenants to units in a later module.
             </p>
           </div>
-          <Link to={routePaths.dashboardTenantsNew}>Add tenant</Link>
         </div>
 
         {tenantsQuery.isLoading ? (
@@ -62,9 +58,6 @@ export function TenantsPage() {
                     <h3>{tenant.full_name}</h3>
                     <p>{formatTenantContact(tenant)}</p>
                   </div>
-                  <Link to={`${routePaths.dashboardTenants}/${tenant.id}/edit`}>
-                    Edit
-                  </Link>
                 </div>
 
                 <dl className="tenant-card__details">
