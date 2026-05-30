@@ -571,3 +571,12 @@ Recommended next module:
 - Choose Leases next if the product wants to connect Properties and Units to rental agreements first.
 - Do not choose or implement the next module in this Units closeout task.
 - Start the next module in a separate module-focused planning task.
+
+### Manual validation: Tenants MVP baseline
+
+Validate the committed Tenants baseline manually before the owner closes out the module.
+
+- [ ] Follow `docs/16-tenants-validation-checklist.md`.
+- [ ] Confirm the Tenants module remains limited to renter/contact records.
+- [ ] Confirm phone normalization is either implemented with clear validation or recorded as deferred.
+- [ ] Confirm the next recommended module is Leases.
