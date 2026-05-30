@@ -33,7 +33,7 @@ Not built:
 
 - invoice detail
 - invoice edit
-- invoice issue/send
+- invoice send/delivery
 - invoice cancel
 - utility reading capture and utility billing
 - invoice PDFs, downloads, email, and WhatsApp delivery
@@ -41,7 +41,19 @@ Not built:
 
 ## Payments
 
-Status: not started. Recommended next module.
+Status: MVP baseline implementation complete. Remaining Payments refinements are deferred; manual browser validation is still pending.
+
+Not built:
+
+- payment edit before receipt generation
+- payment delete
+- payment correction workflow
+- receipt generation
+- refunds
+- overpayment allocation
+- payment gateway integration
+- bank reconciliation
+- dashboard collection metrics
 
 ## Receipts
 

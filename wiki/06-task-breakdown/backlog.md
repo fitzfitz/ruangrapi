@@ -18,7 +18,7 @@
 
 - Invoice detail flow
 - Invoice edit flow
-- Invoice issue/send flow
+- Invoice send/delivery flow
 - Invoice cancel flow
 - Utility reading capture and utility billing
 - Invoice PDFs, downloads, email, and WhatsApp delivery
@@ -26,9 +26,14 @@
 
 ## Payments
 
-- Plan Payments module
-- Record Payment flow
 - Payment list or invoice payment context
+- Payment edit before receipt generation
+- Payment delete flow
+- Payment correction workflow
+- Atomic payment recording through Supabase RPC
+- Refund workflow
+- Payment gateway integration
+- Bank reconciliation
 
 ## Receipts
 

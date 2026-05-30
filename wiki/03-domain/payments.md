@@ -1,12 +1,12 @@
 # Payments
 
-Payments are future modules.
+Payments record money received from tenants against invoices.
 
 ## Current status
 
-Not started.
+Payments MVP baseline implementation is complete. Manual browser validation remains pending.
 
-## Future purpose
+## Purpose
 
 Payments record money received from tenants.
 
@@ -21,6 +21,26 @@ Potential fields:
 ## Dependencies
 
 Payments should come after billing/invoices, because payments need something to settle against.
+
+## Built
+
+- read-only Payments list
+- top-level Payments navigation
+- record Payment flow
+- application-level overpayment prevention
+- invoice status update after payment recording
+
+## Deferred
+
+- payment edit before receipt generation
+- payment delete
+- payment correction workflow
+- receipt generation
+- refunds
+- overpayment allocation
+- payment gateway integration
+- bank reconciliation
+- dashboard collection metrics
 
 ## Related pages
 

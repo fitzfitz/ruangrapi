@@ -4,9 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Plan Payments module
-- Record Payment flow
-- Add payment list or invoice payment context
+- Plan Receipts module
 
 ## Completed candidates
 
@@ -24,13 +22,21 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Plan Billing / Invoices module
 - Add read-only Invoices list
 - Create draft rent Invoice flow
+- Add minimal Invoice issue action
 - Document Billing / Invoices validation checklist
 - Billing / Invoices module closeout
+- Plan Payments module
+- Add read-only Payments list
+- Record Payment flow
+- Document Payments validation checklist
+- Payments module closeout
 
 ## Later candidates
 
-- Plan Receipts module
 - Generate Receipt after Payment
+- Add Payment edit before receipt generation
+- Add Invoice payment history context
+- Move payment recording into Supabase RPC
 
 ## Deferred candidates
 
@@ -41,6 +47,11 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Unit base rent pricing
 - Standalone Unit detail page
 - Top-level Units navigation
+- Payment delete flow
+- Payment correction workflow
+- Refund workflow
+- Payment gateway integration
+- Bank reconciliation
 
 ## Approval rule
 

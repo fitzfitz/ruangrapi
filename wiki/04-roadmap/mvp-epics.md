@@ -89,16 +89,21 @@ Built:
 - plan Billing / Invoices module
 - read-only Invoices list
 - create draft rent Invoice flow
-- validation checklist
+- minimal Invoice issue action
+- Billing / Invoices validation checklist
 - Billing / Invoices module closeout
+- plan Payments module
+- read-only Payments list
+- record Payment flow
+- Payments validation checklist
+- Payments implementation closeout
 
 Deferred:
 
 - invoice detail
 - invoice edit
-- invoice issue/send
+- invoice send/delivery
 - invoice cancel
-- payments
 - receipts
 - reminders and WhatsApp messages
 - automatic overdue status jobs

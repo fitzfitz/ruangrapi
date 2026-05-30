@@ -17,7 +17,8 @@
 - Lease edit, end, cancel, occupancy/status synchronization, invoice generation, deposit ledger, and contract files remain deferred.
 - Billing / Invoices MVP baseline is complete.
 - Invoice detail, edit, issue/send, cancel, payments, receipts, reminders, overdue automation, utility billing, PDFs, delivery workflows, and dashboard metrics remain deferred.
-- Payments planning is the next recommended module.
+- Payments MVP baseline implementation is complete; manual validation remains pending.
+- Receipts planning is the next recommended module.
 
 ## Related pages
 

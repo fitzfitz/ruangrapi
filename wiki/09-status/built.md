@@ -148,6 +148,7 @@ Built:
 - plan Billing / Invoices module
 - read-only Invoices list
 - create draft rent Invoice flow
+- minimal Invoice issue action
 - validation checklist
 - Billing / Invoices module closeout
 
@@ -166,12 +167,56 @@ Deferred:
 
 - invoice detail
 - invoice edit
-- invoice issue/send
+- invoice send/delivery
 - invoice cancel
-- payments
 - receipts
 - reminders and WhatsApp messages
 - automatic overdue status jobs
 - utility reading capture and utility billing
 - invoice PDFs, downloads, email, and WhatsApp delivery
 - dashboard metrics
+
+## Payments
+
+Status: MVP baseline implementation complete; manual validation pending.
+
+Routes:
+
+- `/dashboard/payments`
+- `/dashboard/payments/new`
+
+Built:
+
+- read-only Payments list
+- top-level Payments navigation
+- organization-scoped payment query
+- record Payment flow
+- payable invoice option loading
+- invoice balance summary
+- application-level overpayment prevention
+- invoice status update after payment recording
+- validation checklist
+- Payments implementation closeout
+
+Fields:
+
+- invoice
+- tenant
+- unit
+- payment date
+- amount
+- payment method
+- reference number
+- notes
+
+Deferred:
+
+- payment edit
+- payment delete
+- payment correction workflow
+- receipts
+- refunds
+- overpayment allocation
+- payment gateway integration
+- bank reconciliation
+- dashboard collection metrics
