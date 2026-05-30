@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import { AppLayout } from '../../../app/layouts'
+import { routePaths } from '../../../app/router/route-paths'
 import { useLeasesQuery } from '../application/use-leases-query'
 import type { LeaseListItem } from '../domain/lease'
 
@@ -42,11 +45,11 @@ export function LeasesPage() {
           <div>
             <h2 id="leases-title">Leases</h2>
             <p>
-              View rental agreements that connect tenants to units. Creation,
-              lifecycle, occupancy, and billing workflows are handled in
-              separate slices.
+              View rental agreements that connect tenants to units. Lifecycle,
+              occupancy, and billing workflows are handled in separate slices.
             </p>
           </div>
+          <Link to={routePaths.dashboardLeasesNew}>Add lease</Link>
         </div>
 
         {leasesQuery.isLoading ? (
@@ -63,8 +66,8 @@ export function LeasesPage() {
           <div className="leases-page__empty">
             <h3>No leases yet</h3>
             <p>
-              Lease records will appear here once tenants are connected to
-              units in the create flow.
+              Lease records will appear here once tenants are connected to units
+              in the create flow.
             </p>
           </div>
         ) : null}

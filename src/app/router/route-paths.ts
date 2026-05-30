@@ -7,6 +7,7 @@ export const routePaths = {
   dashboardProperties: '/dashboard/properties',
   dashboardTenants: '/dashboard/tenants',
   dashboardLeases: '/dashboard/leases',
+  dashboardLeasesNew: '/dashboard/leases/new',
   dashboardTenantEdit: '/dashboard/tenants/:tenantId/edit',
   dashboardTenantsNew: '/dashboard/tenants/new',
   dashboardPropertyDetail: '/dashboard/properties/:propertyId',

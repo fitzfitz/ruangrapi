@@ -105,6 +105,7 @@
 .tenants-page__header,
 .leases-page__header,
 .create-tenant-page__header,
+.create-lease-page__header,
 .edit-tenant-page__header,
 .property-detail-page__header,
 .edit-property-page__header,
@@ -120,6 +121,7 @@
 .tenants-page__header h2,
 .leases-page__header h2,
 .create-tenant-page__header h2,
+.create-lease-page__header h2,
 .edit-tenant-page__header h2,
 .property-detail-page__header h2,
 .edit-property-page__header h2,
@@ -135,6 +137,8 @@
 .leases-page__header p,
 .leases-page__status,
 .create-tenant-page__header p,
+.create-lease-page__header p,
+.create-lease-page__status,
 .edit-tenant-page__header p,
 .edit-tenant-page__status,
 .property-detail-page__header p,
@@ -151,7 +155,9 @@
 
 .properties-page__header a,
 .tenants-page__header a,
+.leases-page__header a,
 .create-tenant-page__header a,
+.create-lease-page__header a,
 .edit-tenant-page__header a,
 .property-detail-page__header a,
 .edit-property-page__header a,
@@ -187,6 +193,7 @@
 .properties-page__empty,
 .tenants-page__empty,
 .leases-page__empty,
+.create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
@@ -207,6 +214,7 @@
 .properties-page__empty,
 .tenants-page__empty,
 .leases-page__empty,
+.create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
@@ -219,6 +227,7 @@
 .properties-page__empty h3,
 .tenants-page__empty h3,
 .leases-page__empty h3,
+.create-lease-page__empty h3,
 .edit-tenant-page__empty h3,
 .property-detail-page__empty h3,
 .edit-property-page__empty h3,
@@ -470,6 +479,7 @@
 .create-property-form,
 .edit-property-form,
 .tenant-form,
+.lease-form,
 .create-unit-form,
 .edit-unit-form {
   display: grid;
@@ -486,6 +496,7 @@
 .create-property-form__field,
 .edit-property-form__field,
 .tenant-form__field,
+.lease-form__field,
 .create-unit-form__field,
 .edit-unit-form__field {
   display: grid;
@@ -498,6 +509,7 @@
 .create-property-form__field label,
 .edit-property-form__field label,
 .tenant-form__field label,
+.lease-form__field label,
 .create-unit-form__field label,
 .edit-unit-form__field label,
 .create-unit-form__context-label,
@@ -516,6 +528,8 @@
 .edit-property-form__field textarea,
 .tenant-form__field input,
 .tenant-form__field textarea,
+.lease-form__field input,
+.lease-form__field select,
 .create-unit-form__field input,
 .create-unit-form__field select,
 .create-unit-form__field textarea,
@@ -547,6 +561,8 @@
 .edit-property-form__field textarea:disabled,
 .tenant-form__field input:disabled,
 .tenant-form__field textarea:disabled,
+.lease-form__field input:disabled,
+.lease-form__field select:disabled,
 .create-unit-form__field input:disabled,
 .create-unit-form__field select:disabled,
 .create-unit-form__field textarea:disabled,
@@ -563,6 +579,8 @@
 .create-property-form__error,
 .edit-property-form__error,
 .tenant-form__error,
+.lease-form__error,
+.create-lease-page__error,
 .create-unit-form__error,
 .edit-unit-form__error {
   color: #b42318;
@@ -601,6 +619,7 @@
 
 .create-property-page,
 .create-tenant-page,
+.create-lease-page,
 .edit-tenant-page,
 .edit-property-page,
 .create-unit-page,
@@ -612,6 +631,7 @@
 
 .create-property-page__header,
 .create-tenant-page__header,
+.create-lease-page__header,
 .edit-tenant-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
@@ -624,6 +644,7 @@
 
 .create-property-page__header h2,
 .create-tenant-page__header h2,
+.create-lease-page__header h2,
 .edit-tenant-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,
@@ -634,6 +655,7 @@
 .create-property-form__actions,
 .edit-property-form__actions,
 .tenant-form__actions,
+.lease-form__actions,
 .create-unit-form__actions,
 .edit-unit-form__actions {
   display: flex;
@@ -645,6 +667,7 @@
 .create-property-form__actions a,
 .edit-property-form__actions a,
 .tenant-form__actions a,
+.lease-form__actions a,
 .create-unit-form__actions a,
 .edit-unit-form__actions a {
   color: var(--text-h);
@@ -654,6 +677,7 @@
 .create-property-form__actions button,
 .edit-property-form__actions button,
 .tenant-form__actions button,
+.lease-form__actions button,
 .create-unit-form__actions button,
 .edit-unit-form__actions button {
   border: 0;
@@ -668,6 +692,7 @@
 .create-property-form__actions button:disabled,
 .edit-property-form__actions button:disabled,
 .tenant-form__actions button:disabled,
+.lease-form__actions button:disabled,
 .create-unit-form__actions button:disabled,
 .edit-unit-form__actions button:disabled {
   cursor: not-allowed;

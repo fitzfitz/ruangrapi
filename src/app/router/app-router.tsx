@@ -8,7 +8,7 @@ import {
   RouteAccessGate,
   SignUpPage,
 } from '../../modules/identity'
-import { LeasesPage } from '../../modules/leases'
+import { CreateLeasePage, LeasesPage } from '../../modules/leases'
 import {
   CreatePropertyPage,
   EditPropertyPage,
@@ -98,6 +98,14 @@ export function AppRouter() {
           element={
             <RouteAccessGate route="dashboard">
               <LeasesPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboardLeasesNew}
+          element={
+            <RouteAccessGate route="dashboard">
+              <CreateLeasePage />
             </RouteAccessGate>
           }
         />
