@@ -7,6 +7,7 @@ const sidebarLinks = [
   { label: 'Dashboard', path: routePaths.dashboard },
   { label: 'Properties', path: routePaths.dashboardProperties },
   { label: 'Tenants', path: routePaths.dashboardTenants },
+  { label: 'Leases', path: routePaths.dashboardLeases },
 ]
 
 const futureSidebarItems = ['Units', 'Billing', 'Maintenance']
