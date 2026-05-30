@@ -133,3 +133,45 @@ Deferred:
 - invoice generation
 - deposit ledger
 - contract files and document uploads
+
+## Billing / Invoices
+
+Status: MVP baseline complete.
+
+Routes:
+
+- `/dashboard/invoices`
+- `/dashboard/invoices/new`
+
+Built:
+
+- plan Billing / Invoices module
+- read-only Invoices list
+- create draft rent Invoice flow
+- validation checklist
+- Billing / Invoices module closeout
+
+Fields:
+
+- lease
+- tenant
+- unit
+- billing period
+- subtotal amount
+- total amount
+- status
+- notes
+
+Deferred:
+
+- invoice detail
+- invoice edit
+- invoice issue/send
+- invoice cancel
+- payments
+- receipts
+- reminders and WhatsApp messages
+- automatic overdue status jobs
+- utility reading capture and utility billing
+- invoice PDFs, downloads, email, and WhatsApp delivery
+- dashboard metrics

@@ -9,7 +9,8 @@ RuangRapi is a property rental operations SaaS for Indonesian rental owners and 
 - Units module: MVP baseline complete
 - Tenants module: MVP baseline complete
 - Leases module: MVP baseline complete
-- Next recommended module: Billing / Invoices planning
+- Billing / Invoices module: MVP baseline complete
+- Next recommended module: Payments planning
 
 ## How this wiki should be used
 
@@ -66,4 +67,4 @@ Repo docs define implementation constraints
 
 ## Next recommended step
 
-Plan the [[billing]] module before implementation.
+Plan the [[payments]] module before implementation.

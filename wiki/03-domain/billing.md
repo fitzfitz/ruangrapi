@@ -1,14 +1,14 @@
 # Billing
 
-Billing and invoices are future modules.
+Billing / Invoices tracks draft invoice records for lease billing periods.
 
 ## Current status
 
-Not started.
+Billing / Invoices status: MVP baseline complete.
 
 ## Future purpose
 
-Billing should track what money is due for a lease or rental period.
+Billing tracks what money is due for a lease or rental period.
 
 Potential concepts:
 
@@ -38,6 +38,32 @@ Billing should come after:
 - Units
 - Tenants
 - Leases
+
+## Built
+
+- plan Billing / Invoices module
+- read-only Invoices list
+- create draft rent Invoice flow
+- validation checklist
+- Billing / Invoices module closeout
+
+## Deferred
+
+- invoice detail
+- invoice edit
+- invoice issue/send
+- invoice cancel
+- payments
+- receipts
+- reminders and WhatsApp messages
+- automatic overdue status jobs
+- utility reading capture and utility billing
+- invoice PDFs, downloads, email, and WhatsApp delivery
+- dashboard metrics
+
+## Next recommended module
+
+Payments planning.
 
 ## Related pages
 

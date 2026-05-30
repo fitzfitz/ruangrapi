@@ -80,13 +80,35 @@ Deferred:
 
 ## Epic 6: Billing and Payments
 
-Status: next recommended
+Status: built
 
 Goal: track what is due and what has been paid.
 
+Built:
+
+- plan Billing / Invoices module
+- read-only Invoices list
+- create draft rent Invoice flow
+- validation checklist
+- Billing / Invoices module closeout
+
+Deferred:
+
+- invoice detail
+- invoice edit
+- invoice issue/send
+- invoice cancel
+- payments
+- receipts
+- reminders and WhatsApp messages
+- automatic overdue status jobs
+- utility reading capture and utility billing
+- invoice PDFs, downloads, email, and WhatsApp delivery
+- dashboard metrics
+
 ## Epic 7: Receipts and Reminders
 
-Status: not started
+Status: next recommended
 
 Goal: support proof of payment and follow-up workflows.
 

@@ -86,3 +86,27 @@ Status: ready for manual validation after the Billing / Invoices implementation 
 ## Deferred Work
 
 Invoice detail, edit, issue/send, cancel, payments, receipts, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments planning is the next recommended module after Billing / Invoices closeout.
+
+## Closeout
+
+Billing / Invoices MVP baseline is complete when:
+
+- [ ] Read-only list is validated.
+- [ ] Create draft rent invoice flow is validated.
+- [ ] Automated checks pass.
+- [ ] Deferred work is documented.
+- [ ] Wiki status pages identify Payments planning as the next step.
+
+Deferred Billing / Invoices work:
+
+- Invoice detail remains out of scope.
+- Invoice edit remains out of scope.
+- Invoice issue/send remains out of scope.
+- Invoice cancel remains out of scope.
+- Payments remain out of scope.
+- Receipts remain out of scope.
+- Reminders and WhatsApp messages remain out of scope.
+- Automatic overdue status jobs remain out of scope.
+- Utility reading capture and utility billing remain out of scope.
+- Invoice PDFs, downloads, email, and WhatsApp delivery remain out of scope.
+- Dashboard metrics remain out of scope.

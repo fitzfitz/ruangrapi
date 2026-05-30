@@ -9,18 +9,18 @@ Built:
 - Units
 - Tenants
 - Leases
+- Billing / Invoices
 
 ## Recommended next sequence
 
-1. Plan Billing / Invoices module
-2. Add read-only Invoices list
-3. Add create/generate Invoice flow
-4. Close out Billing / Invoices
-5. Start Payments
-6. Start Receipts
-7. Start Reminders
-8. Add Maintenance
-9. Add basic dashboard/reporting
+1. Plan Payments module
+2. Add manual record Payment flow
+3. Add payment list or invoice payment context
+4. Close out Payments
+5. Start Receipts
+6. Start Reminders
+7. Add Maintenance
+8. Add basic dashboard/reporting
 
 ## Release principle
 

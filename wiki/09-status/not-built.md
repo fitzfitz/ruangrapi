@@ -27,11 +27,21 @@ Not built:
 
 ## Billing / Invoices
 
-Status: not started. Recommended next module.
+Status: MVP baseline built. Remaining Billing / Invoices refinements are deferred.
+
+Not built:
+
+- invoice detail
+- invoice edit
+- invoice issue/send
+- invoice cancel
+- utility reading capture and utility billing
+- invoice PDFs, downloads, email, and WhatsApp delivery
+- dashboard billing metrics
 
 ## Payments
 
-Status: not started.
+Status: not started. Recommended next module.
 
 ## Receipts
 

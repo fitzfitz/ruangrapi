@@ -16,14 +16,19 @@
 
 ## Billing
 
-- Plan Billing / Invoices module
-- Read-only Invoices list
-- Create/generate Invoice flow
+- Invoice detail flow
+- Invoice edit flow
+- Invoice issue/send flow
+- Invoice cancel flow
+- Utility reading capture and utility billing
+- Invoice PDFs, downloads, email, and WhatsApp delivery
+- Dashboard billing metrics
 
 ## Payments
 
 - Plan Payments module
 - Record Payment flow
+- Payment list or invoice payment context
 
 ## Receipts
 
