@@ -12,7 +12,8 @@
 - Unit detail page is deferred.
 - Unit status/occupancy workflow is deferred.
 - Unit base_rent_amount/rent pricing workflow is deferred.
-- Tenants should be planned before Leases.
+- Tenants were built before Leases.
+- Leases planning is the next recommended module.
 
 ## Related pages
 

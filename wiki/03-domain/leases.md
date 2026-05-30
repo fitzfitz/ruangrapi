@@ -4,7 +4,7 @@ Leases connect Tenants to rental agreements for Properties or Units.
 
 ## Current status
 
-Not started.
+Not started. Recommended next module.
 
 ## Future purpose
 
@@ -26,7 +26,12 @@ under an active/cancelled/ended lifecycle
 - lease dates
 - status
 
-## Out of scope until Tenants are stable
+## First recommended slice
+
+- plan Leases module
+- read-only Leases list
+
+## Out of scope for first slice
 
 - lease creation
 - lease lifecycle
