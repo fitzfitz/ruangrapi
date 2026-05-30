@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import { AppLayout } from '../../../app/layouts'
+import { routePaths } from '../../../app/router/route-paths'
 import { useInvoicesQuery } from '../application/use-invoices-query'
 import type { InvoiceListItem } from '../domain/invoice'
 
@@ -59,6 +62,7 @@ export function InvoicesPage() {
               separate slices.
             </p>
           </div>
+          <Link to={routePaths.dashboardInvoicesNew}>Add invoice</Link>
         </div>
 
         {invoicesQuery.isLoading ? (

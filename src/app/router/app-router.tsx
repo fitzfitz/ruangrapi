@@ -91,6 +91,13 @@ const InvoicesPage = lazy(() =>
     }),
   ),
 )
+const CreateInvoicePage = lazy(() =>
+  import('../../modules/invoices/presentation/create-invoice-page').then(
+    (module) => ({
+      default: module.CreateInvoicePage,
+    }),
+  ),
+)
 const CreateUnitPage = lazy(() =>
   import('../../modules/units/presentation/create-unit-page').then(
     (module) => ({
@@ -202,6 +209,14 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <InvoicesPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardInvoicesNew}
+            element={
+              <RouteAccessGate route="dashboard">
+                <CreateInvoicePage />
               </RouteAccessGate>
             }
           />

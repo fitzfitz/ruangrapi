@@ -88,6 +88,7 @@
 .leases-page,
 .invoices-page,
 .create-tenant-page,
+.create-invoice-page,
 .edit-tenant-page,
 .property-detail-page,
 .edit-property-page,
@@ -108,6 +109,7 @@
 .leases-page__header,
 .invoices-page__header,
 .create-tenant-page__header,
+.create-invoice-page__header,
 .create-lease-page__header,
 .edit-tenant-page__header,
 .property-detail-page__header,
@@ -125,6 +127,7 @@
 .leases-page__header h2,
 .invoices-page__header h2,
 .create-tenant-page__header h2,
+.create-invoice-page__header h2,
 .create-lease-page__header h2,
 .edit-tenant-page__header h2,
 .property-detail-page__header h2,
@@ -143,6 +146,8 @@
 .invoices-page__header p,
 .invoices-page__status,
 .create-tenant-page__header p,
+.create-invoice-page__header p,
+.create-invoice-page__status,
 .create-lease-page__header p,
 .create-lease-page__status,
 .edit-tenant-page__header p,
@@ -164,6 +169,7 @@
 .leases-page__header a,
 .invoices-page__header a,
 .create-tenant-page__header a,
+.create-invoice-page__header a,
 .create-lease-page__header a,
 .edit-tenant-page__header a,
 .property-detail-page__header a,
@@ -185,6 +191,7 @@
 .tenants-page__error,
 .leases-page__error,
 .invoices-page__error,
+.create-invoice-page__error,
 .edit-tenant-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
@@ -202,6 +209,7 @@
 .tenants-page__empty,
 .leases-page__empty,
 .invoices-page__empty,
+.create-invoice-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -224,6 +232,7 @@
 .tenants-page__empty,
 .leases-page__empty,
 .invoices-page__empty,
+.create-invoice-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -238,6 +247,7 @@
 .tenants-page__empty h3,
 .leases-page__empty h3,
 .invoices-page__empty h3,
+.create-invoice-page__empty h3,
 .create-lease-page__empty h3,
 .edit-tenant-page__empty h3,
 .property-detail-page__empty h3,
@@ -508,6 +518,7 @@
 .edit-property-form,
 .tenant-form,
 .lease-form,
+.invoice-form,
 .create-unit-form,
 .edit-unit-form {
   display: grid;
@@ -525,6 +536,7 @@
 .edit-property-form__field,
 .tenant-form__field,
 .lease-form__field,
+.invoice-form__field,
 .create-unit-form__field,
 .edit-unit-form__field {
   display: grid;
@@ -538,8 +550,10 @@
 .edit-property-form__field label,
 .tenant-form__field label,
 .lease-form__field label,
+.invoice-form__field label,
 .create-unit-form__field label,
 .edit-unit-form__field label,
+.invoice-form__context-label,
 .create-unit-form__context-label,
 .edit-unit-form__context-label {
   color: var(--text-h);
@@ -558,6 +572,9 @@
 .tenant-form__field textarea,
 .lease-form__field input,
 .lease-form__field select,
+.invoice-form__field input,
+.invoice-form__field select,
+.invoice-form__field textarea,
 .create-unit-form__field input,
 .create-unit-form__field select,
 .create-unit-form__field textarea,
@@ -575,6 +592,7 @@
 .create-property-form__field textarea,
 .edit-property-form__field textarea,
 .tenant-form__field textarea,
+.invoice-form__field textarea,
 .create-unit-form__field textarea,
 .edit-unit-form__field textarea {
   resize: vertical;
@@ -591,6 +609,9 @@
 .tenant-form__field textarea:disabled,
 .lease-form__field input:disabled,
 .lease-form__field select:disabled,
+.invoice-form__field input:disabled,
+.invoice-form__field select:disabled,
+.invoice-form__field textarea:disabled,
 .create-unit-form__field input:disabled,
 .create-unit-form__field select:disabled,
 .create-unit-form__field textarea:disabled,
@@ -609,6 +630,8 @@
 .tenant-form__error,
 .lease-form__error,
 .create-lease-page__error,
+.invoice-form__error,
+.create-invoice-page__error,
 .create-unit-form__error,
 .edit-unit-form__error {
   color: #b42318;
@@ -648,6 +671,7 @@
 .create-property-page,
 .create-tenant-page,
 .create-lease-page,
+.create-invoice-page,
 .edit-tenant-page,
 .edit-property-page,
 .create-unit-page,
@@ -660,6 +684,7 @@
 .create-property-page__header,
 .create-tenant-page__header,
 .create-lease-page__header,
+.create-invoice-page__header,
 .edit-tenant-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
@@ -673,6 +698,7 @@
 .create-property-page__header h2,
 .create-tenant-page__header h2,
 .create-lease-page__header h2,
+.create-invoice-page__header h2,
 .edit-tenant-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,
@@ -684,6 +710,7 @@
 .edit-property-form__actions,
 .tenant-form__actions,
 .lease-form__actions,
+.invoice-form__actions,
 .create-unit-form__actions,
 .edit-unit-form__actions {
   display: flex;
@@ -696,6 +723,7 @@
 .edit-property-form__actions a,
 .tenant-form__actions a,
 .lease-form__actions a,
+.invoice-form__actions a,
 .create-unit-form__actions a,
 .edit-unit-form__actions a {
   color: var(--text-h);
@@ -706,6 +734,7 @@
 .edit-property-form__actions button,
 .tenant-form__actions button,
 .lease-form__actions button,
+.invoice-form__actions button,
 .create-unit-form__actions button,
 .edit-unit-form__actions button {
   border: 0;
@@ -721,12 +750,14 @@
 .edit-property-form__actions button:disabled,
 .tenant-form__actions button:disabled,
 .lease-form__actions button:disabled,
+.invoice-form__actions button:disabled,
 .create-unit-form__actions button:disabled,
 .edit-unit-form__actions button:disabled {
   cursor: not-allowed;
   opacity: 0.72;
 }
 
+.invoice-form__context,
 .create-unit-form__context,
 .edit-unit-form__context {
   display: grid;
@@ -735,6 +766,7 @@
   padding-bottom: 16px;
 }
 
+.invoice-form__context p,
 .create-unit-form__context p,
 .edit-unit-form__context p {
   margin: 0;
