@@ -6,9 +6,10 @@ import { routePaths } from '../router/route-paths'
 const sidebarLinks = [
   { label: 'Dashboard', path: routePaths.dashboard },
   { label: 'Properties', path: routePaths.dashboardProperties },
+  { label: 'Tenants', path: routePaths.dashboardTenants },
 ]
 
-const futureSidebarItems = ['Units', 'Tenants', 'Billing', 'Maintenance']
+const futureSidebarItems = ['Units', 'Billing', 'Maintenance']
 
 type AppLayoutProps = {
   children: ReactNode

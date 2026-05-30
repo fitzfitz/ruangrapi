@@ -84,6 +84,7 @@
 }
 
 .properties-page,
+.tenants-page,
 .property-detail-page,
 .edit-property-page,
 .create-unit-page,
@@ -94,6 +95,7 @@
 }
 
 .properties-page__header,
+.tenants-page__header,
 .property-detail-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
@@ -105,6 +107,7 @@
 }
 
 .properties-page__header h2,
+.tenants-page__header h2,
 .property-detail-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,
@@ -114,6 +117,8 @@
 
 .properties-page__header p,
 .properties-page__status,
+.tenants-page__header p,
+.tenants-page__status,
 .property-detail-page__header p,
 .property-detail-page__status,
 .edit-property-page__header p,
@@ -127,6 +132,7 @@
 }
 
 .properties-page__header a,
+.tenants-page__header a,
 .property-detail-page__header a,
 .edit-property-page__header a,
 .create-property-page__header a,
@@ -143,6 +149,7 @@
 }
 
 .properties-page__error,
+.tenants-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
 .create-unit-page__error,
@@ -156,12 +163,14 @@
 }
 
 .properties-page__empty,
+.tenants-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
 .create-unit-page__empty,
 .edit-unit-page__empty,
 .property-units-section__empty,
 .property-card,
+.tenant-card,
 .property-detail-card,
 .property-units-section,
 .unit-card {
@@ -171,6 +180,7 @@
 }
 
 .properties-page__empty,
+.tenants-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
 .create-unit-page__empty,
@@ -180,45 +190,89 @@
 }
 
 .properties-page__empty h3,
+.tenants-page__empty h3,
 .property-detail-page__empty h3,
 .edit-property-page__empty h3,
 .create-unit-page__empty h3,
 .edit-unit-page__empty h3,
 .property-card h3,
+.tenant-card h3,
 .property-units-section__empty h4,
 .unit-card h4 {
   margin: 0 0 8px;
   color: var(--text-h);
 }
 
-.properties-page__list {
+.properties-page__list,
+.tenants-page__list {
   display: grid;
   gap: 12px;
 }
 
-.property-card {
+.property-card,
+.tenant-card {
   display: grid;
   gap: 16px;
   padding: 20px;
 }
 
-.property-card p {
+.property-card p,
+.tenant-card p {
   color: var(--text);
 }
 
-.property-card a {
+.property-card a,
+.tenant-card a {
   color: var(--text-h);
   text-decoration: none;
 }
 
 .property-card a:hover,
-.property-card a:focus-visible {
+.property-card a:focus-visible,
+.tenant-card a:hover,
+.tenant-card a:focus-visible {
   text-decoration: underline;
 }
 
 .property-card__notes {
   border-top: 1px solid var(--border);
   padding-top: 16px;
+}
+
+.tenant-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tenant-card__header a {
+  font-weight: 700;
+}
+
+.tenant-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  margin: 0;
+  padding-top: 16px;
+}
+
+.tenant-card__details div {
+  display: grid;
+  gap: 6px;
+}
+
+.tenant-card__details dt {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tenant-card__details dd {
+  margin: 0;
+  color: var(--text);
 }
 
 .property-detail-card {
