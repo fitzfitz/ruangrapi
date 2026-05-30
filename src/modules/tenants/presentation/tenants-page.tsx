@@ -62,6 +62,9 @@ export function TenantsPage() {
                     <h3>{tenant.full_name}</h3>
                     <p>{formatTenantContact(tenant)}</p>
                   </div>
+                  <Link to={`${routePaths.dashboardTenants}/${tenant.id}/edit`}>
+                    Edit
+                  </Link>
                 </div>
 
                 <dl className="tenant-card__details">

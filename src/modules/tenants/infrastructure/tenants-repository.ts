@@ -29,6 +29,22 @@ export async function listTenants(): Promise<Tenant[]> {
   return data
 }
 
+export async function getTenantById(
+  tenantId: string,
+): Promise<Tenant | null> {
+  const { data, error } = await supabaseClient
+    .from('tenants')
+    .select(tenantSelectColumns)
+    .eq('id', tenantId)
+    .maybeSingle<Tenant>()
+
+  if (error !== null) {
+    throw new Error(`Could not load tenant: ${error.message}`)
+  }
+
+  return data
+}
+
 export async function createTenant({
   organization_id,
   full_name,
@@ -56,6 +72,40 @@ export async function createTenant({
 
   if (error !== null) {
     throw new Error(`Could not create tenant: ${error.message}`)
+  }
+
+  return data
+}
+
+export async function updateTenant(
+  tenantId: string,
+  {
+    full_name,
+    phone,
+    email,
+    identity_notes,
+    emergency_contact_name,
+    emergency_contact_phone,
+    notes,
+  }: TenantFormInput,
+): Promise<Tenant> {
+  const { data, error } = await supabaseClient
+    .from('tenants')
+    .update({
+      full_name,
+      phone,
+      email,
+      identity_notes,
+      emergency_contact_name,
+      emergency_contact_phone,
+      notes,
+    })
+    .eq('id', tenantId)
+    .select(tenantSelectColumns)
+    .single<Tenant>()
+
+  if (error !== null) {
+    throw new Error(`Could not update tenant: ${error.message}`)
   }
 
   return data

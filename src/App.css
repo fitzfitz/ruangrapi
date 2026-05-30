@@ -86,6 +86,7 @@
 .properties-page,
 .tenants-page,
 .create-tenant-page,
+.edit-tenant-page,
 .property-detail-page,
 .edit-property-page,
 .create-unit-page,
@@ -98,6 +99,7 @@
 .properties-page__header,
 .tenants-page__header,
 .create-tenant-page__header,
+.edit-tenant-page__header,
 .property-detail-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
@@ -111,6 +113,7 @@
 .properties-page__header h2,
 .tenants-page__header h2,
 .create-tenant-page__header h2,
+.edit-tenant-page__header h2,
 .property-detail-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,
@@ -123,6 +126,8 @@
 .tenants-page__header p,
 .tenants-page__status,
 .create-tenant-page__header p,
+.edit-tenant-page__header p,
+.edit-tenant-page__status,
 .property-detail-page__header p,
 .property-detail-page__status,
 .edit-property-page__header p,
@@ -138,6 +143,7 @@
 .properties-page__header a,
 .tenants-page__header a,
 .create-tenant-page__header a,
+.edit-tenant-page__header a,
 .property-detail-page__header a,
 .edit-property-page__header a,
 .create-property-page__header a,
@@ -155,6 +161,7 @@
 
 .properties-page__error,
 .tenants-page__error,
+.edit-tenant-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
 .create-unit-page__error,
@@ -169,6 +176,7 @@
 
 .properties-page__empty,
 .tenants-page__empty,
+.edit-tenant-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
 .create-unit-page__empty,
@@ -186,6 +194,7 @@
 
 .properties-page__empty,
 .tenants-page__empty,
+.edit-tenant-page__empty,
 .property-detail-page__empty,
 .edit-property-page__empty,
 .create-unit-page__empty,
@@ -196,6 +205,7 @@
 
 .properties-page__empty h3,
 .tenants-page__empty h3,
+.edit-tenant-page__empty h3,
 .property-detail-page__empty h3,
 .edit-property-page__empty h3,
 .create-unit-page__empty h3,
@@ -554,6 +564,7 @@
 
 .create-property-page,
 .create-tenant-page,
+.edit-tenant-page,
 .edit-property-page,
 .create-unit-page,
 .edit-unit-page {
@@ -564,6 +575,7 @@
 
 .create-property-page__header,
 .create-tenant-page__header,
+.edit-tenant-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
 .edit-unit-page__header {
@@ -575,6 +587,7 @@
 
 .create-property-page__header h2,
 .create-tenant-page__header h2,
+.edit-tenant-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,
 .edit-unit-page__header h2 {
