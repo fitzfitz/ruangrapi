@@ -592,3 +592,14 @@ Validate the committed Leases baseline manually before the owner closes out the 
 - [ ] Confirm Unit occupancy/status synchronization is still deferred.
 - [ ] Confirm invoice generation is still deferred.
 - [ ] Confirm the next recommended module is Billing / Invoices.
+
+### Manual validation: Billing / Invoices MVP baseline
+
+Validate the committed Billing / Invoices baseline manually before the owner closes out the module.
+
+- [ ] Follow `docs/20-billing-invoices-validation-checklist.md`.
+- [ ] Confirm the Billing / Invoices module remains limited to invoice visibility and draft rent invoice creation.
+- [ ] Confirm payments are still deferred.
+- [ ] Confirm receipts are still deferred.
+- [ ] Confirm reminders and overdue automation are still deferred.
+- [ ] Confirm the next recommended module is Payments.
