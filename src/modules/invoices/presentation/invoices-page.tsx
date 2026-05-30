@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import { AppLayout } from '../../../app/layouts'
 import { routePaths } from '../../../app/router/route-paths'
+import { useCurrentProfileQuery } from '../../identity'
+import { useIssueInvoiceMutation } from '../application/use-issue-invoice-mutation'
 import { useInvoicesQuery } from '../application/use-invoices-query'
 import type { InvoiceListItem } from '../domain/invoice'
 
@@ -49,6 +52,56 @@ function formatLeasePeriod(invoice: InvoiceListItem) {
 
 export function InvoicesPage() {
   const invoicesQuery = useInvoicesQuery()
+  const currentProfileQuery = useCurrentProfileQuery()
+  const issueInvoiceMutation = useIssueInvoiceMutation()
+  const [dueDatesByInvoiceId, setDueDatesByInvoiceId] = useState<
+    Record<string, string>
+  >({})
+  const [issuingInvoiceId, setIssuingInvoiceId] = useState<string | null>(null)
+  const [issueErrorInvoiceId, setIssueErrorInvoiceId] = useState<string | null>(
+    null,
+  )
+
+  const organizationId = currentProfileQuery.data?.organization_id ?? null
+
+  function updateDraftDueDate(invoiceId: string, dueDate: string) {
+    setDueDatesByInvoiceId((current) => ({
+      ...current,
+      [invoiceId]: dueDate,
+    }))
+  }
+
+  function handleIssueInvoice(invoice: InvoiceListItem) {
+    const dueDate = dueDatesByInvoiceId[invoice.id] ?? ''
+
+    if (organizationId === null || dueDate === '') {
+      return
+    }
+
+    setIssuingInvoiceId(invoice.id)
+    setIssueErrorInvoiceId(null)
+    issueInvoiceMutation.mutate(
+      {
+        invoiceId: invoice.id,
+        organizationId,
+        dueDate,
+      },
+      {
+        onSuccess: () => {
+          setDueDatesByInvoiceId((current) => {
+            const next = { ...current }
+            delete next[invoice.id]
+            return next
+          })
+          setIssuingInvoiceId(null)
+        },
+        onError: () => {
+          setIssueErrorInvoiceId(invoice.id)
+          setIssuingInvoiceId(null)
+        },
+      },
+    )
+  }
 
   return (
     <AppLayout>
@@ -87,38 +140,80 @@ export function InvoicesPage() {
 
         {invoicesQuery.isSuccess && invoicesQuery.data.length > 0 ? (
           <div className="invoices-page__list" aria-label="Invoice list">
-            {invoicesQuery.data.map((invoice) => (
-              <article className="invoice-card" key={invoice.id}>
-                <div className="invoice-card__header">
-                  <div>
-                    <h3>{invoice.tenant_name}</h3>
-                    <p>
-                      {invoice.unit_name} - {formatPropertyName(invoice)}
-                    </p>
-                  </div>
-                  <span className="invoice-card__status">{invoice.status}</span>
-                </div>
+            {invoicesQuery.data.map((invoice) => {
+              const draftDueDate = dueDatesByInvoiceId[invoice.id] ?? ''
+              const isIssuingInvoice = issuingInvoiceId === invoice.id
+              const canIssueInvoice =
+                organizationId !== null &&
+                draftDueDate !== '' &&
+                !isIssuingInvoice
 
-                <dl className="invoice-card__details">
-                  <div>
-                    <dt>Billing period</dt>
-                    <dd>{formatBillingPeriod(invoice.billing_period)}</dd>
+              return (
+                <article className="invoice-card" key={invoice.id}>
+                  <div className="invoice-card__header">
+                    <div>
+                      <h3>{invoice.tenant_name}</h3>
+                      <p>
+                        {invoice.unit_name} - {formatPropertyName(invoice)}
+                      </p>
+                    </div>
+                    <span className="invoice-card__status">
+                      {invoice.status}
+                    </span>
                   </div>
-                  <div>
-                    <dt>Due date</dt>
-                    <dd>{formatDate(invoice.due_date, 'No due date')}</dd>
-                  </div>
-                  <div>
-                    <dt>Total</dt>
-                    <dd>{formatCurrency(invoice.total_amount)}</dd>
-                  </div>
-                  <div>
-                    <dt>Lease period</dt>
-                    <dd>{formatLeasePeriod(invoice)}</dd>
-                  </div>
-                </dl>
-              </article>
-            ))}
+
+                  <dl className="invoice-card__details">
+                    <div>
+                      <dt>Billing period</dt>
+                      <dd>{formatBillingPeriod(invoice.billing_period)}</dd>
+                    </div>
+                    <div>
+                      <dt>Due date</dt>
+                      <dd>{formatDate(invoice.due_date, 'No due date')}</dd>
+                    </div>
+                    <div>
+                      <dt>Total</dt>
+                      <dd>{formatCurrency(invoice.total_amount)}</dd>
+                    </div>
+                    <div>
+                      <dt>Lease period</dt>
+                      <dd>{formatLeasePeriod(invoice)}</dd>
+                    </div>
+                  </dl>
+
+                  {invoice.status === 'draft' ? (
+                    <form
+                      className="invoice-card__issue-form"
+                      onSubmit={(event) => {
+                        event.preventDefault()
+                        handleIssueInvoice(invoice)
+                      }}
+                    >
+                      <label htmlFor={`invoice-${invoice.id}-due-date`}>
+                        Due date
+                      </label>
+                      <input
+                        id={`invoice-${invoice.id}-due-date`}
+                        type="date"
+                        value={draftDueDate}
+                        disabled={isIssuingInvoice}
+                        onChange={(event) => {
+                          updateDraftDueDate(invoice.id, event.target.value)
+                        }}
+                      />
+                      <button type="submit" disabled={!canIssueInvoice}>
+                        {isIssuingInvoice ? 'Issuing...' : 'Issue invoice'}
+                      </button>
+                      {issueErrorInvoiceId === invoice.id ? (
+                        <p className="invoice-card__issue-error" role="alert">
+                          We could not issue this invoice. Please try again.
+                        </p>
+                      ) : null}
+                    </form>
+                  ) : null}
+                </article>
+              )
+            })}
           </div>
         ) : null}
       </section>

@@ -98,6 +98,12 @@ type CreateInvoiceRecord = CreateInvoiceInput & {
   organization_id: string
 }
 
+export type IssueInvoiceInput = {
+  invoice_id: string
+  organization_id: string
+  due_date: string
+}
+
 function mapInvoiceListRow(row: InvoiceListRow): InvoiceListItem {
   return {
     id: row.id,
@@ -323,6 +329,31 @@ export async function createDraftRentInvoice({
     throw new Error(
       `Invoice was created, but rent line item creation failed: ${lineItemError.message}`,
     )
+  }
+
+  return data
+}
+
+export async function issueInvoice({
+  invoice_id,
+  organization_id,
+  due_date,
+}: IssueInvoiceInput): Promise<Invoice> {
+  const { data, error } = await supabaseClient
+    .from('invoices')
+    .update({
+      status: 'unpaid',
+      issued_at: new Date().toISOString(),
+      due_date,
+    })
+    .eq('id', invoice_id)
+    .eq('organization_id', organization_id)
+    .eq('status', 'draft')
+    .select(invoiceSelectColumns)
+    .single<Invoice>()
+
+  if (error !== null) {
+    throw new Error(`Could not issue invoice: ${error.message}`)
   }
 
   return data

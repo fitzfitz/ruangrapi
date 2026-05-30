@@ -91,6 +91,20 @@ const InvoicesPage = lazy(() =>
     }),
   ),
 )
+const PaymentsPage = lazy(() =>
+  import('../../modules/payments/presentation/payments-page').then(
+    (module) => ({
+      default: module.PaymentsPage,
+    }),
+  ),
+)
+const CreatePaymentPage = lazy(() =>
+  import('../../modules/payments/presentation/create-payment-page').then(
+    (module) => ({
+      default: module.CreatePaymentPage,
+    }),
+  ),
+)
 const CreateInvoicePage = lazy(() =>
   import('../../modules/invoices/presentation/create-invoice-page').then(
     (module) => ({
@@ -217,6 +231,22 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <CreateInvoicePage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardPayments}
+            element={
+              <RouteAccessGate route="dashboard">
+                <PaymentsPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardPaymentsNew}
+            element={
+              <RouteAccessGate route="dashboard">
+                <CreatePaymentPage />
               </RouteAccessGate>
             }
           />

@@ -9,9 +9,10 @@ const sidebarLinks = [
   { label: 'Tenants', path: routePaths.dashboardTenants },
   { label: 'Leases', path: routePaths.dashboardLeases },
   { label: 'Invoices', path: routePaths.dashboardInvoices },
+  { label: 'Payments', path: routePaths.dashboardPayments },
 ]
 
-const futureSidebarItems = ['Units', 'Payments', 'Maintenance']
+const futureSidebarItems = ['Units', 'Maintenance']
 
 type AppLayoutProps = {
   children: ReactNode
