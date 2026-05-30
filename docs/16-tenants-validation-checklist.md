@@ -76,6 +76,10 @@ Status: ready for manual validation after the Tenants implementation slices are 
 - [ ] Invalid or inaccessible tenant IDs show the not-found or inaccessible state.
 - [ ] Refreshing `/dashboard/tenants/:tenantId/edit` keeps the user on the protected edit route after account state checks finish.
 
+## Regression Checks
+
+- [ ] Browser console has no errors during Tenants list navigation, create-page load, edit-page load, validation failures, successful create/update, redirects, list refresh, invalid/inaccessible tenant handling, or auth redirect checks.
+
 ## Boundaries
 
 - [ ] No lease assignment was introduced.
@@ -91,3 +95,23 @@ Status: ready for manual validation after the Tenants implementation slices are 
 ## Deferred Work
 
 Phone normalization to Indonesian `+62` format remains deferred and should be revisited before Leases relies on tenant contact data for billing or reminder workflows.
+
+## Closeout
+
+Tenants MVP baseline is complete when:
+
+- [ ] Read-only list is validated.
+- [ ] Create tenant flow is validated.
+- [ ] Edit tenant flow is validated.
+- [ ] Automated checks pass.
+- [ ] Deferred work is documented.
+- [ ] Wiki status pages identify Leases planning as the next step.
+
+Deferred Tenants work:
+
+- Lease assignment belongs to Leases.
+- Direct tenant-to-unit assignment remains out of scope.
+- Delete/archive remains out of scope.
+- Tenant portal remains out of scope.
+- Document upload remains out of scope.
+- Phone normalization remains deferred unless a completed implementation slice documents otherwise.

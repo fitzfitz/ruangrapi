@@ -2,11 +2,8 @@
 
 ## Tenants
 
-- Plan Tenants module
-- Read-only Tenants list
-- Create Tenant flow
-- Edit Tenant flow
-- Tenants closeout
+- Tenant delete/archive flow
+- Tenant phone normalization refinement
 
 ## Leases
 

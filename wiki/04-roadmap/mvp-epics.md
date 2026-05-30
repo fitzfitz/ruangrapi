@@ -33,20 +33,37 @@ Built:
 
 ## Epic 4: Tenants
 
-Status: candidate / next planned
+Status: built
 
 Goal: manage renter/contact records.
 
-First candidate slice:
+Built:
 
 - plan Tenants module
 - read-only Tenants list
+- create Tenant flow
+- edit Tenant flow
+- validation checklist
+- Tenants module closeout
+
+Deferred:
+
+- lease assignment
+- direct tenant-to-unit assignment
+- delete/archive
+- tenant portal
+- document upload
 
 ## Epic 5: Leases
 
-Status: not started
+Status: candidate / next planned
 
 Goal: connect Tenants to Properties/Units through rental agreements.
+
+First candidate slice:
+
+- plan Leases module
+- read-only Leases list
 
 ## Epic 6: Billing and Payments
 

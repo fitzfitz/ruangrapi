@@ -2,27 +2,27 @@
 
 These are candidates likely to become approved tasks soon.
 
-## Candidate: Plan Tenants module
+## Candidate: Plan Leases module
 
 Purpose:
 
-- define Tenants scope
+- define Leases scope
 - inspect schema
 - document first slice
-- defer leases/payments/maintenance
+- defer billing, payments, receipts, reminders, maintenance, and reporting
 
 Status:
 
 - candidate only
 - not approved until converted into Kanban task card
 
-## Candidate: Read-only Tenants list
+## Candidate: Read-only Leases list
 
 Purpose:
 
-- add organization-scoped Tenants list
-- no create/edit/delete yet
-- no lease assignment
+- add organization-scoped Leases list
+- show tenant and unit relationship data only after Leases planning confirms query shape
+- no create/edit/end/cancel lifecycle yet
 
 Status:
 

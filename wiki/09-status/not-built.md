@@ -2,19 +2,18 @@
 
 ## Tenants
 
-Status: not started. Recommended next module.
+Status: MVP baseline built. Remaining Tenants refinements are deferred.
 
 Not built:
 
-- Tenants planning
-- read-only Tenants list
-- create Tenant
-- edit Tenant
-- Tenants closeout
+- tenant delete/archive
+- tenant phone normalization refinement, if not completed during baseline
+- tenant portal
+- tenant document upload
 
 ## Leases
 
-Status: not started.
+Status: not started. Recommended next module.
 
 Not built:
 

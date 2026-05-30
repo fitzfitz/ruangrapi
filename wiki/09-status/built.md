@@ -61,3 +61,38 @@ Fields:
 - name
 - type
 - notes
+
+## Tenants
+
+Status: MVP baseline complete.
+
+Routes:
+
+- `/dashboard/tenants`
+- `/dashboard/tenants/new`
+- `/dashboard/tenants/:tenantId/edit`
+
+Built:
+
+- read-only Tenants list
+- create Tenant
+- edit Tenant
+
+Fields:
+
+- full name
+- phone
+- email
+- identity notes
+- emergency contact name
+- emergency contact phone
+- notes
+
+Deferred:
+
+- lease assignment
+- direct tenant-to-unit assignment
+- delete/archive
+- tenant portal
+- document upload
+- phone normalization refinement
