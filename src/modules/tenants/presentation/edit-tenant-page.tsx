@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
@@ -18,8 +18,9 @@ export function EditTenantPage() {
   const { tenantId } = useParams<{ tenantId: string }>()
   const tenantQuery = useTenantQuery(tenantId)
   const updateTenantMutation = useUpdateTenantMutation()
+  const lastInitializedTenantIdRef = useRef<string | null>(null)
   const {
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
     register,
     reset,
@@ -41,6 +42,12 @@ export function EditTenantPage() {
       return
     }
 
+    const loadedTenantId = tenantQuery.data.id
+
+    if (lastInitializedTenantIdRef.current === loadedTenantId && isDirty) {
+      return
+    }
+
     reset({
       full_name: tenantQuery.data.full_name,
       phone: tenantQuery.data.phone ?? '',
@@ -50,7 +57,8 @@ export function EditTenantPage() {
       emergency_contact_phone: tenantQuery.data.emergency_contact_phone ?? '',
       notes: tenantQuery.data.notes ?? '',
     })
-  }, [reset, tenantQuery.data])
+    lastInitializedTenantIdRef.current = loadedTenantId
+  }, [isDirty, reset, tenantQuery.data])
 
   const isSubmitting = updateTenantMutation.isPending
 

@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 
 import {
   getTenantById,
-  tenantQueryKey,
+  tenantsQueryKey,
 } from '../infrastructure/tenants-repository'
 
 export function useTenantQuery(tenantId: string | undefined) {
   return useQuery({
-    queryKey: tenantId ? tenantQueryKey(tenantId) : tenantQueryKey('missing'),
+    queryKey: [...tenantsQueryKey, 'detail', tenantId ?? null],
     queryFn: () => {
       if (!tenantId) {
         return Promise.resolve(null)
@@ -15,5 +15,6 @@ export function useTenantQuery(tenantId: string | undefined) {
 
       return getTenantById(tenantId)
     },
+    enabled: tenantId !== undefined,
   })
 }

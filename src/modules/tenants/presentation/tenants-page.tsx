@@ -16,6 +16,10 @@ function formatTenantContact(tenant: Tenant) {
   return `${phone} · ${email}`
 }
 
+function getTenantEditPath(tenantId: string) {
+  return `${routePaths.dashboardTenants}/${tenantId}/edit`
+}
+
 export function TenantsPage() {
   const tenantsQuery = useTenantsQuery()
 
@@ -62,9 +66,7 @@ export function TenantsPage() {
                     <h3>{tenant.full_name}</h3>
                     <p>{formatTenantContact(tenant)}</p>
                   </div>
-                  <Link to={`${routePaths.dashboardTenants}/${tenant.id}/edit`}>
-                    Edit
-                  </Link>
+                  <Link to={getTenantEditPath(tenant.id)}>Edit</Link>
                 </div>
 
                 <dl className="tenant-card__details">
