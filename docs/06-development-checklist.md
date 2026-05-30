@@ -581,3 +581,13 @@ Validate the committed Tenants baseline manually before the owner closes out the
 - [ ] Confirm the Tenants module remains limited to renter/contact records.
 - [ ] Confirm phone normalization is either implemented with clear validation or recorded as deferred.
 - [ ] Confirm the next recommended module is Leases.
+
+### Manual validation: Leases MVP baseline
+
+Validate the committed Leases baseline manually before the owner closes out the module.
+
+- [ ] Follow `docs/18-leases-validation-checklist.md`.
+- [ ] Confirm the Leases module remains limited to basic lease records.
+- [ ] Confirm Unit occupancy/status synchronization is still deferred.
+- [ ] Confirm invoice generation is still deferred.
+- [ ] Confirm the next recommended module is Billing / Invoices.
