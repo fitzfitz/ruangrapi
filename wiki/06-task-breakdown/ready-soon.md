@@ -2,27 +2,39 @@
 
 These are candidates likely to become approved tasks soon.
 
-## Candidate: Plan Leases module
+## Candidate: Plan Billing / Invoices module
 
 Purpose:
 
-- define Leases scope
-- inspect schema
-- document first slice
-- defer billing, payments, receipts, reminders, maintenance, and reporting
+- define Billing / Invoices scope
+- inspect existing invoice schema
+- document the first Billing slice
+- defer payments, receipts, reminders, maintenance, and reporting
 
 Status:
 
 - candidate only
 - not approved until converted into Kanban task card
 
-## Candidate: Read-only Leases list
+## Candidate: Read-only Invoices list
 
 Purpose:
 
-- add organization-scoped Leases list
-- show tenant and unit relationship data only after Leases planning confirms query shape
-- no create/edit/end/cancel lifecycle yet
+- add organization-scoped Invoices list
+- show lease, tenant, unit, due date, amount, and status data after Billing planning confirms query shape
+- no payments, receipts, reminders, or dashboard metrics yet
+
+Status:
+
+- candidate only
+
+## Candidate: Create/generate Invoice flow
+
+Purpose:
+
+- create invoice records from approved lease context
+- keep payment and receipt workflows deferred
+- keep reminders deferred
 
 Status:
 

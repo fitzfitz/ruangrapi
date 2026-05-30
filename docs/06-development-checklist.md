@@ -116,6 +116,7 @@ Module status:
 - [x] Units module planning documented separately after owner approval to move beyond Properties
 - [x] Units MVP baseline documented and implemented as a property-scoped child module
 - [x] Tenants MVP baseline documented and implemented as the renter/contact record module
+- [x] Leases MVP baseline documented and implemented as the tenant-to-unit agreement module
 
 Keep first domain work small:
 

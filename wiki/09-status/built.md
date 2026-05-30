@@ -96,3 +96,40 @@ Deferred:
 - tenant portal
 - document upload
 - phone normalization refinement
+
+## Leases
+
+Status: MVP baseline complete.
+
+Routes:
+
+- `/dashboard/leases`
+- `/dashboard/leases/new`
+
+Built:
+
+- plan Leases module
+- read-only Leases list
+- create Lease flow
+- validation checklist
+- Leases module closeout
+
+Fields:
+
+- tenant
+- unit
+- start date
+- end date
+- monthly rent amount
+- billing day
+- deposit amount
+
+Deferred:
+
+- lease edit
+- end lease
+- cancel lease
+- occupancy/status synchronization
+- invoice generation
+- deposit ledger
+- contract files and document uploads

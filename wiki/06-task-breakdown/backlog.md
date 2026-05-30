@@ -7,14 +7,16 @@
 
 ## Leases
 
-- Plan Leases module
-- Read-only Leases list
-- Create Lease flow
-- Lease closeout
+- Lease edit flow
+- End Lease flow
+- Cancel Lease flow
+- Unit occupancy/status synchronization
+- Deposit ledger
+- Contract files and document uploads
 
 ## Billing
 
-- Plan Billing module
+- Plan Billing / Invoices module
 - Read-only Invoices list
 - Create/generate Invoice flow
 

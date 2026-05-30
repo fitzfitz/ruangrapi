@@ -4,9 +4,9 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Plan Leases module
-- Add read-only Leases list
-- Document Leases list validation checklist
+- Plan Billing / Invoices module
+- Add read-only Invoices list
+- Add create/generate Invoice flow
 
 ## Completed candidates
 
@@ -16,13 +16,16 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Edit Tenant flow
 - Document Tenants validation checklist
 - Tenants module closeout
+- Plan Leases module
+- Add read-only Leases list
+- Create Lease flow
+- Document Leases validation checklist
+- Leases module closeout
 
 ## Later candidates
 
-- Create Lease flow
-- Lease closeout
-- Plan Billing module
-- Add read-only Invoices list
+- Plan Payments module
+- Record Payment flow
 
 ## Deferred candidates
 

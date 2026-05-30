@@ -84,3 +84,23 @@ Status: ready for manual validation after the Leases implementation slices are c
 ## Deferred Work
 
 Lease edit, end, cancel, occupancy synchronization, invoice generation, deposit ledger, and document upload workflows remain deferred. Billing / Invoices planning is the next recommended module after Leases closeout.
+
+## Closeout
+
+Leases MVP baseline is complete when:
+
+- [ ] Read-only list is validated.
+- [ ] Create lease flow is validated.
+- [ ] Automated checks pass.
+- [ ] Deferred work is documented.
+- [ ] Wiki status pages identify Billing / Invoices planning as the next step.
+
+Deferred Leases work:
+
+- Lease edit remains out of scope.
+- End lease remains out of scope.
+- Cancel lease remains out of scope.
+- Unit occupancy/status synchronization remains out of scope.
+- Invoice generation belongs to Billing / Invoices.
+- Deposit ledger remains out of scope.
+- Contract files, PDFs, and document uploads remain out of scope.

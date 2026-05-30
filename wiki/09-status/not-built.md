@@ -13,18 +13,21 @@ Not built:
 
 ## Leases
 
-Status: not started. Recommended next module.
+Status: MVP baseline built. Remaining Leases refinements are deferred.
 
 Not built:
 
-- Lease planning
-- lease list
-- create Lease
-- lease lifecycle
+- lease edit
+- end lease
+- cancel lease
+- occupancy/status synchronization
+- invoice generation
+- deposit ledger
+- contract files and document uploads
 
 ## Billing / Invoices
 
-Status: not started.
+Status: not started. Recommended next module.
 
 ## Payments
 

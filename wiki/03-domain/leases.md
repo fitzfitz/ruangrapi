@@ -4,7 +4,7 @@ Leases connect Tenants to rental agreements for Properties or Units.
 
 ## Current status
 
-Not started. Recommended next module.
+Leases status: MVP baseline complete.
 
 ## Future purpose
 
@@ -26,19 +26,27 @@ under an active/cancelled/ended lifecycle
 - lease dates
 - status
 
-## First recommended slice
+## Built
 
 - plan Leases module
 - read-only Leases list
+- create Lease flow
+- validation checklist
+- Leases module closeout
 
-## Out of scope for first slice
+## Deferred
 
-- lease creation
-- lease lifecycle
-- rent terms
-- deposits
-- occupancy logic
-- billing generation
+- lease edit
+- end lease
+- cancel lease
+- occupancy/status synchronization
+- invoice generation
+- deposit ledger
+- contract files and document uploads
+
+## Next recommended module
+
+Billing / Invoices planning.
 
 ## Related pages
 

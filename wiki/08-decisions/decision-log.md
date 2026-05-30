@@ -13,7 +13,9 @@
 - Unit status/occupancy workflow is deferred.
 - Unit base_rent_amount/rent pricing workflow is deferred.
 - Tenants were built before Leases.
-- Leases planning is the next recommended module.
+- Leases MVP baseline is complete.
+- Lease edit, end, cancel, occupancy/status synchronization, invoice generation, deposit ledger, and contract files remain deferred.
+- Billing / Invoices planning is the next recommended module.
 
 ## Related pages
 

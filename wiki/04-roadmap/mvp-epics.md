@@ -56,18 +56,31 @@ Deferred:
 
 ## Epic 5: Leases
 
-Status: candidate / next planned
+Status: built
 
 Goal: connect Tenants to Properties/Units through rental agreements.
 
-First candidate slice:
+Built:
 
 - plan Leases module
 - read-only Leases list
+- create Lease flow
+- validation checklist
+- Leases module closeout
+
+Deferred:
+
+- lease edit
+- end lease
+- cancel lease
+- occupancy/status synchronization
+- invoice generation
+- deposit ledger
+- contract files and document uploads
 
 ## Epic 6: Billing and Payments
 
-Status: not started
+Status: next recommended
 
 Goal: track what is due and what has been paid.
 

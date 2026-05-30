@@ -8,19 +8,19 @@ Built:
 - Properties
 - Units
 - Tenants
+- Leases
 
 ## Recommended next sequence
 
-1. Plan Leases module
-2. Implement Lease read-only list
-3. Implement create Lease
-4. Close out Leases
-5. Start Billing / Invoices
-6. Start Payments
-7. Start Receipts
-8. Start Reminders
-9. Add Maintenance
-10. Add basic dashboard/reporting
+1. Plan Billing / Invoices module
+2. Add read-only Invoices list
+3. Add create/generate Invoice flow
+4. Close out Billing / Invoices
+5. Start Payments
+6. Start Receipts
+7. Start Reminders
+8. Add Maintenance
+9. Add basic dashboard/reporting
 
 ## Release principle
 
