@@ -84,10 +84,19 @@ const CreateLeasePage = lazy(() =>
     }),
   ),
 )
+const InvoicesPage = lazy(() =>
+  import('../../modules/invoices/presentation/invoices-page').then(
+    (module) => ({
+      default: module.InvoicesPage,
+    }),
+  ),
+)
 const CreateUnitPage = lazy(() =>
-  import('../../modules/units/presentation/create-unit-page').then((module) => ({
-    default: module.CreateUnitPage,
-  })),
+  import('../../modules/units/presentation/create-unit-page').then(
+    (module) => ({
+      default: module.CreateUnitPage,
+    }),
+  ),
 )
 const EditUnitPage = lazy(() =>
   import('../../modules/units/presentation/edit-unit-page').then((module) => ({
@@ -185,6 +194,14 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <CreateLeasePage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardInvoices}
+            element={
+              <RouteAccessGate route="dashboard">
+                <InvoicesPage />
               </RouteAccessGate>
             }
           />

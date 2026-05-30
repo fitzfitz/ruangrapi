@@ -86,6 +86,7 @@
 .properties-page,
 .tenants-page,
 .leases-page,
+.invoices-page,
 .create-tenant-page,
 .edit-tenant-page,
 .property-detail-page,
@@ -97,13 +98,15 @@
   max-width: 880px;
 }
 
-.leases-page {
+.leases-page,
+.invoices-page {
   max-width: 960px;
 }
 
 .properties-page__header,
 .tenants-page__header,
 .leases-page__header,
+.invoices-page__header,
 .create-tenant-page__header,
 .create-lease-page__header,
 .edit-tenant-page__header,
@@ -120,6 +123,7 @@
 .properties-page__header h2,
 .tenants-page__header h2,
 .leases-page__header h2,
+.invoices-page__header h2,
 .create-tenant-page__header h2,
 .create-lease-page__header h2,
 .edit-tenant-page__header h2,
@@ -136,6 +140,8 @@
 .tenants-page__status,
 .leases-page__header p,
 .leases-page__status,
+.invoices-page__header p,
+.invoices-page__status,
 .create-tenant-page__header p,
 .create-lease-page__header p,
 .create-lease-page__status,
@@ -156,6 +162,7 @@
 .properties-page__header a,
 .tenants-page__header a,
 .leases-page__header a,
+.invoices-page__header a,
 .create-tenant-page__header a,
 .create-lease-page__header a,
 .edit-tenant-page__header a,
@@ -177,6 +184,7 @@
 .properties-page__error,
 .tenants-page__error,
 .leases-page__error,
+.invoices-page__error,
 .edit-tenant-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
@@ -193,6 +201,7 @@
 .properties-page__empty,
 .tenants-page__empty,
 .leases-page__empty,
+.invoices-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -214,6 +223,7 @@
 .properties-page__empty,
 .tenants-page__empty,
 .leases-page__empty,
+.invoices-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -227,6 +237,7 @@
 .properties-page__empty h3,
 .tenants-page__empty h3,
 .leases-page__empty h3,
+.invoices-page__empty h3,
 .create-lease-page__empty h3,
 .edit-tenant-page__empty h3,
 .property-detail-page__empty h3,
@@ -244,14 +255,16 @@
 
 .properties-page__list,
 .tenants-page__list,
-.leases-page__list {
+.leases-page__list,
+.invoices-page__list {
   display: grid;
   gap: 12px;
 }
 
 .property-card,
 .tenant-card,
-.lease-card {
+.lease-card,
+.invoice-card {
   display: grid;
   gap: 16px;
   padding: 20px;
@@ -259,7 +272,8 @@
 
 .property-card p,
 .tenant-card p,
-.lease-card p {
+.lease-card p,
+.invoice-card p {
   color: var(--text);
 }
 
@@ -267,7 +281,10 @@
 .tenant-card__details dd,
 .lease-card__header h3,
 .lease-card__header p,
-.lease-card__details dd {
+.lease-card__details dd,
+.invoice-card__header h3,
+.invoice-card__header p,
+.invoice-card__details dd {
   overflow-wrap: anywhere;
 }
 
@@ -290,7 +307,8 @@
 }
 
 .tenant-card__header,
-.lease-card__header {
+.lease-card__header,
+.invoice-card__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -301,7 +319,8 @@
   font-weight: 700;
 }
 
-.lease-card__status {
+.lease-card__status,
+.invoice-card__status {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 4px 10px;
@@ -313,7 +332,8 @@
 }
 
 .tenant-card__details,
-.lease-card__details {
+.lease-card__details,
+.invoice-card__details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
@@ -323,20 +343,23 @@
 }
 
 .tenant-card__details div,
-.lease-card__details div {
+.lease-card__details div,
+.invoice-card__details div {
   display: grid;
   gap: 6px;
 }
 
 .tenant-card__details dt,
-.lease-card__details dt {
+.lease-card__details dt,
+.invoice-card__details dt {
   color: var(--text-h);
   font-size: 14px;
   font-weight: 700;
 }
 
 .tenant-card__details dd,
-.lease-card__details dd {
+.lease-card__details dd,
+.invoice-card__details dd {
   margin: 0;
   color: var(--text);
 }
@@ -749,7 +772,8 @@
   }
 
   .tenant-card__details,
-  .lease-card__details {
+  .lease-card__details,
+  .invoice-card__details {
     grid-template-columns: 1fr;
   }
 }
