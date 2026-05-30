@@ -14,7 +14,7 @@ import {
   PropertiesPage,
   PropertyDetailPage,
 } from '../../modules/properties'
-import { TenantsPage } from '../../modules/tenants'
+import { CreateTenantPage, TenantsPage } from '../../modules/tenants'
 import { CreateUnitPage, EditUnitPage } from '../../modules/units'
 import { routePaths } from './route-paths'
 
@@ -69,6 +69,14 @@ export function AppRouter() {
           element={
             <RouteAccessGate route="dashboard">
               <TenantsPage />
+            </RouteAccessGate>
+          }
+        />
+        <Route
+          path={routePaths.dashboardTenantsNew}
+          element={
+            <RouteAccessGate route="dashboard">
+              <CreateTenantPage />
             </RouteAccessGate>
           }
         />
