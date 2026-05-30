@@ -401,7 +401,7 @@ export { useTenantsQuery } from './application/use-tenants-query'
 export { TenantsPage } from './presentation/tenants-page'
 ```
 
-- [ ] **Step 6: Add Tenants route paths**
+- [ ] **Step 6: Add Tenants list route path**
 
 Modify `src/app/router/route-paths.ts` so the object includes these keys:
 
@@ -952,7 +952,8 @@ export function CreateTenantPage() {
 
 - [ ] **Step 5: Add create route path and list action**
 
-Modify `src/app/router/route-paths.ts` so the object includes the create route:
+Modify `src/app/router/route-paths.ts` so the object includes the create route
+path before it is used:
 
 ```ts
 dashboardTenantsNew: '/dashboard/tenants/new',
@@ -1537,7 +1538,8 @@ export function EditTenantPage() {
 
 - [ ] **Step 5: Add edit route path and list actions**
 
-Modify `src/app/router/route-paths.ts` so the object includes the edit route:
+Modify `src/app/router/route-paths.ts` so the object includes the edit route
+path before it is used:
 
 ```ts
 dashboardTenantEdit: '/dashboard/tenants/:tenantId/edit',
