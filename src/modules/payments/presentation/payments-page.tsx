@@ -96,7 +96,7 @@ export function PaymentsPage() {
     })
   }
 
-  function handleGenerateReceipt(payment: PaymentListItem) {
+  async function handleGenerateReceipt(payment: PaymentListItem) {
     const isGeneratingReceipt =
       generatingReceiptPaymentIds[payment.id] === true
 
@@ -106,22 +106,17 @@ export function PaymentsPage() {
 
     markReceiptGenerating(payment.id)
     clearReceiptError(payment.id)
-    createReceiptMutation.mutate(
-      {
+    try {
+      await createReceiptMutation.mutateAsync({
         organization_id: payment.organization_id,
         payment_id: payment.id,
-      },
-      {
-        onSuccess: () => {
-          clearReceiptGenerating(payment.id)
-          clearReceiptError(payment.id)
-        },
-        onError: () => {
-          clearReceiptGenerating(payment.id)
-          markReceiptError(payment.id)
-        },
-      },
-    )
+      })
+      clearReceiptError(payment.id)
+    } catch {
+      markReceiptError(payment.id)
+    } finally {
+      clearReceiptGenerating(payment.id)
+    }
   }
 
   return (
@@ -252,7 +247,7 @@ export function PaymentsPage() {
                         type="button"
                         disabled={isGeneratingReceipt}
                         onClick={() => {
-                          handleGenerateReceipt(payment)
+                          void handleGenerateReceipt(payment)
                         }}
                       >
                         {isGeneratingReceipt
