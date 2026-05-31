@@ -279,7 +279,9 @@ export async function createPayment({
   }
 
   if (amount > invoice.remaining_amount) {
-    throw new Error('Payment amount cannot exceed the invoice remaining balance.')
+    throw new Error(
+      'Payment amount cannot exceed the invoice remaining balance.',
+    )
   }
 
   const { data, error } = await supabaseClient

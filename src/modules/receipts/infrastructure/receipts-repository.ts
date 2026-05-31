@@ -21,7 +21,9 @@ export async function createReceiptFromPayment({
     .maybeSingle<{ id: string }>()
 
   if (paymentError !== null) {
-    throw new Error(`Could not validate receipt payment: ${paymentError.message}`)
+    throw new Error(
+      `Could not validate receipt payment: ${paymentError.message}`,
+    )
   }
 
   if (payment === null) {

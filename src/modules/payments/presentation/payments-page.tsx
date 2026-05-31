@@ -97,8 +97,7 @@ export function PaymentsPage() {
   }
 
   async function handleGenerateReceipt(payment: PaymentListItem) {
-    const isGeneratingReceipt =
-      generatingReceiptPaymentIds[payment.id] === true
+    const isGeneratingReceipt = generatingReceiptPaymentIds[payment.id] === true
 
     if (payment.receipt_id !== null || isGeneratingReceipt) {
       return
@@ -158,7 +157,8 @@ export function PaymentsPage() {
             {paymentsQuery.data.map((payment) => {
               const isGeneratingReceipt =
                 generatingReceiptPaymentIds[payment.id] === true
-              const hasReceiptError = receiptErrorPaymentIds[payment.id] === true
+              const hasReceiptError =
+                receiptErrorPaymentIds[payment.id] === true
               const hasReceipt = payment.receipt_id !== null
 
               return (
