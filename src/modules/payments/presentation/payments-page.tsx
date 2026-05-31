@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { routePaths } from '../../../app/router/route-paths'
 import { AppLayout } from '../../../app/layouts'
+import { useCreateReceiptMutation } from '../../receipts'
 import { usePaymentsQuery } from '../application/use-payments-query'
 import type { PaymentListItem, PaymentMethod } from '../domain/payment'
 
@@ -32,6 +34,14 @@ function formatCurrency(value: number) {
   }).format(value)
 }
 
+function formatReceiptIssuedAt(value: string) {
+  return new Intl.DateTimeFormat('id-ID', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(value))
+}
+
 function formatPaymentMethod(method: PaymentMethod) {
   return method.replaceAll('_', ' ')
 }
@@ -46,6 +56,37 @@ function formatReference(referenceNumber: string | null) {
 
 export function PaymentsPage() {
   const paymentsQuery = usePaymentsQuery()
+  const createReceiptMutation = useCreateReceiptMutation()
+  const [generatingReceiptPaymentId, setGeneratingReceiptPaymentId] = useState<
+    string | null
+  >(null)
+  const [receiptErrorPaymentId, setReceiptErrorPaymentId] = useState<
+    string | null
+  >(null)
+
+  function handleGenerateReceipt(payment: PaymentListItem) {
+    if (payment.receipt_id !== null) {
+      return
+    }
+
+    setGeneratingReceiptPaymentId(payment.id)
+    setReceiptErrorPaymentId(null)
+    createReceiptMutation.mutate(
+      {
+        organization_id: payment.organization_id,
+        payment_id: payment.id,
+      },
+      {
+        onSuccess: () => {
+          setGeneratingReceiptPaymentId(null)
+        },
+        onError: () => {
+          setReceiptErrorPaymentId(payment.id)
+          setGeneratingReceiptPaymentId(null)
+        },
+      },
+    )
+  }
 
   return (
     <AppLayout>
@@ -54,9 +95,8 @@ export function PaymentsPage() {
           <div>
             <h2 id="payments-title">Payments</h2>
             <p>
-              View money received against issued invoices. Recording payments,
-              receipts, corrections, and reporting are handled in separate
-              slices.
+              View money received against issued invoices and generate simple
+              receipts for recorded payments.
             </p>
           </div>
           <Link to={routePaths.dashboardPaymentsNew}>Add payment</Link>
@@ -84,46 +124,109 @@ export function PaymentsPage() {
 
         {paymentsQuery.isSuccess && paymentsQuery.data.length > 0 ? (
           <div className="payments-page__list" aria-label="Payment list">
-            {paymentsQuery.data.map((payment) => (
-              <article className="payment-card" key={payment.id}>
-                <div className="payment-card__header">
-                  <div>
-                    <h3>{payment.tenant_name}</h3>
-                    <p>
-                      {payment.unit_name} - {formatPropertyName(payment)}
-                    </p>
-                  </div>
-                  <span className="payment-card__method">
-                    {formatPaymentMethod(payment.payment_method)}
-                  </span>
-                </div>
+            {paymentsQuery.data.map((payment) => {
+              const isGeneratingReceipt =
+                generatingReceiptPaymentId === payment.id
+              const hasReceipt = payment.receipt_id !== null
 
-                <dl className="payment-card__details">
-                  <div>
-                    <dt>Payment date</dt>
-                    <dd>{formatDate(payment.payment_date)}</dd>
+              return (
+                <article className="payment-card" key={payment.id}>
+                  <div className="payment-card__header">
+                    <div>
+                      <h3>{payment.tenant_name}</h3>
+                      <p>
+                        {payment.unit_name} - {formatPropertyName(payment)}
+                      </p>
+                    </div>
+                    <span className="payment-card__method">
+                      {formatPaymentMethod(payment.payment_method)}
+                    </span>
                   </div>
-                  <div>
-                    <dt>Amount</dt>
-                    <dd>{formatCurrency(payment.amount)}</dd>
-                  </div>
-                  <div>
-                    <dt>Billing period</dt>
-                    <dd>
-                      {formatBillingPeriod(payment.invoice_billing_period)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Invoice status</dt>
-                    <dd>{payment.invoice_status}</dd>
-                  </div>
-                  <div>
-                    <dt>Reference</dt>
-                    <dd>{formatReference(payment.reference_number)}</dd>
-                  </div>
-                </dl>
-              </article>
-            ))}
+
+                  <dl className="payment-card__details">
+                    <div>
+                      <dt>Payment date</dt>
+                      <dd>{formatDate(payment.payment_date)}</dd>
+                    </div>
+                    <div>
+                      <dt>Amount</dt>
+                      <dd>{formatCurrency(payment.amount)}</dd>
+                    </div>
+                    <div>
+                      <dt>Billing period</dt>
+                      <dd>
+                        {formatBillingPeriod(payment.invoice_billing_period)}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Invoice status</dt>
+                      <dd>{payment.invoice_status}</dd>
+                    </div>
+                    <div>
+                      <dt>Reference</dt>
+                      <dd>{formatReference(payment.reference_number)}</dd>
+                    </div>
+                  </dl>
+
+                  {hasReceipt ? (
+                    <div className="payment-card__receipt payment-card__receipt--issued">
+                      <div
+                        className="payment-card__receipt-icon"
+                        aria-hidden="true"
+                      >
+                        Issued
+                      </div>
+                      <div>
+                        <p className="payment-card__receipt-label">
+                          Receipt issued
+                        </p>
+                        <p className="payment-card__receipt-number">
+                          {payment.receipt_number}
+                        </p>
+                        {payment.receipt_issued_at !== null ? (
+                          <p className="payment-card__receipt-helper">
+                            Issued{' '}
+                            {formatReceiptIssuedAt(payment.receipt_issued_at)}
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="payment-card__receipt payment-card__receipt--pending">
+                      <div>
+                        <p className="payment-card__receipt-label">Receipt</p>
+                        <p className="payment-card__receipt-title">
+                          Not generated yet
+                        </p>
+                        <p className="payment-card__receipt-helper">
+                          Create one receipt for this payment.
+                        </p>
+                        {receiptErrorPaymentId === payment.id ? (
+                          <p
+                            className="payment-card__receipt-error"
+                            role="alert"
+                          >
+                            We could not generate this receipt. Please try
+                            again.
+                          </p>
+                        ) : null}
+                      </div>
+                      <button
+                        type="button"
+                        disabled={isGeneratingReceipt}
+                        onClick={() => {
+                          handleGenerateReceipt(payment)
+                        }}
+                      >
+                        {isGeneratingReceipt
+                          ? 'Generating...'
+                          : 'Generate receipt'}
+                      </button>
+                    </div>
+                  )}
+                </article>
+              )
+            })}
           </div>
         ) : null}
       </section>
