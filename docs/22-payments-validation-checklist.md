@@ -91,8 +91,8 @@ Do not add `supabase/seed.sql` for this validation pass. Do not create a migrati
 - [ ] No payment edit flow was introduced.
 - [ ] No payment delete flow was introduced.
 - [ ] No payment correction workflow was introduced.
-- [ ] No receipt workflow was introduced.
-- [ ] No receipt number generation was introduced.
+- [x] No receipt workflow was introduced during the Payments baseline. Receipts manual generation was implemented later as its own module.
+- [x] No receipt number generation was introduced during the Payments baseline. Receipt numbering was activated later through the Receipts module using existing database-backed sequencing.
 - [ ] No refund workflow was introduced.
 - [ ] No overpayment allocation was introduced.
 - [ ] No payment gateway integration was introduced.
@@ -105,7 +105,7 @@ Do not add `supabase/seed.sql` for this validation pass. Do not create a migrati
 
 ## Deferred Work
 
-Payment edit, payment delete, correction workflows, receipts, refunds, overpayment allocation, payment gateway integration, bank reconciliation, invoice payment history, Supabase RPC-based atomic payment recording, and dashboard collection metrics remain deferred.
+Payment edit, payment delete, correction workflows, refunds, overpayment allocation, payment gateway integration, bank reconciliation, invoice payment history, Supabase RPC-based atomic payment recording, and dashboard collection metrics remain deferred. Receipts were deferred at Payments closeout and were implemented later as their own manual generation module.
 
 ## Closeout
 
@@ -115,10 +115,10 @@ Payments MVP baseline is complete when:
 - [ ] Record Payment flow is manually validated.
 - [x] Automated checks pass.
 - [x] Deferred work is documented.
-- [x] Wiki status pages identify Receipts planning as the next step.
+- [x] Wiki status pages identified Receipts planning as the next step at Payments closeout. Receipts manual generation has since been implemented, and current wiki status pages identify Reminders planning as the next step.
 
 Closeout note:
 
 - Payments implementation and automated validation are complete.
 - Manual browser/Supabase validation remains pending because it requires an authenticated local session and test data.
-- Receipts planning is the next recommended module after manual Payments validation.
+- Receipts planning was the recommended module at Payments closeout. Receipts manual generation has since been implemented; Reminders planning is now recommended after manual Receipts validation.

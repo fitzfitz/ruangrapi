@@ -45,6 +45,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - PDF generation
 - Email or WhatsApp delivery
 - Automatic receipt generation after payment recording
+- Payment edit blocking after receipt generation
 
 ## Deferred candidates
 
