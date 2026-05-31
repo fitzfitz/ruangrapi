@@ -63,7 +63,7 @@ Billing should come after:
 
 ## Next recommended module
 
-Receipts planning, after manual Payments validation.
+Reminders planning, after manual Receipts validation.
 
 ## Related pages
 
