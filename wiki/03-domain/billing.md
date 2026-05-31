@@ -53,8 +53,6 @@ Billing should come after:
 - invoice edit
 - invoice issue/send
 - invoice cancel
-- payments
-- receipts
 - reminders and WhatsApp messages
 - automatic overdue status jobs
 - utility reading capture and utility billing

@@ -85,7 +85,7 @@ Status: ready for manual validation after the Billing / Invoices implementation 
 
 ## Deferred Work
 
-Invoice detail, edit, send/delivery, cancel, receipts, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments has since moved into its MVP baseline implementation; Receipts planning is the next recommended module after manual Payments validation.
+Invoice detail, edit, send/delivery, cancel, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments and Receipts have since moved into their MVP baseline implementations; Reminders planning is the next recommended module after manual Receipts validation.
 
 ## Closeout
 
@@ -95,7 +95,7 @@ Billing / Invoices MVP baseline is complete when:
 - [ ] Create draft rent invoice flow is validated.
 - [ ] Automated checks pass.
 - [ ] Deferred work is documented.
-- [x] Wiki status pages identified Payments planning as the next step at Billing / Invoices closeout. Payments has since been implemented, and current wiki status pages identify Receipts planning as the next step.
+- [x] Wiki status pages identified Payments planning as the next step at Billing / Invoices closeout. Payments and Receipts have since been implemented, and current wiki status pages identify Reminders planning as the next step.
 
 Deferred Billing / Invoices work:
 
@@ -104,7 +104,7 @@ Deferred Billing / Invoices work:
 - Invoice send/delivery remains out of scope. Minimal invoice issue was implemented later as a Payments prerequisite.
 - Invoice cancel remains out of scope.
 - Payments were out of scope for the original Billing / Invoices baseline and were implemented later as their own module.
-- Receipts remain out of scope.
+- Receipts were out of scope for the original Billing / Invoices baseline and were implemented later as their own module.
 - Reminders and WhatsApp messages remain out of scope.
 - Automatic overdue status jobs remain out of scope.
 - Utility reading capture and utility billing remain out of scope.
