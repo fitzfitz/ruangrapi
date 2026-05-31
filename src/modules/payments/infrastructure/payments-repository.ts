@@ -26,7 +26,7 @@ const paymentListSelectColumns = `
   notes,
   created_at,
   updated_at,
-  receipts (
+  receipt:receipts (
     id,
     receipt_number,
     issued_at
@@ -63,7 +63,7 @@ type PaymentListRow = {
   notes: string | null
   created_at: string
   updated_at: string
-  receipts: PaymentReceiptRow[] | null
+  receipt: PaymentReceiptRow | null
   invoices: {
     billing_period: string
     status: string
@@ -110,7 +110,7 @@ const paymentSelectColumns =
   'id, organization_id, invoice_id, amount, payment_date, payment_method, reference_number, notes, created_at, updated_at'
 
 function mapPaymentListRow(row: PaymentListRow): PaymentListItem {
-  const receipt = row.receipts?.[0] ?? null
+  const receipt = row.receipt
 
   return {
     id: row.id,
