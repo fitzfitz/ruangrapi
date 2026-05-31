@@ -13,6 +13,21 @@ export async function createReceiptFromPayment({
   organization_id,
   payment_id,
 }: CreateReceiptFromPaymentInput): Promise<Receipt> {
+  const { data: payment, error: paymentError } = await supabaseClient
+    .from('payments')
+    .select('id')
+    .eq('id', payment_id)
+    .eq('organization_id', organization_id)
+    .maybeSingle<{ id: string }>()
+
+  if (paymentError !== null) {
+    throw new Error(`Could not validate receipt payment: ${paymentError.message}`)
+  }
+
+  if (payment === null) {
+    throw new Error('Receipt payment must belong to this organization.')
+  }
+
   const { data, error } = await supabaseClient
     .from('receipts')
     .insert({
