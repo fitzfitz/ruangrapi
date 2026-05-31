@@ -68,14 +68,14 @@ Status: ready for manual validation after the Billing / Invoices implementation 
 
 - [ ] No invoice detail route was introduced.
 - [ ] No invoice edit flow was introduced.
-- [ ] No invoice issue/send workflow was introduced.
+- [x] No invoice issue/send workflow was introduced during the Billing / Invoices baseline. Minimal invoice issue was implemented later as a Payments prerequisite.
 - [ ] No invoice cancel workflow was introduced.
-- [ ] No payment workflow was introduced.
-- [ ] No receipt workflow was introduced.
+- [x] No payment workflow was introduced during the Billing / Invoices baseline. Payments were implemented later as their own module.
+- [x] No receipt workflow was introduced during the Billing / Invoices baseline. Receipts manual generation was implemented later as its own module.
 - [ ] No reminder or WhatsApp message workflow was introduced.
 - [ ] No automatic overdue status job was introduced.
-- [ ] No payment balance or partial payment handling was introduced.
-- [ ] No receipt number generation was introduced.
+- [x] No payment balance or partial payment handling was introduced during the Billing / Invoices baseline. Payment balance handling was implemented later in the Payments module.
+- [x] No receipt number generation was introduced during the Billing / Invoices baseline. Receipt numbering was activated later through the Receipts module using existing database-backed sequencing.
 - [ ] No utility reading capture was introduced.
 - [ ] No utility billing automation was introduced.
 - [ ] No invoice PDF, download, email, or WhatsApp delivery workflow was introduced.
