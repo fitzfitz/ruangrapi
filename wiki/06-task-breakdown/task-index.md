@@ -41,6 +41,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Move payment recording into Supabase RPC
 - Receipt detail page
 - Receipt list page
+- Receipt edit or delete workflow
 - Print/download receipt
 - PDF generation
 - Email or WhatsApp delivery

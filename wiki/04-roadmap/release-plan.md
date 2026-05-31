@@ -15,12 +15,12 @@ Built:
 
 ## Recommended next sequence
 
-1. Manually validate Receipts in browser/local Supabase
+1. Manually validate Payments and Receipts in browser/local Supabase
 2. Start Reminders planning
 3. Add Maintenance
 4. Add basic dashboard/reporting
 
-Next recommended module: Reminders planning, after manual Receipts validation.
+Next recommended module: Reminders planning, after manual Payments and Receipts validation.
 
 ## Release principle
 

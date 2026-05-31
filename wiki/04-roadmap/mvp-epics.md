@@ -123,7 +123,7 @@ Deferred:
 
 ## Epic 7: Receipts and Reminders
 
-Status: Receipts manual generation baseline complete; Reminders planning next after manual Receipts validation
+Status: Receipts manual generation baseline complete; Reminders planning next after manual Payments and Receipts validation
 
 Goal: support proof of payment and follow-up workflows.
 

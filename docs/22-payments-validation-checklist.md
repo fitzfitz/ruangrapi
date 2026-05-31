@@ -121,4 +121,4 @@ Closeout note:
 
 - Payments implementation and automated validation are complete.
 - Manual browser/Supabase validation remains pending because it requires an authenticated local session and test data.
-- Receipts planning was the recommended module at Payments closeout. Receipts manual generation has since been implemented; Reminders planning is now recommended after manual Receipts validation.
+- Receipts planning was the recommended module at Payments closeout. Receipts manual generation has since been implemented; Reminders planning is now recommended after manual Payments and Receipts validation.

@@ -44,6 +44,7 @@ Billing should come after:
 - plan Billing / Invoices module
 - read-only Invoices list
 - create draft rent Invoice flow
+- minimal Invoice issue action
 - validation checklist
 - Billing / Invoices module closeout
 
@@ -51,7 +52,7 @@ Billing should come after:
 
 - invoice detail
 - invoice edit
-- invoice issue/send
+- invoice send/delivery
 - invoice cancel
 - reminders and WhatsApp messages
 - automatic overdue status jobs
@@ -61,7 +62,7 @@ Billing should come after:
 
 ## Next recommended module
 
-Reminders planning, after manual Receipts validation.
+Reminders planning, after manual Payments and Receipts validation.
 
 ## Related pages
 

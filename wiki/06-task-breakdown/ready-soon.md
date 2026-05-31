@@ -18,4 +18,4 @@ Status:
 
 - candidate only
 
-Next recommended module: Reminders planning, after manual Receipts validation.
+Next recommended module: Reminders planning, after manual Payments and Receipts validation.

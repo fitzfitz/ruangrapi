@@ -217,6 +217,7 @@ Deferred:
 - payment correction workflow
 - receipt detail page
 - receipt list page
+- receipt edit or delete workflow
 - print/download receipt
 - PDF generation
 - email or WhatsApp delivery
@@ -244,6 +245,7 @@ Deferred:
 
 - receipt detail page
 - receipt list page
+- receipt edit or delete workflow
 - print/download receipt
 - PDF generation
 - email or WhatsApp delivery

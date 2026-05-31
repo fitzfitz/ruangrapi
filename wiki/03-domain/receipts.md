@@ -41,6 +41,7 @@ Receipts should come after payments.
 
 - receipt detail page
 - receipt list page
+- receipt edit or delete workflow
 - print/download receipt
 - PDF generation
 - email or WhatsApp delivery

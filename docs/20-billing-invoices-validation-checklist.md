@@ -85,7 +85,7 @@ Status: ready for manual validation after the Billing / Invoices implementation 
 
 ## Deferred Work
 
-Invoice detail, edit, send/delivery, cancel, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments and Receipts have since moved into their MVP baseline implementations; Reminders planning is the next recommended module after manual Receipts validation.
+Invoice detail, edit, send/delivery, cancel, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments and Receipts have since moved into their MVP baseline implementations; Reminders planning is the next recommended module after manual Payments and Receipts validation.
 
 ## Closeout
 
