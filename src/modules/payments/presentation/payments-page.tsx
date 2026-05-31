@@ -54,23 +54,58 @@ function formatReference(referenceNumber: string | null) {
   return referenceNumber ?? 'No reference'
 }
 
+type ReceiptPaymentState = Record<string, true>
+
 export function PaymentsPage() {
   const paymentsQuery = usePaymentsQuery()
   const createReceiptMutation = useCreateReceiptMutation()
-  const [generatingReceiptPaymentId, setGeneratingReceiptPaymentId] = useState<
-    string | null
-  >(null)
-  const [receiptErrorPaymentId, setReceiptErrorPaymentId] = useState<
-    string | null
-  >(null)
+  const [generatingReceiptPaymentIds, setGeneratingReceiptPaymentIds] =
+    useState<ReceiptPaymentState>({})
+  const [receiptErrorPaymentIds, setReceiptErrorPaymentIds] =
+    useState<ReceiptPaymentState>({})
+
+  function markReceiptGenerating(paymentId: string) {
+    setGeneratingReceiptPaymentIds((currentPaymentIds) => ({
+      ...currentPaymentIds,
+      [paymentId]: true,
+    }))
+  }
+
+  function clearReceiptGenerating(paymentId: string) {
+    setGeneratingReceiptPaymentIds((currentPaymentIds) => {
+      const nextPaymentIds = { ...currentPaymentIds }
+      delete nextPaymentIds[paymentId]
+
+      return nextPaymentIds
+    })
+  }
+
+  function markReceiptError(paymentId: string) {
+    setReceiptErrorPaymentIds((currentPaymentIds) => ({
+      ...currentPaymentIds,
+      [paymentId]: true,
+    }))
+  }
+
+  function clearReceiptError(paymentId: string) {
+    setReceiptErrorPaymentIds((currentPaymentIds) => {
+      const nextPaymentIds = { ...currentPaymentIds }
+      delete nextPaymentIds[paymentId]
+
+      return nextPaymentIds
+    })
+  }
 
   function handleGenerateReceipt(payment: PaymentListItem) {
-    if (payment.receipt_id !== null) {
+    const isGeneratingReceipt =
+      generatingReceiptPaymentIds[payment.id] === true
+
+    if (payment.receipt_id !== null || isGeneratingReceipt) {
       return
     }
 
-    setGeneratingReceiptPaymentId(payment.id)
-    setReceiptErrorPaymentId(null)
+    markReceiptGenerating(payment.id)
+    clearReceiptError(payment.id)
     createReceiptMutation.mutate(
       {
         organization_id: payment.organization_id,
@@ -78,11 +113,12 @@ export function PaymentsPage() {
       },
       {
         onSuccess: () => {
-          setGeneratingReceiptPaymentId(null)
+          clearReceiptGenerating(payment.id)
+          clearReceiptError(payment.id)
         },
         onError: () => {
-          setReceiptErrorPaymentId(payment.id)
-          setGeneratingReceiptPaymentId(null)
+          clearReceiptGenerating(payment.id)
+          markReceiptError(payment.id)
         },
       },
     )
@@ -126,7 +162,8 @@ export function PaymentsPage() {
           <div className="payments-page__list" aria-label="Payment list">
             {paymentsQuery.data.map((payment) => {
               const isGeneratingReceipt =
-                generatingReceiptPaymentId === payment.id
+                generatingReceiptPaymentIds[payment.id] === true
+              const hasReceiptError = receiptErrorPaymentIds[payment.id] === true
               const hasReceipt = payment.receipt_id !== null
 
               return (
@@ -201,7 +238,7 @@ export function PaymentsPage() {
                         <p className="payment-card__receipt-helper">
                           Create one receipt for this payment.
                         </p>
-                        {receiptErrorPaymentId === payment.id ? (
+                        {hasReceiptError ? (
                           <p
                             className="payment-card__receipt-error"
                             role="alert"
