@@ -169,7 +169,6 @@ Deferred:
 - invoice edit
 - invoice send/delivery
 - invoice cancel
-- receipts
 - reminders and WhatsApp messages
 - automatic overdue status jobs
 - utility reading capture and utility billing
