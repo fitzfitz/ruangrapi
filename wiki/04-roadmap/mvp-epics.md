@@ -109,6 +109,7 @@ Deferred:
 - invoice cancel
 - receipt detail page
 - receipt list page
+- receipt edit/delete workflow
 - print/download receipt
 - PDF generation
 - email or WhatsApp delivery

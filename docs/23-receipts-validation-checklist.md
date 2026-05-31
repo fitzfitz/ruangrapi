@@ -55,4 +55,4 @@ Required records:
 
 ## Deferred Work
 
-Receipt detail, receipt list, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.
+Receipt detail, receipt list, receipt edit/delete, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.

@@ -19,7 +19,7 @@
 - Invoice detail, edit, issue/send, cancel, reminders, overdue automation, utility billing, PDFs, delivery workflows, and dashboard metrics remain deferred.
 - Payments MVP baseline implementation is complete; manual validation remains pending.
 - Receipts module: manual generation baseline complete; manual validation pending.
-- Receipt detail, receipt list, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.
+- Receipt detail, receipt list, receipt edit/delete, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.
 - Next recommended module: Reminders planning, after manual Payments and Receipts validation.
 
 ## Related pages
