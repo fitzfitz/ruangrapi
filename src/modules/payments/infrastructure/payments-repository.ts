@@ -26,6 +26,11 @@ const paymentListSelectColumns = `
   notes,
   created_at,
   updated_at,
+  receipts (
+    id,
+    receipt_number,
+    issued_at
+  ),
   invoices (
     billing_period,
     status,
@@ -41,6 +46,12 @@ const paymentListSelectColumns = `
   )
 `
 
+type PaymentReceiptRow = {
+  id: string
+  receipt_number: string
+  issued_at: string
+}
+
 type PaymentListRow = {
   id: string
   organization_id: string
@@ -52,6 +63,7 @@ type PaymentListRow = {
   notes: string | null
   created_at: string
   updated_at: string
+  receipts: PaymentReceiptRow[] | null
   invoices: {
     billing_period: string
     status: string
@@ -98,6 +110,8 @@ const paymentSelectColumns =
   'id, organization_id, invoice_id, amount, payment_date, payment_method, reference_number, notes, created_at, updated_at'
 
 function mapPaymentListRow(row: PaymentListRow): PaymentListItem {
+  const receipt = row.receipts?.[0] ?? null
+
   return {
     id: row.id,
     organization_id: row.organization_id,
@@ -115,6 +129,9 @@ function mapPaymentListRow(row: PaymentListRow): PaymentListItem {
     invoice_billing_period:
       row.invoices?.billing_period ?? `${row.payment_date.slice(0, 7)}-01`,
     invoice_status: row.invoices?.status ?? 'unknown',
+    receipt_id: receipt?.id ?? null,
+    receipt_number: receipt?.receipt_number ?? null,
+    receipt_issued_at: receipt?.issued_at ?? null,
   }
 }
 

@@ -19,6 +19,9 @@ export type PaymentListItem = Payment & {
   property_name: string | null
   invoice_billing_period: string
   invoice_status: string
+  receipt_id: string | null
+  receipt_number: string | null
+  receipt_issued_at: string | null
 }
 
 export type PayableInvoiceStatus = 'unpaid' | 'partially_paid' | 'overdue'
