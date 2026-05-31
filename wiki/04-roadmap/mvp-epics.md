@@ -97,6 +97,9 @@ Built:
 - record Payment flow
 - Payments validation checklist
 - Payments implementation closeout
+- plan Receipts module
+- Generate Receipt after Payment
+- Receipts validation checklist
 
 Deferred:
 
@@ -104,7 +107,14 @@ Deferred:
 - invoice edit
 - invoice send/delivery
 - invoice cancel
-- receipts
+- receipt detail page
+- receipt list page
+- print/download receipt
+- PDF generation
+- email or WhatsApp delivery
+- automatic receipt generation after payment recording
+- payment edit blocking after receipt generation
+- payment correction workflow
 - reminders and WhatsApp messages
 - automatic overdue status jobs
 - utility reading capture and utility billing
@@ -113,7 +123,7 @@ Deferred:
 
 ## Epic 7: Receipts and Reminders
 
-Status: next recommended
+Status: Receipts manual generation baseline complete; Reminders planning next after manual Receipts validation
 
 Goal: support proof of payment and follow-up workflows.
 

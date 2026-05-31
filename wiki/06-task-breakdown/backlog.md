@@ -37,8 +37,14 @@
 
 ## Receipts
 
-- Plan Receipts module
-- Generate Receipt after Payment
+- Receipt detail page
+- Receipt list page
+- Print/download receipt
+- PDF generation
+- Email or WhatsApp delivery
+- Automatic receipt generation after payment recording
+- Payment edit blocking after receipt generation
+- Payment correction workflow
 
 ## Maintenance
 

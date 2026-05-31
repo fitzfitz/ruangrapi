@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Plan Receipts module
+- Reminders planning
 
 ## Completed candidates
 
@@ -30,13 +30,21 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Record Payment flow
 - Document Payments validation checklist
 - Payments module closeout
+- Plan Receipts module
+- Generate Receipt after Payment
+- Document Receipts validation checklist
 
 ## Later candidates
 
-- Generate Receipt after Payment
 - Add Payment edit before receipt generation
 - Add Invoice payment history context
 - Move payment recording into Supabase RPC
+- Receipt detail page
+- Receipt list page
+- Print/download receipt
+- PDF generation
+- Email or WhatsApp delivery
+- Automatic receipt generation after payment recording
 
 ## Deferred candidates
 

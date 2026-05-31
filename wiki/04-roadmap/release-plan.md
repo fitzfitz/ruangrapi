@@ -11,15 +11,16 @@ Built:
 - Leases
 - Billing / Invoices
 - Payments
+- Receipts manual generation baseline
 
 ## Recommended next sequence
 
-1. Manually validate Payments in browser/local Supabase
-2. Plan Receipts module
-3. Generate Receipt after Payment
-4. Start Reminders
-5. Add Maintenance
-6. Add basic dashboard/reporting
+1. Manually validate Receipts in browser/local Supabase
+2. Start Reminders planning
+3. Add Maintenance
+4. Add basic dashboard/reporting
+
+Next recommended module: Reminders planning, after manual Receipts validation.
 
 ## Release principle
 

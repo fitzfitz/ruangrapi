@@ -195,6 +195,8 @@ Built:
 - invoice balance summary
 - application-level overpayment prevention
 - invoice status update after payment recording
+- manual receipt generation from payment cards
+- issued receipt state on payment cards
 - validation checklist
 - Payments implementation closeout
 
@@ -214,9 +216,38 @@ Deferred:
 - payment edit
 - payment delete
 - payment correction workflow
-- receipts
+- receipt detail page
+- receipt list page
+- print/download receipt
+- PDF generation
+- email or WhatsApp delivery
+- automatic receipt generation after payment recording
+- payment edit blocking after receipt generation
 - refunds
 - overpayment allocation
 - payment gateway integration
 - bank reconciliation
 - dashboard collection metrics
+
+## Receipts
+
+Status: manual generation baseline complete; manual validation pending.
+
+Built:
+
+- plan Receipts module
+- manual Generate receipt action from the Payments list
+- generated receipt number using the `RR-{YYYY}-{0001}` direction
+- issued receipt state on payment cards
+- Receipts validation checklist
+
+Deferred:
+
+- receipt detail page
+- receipt list page
+- print/download receipt
+- PDF generation
+- email or WhatsApp delivery
+- automatic receipt generation after payment recording
+- payment edit blocking after receipt generation
+- payment correction workflow

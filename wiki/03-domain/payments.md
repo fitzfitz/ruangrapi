@@ -5,6 +5,7 @@ Payments record money received from tenants against invoices.
 ## Current status
 
 Payments MVP baseline implementation is complete. Manual browser validation remains pending.
+Receipts module: manual generation baseline complete; manual validation pending.
 
 ## Purpose
 
@@ -35,7 +36,7 @@ Payments should come after billing/invoices, because payments need something to 
 - payment edit before receipt generation
 - payment delete
 - payment correction workflow
-- receipt generation
+- payment edit blocking after receipt generation
 - refunds
 - overpayment allocation
 - payment gateway integration

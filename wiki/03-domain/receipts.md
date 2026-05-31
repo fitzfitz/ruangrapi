@@ -1,12 +1,12 @@
 # Receipts
 
-Receipts are future modules.
+Receipts provide proof of payment for recorded payments.
 
 ## Current status
 
-Not started.
+Receipts module: manual generation baseline complete; manual validation pending.
 
-## Future purpose
+## Purpose
 
 Receipts provide proof of payment.
 
@@ -27,6 +27,26 @@ RR-2026-0001
 ## Dependencies
 
 Receipts should come after payments.
+
+## Built
+
+- plan Receipts module
+- manual Generate receipt action from the Payments list
+- receipt number display after generation
+- issued date display after generation
+- pending receipt state for payments without receipts
+- Receipts validation checklist
+
+## Deferred
+
+- receipt detail page
+- receipt list page
+- print/download receipt
+- PDF generation
+- email or WhatsApp delivery
+- automatic receipt generation after payment recording
+- payment edit blocking after receipt generation
+- payment correction workflow
 
 ## Related pages
 

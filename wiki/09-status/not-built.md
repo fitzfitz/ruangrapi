@@ -41,14 +41,14 @@ Not built:
 
 ## Payments
 
-Status: MVP baseline implementation complete. Remaining Payments refinements are deferred; manual browser validation is still pending.
+Status: MVP baseline implementation complete. Receipt manual generation is built; remaining Payments refinements are deferred and manual browser validation is still pending.
 
 Not built:
 
 - payment edit before receipt generation
 - payment delete
 - payment correction workflow
-- receipt generation
+- payment edit blocking after receipt generation
 - refunds
 - overpayment allocation
 - payment gateway integration
@@ -57,7 +57,17 @@ Not built:
 
 ## Receipts
 
-Status: not started.
+Status: manual generation baseline complete; manual validation pending.
+
+Not built:
+
+- receipt detail page
+- receipt list page
+- print/download receipt
+- PDF generation
+- email or WhatsApp delivery
+- automatic receipt generation after payment recording
+- receipt edit or delete workflow
 
 ## Reminders
 
