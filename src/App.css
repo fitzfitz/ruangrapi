@@ -370,6 +370,98 @@
   background: #f8fafc;
 }
 
+.payment-card__receipt {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.payment-card__receipt--pending {
+  border: 1px dashed var(--border);
+  background: var(--surface-muted);
+}
+
+.payment-card__receipt--issued {
+  grid-template-columns: auto minmax(0, 1fr);
+  border: 1px solid #b7d7c2;
+  background: linear-gradient(180deg, #f7fff9, #eefbf2);
+}
+
+.payment-card__receipt-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 10px;
+  color: #ffffff;
+  background: #166534;
+  font-weight: 900;
+}
+
+.payment-card__receipt-label {
+  margin: 0;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.payment-card__receipt--pending .payment-card__receipt-label {
+  color: var(--text-h);
+}
+
+.payment-card__receipt-title,
+.payment-card__receipt-number,
+.payment-card__receipt-helper,
+.payment-card__receipt-error {
+  margin: 0;
+}
+
+.payment-card__receipt-title {
+  margin-top: 4px;
+  color: var(--text-h);
+  font-weight: 800;
+}
+
+.payment-card__receipt-number {
+  margin-top: 4px;
+  color: #14532d;
+  font-size: 18px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.payment-card__receipt-helper {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.payment-card__receipt-error {
+  margin-top: 8px;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.payment-card__receipt button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #ffffff;
+  background: var(--text-h);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.payment-card__receipt button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 .tenant-card__details,
 .lease-card__details,
 .invoice-card__details,
@@ -932,5 +1024,13 @@
   .lease-card__details,
   .invoice-card__details {
     grid-template-columns: 1fr;
+  }
+
+  .payment-card__receipt {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-card__receipt button {
+    width: 100%;
   }
 }
