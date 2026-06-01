@@ -12,15 +12,16 @@ Built:
 - Billing / Invoices
 - Payments
 - Receipts manual generation baseline
+- Reminders manual MVP
 
 ## Recommended next sequence
 
-1. Manually validate Payments and Receipts in browser/local Supabase
-2. Start Reminders planning
+1. Manually validate Payments, Receipts, and Reminders in browser/local Supabase
+2. Start Maintenance planning
 3. Add Maintenance
-4. Add basic dashboard/reporting
+4. Add basic Reporting / Dashboard metrics
 
-Next recommended module: Reminders planning, after manual Payments and Receipts validation.
+Next recommended module: Maintenance planning, with Reporting / Dashboard metrics after the operational records are validated.
 
 ## Release principle
 

@@ -69,7 +69,17 @@ Not built:
 
 ## Reminders
 
-Status: not started.
+Status: manual MVP baseline built. Advanced Reminders work is deferred and manual validation is still pending.
+
+Not built:
+
+- WhatsApp Business API integration
+- scheduled reminders
+- bulk reminders
+- message templates
+- reminder detail/history page
+- delivery/status tracking
+- better phone normalization
 
 ## Maintenance
 

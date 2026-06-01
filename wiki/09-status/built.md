@@ -251,3 +251,32 @@ Deferred:
 - automatic receipt generation after payment recording
 - payment edit blocking after receipt generation
 - payment correction workflow
+
+## Reminders
+
+Status: manual MVP baseline complete; manual validation pending.
+
+Routes:
+
+- `/dashboard/reminders`
+
+Built:
+
+- Reminders page
+- top-level Reminders navigation
+- payable invoice reminder preparation
+- generated WhatsApp-style message text
+- manual WhatsApp link
+- copy message action
+- prepared, sent, and cancelled status updates
+- validation checklist
+
+Deferred:
+
+- WhatsApp Business API integration
+- scheduled reminders
+- bulk reminders
+- message templates
+- reminder detail/history page
+- delivery/status tracking
+- better phone normalization

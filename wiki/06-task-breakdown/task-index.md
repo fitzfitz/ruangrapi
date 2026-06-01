@@ -4,7 +4,8 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Reminders planning
+- Maintenance planning
+- Reporting / Dashboard metrics planning after operational records are validated
 
 ## Completed candidates
 
@@ -33,6 +34,9 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Plan Receipts module
 - Generate Receipt after Payment
 - Document Receipts validation checklist
+- Plan Reminders module
+- Build Reminders manual MVP
+- Document Reminders validation checklist
 
 ## Later candidates
 

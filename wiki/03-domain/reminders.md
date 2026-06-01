@@ -1,30 +1,40 @@
 # Reminders
 
-Reminders are future modules.
+Reminders help owners follow up manually with tenants about rent, overdue invoices, or operational notices.
 
 ## Current status
 
-Not started.
+Manual MVP baseline complete; manual validation pending.
 
-## Future purpose
+## Built
 
-Reminders help owners follow up with tenants about rent, overdue invoices, or operational notices.
+- Reminders page
+- payable invoice reminder preparation
+- generated WhatsApp-style message text
+- manual WhatsApp link
+- copy message action
+- prepared, sent, and cancelled status updates
+- validation checklist
 
 ## MVP-friendly approach
 
-Start manually:
+The baseline is intentionally manual:
 
 - generate WhatsApp message copy
 - generate WhatsApp link
-- no automation at first
+- let owners send outside RuangRapi
+- let owners update reminder status manually
+- no automation
 
-## Post-MVP direction
+## Deferred
 
 - scheduled reminders
 - bulk reminders
 - message templates
-- reminder history
+- reminder history/detail page
 - delivery/status tracking if integrated later
+- WhatsApp Business API integration
+- better phone normalization
 
 ## Dependencies
 

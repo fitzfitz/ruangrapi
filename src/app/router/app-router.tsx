@@ -119,6 +119,13 @@ const ReceiptsPage = lazy(() =>
     }),
   ),
 )
+const RemindersPage = lazy(() =>
+  import('../../modules/reminders/presentation/reminders-page').then(
+    (module) => ({
+      default: module.RemindersPage,
+    }),
+  ),
+)
 const CreateInvoicePage = lazy(() =>
   import('../../modules/invoices/presentation/create-invoice-page').then(
     (module) => ({
@@ -277,6 +284,14 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <ReceiptsPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardReminders}
+            element={
+              <RouteAccessGate route="dashboard">
+                <RemindersPage />
               </RouteAccessGate>
             }
           />

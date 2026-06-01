@@ -89,6 +89,7 @@
 .invoices-page,
 .payments-page,
 .receipts-page,
+.reminders-page,
 .receipt-detail-page,
 .create-tenant-page,
 .create-invoice-page,
@@ -107,6 +108,7 @@
 .invoices-page,
 .payments-page,
 .receipts-page,
+.reminders-page,
 .receipt-detail-page {
   max-width: 960px;
 }
@@ -117,6 +119,7 @@
 .invoices-page__header,
 .payments-page__header,
 .receipts-page__header,
+.reminders-page__header,
 .receipt-detail-page__header,
 .create-tenant-page__header,
 .create-invoice-page__header,
@@ -139,6 +142,7 @@
 .invoices-page__header h2,
 .payments-page__header h2,
 .receipts-page__header h2,
+.reminders-page__header h2,
 .receipt-detail-page__header h2,
 .create-tenant-page__header h2,
 .create-invoice-page__header h2,
@@ -164,6 +168,8 @@
 .payments-page__status,
 .receipts-page__header p,
 .receipts-page__status,
+.reminders-page__header p,
+.reminders-page__status,
 .create-tenant-page__header p,
 .create-invoice-page__header p,
 .create-invoice-page__status,
@@ -191,6 +197,7 @@
 .invoices-page__header a,
 .payments-page__header a,
 .receipts-page__header a,
+.reminders-page__header a,
 .receipt-detail-page__header a,
 .receipt-detail-page__header button,
 .create-tenant-page__header a,
@@ -230,6 +237,7 @@
 .invoices-page__error,
 .payments-page__error,
 .receipts-page__error,
+.reminders-page__error,
 .create-invoice-page__error,
 .create-payment-page__error,
 .edit-tenant-page__error,
@@ -251,6 +259,7 @@
 .invoices-page__empty,
 .payments-page__empty,
 .receipts-page__empty,
+.reminders-page__empty,
 .receipt-detail-page__empty,
 .create-invoice-page__empty,
 .create-payment-page__empty,
@@ -265,6 +274,7 @@
 .tenant-card,
 .lease-card,
 .receipt-card,
+.reminder-card,
 .property-detail-card,
 .property-units-section,
 .unit-card {
@@ -279,6 +289,7 @@
 .invoices-page__empty,
 .payments-page__empty,
 .receipts-page__empty,
+.reminders-page__empty,
 .create-invoice-page__empty,
 .create-payment-page__empty,
 .create-lease-page__empty,
@@ -297,6 +308,7 @@
 .invoices-page__empty h3,
 .payments-page__empty h3,
 .receipts-page__empty h3,
+.reminders-page__empty h3,
 .receipt-detail-page__empty h3,
 .create-invoice-page__empty h3,
 .create-payment-page__empty h3,
@@ -320,7 +332,8 @@
 .leases-page__list,
 .invoices-page__list,
 .payments-page__list,
-.receipts-page__list {
+.receipts-page__list,
+.reminders-queue__list {
   display: grid;
   gap: 12px;
 }
@@ -330,7 +343,8 @@
 .lease-card,
 .invoice-card,
 .payment-card,
-.receipt-card {
+.receipt-card,
+.reminder-card {
   display: grid;
   gap: 16px;
   padding: 20px;
@@ -341,7 +355,8 @@
 .lease-card p,
 .invoice-card p,
 .payment-card p,
-.receipt-card p {
+.receipt-card p,
+.reminder-card p {
   color: var(--text);
 }
 
@@ -358,7 +373,12 @@
 .payment-card__details dd,
 .receipt-card__header h3,
 .receipt-card__header p,
-.receipt-card__details dd {
+.receipt-card__details dd,
+.reminder-card__header h3,
+.reminder-card__header p,
+.reminder-card__details dd,
+.reminder-card__meta dd,
+.reminder-card__message p {
   overflow-wrap: anywhere;
 }
 
@@ -384,7 +404,8 @@
 .lease-card__header,
 .invoice-card__header,
 .payment-card__header,
-.receipt-card__header {
+.receipt-card__header,
+.reminder-card__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -397,7 +418,8 @@
 
 .lease-card__status,
 .invoice-card__status,
-.payment-card__method {
+.payment-card__method,
+.reminder-card__status {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 4px 10px;
@@ -535,7 +557,9 @@
 .lease-card__details,
 .invoice-card__details,
 .payment-card__details,
-.receipt-card__details {
+.receipt-card__details,
+.reminder-card__details,
+.reminder-card__meta {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
@@ -548,7 +572,9 @@
 .lease-card__details div,
 .invoice-card__details div,
 .payment-card__details div,
-.receipt-card__details div {
+.receipt-card__details div,
+.reminder-card__details div,
+.reminder-card__meta div {
   display: grid;
   gap: 6px;
 }
@@ -557,7 +583,9 @@
 .lease-card__details dt,
 .invoice-card__details dt,
 .payment-card__details dt,
-.receipt-card__details dt {
+.receipt-card__details dt,
+.reminder-card__details dt,
+.reminder-card__meta dt {
   color: var(--text-h);
   font-size: 14px;
   font-weight: 700;
@@ -567,7 +595,9 @@
 .lease-card__details dd,
 .invoice-card__details dd,
 .payment-card__details dd,
-.receipt-card__details dd {
+.receipt-card__details dd,
+.reminder-card__details dd,
+.reminder-card__meta dd {
   margin: 0;
   color: var(--text);
 }
@@ -627,6 +657,221 @@
   margin-top: 2px;
   color: #14532d;
   font-size: 18px;
+}
+
+.reminders-prepare {
+  display: grid;
+  gap: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--surface);
+}
+
+.reminders-queue {
+  display: grid;
+  gap: 18px;
+}
+
+.reminders-prepare__header,
+.reminders-queue__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.reminders-prepare__header h3,
+.reminders-queue__header h3 {
+  margin: 0 0 6px;
+  color: var(--text-h);
+}
+
+.reminders-prepare__header p,
+.reminders-queue__header p {
+  margin: 0;
+  color: var(--text);
+}
+
+.reminders-prepare__body {
+  display: grid;
+  gap: 16px;
+}
+
+.reminders-prepare__field {
+  display: grid;
+  gap: 6px;
+}
+
+.reminders-prepare__field label {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reminders-prepare__field select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-h);
+  background: #ffffff;
+}
+
+.reminders-prepare__field select:disabled {
+  color: var(--text);
+  background: #f1f5f9;
+}
+
+.reminders-prepare__preview {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.reminders-prepare__summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.reminders-prepare__summary div {
+  display: grid;
+  gap: 4px;
+  padding-block: 4px;
+}
+
+.reminders-prepare__summary span,
+.reminders-prepare__message span,
+.reminder-card__message span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.reminders-prepare__summary strong {
+  color: var(--text-h);
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.reminders-prepare__message,
+.reminder-card__message {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  background: #ffffff;
+}
+
+.reminders-prepare__message p,
+.reminder-card__message p {
+  margin: 0;
+  color: var(--text-h);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.reminders-prepare .reminders-page__empty,
+.reminders-queue .reminders-page__empty {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.reminders-prepare__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.reminders-prepare__actions button,
+.reminder-card__actions button,
+.reminder-card__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.reminders-prepare__actions button {
+  border: 0;
+  color: #ffffff;
+  background: var(--text-h);
+}
+
+.reminders-prepare__actions button:disabled,
+.reminder-card__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.reminder-card {
+  border-left: 4px solid #475569;
+}
+
+.reminder-card__header h3 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+}
+
+.reminder-card__header p {
+  margin: 0;
+}
+
+.reminder-card__status {
+  flex: 0 0 auto;
+  text-transform: capitalize;
+}
+
+.reminder-card__meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 0;
+  padding-top: 0;
+}
+
+.reminder-card__error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.reminder-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.reminder-card__actions button,
+.reminder-card__actions a {
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  background: #ffffff;
+}
+
+.reminder-card__actions a {
+  color: #ffffff;
+  background: var(--text-h);
+}
+
+.reminder-card__actions button:hover:not(:disabled),
+.reminder-card__actions button:focus-visible:not(:disabled) {
+  background: #f8fafc;
+}
+
+.reminder-card__actions a:hover,
+.reminder-card__actions a:focus-visible {
+  background: #0f172a;
 }
 
 .receipt-document {
@@ -1368,6 +1613,24 @@
   }
 
   .payment-card__receipt-action {
+    width: 100%;
+  }
+
+  .reminders-prepare__summary,
+  .reminder-card__details,
+  .reminder-card__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .reminders-prepare__actions,
+  .reminder-card__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .reminders-prepare__actions button,
+  .reminder-card__actions button,
+  .reminder-card__actions a {
     width: 100%;
   }
 }

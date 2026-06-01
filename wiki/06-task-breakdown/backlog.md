@@ -45,6 +45,16 @@
 - Payment edit blocking after receipt generation
 - Payment correction workflow
 
+## Reminders
+
+- WhatsApp Business API integration
+- Scheduled reminders
+- Bulk reminders
+- Message templates
+- Reminder detail/history page
+- Delivery/status tracking
+- Better phone normalization
+
 ## Maintenance
 
 - Plan Maintenance module

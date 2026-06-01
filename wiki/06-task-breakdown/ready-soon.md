@@ -6,16 +6,17 @@ These are candidates likely to become approved tasks soon.
 
 - Plan Receipts module
 - Generate Receipt after Payment
+- Reminders manual MVP
 
-## Candidate: Reminders planning
+## Candidate: Maintenance planning
 
 Purpose:
 
-- define Reminders scope after Receipts manual generation can be validated
-- keep delivery automation and broad messaging workflows deferred
+- define Maintenance scope after the manual rent collection and reminder baseline can be validated
+- keep maintenance automation, vendor workflows, and reporting metrics deferred
 
 Status:
 
 - candidate only
 
-Next recommended module: Reminders planning, after manual Payments and Receipts validation.
+Next likely candidate: Maintenance planning, or Reporting / Dashboard metrics if operational visibility becomes more urgent.

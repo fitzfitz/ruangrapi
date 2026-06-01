@@ -11,6 +11,7 @@ const sidebarLinks = [
   { label: 'Invoices', path: routePaths.dashboardInvoices },
   { label: 'Payments', path: routePaths.dashboardPayments },
   { label: 'Receipts', path: routePaths.dashboardReceipts },
+  { label: 'Reminders', path: routePaths.dashboardReminders },
 ]
 
 const futureSidebarItems = ['Units', 'Maintenance']
