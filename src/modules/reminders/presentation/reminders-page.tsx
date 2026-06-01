@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { AppLayout } from '../../../app/layouts'
+import { routePaths } from '../../../app/router/route-paths'
 import { useCreateReminderMutation } from '../application/use-create-reminder-mutation'
 import { useReminderFormOptionsQuery } from '../application/use-reminder-form-options-query'
 import { useRemindersQuery } from '../application/use-reminders-query'
@@ -278,6 +280,10 @@ export function RemindersPage() {
                 Reminder options will appear after an invoice is unpaid,
                 partially paid, or overdue.
               </p>
+              <div className="reminders-page__empty-actions">
+                <Link to={routePaths.dashboardInvoices}>View invoices</Link>
+                <Link to={routePaths.dashboardInvoicesNew}>Add invoice</Link>
+              </div>
             </div>
           ) : null}
 
@@ -386,7 +392,13 @@ export function RemindersPage() {
           {remindersQuery.isSuccess && remindersQuery.data.length === 0 ? (
             <div className="reminders-page__empty">
               <h3>No reminders prepared</h3>
-              <p>Prepared reminder messages will appear here.</p>
+              <p>
+                Select a payable invoice above to prepare the first reminder, or
+                review invoices if no options are available yet.
+              </p>
+              <div className="reminders-page__empty-actions">
+                <Link to={routePaths.dashboardInvoices}>View invoices</Link>
+              </div>
             </div>
           ) : null}
 

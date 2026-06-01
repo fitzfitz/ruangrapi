@@ -782,6 +782,32 @@
   background: transparent;
 }
 
+.reminders-page__empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.reminders-page__empty-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  color: var(--text-h);
+  background: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.reminders-page__empty-actions a:first-child {
+  color: #ffffff;
+  background: var(--text-h);
+}
+
 .reminders-prepare__actions {
   display: flex;
   justify-content: flex-end;
@@ -1623,12 +1649,14 @@
   }
 
   .reminders-prepare__actions,
+  .reminders-page__empty-actions,
   .reminder-card__actions {
     display: grid;
     grid-template-columns: 1fr;
   }
 
   .reminders-prepare__actions button,
+  .reminders-page__empty-actions a,
   .reminder-card__actions button,
   .reminder-card__actions a {
     width: 100%;
