@@ -215,10 +215,8 @@ Deferred:
 - payment edit
 - payment delete
 - payment correction workflow
-- receipt detail page
-- receipt list page
 - receipt edit or delete workflow
-- print/download receipt
+- PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording
@@ -231,7 +229,7 @@ Deferred:
 
 ## Receipts
 
-Status: manual generation baseline complete; manual validation pending.
+Status: browsing baseline complete; manual validation pending.
 
 Built:
 
@@ -239,14 +237,15 @@ Built:
 - manual Generate receipt action from the Payments list
 - generated receipt number using the `RR-{YYYY}-{0001}` direction
 - issued receipt state on payment cards
+- receipt list page
+- receipt detail page
+- browser print action for receipt detail
 - Receipts validation checklist
 
 Deferred:
 
-- receipt detail page
-- receipt list page
 - receipt edit or delete workflow
-- print/download receipt
+- PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording

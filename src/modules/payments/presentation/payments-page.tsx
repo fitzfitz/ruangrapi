@@ -54,6 +54,10 @@ function formatReference(referenceNumber: string | null) {
   return referenceNumber ?? 'No reference'
 }
 
+function getReceiptDetailPath(receiptId: string) {
+  return routePaths.dashboardReceiptDetail.replace(':receiptId', receiptId)
+}
+
 type ReceiptPaymentState = Record<string, true>
 
 export function PaymentsPage() {
@@ -202,31 +206,45 @@ export function PaymentsPage() {
 
                   {hasReceipt ? (
                     <div className="payment-card__receipt payment-card__receipt--issued">
-                      <div
-                        className="payment-card__receipt-icon"
-                        aria-hidden="true"
-                      >
-                        Issued
-                      </div>
                       <div>
-                        <p className="payment-card__receipt-label">
-                          Receipt issued
-                        </p>
-                        <p className="payment-card__receipt-number">
-                          {payment.receipt_number}
-                        </p>
-                        {payment.receipt_issued_at !== null ? (
-                          <p className="payment-card__receipt-helper">
-                            Issued{' '}
-                            {formatReceiptIssuedAt(payment.receipt_issued_at)}
+                        <div className="payment-card__receipt-heading">
+                          <p className="payment-card__receipt-label">
+                            Receipt issued
                           </p>
-                        ) : null}
+                          <span className="payment-card__receipt-status">
+                            Issued
+                          </span>
+                        </div>
+                        <div className="payment-card__receipt-main">
+                          <p className="payment-card__receipt-number">
+                            {payment.receipt_number}
+                          </p>
+                          {payment.receipt_issued_at !== null ? (
+                            <p className="payment-card__receipt-helper">
+                              Issued{' '}
+                              {formatReceiptIssuedAt(payment.receipt_issued_at)}
+                            </p>
+                          ) : null}
+                        </div>
                       </div>
+                      {payment.receipt_id !== null ? (
+                        <Link
+                          className="payment-card__receipt-action"
+                          to={getReceiptDetailPath(payment.receipt_id)}
+                        >
+                          View receipt
+                        </Link>
+                      ) : null}
                     </div>
                   ) : (
                     <div className="payment-card__receipt payment-card__receipt--pending">
                       <div>
-                        <p className="payment-card__receipt-label">Receipt</p>
+                        <div className="payment-card__receipt-heading">
+                          <p className="payment-card__receipt-label">Receipt</p>
+                          <span className="payment-card__receipt-status">
+                            Pending
+                          </span>
+                        </div>
                         <p className="payment-card__receipt-title">
                           Not generated yet
                         </p>
@@ -244,6 +262,7 @@ export function PaymentsPage() {
                         ) : null}
                       </div>
                       <button
+                        className="payment-card__receipt-action"
                         type="button"
                         disabled={isGeneratingReceipt}
                         onClick={() => {

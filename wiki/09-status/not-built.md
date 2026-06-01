@@ -57,13 +57,11 @@ Not built:
 
 ## Receipts
 
-Status: manual generation baseline complete; manual validation pending.
+Status: browsing baseline complete; manual validation pending.
 
 Not built:
 
-- receipt detail page
-- receipt list page
-- print/download receipt
+- PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording

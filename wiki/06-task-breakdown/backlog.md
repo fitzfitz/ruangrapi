@@ -37,10 +37,8 @@
 
 ## Receipts
 
-- Receipt detail page
-- Receipt list page
 - Receipt edit or delete workflow
-- Print/download receipt
+- PDF/download receipt
 - PDF generation
 - Email or WhatsApp delivery
 - Automatic receipt generation after payment recording

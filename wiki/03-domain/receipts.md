@@ -4,7 +4,7 @@ Receipts provide proof of payment for recorded payments.
 
 ## Current status
 
-Receipts module: manual generation baseline complete; manual validation pending.
+Receipts module: browsing baseline complete; manual validation pending.
 
 ## Purpose
 
@@ -35,14 +35,15 @@ Receipts should come after payments.
 - receipt number display after generation
 - issued date display after generation
 - pending receipt state for payments without receipts
+- receipt list page
+- receipt detail page
+- browser print action for receipt detail
 - Receipts validation checklist
 
 ## Deferred
 
-- receipt detail page
-- receipt list page
 - receipt edit or delete workflow
-- print/download receipt
+- PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording

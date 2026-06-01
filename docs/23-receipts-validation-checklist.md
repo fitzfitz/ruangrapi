@@ -1,6 +1,6 @@
 # Receipts Validation Checklist
 
-Status: ready for manual validation after the Receipts manual generation implementation.
+Status: ready for manual validation after the Receipts browsing implementation.
 
 ## Automated Checks
 
@@ -41,13 +41,28 @@ Required records:
 - [ ] Payment card refreshes to the issued receipt state.
 - [ ] A second payment for the same invoice can receive its own receipt.
 
+## Receipt Browsing
+
+- [ ] Sidebar shows `Receipts`.
+- [ ] Receipts list page loads at `/dashboard/receipts`.
+- [ ] Receipts list shows receipt number, issued date, amount, payment date, payment method, tenant, unit, property, and billing period.
+- [ ] Empty receipts list explains receipts appear after generation.
+- [ ] `View receipt` from the Payments list opens the matching receipt detail page.
+- [ ] `View receipt` from the Receipts list opens the matching receipt detail page.
+
+## Receipt Detail And Print
+
+- [ ] Receipt detail page loads at `/dashboard/receipts/:receiptId`.
+- [ ] Receipt detail shows receipt number, issued date, amount received, tenant, unit, property, payment date, payment method, payment reference, billing period, invoice status, invoice total, and payment notes.
+- [ ] Missing or inaccessible receipt shows a not-found state.
+- [ ] `Print` opens browser print.
+- [ ] Print view hides app navigation and page actions.
+
 ## Failure And Scope Checks
 
 - [ ] Duplicate receipt generation is not available from the UI once a receipt exists.
 - [ ] Inline error appears if receipt generation fails.
-- [ ] No receipt detail page was introduced.
-- [ ] No receipt list page was introduced.
-- [ ] No PDF, print, download, email, or WhatsApp delivery workflow was introduced.
+- [ ] No PDF download, email, or WhatsApp delivery workflow was introduced.
 - [ ] No automatic receipt generation after payment recording was introduced.
 - [ ] No receipt edit or delete workflow was introduced.
 - [ ] No payment correction workflow was introduced.
@@ -55,4 +70,4 @@ Required records:
 
 ## Deferred Work
 
-Receipt detail, receipt list, receipt edit/delete, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.
+PDF download, delivery workflows, automatic generation, receipt edit/delete, payment edit blocking after receipt generation, and payment correction workflows remain deferred.

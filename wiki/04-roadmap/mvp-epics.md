@@ -99,6 +99,9 @@ Built:
 - Payments implementation closeout
 - plan Receipts module
 - Generate Receipt after Payment
+- receipt list page
+- receipt detail page
+- browser print action for receipt detail
 - Receipts validation checklist
 
 Deferred:
@@ -107,10 +110,8 @@ Deferred:
 - invoice edit
 - invoice send/delivery
 - invoice cancel
-- receipt detail page
-- receipt list page
 - receipt edit/delete workflow
-- print/download receipt
+- PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording
