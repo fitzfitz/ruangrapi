@@ -90,7 +90,7 @@ Modify during implementation:
 
 Create `docs/19-billing-invoices-module-plan.md`:
 
-```markdown
+````markdown
 # Billing / Invoices Module Plan
 
 ## Status
@@ -184,6 +184,7 @@ src/modules/invoices/
   presentation/
   index.ts
 ```
+````
 
 ## Query and Mutation Strategy
 
@@ -219,7 +220,8 @@ The Billing / Invoices module does not include:
 ## Next Module
 
 After Billing / Invoices closeout, the next recommended epic is Payments MVP Baseline, starting with Payments module planning and a manual record Payment flow.
-```
+
+````
 
 - [ ] **Step 2: Validate the documentation change**
 
@@ -227,7 +229,7 @@ Run:
 
 ```bash
 git diff --check
-```
+````
 
 Expected: no output and exit code `0`.
 
@@ -656,7 +658,6 @@ Checklist must include:
 Append this section to `docs/06-development-checklist.md`:
 
 ```markdown
-
 ### Manual validation: Billing / Invoices MVP baseline
 
 Validate the committed Billing / Invoices baseline manually before the owner closes out the module.
@@ -722,7 +723,6 @@ Modify the Phase 5 module status in `docs/06-development-checklist.md` so it inc
 Append closeout notes to `docs/20-billing-invoices-validation-checklist.md`:
 
 ```markdown
-
 ## Closeout
 
 Billing / Invoices MVP baseline is complete when:

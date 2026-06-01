@@ -78,8 +78,7 @@ export function CreatePaymentPage() {
   const isSubmitting = createPaymentMutation.isPending
   const organizationId = currentProfileQuery.data?.organization_id ?? null
   const formOptions = formOptionsQuery.data ?? null
-  const hasFormOptions =
-    formOptions !== null && formOptions.invoices.length > 0
+  const hasFormOptions = formOptions !== null && formOptions.invoices.length > 0
   const selectedInvoice = useMemo(
     () =>
       formOptions?.invoices.find(
@@ -142,7 +141,10 @@ export function CreatePaymentPage() {
                 (option) => option.id === input.invoice_id,
               )
 
-              if (invoice !== undefined && input.amount > invoice.remaining_amount) {
+              if (
+                invoice !== undefined &&
+                input.amount > invoice.remaining_amount
+              ) {
                 setError('amount', {
                   message:
                     'Amount cannot exceed the invoice remaining balance.',

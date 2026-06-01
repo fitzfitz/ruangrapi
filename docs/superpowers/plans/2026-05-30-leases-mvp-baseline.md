@@ -85,7 +85,7 @@ Modify during implementation:
 
 Create `docs/17-leases-module-plan.md`:
 
-```markdown
+````markdown
 # Leases Module Plan
 
 ## Status
@@ -159,6 +159,7 @@ src/modules/leases/
   presentation/
   index.ts
 ```
+````
 
 ## Query and Mutation Strategy
 
@@ -186,7 +187,8 @@ The Leases module does not include:
 ## Next Module
 
 After Leases closeout, the next recommended epic is Billing / Invoices MVP Baseline, starting with Billing module planning and a read-only Invoices list.
-```
+
+````
 
 - [ ] **Step 2: Validate the documentation change**
 
@@ -194,7 +196,7 @@ Run:
 
 ```bash
 git diff --check
-```
+````
 
 Expected: no output and exit code `0`.
 
@@ -351,10 +353,7 @@ Create `src/modules/leases/application/use-leases-query.ts`:
 ```ts
 import { useQuery } from '@tanstack/react-query'
 
-import {
-  leasesQueryKey,
-  listLeases,
-} from '../infrastructure/leases-repository'
+import { leasesQueryKey, listLeases } from '../infrastructure/leases-repository'
 
 export function useLeasesQuery() {
   return useQuery({
@@ -432,8 +431,8 @@ export function LeasesPage() {
           <div className="leases-page__empty">
             <h3>No leases yet</h3>
             <p>
-              Lease records will appear here once tenants are connected to
-              units in the create flow.
+              Lease records will appear here once tenants are connected to units
+              in the create flow.
             </p>
           </div>
         ) : null}
@@ -456,7 +455,8 @@ export function LeasesPage() {
                   <div>
                     <dt>Lease period</dt>
                     <dd>
-                      {formatDate(lease.start_date)} - {formatDate(lease.end_date)}
+                      {formatDate(lease.start_date)} -{' '}
+                      {formatDate(lease.end_date)}
                     </dd>
                   </div>
                   <div>
@@ -488,10 +488,7 @@ Create `src/modules/leases/index.ts`:
 
 ```ts
 export type { Lease, LeaseListItem, LeaseStatus } from './domain/lease'
-export {
-  leasesQueryKey,
-  listLeases,
-} from './infrastructure/leases-repository'
+export { leasesQueryKey, listLeases } from './infrastructure/leases-repository'
 export { useLeasesQuery } from './application/use-leases-query'
 export { LeasesPage } from './presentation/leases-page'
 ```
@@ -788,8 +785,7 @@ export const createLeaseSchema = z
     deposit_amount: optionalNonNegativeIntegerField,
   })
   .refine(
-    (value) =>
-      value.end_date === null || value.end_date >= value.start_date,
+    (value) => value.end_date === null || value.end_date >= value.start_date,
     {
       message: 'End date cannot be before start date.',
       path: ['end_date'],
@@ -812,7 +808,10 @@ import type { Lease, LeaseListItem, LeaseStatus } from '../domain/lease'
 Add these exports and types:
 
 ```ts
-export const leaseFormOptionsQueryKey = [...leasesQueryKey, 'form-options'] as const
+export const leaseFormOptionsQueryKey = [
+  ...leasesQueryKey,
+  'form-options',
+] as const
 
 export type LeaseTenantOption = {
   id: string
@@ -1029,7 +1028,10 @@ export function CreateLeasePage() {
 
   return (
     <AppLayout>
-      <section className="create-lease-page" aria-labelledby="create-lease-title">
+      <section
+        className="create-lease-page"
+        aria-labelledby="create-lease-title"
+      >
         <div className="create-lease-page__header">
           <div>
             <h2 id="create-lease-title">Add lease</h2>
@@ -1535,7 +1537,6 @@ Lease edit, end, cancel, occupancy synchronization, invoice generation, deposit 
 Append this section to `docs/06-development-checklist.md`:
 
 ```markdown
-
 ### Manual validation: Leases MVP baseline
 
 Validate the committed Leases baseline manually before the owner closes out the module.
@@ -1600,7 +1601,6 @@ Modify the Phase 5 module status in `docs/06-development-checklist.md` so it inc
 Append this to `docs/18-leases-validation-checklist.md` after manual validation is completed:
 
 ```markdown
-
 ## Closeout
 
 Leases MVP baseline is complete when:

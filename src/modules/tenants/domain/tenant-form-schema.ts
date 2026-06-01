@@ -9,7 +9,8 @@ const optionalEmailField = z
   .string()
   .trim()
   .refine(
-    (value) => value.length === 0 || z.string().email().safeParse(value).success,
+    (value) =>
+      value.length === 0 || z.string().email().safeParse(value).success,
     'Enter a valid email address.',
   )
   .transform((value) => (value.length > 0 ? value : null))

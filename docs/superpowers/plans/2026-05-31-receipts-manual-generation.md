@@ -28,6 +28,7 @@
 ### Task 1: Add Receipts Module
 
 **Files:**
+
 - Create: `src/modules/receipts/domain/receipt.ts`
 - Create: `src/modules/receipts/infrastructure/receipts-repository.ts`
 - Create: `src/modules/receipts/application/use-create-receipt-mutation.ts`
@@ -147,6 +148,7 @@ git commit -m "feat: add receipts module foundation"
 ### Task 2: Add Receipt Summary To Payments Query
 
 **Files:**
+
 - Modify: `src/modules/payments/domain/payment.ts`
 - Modify: `src/modules/payments/infrastructure/payments-repository.ts`
 
@@ -290,6 +292,7 @@ git commit -m "feat: include receipt status in payments"
 ### Task 3: Add Receipt Generation UI Behavior
 
 **Files:**
+
 - Modify: `src/modules/payments/presentation/payments-page.tsx`
 
 - [ ] **Step 1: Add imports and mutation state**
@@ -340,29 +343,29 @@ function formatReceiptIssuedAt(value: string) {
 Inside `PaymentsPage`, below state declarations:
 
 ```tsx
-  function handleGenerateReceipt(payment: PaymentListItem) {
-    if (payment.receipt_id !== null) {
-      return
-    }
-
-    setGeneratingReceiptPaymentId(payment.id)
-    setReceiptErrorPaymentId(null)
-    createReceiptMutation.mutate(
-      {
-        organization_id: payment.organization_id,
-        payment_id: payment.id,
-      },
-      {
-        onSuccess: () => {
-          setGeneratingReceiptPaymentId(null)
-        },
-        onError: () => {
-          setReceiptErrorPaymentId(payment.id)
-          setGeneratingReceiptPaymentId(null)
-        },
-      },
-    )
+function handleGenerateReceipt(payment: PaymentListItem) {
+  if (payment.receipt_id !== null) {
+    return
   }
+
+  setGeneratingReceiptPaymentId(payment.id)
+  setReceiptErrorPaymentId(null)
+  createReceiptMutation.mutate(
+    {
+      organization_id: payment.organization_id,
+      payment_id: payment.id,
+    },
+    {
+      onSuccess: () => {
+        setGeneratingReceiptPaymentId(null)
+      },
+      onError: () => {
+        setReceiptErrorPaymentId(payment.id)
+        setGeneratingReceiptPaymentId(null)
+      },
+    },
+  )
+}
 ```
 
 - [ ] **Step 4: Render receipt panels inside each payment card**
@@ -370,63 +373,65 @@ Inside `PaymentsPage`, below state declarations:
 Inside the `paymentsQuery.data.map`, switch the concise implicit return to a block return so per-card state can be calculated:
 
 ```tsx
-{paymentsQuery.data.map((payment) => {
-  const isGeneratingReceipt = generatingReceiptPaymentId === payment.id
-  const hasReceipt = payment.receipt_id !== null
+{
+  paymentsQuery.data.map((payment) => {
+    const isGeneratingReceipt = generatingReceiptPaymentId === payment.id
+    const hasReceipt = payment.receipt_id !== null
 
-  return (
-    <article className="payment-card" key={payment.id}>
-      ...
-    </article>
-  )
-})}
+    return (
+      <article className="payment-card" key={payment.id}>
+        ...
+      </article>
+    )
+  })
+}
 ```
 
 After the existing `<dl className="payment-card__details">...</dl>`, add:
 
 ```tsx
-{hasReceipt ? (
-  <div className="payment-card__receipt payment-card__receipt--issued">
-    <div className="payment-card__receipt-icon" aria-hidden="true">
-      ✓
+{
+  hasReceipt ? (
+    <div className="payment-card__receipt payment-card__receipt--issued">
+      <div className="payment-card__receipt-icon" aria-hidden="true">
+        ✓
+      </div>
+      <div>
+        <p className="payment-card__receipt-label">Receipt issued</p>
+        <p className="payment-card__receipt-number">{payment.receipt_number}</p>
+        {payment.receipt_issued_at !== null ? (
+          <p className="payment-card__receipt-helper">
+            Issued {formatReceiptIssuedAt(payment.receipt_issued_at)}
+          </p>
+        ) : null}
+      </div>
     </div>
-    <div>
-      <p className="payment-card__receipt-label">Receipt issued</p>
-      <p className="payment-card__receipt-number">
-        {payment.receipt_number}
-      </p>
-      {payment.receipt_issued_at !== null ? (
+  ) : (
+    <div className="payment-card__receipt payment-card__receipt--pending">
+      <div>
+        <p className="payment-card__receipt-label">Receipt</p>
+        <p className="payment-card__receipt-title">Not generated yet</p>
         <p className="payment-card__receipt-helper">
-          Issued {formatReceiptIssuedAt(payment.receipt_issued_at)}
+          Create one receipt for this payment.
         </p>
-      ) : null}
+        {receiptErrorPaymentId === payment.id ? (
+          <p className="payment-card__receipt-error" role="alert">
+            We could not generate this receipt. Please try again.
+          </p>
+        ) : null}
+      </div>
+      <button
+        type="button"
+        disabled={isGeneratingReceipt}
+        onClick={() => {
+          handleGenerateReceipt(payment)
+        }}
+      >
+        {isGeneratingReceipt ? 'Generating...' : 'Generate receipt'}
+      </button>
     </div>
-  </div>
-) : (
-  <div className="payment-card__receipt payment-card__receipt--pending">
-    <div>
-      <p className="payment-card__receipt-label">Receipt</p>
-      <p className="payment-card__receipt-title">Not generated yet</p>
-      <p className="payment-card__receipt-helper">
-        Create one receipt for this payment.
-      </p>
-      {receiptErrorPaymentId === payment.id ? (
-        <p className="payment-card__receipt-error" role="alert">
-          We could not generate this receipt. Please try again.
-        </p>
-      ) : null}
-    </div>
-    <button
-      type="button"
-      disabled={isGeneratingReceipt}
-      onClick={() => {
-        handleGenerateReceipt(payment)
-      }}
-    >
-      {isGeneratingReceipt ? 'Generating...' : 'Generate receipt'}
-    </button>
-  </div>
-)}
+  )
+}
 ```
 
 - [ ] **Step 5: Update Payments header copy**
@@ -462,6 +467,7 @@ git commit -m "feat: add manual receipt generation action"
 ### Task 4: Add Polished Receipt Panel Styling
 
 **Files:**
+
 - Modify: `src/App.css`
 
 - [ ] **Step 1: Add receipt panel styles**
@@ -612,6 +618,7 @@ git commit -m "style: polish receipt status panels"
 ### Task 5: Document Receipts Validation And Status
 
 **Files:**
+
 - Create: `docs/23-receipts-validation-checklist.md`
 - Modify: `wiki/00-home.md`
 - Modify: `wiki/03-domain/payments.md`
@@ -746,6 +753,7 @@ git commit -m "docs: document receipts manual generation baseline"
 ### Task 6: Final Verification And Manual Test Handoff
 
 **Files:**
+
 - No source files unless verification exposes a defect.
 
 - [ ] **Step 1: Run full automated verification**

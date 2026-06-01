@@ -82,7 +82,7 @@ Modify during implementation:
 
 Create `docs/15-tenants-module-plan.md` with this content:
 
-```markdown
+````markdown
 # Tenants Module Plan
 
 ## Status
@@ -153,6 +153,7 @@ src/modules/tenants/
   presentation/
   index.ts
 ```
+````
 
 ## Query and Mutation Strategy
 
@@ -179,7 +180,8 @@ The Tenants module does not include:
 ## Next Module
 
 After Tenants closeout, the next recommended epic is Leases MVP Baseline, starting with Leases module planning and a read-only Leases list.
-```
+
+````
 
 - [ ] **Step 2: Validate the documentation change**
 
@@ -187,7 +189,7 @@ Run:
 
 ```bash
 git diff --check
-```
+````
 
 Expected: no output and exit code `0`.
 
@@ -770,7 +772,10 @@ export function CreateTenantPage() {
 
   return (
     <AppLayout>
-      <section className="create-tenant-page" aria-labelledby="create-tenant-title">
+      <section
+        className="create-tenant-page"
+        aria-labelledby="create-tenant-title"
+      >
         <div className="create-tenant-page__header">
           <div>
             <h2 id="create-tenant-title">Add tenant</h2>
@@ -868,7 +873,9 @@ export function CreateTenantPage() {
           </div>
 
           <div className="tenant-form__field">
-            <label htmlFor="tenant-emergency-name">Emergency contact name</label>
+            <label htmlFor="tenant-emergency-name">
+              Emergency contact name
+            </label>
             <input
               id="tenant-emergency-name"
               type="text"
@@ -885,7 +892,9 @@ export function CreateTenantPage() {
           </div>
 
           <div className="tenant-form__field">
-            <label htmlFor="tenant-emergency-phone">Emergency contact phone</label>
+            <label htmlFor="tenant-emergency-phone">
+              Emergency contact phone
+            </label>
             <input
               id="tenant-emergency-phone"
               type="tel"
@@ -1162,9 +1171,7 @@ Expected: one commit containing the create flow.
 Modify `src/modules/tenants/infrastructure/tenants-repository.ts` by adding:
 
 ```ts
-export async function getTenantById(
-  tenantId: string,
-): Promise<Tenant | null> {
+export async function getTenantById(tenantId: string): Promise<Tenant | null> {
   const { data, error } = await supabaseClient
     .from('tenants')
     .select(tenantSelectColumns)
@@ -1466,7 +1473,9 @@ export function EditTenantPage() {
             </div>
 
             <div className="tenant-form__field">
-              <label htmlFor="tenant-emergency-name">Emergency contact name</label>
+              <label htmlFor="tenant-emergency-name">
+                Emergency contact name
+              </label>
               <input
                 id="tenant-emergency-name"
                 type="text"
@@ -1483,7 +1492,9 @@ export function EditTenantPage() {
             </div>
 
             <div className="tenant-form__field">
-              <label htmlFor="tenant-emergency-phone">Emergency contact phone</label>
+              <label htmlFor="tenant-emergency-phone">
+                Emergency contact phone
+              </label>
               <input
                 id="tenant-emergency-phone"
                 type="tel"
@@ -1780,7 +1791,6 @@ Phone normalization to Indonesian `+62` format remains deferred and should be re
 Append this section to `docs/06-development-checklist.md`:
 
 ```markdown
-
 ### Manual validation: Tenants MVP baseline
 
 Validate the committed Tenants baseline manually before the owner closes out the module.
@@ -1841,7 +1851,6 @@ Modify the Phase 5 module status in `docs/06-development-checklist.md` so it inc
 Append this to `docs/16-tenants-validation-checklist.md` after manual validation is completed:
 
 ```markdown
-
 ## Closeout
 
 Tenants MVP baseline is complete when:
@@ -1939,7 +1948,7 @@ Built:
 
 Modify `wiki/06-task-breakdown/task-index.md` so it reads:
 
-```markdown
+````markdown
 # Task Index
 
 This page tracks task candidates. Candidates are not approved for Hermes execution until they become approved Kanban task cards.
@@ -1985,9 +1994,11 @@ Wiki candidate
 → Hermes prompt
 → implementation
 ```
+````
 
 Hermes should not execute wiki candidates directly.
-```
+
+````
 
 - [ ] **Step 6: Update ready-soon wiki**
 
@@ -2023,7 +2034,7 @@ Purpose:
 Status:
 
 - candidate only
-```
+````
 
 - [ ] **Step 7: Update backlog wiki**
 
@@ -2048,7 +2059,6 @@ Modify `wiki/06-task-breakdown/backlog.md` so the Tenants and Leases sections re
 Append this section to `wiki/09-status/built.md`:
 
 ```markdown
-
 ## Tenants
 
 Status: MVP baseline complete.

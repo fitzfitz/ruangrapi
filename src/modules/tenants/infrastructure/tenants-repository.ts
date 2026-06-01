@@ -29,9 +29,7 @@ export async function listTenants(): Promise<Tenant[]> {
   return data
 }
 
-export async function getTenantById(
-  tenantId: string,
-): Promise<Tenant | null> {
+export async function getTenantById(tenantId: string): Promise<Tenant | null> {
   const { data, error } = await supabaseClient
     .from('tenants')
     .select(tenantSelectColumns)
