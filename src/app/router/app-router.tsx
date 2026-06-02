@@ -126,6 +126,20 @@ const RemindersPage = lazy(() =>
     }),
   ),
 )
+const MaintenancePage = lazy(() =>
+  import('../../modules/maintenance/presentation/maintenance-page').then(
+    (module) => ({
+      default: module.MaintenancePage,
+    }),
+  ),
+)
+const CreateMaintenanceTicketPage = lazy(() =>
+  import('../../modules/maintenance/presentation/create-maintenance-ticket-page').then(
+    (module) => ({
+      default: module.CreateMaintenanceTicketPage,
+    }),
+  ),
+)
 const CreateInvoicePage = lazy(() =>
   import('../../modules/invoices/presentation/create-invoice-page').then(
     (module) => ({
@@ -292,6 +306,22 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <RemindersPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardMaintenance}
+            element={
+              <RouteAccessGate route="dashboard">
+                <MaintenancePage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardMaintenanceNew}
+            element={
+              <RouteAccessGate route="dashboard">
+                <CreateMaintenanceTicketPage />
               </RouteAccessGate>
             }
           />

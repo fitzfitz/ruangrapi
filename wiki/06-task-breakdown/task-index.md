@@ -4,7 +4,6 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Maintenance planning
 - Reporting / Dashboard metrics planning after operational records are validated
 
 ## Completed candidates
@@ -37,6 +36,9 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Plan Reminders module
 - Build Reminders manual MVP
 - Document Reminders validation checklist
+- Maintenance planning
+- Maintenance MVP build
+- Maintenance validation checklist
 
 ## Later candidates
 
@@ -66,6 +68,13 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Refund workflow
 - Payment gateway integration
 - Bank reconciliation
+- Vendor management
+- Work orders
+- Maintenance comments and activity
+- Maintenance attachments and photos
+- Recurring maintenance
+- Maintenance payment linkage
+- Maintenance cost ledger
 
 ## Approval rule
 

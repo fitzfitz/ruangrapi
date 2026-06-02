@@ -7,16 +7,19 @@ These are candidates likely to become approved tasks soon.
 - Plan Receipts module
 - Generate Receipt after Payment
 - Reminders manual MVP
+- Maintenance planning
+- Maintenance MVP build
+- Maintenance validation checklist
 
-## Candidate: Maintenance planning
+## Candidate: Reporting / Dashboard metrics
 
 Purpose:
 
-- define Maintenance scope after the manual rent collection and reminder baseline can be validated
-- keep maintenance automation, vendor workflows, and reporting metrics deferred
+- define the first dashboard metrics after operational records are available
+- summarize rental, billing, payment, reminder, and maintenance status without adding advanced workflows
 
 Status:
 
-- candidate only
+- next likely candidate after Maintenance manual validation
 
-Next likely candidate: Maintenance planning, or Reporting / Dashboard metrics if operational visibility becomes more urgent.
+Next likely candidate: Reporting / Dashboard metrics after Maintenance validation.

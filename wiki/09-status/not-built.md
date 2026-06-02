@@ -83,7 +83,18 @@ Not built:
 
 ## Maintenance
 
-Status: not started.
+Status: MVP baseline implementation complete; manual validation pending. Advanced Maintenance workflows are deferred.
+
+Not built:
+
+- vendor management
+- work orders
+- comments and activity
+- attachments and photos
+- recurring maintenance
+- payment linkage
+- cost ledger
+- dashboard maintenance metrics
 
 ## Reporting / Dashboard Metrics
 

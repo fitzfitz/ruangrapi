@@ -252,6 +252,51 @@ Deferred:
 - payment edit blocking after receipt generation
 - payment correction workflow
 
+## Maintenance
+
+Status: MVP baseline implementation complete; manual validation pending.
+
+Routes:
+
+- `/dashboard/maintenance`
+- `/dashboard/maintenance/new`
+
+Built:
+
+- read-only Maintenance list
+- create Maintenance ticket flow
+- property-only tickets
+- property and unit tickets
+- priority tracking
+- status tracking for open, in progress, resolved, and cancelled tickets
+- status actions for open, in progress, resolved, and cancelled tickets
+- validation checklist
+
+Fields:
+
+- property
+- unit, if applicable
+- title
+- description
+- priority
+- status
+- reported at
+- resolved at
+- cancelled at
+- estimated cost
+- actual cost
+
+Deferred:
+
+- vendor management
+- work orders
+- comments/activity timeline
+- attachments/photos
+- recurring maintenance
+- payment linkage
+- cost ledger/multiple cost entries
+- dashboard maintenance metrics
+
 ## Reminders
 
 Status: manual MVP baseline complete; manual validation pending.

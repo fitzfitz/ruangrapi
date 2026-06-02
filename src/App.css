@@ -900,6 +900,361 @@
   background: #0f172a;
 }
 
+.maintenance-page,
+.create-maintenance-page,
+.create-maintenance-ticket-page {
+  display: grid;
+  gap: 24px;
+}
+
+.maintenance-page {
+  max-width: 960px;
+}
+
+.create-maintenance-page,
+.create-maintenance-ticket-page {
+  max-width: 720px;
+}
+
+.maintenance-page__header,
+.create-maintenance-page__header,
+.create-maintenance-ticket-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.maintenance-page__header h2,
+.create-maintenance-page__header h2,
+.create-maintenance-ticket-page__header h2 {
+  margin: 0 0 8px;
+}
+
+.maintenance-page__header p,
+.maintenance-page__status,
+.maintenance-page__empty p,
+.create-maintenance-page__header p,
+.create-maintenance-page__status,
+.create-maintenance-page__empty p,
+.create-maintenance-ticket-page__header p,
+.create-maintenance-ticket-page__status,
+.create-maintenance-ticket-page__empty p {
+  color: var(--text);
+}
+
+.maintenance-page__header a,
+.maintenance-page__empty a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  color: #ffffff;
+  background: var(--text-h);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.maintenance-page__header a:hover,
+.maintenance-page__header a:focus-visible,
+.maintenance-page__empty a:hover,
+.maintenance-page__empty a:focus-visible {
+  background: #0f172a;
+}
+
+.create-maintenance-page__header a,
+.create-maintenance-ticket-page__header a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  color: var(--text-h);
+  background: var(--surface);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.create-maintenance-page__header a:hover,
+.create-maintenance-page__header a:focus-visible,
+.create-maintenance-ticket-page__header a:hover,
+.create-maintenance-ticket-page__header a:focus-visible {
+  background: #f8fafc;
+}
+
+.maintenance-page__error,
+.create-maintenance-page__error,
+.create-maintenance-ticket-page__error {
+  border: 1px solid #fecdca;
+  border-radius: 12px;
+  padding: 16px;
+  color: #b42318;
+  background: #fffbfa;
+}
+
+.maintenance-page__empty,
+.create-maintenance-page__empty,
+.create-maintenance-ticket-page__empty {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--surface);
+}
+
+.maintenance-page__empty h3,
+.create-maintenance-page__empty h3,
+.create-maintenance-ticket-page__empty h3 {
+  margin: 0;
+  color: var(--text-h);
+}
+
+.maintenance-page__empty p,
+.create-maintenance-page__empty p,
+.create-maintenance-ticket-page__empty p {
+  margin: 0;
+}
+
+.create-maintenance-page__empty a,
+.create-maintenance-ticket-page__empty a {
+  color: var(--text-h);
+  font-weight: 700;
+}
+
+.maintenance-page__list {
+  display: grid;
+  gap: 12px;
+}
+
+.maintenance-card {
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-left: 4px solid #475569;
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--surface);
+}
+
+.maintenance-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.maintenance-card__header h3 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.maintenance-card__property {
+  margin: 0 0 4px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.maintenance-card__status {
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 10px;
+  color: var(--text-h);
+  background: #f8fafc;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.maintenance-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  margin: 0;
+  padding-top: 16px;
+}
+
+.maintenance-card__details div {
+  display: grid;
+  gap: 6px;
+}
+
+.maintenance-card__details dt {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.maintenance-card__details dd {
+  margin: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.maintenance-card__description {
+  border-top: 1px solid var(--border);
+  margin: 0;
+  padding-top: 16px;
+  color: var(--text);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.maintenance-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.maintenance-card__actions button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  color: var(--text-h);
+  background: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.maintenance-card__actions button:hover:not(:disabled),
+.maintenance-card__actions button:focus-visible:not(:disabled) {
+  background: #f8fafc;
+}
+
+.maintenance-card__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.maintenance-card__error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.maintenance-form,
+.maintenance-ticket-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--surface);
+}
+
+.maintenance-form__field,
+.maintenance-ticket-form__field {
+  display: grid;
+  gap: 6px;
+}
+
+.maintenance-form__field:nth-child(4),
+.maintenance-ticket-form__field:nth-child(4),
+.maintenance-form__error,
+.maintenance-ticket-form__error,
+.maintenance-form__actions,
+.maintenance-ticket-form__actions {
+  grid-column: 1 / -1;
+}
+
+.maintenance-form__field label,
+.maintenance-ticket-form__field label {
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.maintenance-form__field input,
+.maintenance-form__field select,
+.maintenance-form__field textarea,
+.maintenance-ticket-form__field input,
+.maintenance-ticket-form__field select,
+.maintenance-ticket-form__field textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-h);
+  background: #ffffff;
+}
+
+.maintenance-form__field textarea,
+.maintenance-ticket-form__field textarea {
+  resize: vertical;
+}
+
+.maintenance-form__field input:disabled,
+.maintenance-form__field select:disabled,
+.maintenance-form__field textarea:disabled,
+.maintenance-ticket-form__field input:disabled,
+.maintenance-ticket-form__field select:disabled,
+.maintenance-ticket-form__field textarea:disabled {
+  color: var(--text);
+  background: #f1f5f9;
+}
+
+.maintenance-form__error,
+.maintenance-ticket-form__error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
+}
+
+.maintenance-form__actions,
+.maintenance-ticket-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.maintenance-form__actions a,
+.maintenance-ticket-form__actions a {
+  color: var(--text-h);
+  font-weight: 700;
+}
+
+.maintenance-form__actions button,
+.maintenance-ticket-form__actions button {
+  border: 0;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  color: #ffffff;
+  background: var(--text-h);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.maintenance-form__actions button:disabled,
+.maintenance-ticket-form__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 .receipt-document {
   display: grid;
   gap: 28px;
@@ -1609,11 +1964,34 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .maintenance-page__header,
+  .create-maintenance-page__header,
+  .create-maintenance-ticket-page__header,
+  .maintenance-card__header {
+    display: grid;
+  }
+
+  .maintenance-page__header a,
+  .maintenance-page__empty a,
+  .create-maintenance-page__header a,
+  .create-maintenance-page__empty a,
+  .create-maintenance-ticket-page__header a,
+  .create-maintenance-ticket-page__empty a {
+    width: 100%;
+  }
+
+  .maintenance-card__status {
+    width: max-content;
+    max-width: 100%;
+    white-space: normal;
+  }
+
   .tenant-card__details,
   .lease-card__details,
   .invoice-card__details,
   .payment-card__details,
   .receipt-card__details,
+  .maintenance-card__details,
   .receipt-document__summary,
   .receipt-document__parties,
   .receipt-document__grid {
@@ -1659,6 +2037,28 @@
   .reminders-page__empty-actions a,
   .reminder-card__actions button,
   .reminder-card__actions a {
+    width: 100%;
+  }
+
+  .maintenance-card__actions,
+  .maintenance-form,
+  .maintenance-ticket-form,
+  .maintenance-form__actions,
+  .maintenance-ticket-form__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .maintenance-card__actions,
+  .maintenance-form__actions,
+  .maintenance-ticket-form__actions {
+    display: grid;
+  }
+
+  .maintenance-card__actions button,
+  .maintenance-form__actions a,
+  .maintenance-form__actions button,
+  .maintenance-ticket-form__actions a,
+  .maintenance-ticket-form__actions button {
     width: 100%;
   }
 }

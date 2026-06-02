@@ -12,9 +12,10 @@ const sidebarLinks = [
   { label: 'Payments', path: routePaths.dashboardPayments },
   { label: 'Receipts', path: routePaths.dashboardReceipts },
   { label: 'Reminders', path: routePaths.dashboardReminders },
+  { label: 'Maintenance', path: routePaths.dashboardMaintenance },
 ]
 
-const futureSidebarItems = ['Units', 'Maintenance']
+const futureSidebarItems = ['Units']
 
 type AppLayoutProps = {
   children: ReactNode

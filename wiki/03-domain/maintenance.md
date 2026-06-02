@@ -1,29 +1,53 @@
 # Maintenance
 
-Maintenance is a future module.
+Maintenance tracks property and unit issue tickets.
 
 ## Current status
 
-Not started.
+MVP baseline implementation complete; manual validation pending.
 
-## Future purpose
+## Built
 
-Maintenance tickets help owners track repair or issue requests.
+- Maintenance list route
+- create Maintenance ticket route
+- property-only tickets
+- property and unit tickets
+- priority tracking
+- status tracking
+- reported timestamp
+- resolved timestamp
+- cancelled timestamp
+- estimated cost
+- actual cost
 
-Potential fields:
+## Fields
 
 - property
 - unit, if applicable
 - title
 - description
+- priority
 - status
-- reported date
-- resolved date
-- notes
+- reported at
+- resolved at
+- cancelled at
+- estimated cost
+- actual cost
 
-## Dependencies
+## Deferred
 
-Maintenance can be added after the core rental and payment loop, unless product priority changes.
+- vendor management
+- work orders
+- comments and activity
+- attachments and photos
+- recurring maintenance
+- payment linkage
+- cost ledger
+- dashboard maintenance metrics
+
+## Related domains
+
+Maintenance tickets are scoped to a property and can optionally reference a unit. Property-only tickets cover building-level issues. Property and unit tickets cover issues inside a specific rentable unit.
 
 ## Related pages
 

@@ -57,6 +57,11 @@
 
 ## Maintenance
 
-- Plan Maintenance module
-- Read-only Maintenance list
-- Create Maintenance ticket
+- Vendor management
+- Work orders
+- Comments and activity
+- Attachments and photos
+- Recurring maintenance
+- Payment linkage
+- Cost ledger
+- Dashboard maintenance metrics

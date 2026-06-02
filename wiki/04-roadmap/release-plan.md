@@ -13,15 +13,15 @@ Built:
 - Payments
 - Receipts manual generation baseline
 - Reminders manual MVP
+- Maintenance baseline
 
 ## Recommended next sequence
 
 1. Manually validate Payments, Receipts, and Reminders in browser/local Supabase
-2. Start Maintenance planning
-3. Add Maintenance
-4. Add basic Reporting / Dashboard metrics
+2. Manually validate Maintenance in browser/local Supabase
+3. Add basic Reporting / Dashboard metrics
 
-Next recommended module: Maintenance planning, with Reporting / Dashboard metrics after the operational records are validated.
+Next recommended module: Reporting / Dashboard metrics after Maintenance validation.
 
 ## Release principle
 
