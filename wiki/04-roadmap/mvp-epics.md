@@ -125,12 +125,12 @@ Deferred:
 
 ## Epic 7: Receipts and Reminders
 
-Status: Receipts manual generation baseline complete; Reminders manual MVP built; manual validation pending
+Status: Receipts browsing baseline and Reminders manual MVP built and manually validated
 
 Goal: support proof of payment and follow-up workflows.
 
 ## Epic 8: Maintenance and Reporting
 
-Status: not started; next candidate after manual Payments, Receipts, and Reminders validation
+Status: Maintenance baseline built and manually validated; Reporting / Dashboard metrics planning is next
 
 Goal: support operational issue tracking and business visibility.

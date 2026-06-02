@@ -4,7 +4,7 @@ Reminders help owners follow up manually with tenants about rent, overdue invoic
 
 ## Current status
 
-Manual MVP baseline complete; manual validation pending.
+Manual MVP baseline and manual validation complete.
 
 ## Built
 

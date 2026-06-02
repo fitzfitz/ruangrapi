@@ -85,7 +85,7 @@ Status: ready for manual validation after the Billing / Invoices implementation 
 
 ## Deferred Work
 
-Invoice detail, edit, send/delivery, cancel, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments and Receipts have since moved into their MVP baseline implementations; Reminders planning is the next recommended module after manual Payments and Receipts validation.
+Invoice detail, edit, send/delivery, cancel, reminders, overdue automation, utility readings, utility billing, PDFs, downloads, delivery workflows, and dashboard metrics remain deferred. Payments, Receipts, Reminders, and Maintenance have since moved into their MVP baseline implementations and completed manual validation; Reporting / Dashboard metrics planning is the next recommended module.
 
 ## Closeout
 
@@ -95,7 +95,7 @@ Billing / Invoices MVP baseline is complete when:
 - [ ] Create draft rent invoice flow is validated.
 - [ ] Automated checks pass.
 - [ ] Deferred work is documented.
-- [x] Wiki status pages identified Payments planning as the next step at Billing / Invoices closeout. Payments and Receipts have since been implemented, and current wiki status pages identify Reminders planning as the next step.
+- [x] Wiki status pages identified Payments planning as the next step at Billing / Invoices closeout. Payments, Receipts, Reminders, and Maintenance have since been implemented and manually validated, and current wiki status pages identify Reporting / Dashboard metrics planning as the next step.
 
 Deferred Billing / Invoices work:
 

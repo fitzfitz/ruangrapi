@@ -62,7 +62,7 @@ Billing should come after:
 
 ## Next recommended module
 
-Reminders planning, after manual Payments and Receipts validation.
+Reporting / Dashboard metrics planning, after operational record validation.
 
 ## Related pages
 

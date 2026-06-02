@@ -177,7 +177,7 @@ Deferred:
 
 ## Payments
 
-Status: MVP baseline implementation complete; manual validation pending.
+Status: MVP baseline implementation and manual validation complete.
 
 Routes:
 
@@ -229,7 +229,7 @@ Deferred:
 
 ## Receipts
 
-Status: browsing baseline complete; manual validation pending.
+Status: browsing baseline and manual validation complete.
 
 Built:
 
@@ -254,7 +254,7 @@ Deferred:
 
 ## Maintenance
 
-Status: MVP baseline implementation complete; manual validation pending.
+Status: MVP baseline implementation and manual validation complete.
 
 Routes:
 
@@ -299,7 +299,7 @@ Deferred:
 
 ## Reminders
 
-Status: manual MVP baseline complete; manual validation pending.
+Status: manual MVP baseline and manual validation complete.
 
 Routes:
 

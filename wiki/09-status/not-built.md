@@ -41,7 +41,7 @@ Not built:
 
 ## Payments
 
-Status: MVP baseline implementation complete. Receipt manual generation is built; remaining Payments refinements are deferred and manual browser validation is still pending.
+Status: MVP baseline implementation and manual validation complete. Receipt manual generation is built; remaining Payments refinements are deferred.
 
 Not built:
 
@@ -57,7 +57,7 @@ Not built:
 
 ## Receipts
 
-Status: browsing baseline complete; manual validation pending.
+Status: browsing baseline and manual validation complete.
 
 Not built:
 
@@ -69,7 +69,7 @@ Not built:
 
 ## Reminders
 
-Status: manual MVP baseline built. Advanced Reminders work is deferred and manual validation is still pending.
+Status: manual MVP baseline and manual validation complete. Advanced Reminders work is deferred.
 
 Not built:
 
@@ -83,7 +83,7 @@ Not built:
 
 ## Maintenance
 
-Status: MVP baseline implementation complete; manual validation pending. Advanced Maintenance workflows are deferred.
+Status: MVP baseline implementation and manual validation complete. Advanced Maintenance workflows are deferred.
 
 Not built:
 

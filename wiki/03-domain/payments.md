@@ -4,8 +4,8 @@ Payments record money received from tenants against invoices.
 
 ## Current status
 
-Payments MVP baseline implementation is complete. Manual browser validation remains pending.
-Receipts module: manual generation baseline complete; manual validation pending.
+Payments MVP baseline implementation and manual validation are complete.
+Receipts module: browsing baseline and manual validation are complete.
 
 ## Purpose
 

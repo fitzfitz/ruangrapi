@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: ready for manual validation after the Payments implementation slices are complete.
+Status: manual validation complete.
 
 ## Disposable Local Data Setup
 
@@ -32,76 +32,76 @@ Do not add `supabase/seed.sql` for this validation pass. Do not create a migrati
 
 ## Read-Only Payments List
 
-- [ ] Authenticated and onboarded users can open `/dashboard/payments`.
-- [ ] Unauthenticated users cannot access `/dashboard/payments` and are redirected through the existing auth gate.
-- [ ] The sidebar Payments link navigates to `/dashboard/payments`.
-- [ ] The Payments page shows a loading state while the payments query is pending.
-- [ ] The Payments page shows an empty state when the current organization has no payments.
-- [ ] The Payments page shows an error state when the payments query fails.
-- [ ] The Payments page shows a populated list when the current organization has payments.
-- [ ] Existing payments listed on the page belong to the current organization.
-- [ ] Payment rows show tenant name.
-- [ ] Payment rows show unit name.
-- [ ] Payment rows show property name when available.
-- [ ] Payment rows show payment date.
-- [ ] Payment rows show amount.
-- [ ] Payment rows show payment method.
-- [ ] Payment rows show invoice billing period.
-- [ ] Payment rows show invoice status.
-- [ ] Payment rows show reference number when available.
-- [ ] Payment rows handle missing reference gracefully.
-- [ ] Refreshing `/dashboard/payments` keeps the user on the protected Payments route after account state checks finish.
+- [x] Authenticated and onboarded users can open `/dashboard/payments`.
+- [x] Unauthenticated users cannot access `/dashboard/payments` and are redirected through the existing auth gate.
+- [x] The sidebar Payments link navigates to `/dashboard/payments`.
+- [x] The Payments page shows a loading state while the payments query is pending.
+- [x] The Payments page shows an empty state when the current organization has no payments.
+- [x] The Payments page shows an error state when the payments query fails.
+- [x] The Payments page shows a populated list when the current organization has payments.
+- [x] Existing payments listed on the page belong to the current organization.
+- [x] Payment rows show tenant name.
+- [x] Payment rows show unit name.
+- [x] Payment rows show property name when available.
+- [x] Payment rows show payment date.
+- [x] Payment rows show amount.
+- [x] Payment rows show payment method.
+- [x] Payment rows show invoice billing period.
+- [x] Payment rows show invoice status.
+- [x] Payment rows show reference number when available.
+- [x] Payment rows handle missing reference gracefully.
+- [x] Refreshing `/dashboard/payments` keeps the user on the protected Payments route after account state checks finish.
 
 ## Record Payment Flow
 
-- [ ] Authenticated and onboarded users can open `/dashboard/payments/new`.
-- [ ] Unauthenticated users cannot access `/dashboard/payments/new` and are redirected through the existing auth gate.
-- [ ] The Payments page Add payment link navigates to `/dashboard/payments/new`.
-- [ ] The Back to payments link returns to `/dashboard/payments`.
-- [ ] The Cancel link returns to `/dashboard/payments`.
-- [ ] Payable invoice options load from current organization invoice records.
-- [ ] Invoices with status `unpaid`, `partially_paid`, and `overdue` are offered when they have remaining balance.
-- [ ] Invoices with status `draft`, `paid`, or `cancelled` are not offered.
-- [ ] Invoice options include tenant, unit, property, and billing period context when available.
-- [ ] Selecting an invoice shows total, paid, and remaining balance.
-- [ ] Submitting without an invoice shows the invoice validation error.
-- [ ] Submitting without an amount shows the amount validation error.
-- [ ] Submitting a non-whole amount shows the amount validation error.
-- [ ] Submitting zero or a negative amount shows the amount validation error.
-- [ ] Submitting an amount greater than the invoice remaining balance is blocked.
-- [ ] Submitting without a payment date shows the payment-date validation error.
-- [ ] Submitting without a payment method shows the payment-method validation error.
-- [ ] Submitting a valid partial payment creates one payment record.
-- [ ] Submitting a valid full remaining-balance payment creates one payment record.
-- [ ] The created payment has the correct `organization_id` for the current onboarded user.
-- [ ] The created payment references the selected invoice.
-- [ ] Blank reference number is stored as `null`.
-- [ ] Blank notes are stored as `null`.
-- [ ] A partial payment updates invoice status to `partially_paid`.
-- [ ] A full payment updates invoice status to `paid`.
-- [ ] After successful creation, the user is redirected to `/dashboard/payments`.
-- [ ] The newly created payment appears in the Payments list after redirect.
+- [x] Authenticated and onboarded users can open `/dashboard/payments/new`.
+- [x] Unauthenticated users cannot access `/dashboard/payments/new` and are redirected through the existing auth gate.
+- [x] The Payments page Add payment link navigates to `/dashboard/payments/new`.
+- [x] The Back to payments link returns to `/dashboard/payments`.
+- [x] The Cancel link returns to `/dashboard/payments`.
+- [x] Payable invoice options load from current organization invoice records.
+- [x] Invoices with status `unpaid`, `partially_paid`, and `overdue` are offered when they have remaining balance.
+- [x] Invoices with status `draft`, `paid`, or `cancelled` are not offered.
+- [x] Invoice options include tenant, unit, property, and billing period context when available.
+- [x] Selecting an invoice shows total, paid, and remaining balance.
+- [x] Submitting without an invoice shows the invoice validation error.
+- [x] Submitting without an amount shows the amount validation error.
+- [x] Submitting a non-whole amount shows the amount validation error.
+- [x] Submitting zero or a negative amount shows the amount validation error.
+- [x] Submitting an amount greater than the invoice remaining balance is blocked.
+- [x] Submitting without a payment date shows the payment-date validation error.
+- [x] Submitting without a payment method shows the payment-method validation error.
+- [x] Submitting a valid partial payment creates one payment record.
+- [x] Submitting a valid full remaining-balance payment creates one payment record.
+- [x] The created payment has the correct `organization_id` for the current onboarded user.
+- [x] The created payment references the selected invoice.
+- [x] Blank reference number is stored as `null`.
+- [x] Blank notes are stored as `null`.
+- [x] A partial payment updates invoice status to `partially_paid`.
+- [x] A full payment updates invoice status to `paid`.
+- [x] After successful creation, the user is redirected to `/dashboard/payments`.
+- [x] The newly created payment appears in the Payments list after redirect.
 
 ## Regression Checks
 
-- [ ] Browser console has no errors during Payments list navigation, create-page load, payable invoice option loading, validation failures, successful create, redirects, list refresh, or auth redirect checks.
+- [x] Browser console has no errors during Payments list navigation, create-page load, payable invoice option loading, validation failures, successful create, redirects, list refresh, or auth redirect checks.
 
 ## Boundaries
 
-- [ ] No payment edit flow was introduced.
-- [ ] No payment delete flow was introduced.
-- [ ] No payment correction workflow was introduced.
+- [x] No payment edit flow was introduced.
+- [x] No payment delete flow was introduced.
+- [x] No payment correction workflow was introduced.
 - [x] No receipt workflow was introduced during the Payments baseline. Receipts manual generation was implemented later as its own module.
 - [x] No receipt number generation was introduced during the Payments baseline. Receipt numbering was activated later through the Receipts module using existing database-backed sequencing.
-- [ ] No refund workflow was introduced.
-- [ ] No overpayment allocation was introduced.
-- [ ] No payment gateway integration was introduced.
-- [ ] No bank reconciliation workflow was introduced.
-- [ ] No failed payment state workflow was introduced.
-- [ ] No invoice detail route was introduced.
-- [ ] No invoice payment history context was introduced.
-- [ ] No dashboard collection metrics were introduced.
-- [ ] No schema or RLS migration was introduced.
+- [x] No refund workflow was introduced.
+- [x] No overpayment allocation was introduced.
+- [x] No payment gateway integration was introduced.
+- [x] No bank reconciliation workflow was introduced.
+- [x] No failed payment state workflow was introduced.
+- [x] No invoice detail route was introduced.
+- [x] No invoice payment history context was introduced.
+- [x] No dashboard collection metrics were introduced.
+- [x] No schema or RLS migration was introduced.
 
 ## Deferred Work
 
@@ -109,16 +109,16 @@ Payment edit, payment delete, correction workflows, refunds, overpayment allocat
 
 ## Closeout
 
-Payments MVP baseline is complete when:
+Payments MVP baseline is complete:
 
-- [ ] Read-only Payments list is manually validated.
-- [ ] Record Payment flow is manually validated.
+- [x] Read-only Payments list is manually validated.
+- [x] Record Payment flow is manually validated.
 - [x] Automated checks pass.
 - [x] Deferred work is documented.
-- [x] Wiki status pages identified Receipts planning as the next step at Payments closeout. Receipts manual generation has since been implemented, and current wiki status pages identify Reminders planning as the next step.
+- [x] Wiki status pages identify Reporting / Dashboard metrics planning as the next step after operational record validation.
 
 Closeout note:
 
 - Payments implementation and automated validation are complete.
-- Manual browser/Supabase validation remains pending because it requires an authenticated local session and test data.
-- Receipts planning was the recommended module at Payments closeout. Receipts manual generation has since been implemented; Reminders planning is now recommended after manual Payments and Receipts validation.
+- Manual browser/Supabase validation is complete using disposable local data.
+- Receipts planning was the recommended module at Payments closeout. Receipts manual generation, Reminders manual MVP, and Maintenance baseline have since been implemented and validated. Reporting / Dashboard metrics planning is now the next recommended task.

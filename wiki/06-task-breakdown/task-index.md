@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Reporting / Dashboard metrics planning after operational records are validated
+- Reporting / Dashboard metrics planning now that operational records are validated
 
 ## Completed candidates
 

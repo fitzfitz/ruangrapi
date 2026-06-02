@@ -20,6 +20,6 @@ Purpose:
 
 Status:
 
-- next likely candidate after Maintenance manual validation
+- next likely candidate now that operational records have been manually validated
 
-Next likely candidate: Reporting / Dashboard metrics after Maintenance validation.
+Next likely candidate: Reporting / Dashboard metrics planning.

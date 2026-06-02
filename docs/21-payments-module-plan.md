@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: MVP baseline implementation complete; manual validation pending.
+Status: MVP baseline implementation and manual validation complete.
 
 This document plans the Payments MVP baseline. It does not implement source code, create migrations, alter RLS policies, generate receipts, edit payments, delete payments, introduce payment gateways, automate reconciliation, or add dashboard metrics.
 
@@ -18,7 +18,7 @@ The Payments MVP baseline should be sliced in this order:
 2. Add a read-only Payments list. Completed.
 3. Add a Record Payment flow. Completed.
 4. Document the Payments validation checklist. Completed.
-5. Close out the Payments module and update wiki status pages. Completed for implementation and automated validation; manual browser validation remains pending.
+5. Close out the Payments module and update wiki status pages. Completed.
 
 ## Completed Prerequisite: Invoice Issue Action
 

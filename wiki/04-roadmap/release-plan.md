@@ -17,11 +17,10 @@ Built:
 
 ## Recommended next sequence
 
-1. Manually validate Payments, Receipts, and Reminders in browser/local Supabase
-2. Manually validate Maintenance in browser/local Supabase
-3. Add basic Reporting / Dashboard metrics
+1. Plan basic Reporting / Dashboard metrics
+2. Add the first reporting slice over existing operational records
 
-Next recommended module: Reporting / Dashboard metrics after Maintenance validation.
+Next recommended module: Reporting / Dashboard metrics.
 
 ## Release principle
 

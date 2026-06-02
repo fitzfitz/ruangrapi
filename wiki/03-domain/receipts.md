@@ -4,7 +4,7 @@ Receipts provide proof of payment for recorded payments.
 
 ## Current status
 
-Receipts module: browsing baseline complete; manual validation pending.
+Receipts module: browsing baseline and manual validation complete.
 
 ## Purpose
 

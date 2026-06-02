@@ -4,7 +4,7 @@ Maintenance tracks property and unit issue tickets.
 
 ## Current status
 
-MVP baseline implementation complete; manual validation pending.
+MVP baseline implementation and manual validation complete.
 
 ## Built
 

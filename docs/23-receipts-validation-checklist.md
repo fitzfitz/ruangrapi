@@ -1,12 +1,14 @@
 # Receipts Validation Checklist
 
-Status: ready for manual validation after the Receipts browsing implementation.
+Status: manual validation complete.
+
+Validation note: Receipts manual generation, browsing, detail, and print flows were validated in browser/local Supabase with disposable local data.
 
 ## Automated Checks
 
-- [ ] `npm run build` passes.
-- [ ] `npm run lint` passes.
-- [ ] `git diff --check` passes.
+- [x] `npm run build` passes.
+- [x] `npm run lint` passes.
+- [x] `git diff --check` passes.
 
 ## Manual Setup
 
@@ -24,49 +26,49 @@ Required records:
 
 ## Payments List Receipt States
 
-- [ ] Payment without receipt shows `Generate receipt`.
-- [ ] Payment without receipt shows `Not generated yet`.
-- [ ] Payment without receipt uses the polished pending receipt panel.
-- [ ] Payment with receipt shows `Receipt issued`.
-- [ ] Payment with receipt shows receipt number.
-- [ ] Payment with receipt shows issued date.
-- [ ] Payment with receipt does not show `Generate receipt`.
+- [x] Payment without receipt shows `Generate receipt`.
+- [x] Payment without receipt shows `Not generated yet`.
+- [x] Payment without receipt uses the polished pending receipt panel.
+- [x] Payment with receipt shows `Receipt issued`.
+- [x] Payment with receipt shows receipt number.
+- [x] Payment with receipt shows issued date.
+- [x] Payment with receipt does not show `Generate receipt`.
 
 ## Receipt Generation
 
-- [ ] Click `Generate receipt` for a payment without receipt.
-- [ ] Button changes to `Generating...` while the mutation is pending.
-- [ ] Exactly one receipt row is created for that payment.
-- [ ] Generated receipt number follows `RR-{YYYY}-{0001}`.
-- [ ] Payment card refreshes to the issued receipt state.
-- [ ] A second payment for the same invoice can receive its own receipt.
+- [x] Click `Generate receipt` for a payment without receipt.
+- [x] Button changes to `Generating...` while the mutation is pending.
+- [x] Exactly one receipt row is created for that payment.
+- [x] Generated receipt number follows `RR-{YYYY}-{0001}`.
+- [x] Payment card refreshes to the issued receipt state.
+- [x] A second payment for the same invoice can receive its own receipt.
 
 ## Receipt Browsing
 
-- [ ] Sidebar shows `Receipts`.
-- [ ] Receipts list page loads at `/dashboard/receipts`.
-- [ ] Receipts list shows receipt number, issued date, amount, payment date, payment method, tenant, unit, property, and billing period.
-- [ ] Empty receipts list explains receipts appear after generation.
-- [ ] `View receipt` from the Payments list opens the matching receipt detail page.
-- [ ] `View receipt` from the Receipts list opens the matching receipt detail page.
+- [x] Sidebar shows `Receipts`.
+- [x] Receipts list page loads at `/dashboard/receipts`.
+- [x] Receipts list shows receipt number, issued date, amount, payment date, payment method, tenant, unit, property, and billing period.
+- [x] Empty receipts list explains receipts appear after generation.
+- [x] `View receipt` from the Payments list opens the matching receipt detail page.
+- [x] `View receipt` from the Receipts list opens the matching receipt detail page.
 
 ## Receipt Detail And Print
 
-- [ ] Receipt detail page loads at `/dashboard/receipts/:receiptId`.
-- [ ] Receipt detail shows receipt number, issued date, amount received, tenant, unit, property, payment date, payment method, payment reference, billing period, invoice status, invoice total, and payment notes.
-- [ ] Missing or inaccessible receipt shows a not-found state.
-- [ ] `Print` opens browser print.
-- [ ] Print view hides app navigation and page actions.
+- [x] Receipt detail page loads at `/dashboard/receipts/:receiptId`.
+- [x] Receipt detail shows receipt number, issued date, amount received, tenant, unit, property, payment date, payment method, payment reference, billing period, invoice status, invoice total, and payment notes.
+- [x] Missing or inaccessible receipt shows a not-found state.
+- [x] `Print` opens browser print.
+- [x] Print view hides app navigation and page actions.
 
 ## Failure And Scope Checks
 
-- [ ] Duplicate receipt generation is not available from the UI once a receipt exists.
-- [ ] Inline error appears if receipt generation fails.
-- [ ] No PDF download, email, or WhatsApp delivery workflow was introduced.
-- [ ] No automatic receipt generation after payment recording was introduced.
-- [ ] No receipt edit or delete workflow was introduced.
-- [ ] No payment correction workflow was introduced.
-- [ ] No migrations or seed data were introduced.
+- [x] Duplicate receipt generation is not available from the UI once a receipt exists.
+- [x] Inline error appears if receipt generation fails.
+- [x] No PDF download, email, or WhatsApp delivery workflow was introduced.
+- [x] No automatic receipt generation after payment recording was introduced.
+- [x] No receipt edit or delete workflow was introduced.
+- [x] No payment correction workflow was introduced.
+- [x] No migrations or seed data were introduced.
 
 ## Deferred Work
 
