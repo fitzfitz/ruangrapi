@@ -40,7 +40,7 @@ Validate the first Reporting / Dashboard metrics slice manually after implementa
 
 ## Validation Commands
 
-- [ ] `npm run format:check`
-- [ ] `npm run build`
-- [ ] `npm run lint`
-- [ ] `git diff --check`
+- [x] `npm run format:check`
+- [x] `npm run build`
+- [x] `npm run lint`
+- [x] `git diff --check`
