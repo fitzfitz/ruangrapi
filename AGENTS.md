@@ -71,6 +71,14 @@ Backend-only, SQL-only, infrastructure, and direct informational tasks may skip 
 
 RuangRapi also has a project-local Codex `UserPromptSubmit` hook under `.codex/` that injects this reminder into Codex sessions. Review and trust the hook with `/hooks` if Codex reports that project hooks need approval.
 
+## Library Documentation Workflow
+
+Use Context7 for external library/API work before implementation when package APIs, installation, configuration, or examples may be version-sensitive. Prefer official library documentation surfaced through Context7 over memory or generic examples.
+
+Use Context7 before adding dependencies, upgrading dependencies, changing package versions, configuring libraries, or implementing against unfamiliar or fast-moving APIs such as React Router, TanStack Query, Supabase JS, Vite, Zod, React Hook Form, charting libraries, and UI component libraries.
+
+Skip Context7 for codebase-local patterns, simple TypeScript or React syntax, and tasks that do not depend on external library behavior.
+
 ## Security & Agent-Specific Instructions
 
 Never commit real secrets or modify environment files that may contain them. Keep `.env.local` local and document only placeholders in `.env.example`. Before repository-level or architectural changes, read `README.md`, `HERMES.md`, and the relevant `docs/` files. Ask before adding dependencies, changing scope, or altering database schema/RLS behavior.
