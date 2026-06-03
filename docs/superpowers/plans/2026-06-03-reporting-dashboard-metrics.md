@@ -183,7 +183,7 @@ Modify `tsconfig.node.json` so `compilerOptions` includes `baseUrl` and `paths`:
 Modify the top of `src/index.css`:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --text: #5f6673;
@@ -426,11 +426,7 @@ type InvoiceStatus =
   | 'overdue'
   | 'cancelled'
 type ReminderStatus = 'draft' | 'prepared' | 'sent' | 'cancelled'
-type MaintenanceTicketStatus =
-  | 'open'
-  | 'in_progress'
-  | 'resolved'
-  | 'cancelled'
+type MaintenanceTicketStatus = 'open' | 'in_progress' | 'resolved' | 'cancelled'
 
 type UnitMetricsRow = {
   status: UnitStatus
@@ -648,10 +644,7 @@ export async function getDashboardMetrics(
     { data: reminders, error: remindersError },
     { data: maintenanceTickets, error: maintenanceError },
   ] = await Promise.all([
-    supabaseClient
-      .from('units')
-      .select('status')
-      .returns<UnitMetricsRow[]>(),
+    supabaseClient.from('units').select('status').returns<UnitMetricsRow[]>(),
     supabaseClient
       .from('invoices')
       .select(
@@ -1060,8 +1053,8 @@ export function DashboardShell() {
         <div>
           <h2 id="dashboard-title">Dashboard</h2>
           <p>
-            Review rental collection, invoice status, reminders, and
-            maintenance workload.
+            Review rental collection, invoice status, reminders, and maintenance
+            workload.
           </p>
         </div>
         <div
@@ -1100,7 +1093,10 @@ export function DashboardShell() {
 
       {metricsQuery.isSuccess ? (
         <>
-          <div className="dashboard-shell__metrics" aria-label="Dashboard metrics">
+          <div
+            className="dashboard-shell__metrics"
+            aria-label="Dashboard metrics"
+          >
             {buildMetricCards(metricsQuery.data).map((metric) => (
               <article className="dashboard-shell__metric" key={metric.id}>
                 <span>{metric.label}</span>
@@ -1361,27 +1357,27 @@ Modify the existing dashboard section in `src/App.css` by replacing the `.dashbo
 Inside the existing mobile media query in `src/App.css`, add:
 
 ```css
-  .dashboard-shell__header,
-  .dashboard-shell__chart-header {
-    display: grid;
-  }
+.dashboard-shell__header,
+.dashboard-shell__chart-header {
+  display: grid;
+}
 
-  .dashboard-shell__range {
-    justify-content: flex-start;
-  }
+.dashboard-shell__range {
+  justify-content: flex-start;
+}
 
-  .dashboard-shell__metrics,
-  .dashboard-shell__charts {
-    grid-template-columns: 1fr;
-  }
+.dashboard-shell__metrics,
+.dashboard-shell__charts {
+  grid-template-columns: 1fr;
+}
 
-  .dashboard-shell__chart--wide {
-    grid-column: auto;
-  }
+.dashboard-shell__chart--wide {
+  grid-column: auto;
+}
 
-  .dashboard-shell__chart-header p {
-    text-align: left;
-  }
+.dashboard-shell__chart-header p {
+  text-align: left;
+}
 ```
 
 - [ ] **Step 4: Run build and fix type/import issues**

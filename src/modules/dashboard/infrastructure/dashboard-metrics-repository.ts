@@ -18,11 +18,7 @@ type InvoiceStatus =
   | 'overdue'
   | 'cancelled'
 type ReminderStatus = 'draft' | 'prepared' | 'sent' | 'cancelled'
-type MaintenanceTicketStatus =
-  | 'open'
-  | 'in_progress'
-  | 'resolved'
-  | 'cancelled'
+type MaintenanceTicketStatus = 'open' | 'in_progress' | 'resolved' | 'cancelled'
 
 type UnitMetricsRow = {
   status: UnitStatus
