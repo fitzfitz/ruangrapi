@@ -10,16 +10,18 @@ These are candidates likely to become approved tasks soon.
 - Maintenance planning
 - Maintenance MVP build
 - Maintenance validation checklist
+- Reporting / Dashboard metrics planning
+- Reporting / Dashboard metrics implementation
 
-## Candidate: Reporting / Dashboard metrics
+## Candidate: Reporting / Dashboard metrics validation
 
 Purpose:
 
-- define the first dashboard metrics after operational records are available
-- summarize rental, billing, payment, reminder, and maintenance status without adding advanced workflows
+- manually validate the first dashboard metrics slice across preset ranges
+- confirm metric counts and shadcn/Recharts charts behave correctly over existing operational records
 
 Status:
 
-- next likely candidate now that operational records have been manually validated
+- next likely candidate now that the first dashboard metrics implementation is built
 
-Next likely candidate: Reporting / Dashboard metrics planning.
+Next likely candidate: Reporting / Dashboard metrics validation.

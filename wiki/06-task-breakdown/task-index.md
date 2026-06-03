@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Reporting / Dashboard metrics planning now that operational records are validated
+- Reporting / Dashboard metrics validation
 
 ## Completed candidates
 
@@ -39,9 +39,15 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Maintenance planning
 - Maintenance MVP build
 - Maintenance validation checklist
+- Reporting / Dashboard metrics planning
+- Reporting / Dashboard metrics implementation
 
 ## Later candidates
 
+- Reporting custom date range picker
+- Reporting CSV/export
+- Reporting chart drilldowns
+- Reporting saved reports
 - Add Payment edit before receipt generation
 - Add Invoice payment history context
 - Move payment recording into Supabase RPC

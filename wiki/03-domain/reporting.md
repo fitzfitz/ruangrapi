@@ -1,30 +1,63 @@
 # Reporting
 
-Reporting and dashboard metrics are future modules.
+Reporting and dashboard metrics summarize existing operational records.
 
 ## Current status
 
-Not started.
+First dashboard metrics slice implemented on `/dashboard`.
 
-## Future purpose
+## First dashboard slice
 
-Reporting should help owners understand rental performance.
+The first `/dashboard` reporting slice uses existing records only:
 
-Potential MVP metrics:
+- units
+- invoices
+- payments
+- reminders
+- maintenance tickets
 
-- expected rent this month
-- paid this month
-- outstanding amount
-- occupied/vacant units
-- overdue invoices
-- open maintenance tickets
+It supports preset ranges:
 
-## Dependency warning
+- This month
+- Last month
+- Last 3 months
+- This year
 
-Reports should come after operational data exists. Metrics before leases, billing, and payments would be decorative rather than useful.
+It shows:
+
+- current unit counts
+- selected-period expected rent
+- selected-period collected rent
+- selected-period outstanding rent
+- selected-period invoice attention count
+- current open maintenance count
+- selected-period reminder counts
+- simple shadcn/Recharts charts
+
+## Metric rules
+
+- Unit counts are current operational state.
+- Maintenance open count is current operational state.
+- Invoice, payment, and reminder metrics use invoice `billing_period` inside the selected preset range.
+- Expected rent excludes cancelled invoices.
+- Collected rent sums payments attached to non-cancelled selected-period invoices.
+- Outstanding rent is expected rent minus collected rent, floored at zero.
+- Invoice attention counts unpaid, partially paid, and overdue selected-period invoices.
+
+## Boundaries
+
+Not included in the first slice:
+
+- custom date range picker
+- CSV/export
+- database views or reporting RPCs
+- advanced accounting reports
+- automated overdue logic
+- workflow changes in billing, payments, reminders, or maintenance
 
 ## Related pages
 
 - [[billing]]
 - [[payments]]
+- [[reminders]]
 - [[maintenance]]

@@ -325,3 +325,37 @@ Deferred:
 - reminder detail/history page
 - delivery/status tracking
 - better phone normalization
+
+## Reporting / Dashboard Metrics
+
+Status: first dashboard slice implemented. Manual validation checklist is ready.
+
+Routes:
+
+- `/dashboard`
+
+Built:
+
+- preset range selector for This month, Last month, Last 3 months, and This year
+- current total, occupied, and vacant unit metrics
+- selected-period expected rent metric
+- selected-period collected rent metric
+- selected-period outstanding rent metric
+- selected-period invoice attention count
+- current open maintenance count
+- selected-period prepared reminder count
+- expected versus collected collection chart
+- invoice status chart
+- maintenance status chart
+- reminder status chart
+- shadcn chart setup with Tailwind CSS and Recharts
+- Reporting / Dashboard validation checklist
+
+Deferred:
+
+- custom date range picker
+- CSV/export
+- database reporting views or Supabase RPCs
+- advanced accounting or tax reports
+- automated overdue logic
+- workflow changes in billing, payments, reminders, or maintenance

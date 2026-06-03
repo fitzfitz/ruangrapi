@@ -22,7 +22,6 @@
 - Invoice cancel flow
 - Utility reading capture and utility billing
 - Invoice PDFs, downloads, email, and WhatsApp delivery
-- Dashboard billing metrics
 
 ## Payments
 
@@ -64,4 +63,12 @@
 - Recurring maintenance
 - Payment linkage
 - Cost ledger
-- Dashboard maintenance metrics
+
+## Reporting
+
+- Reporting custom date range picker
+- Reporting CSV/export
+- Reporting saved reports
+- Reporting chart drilldowns
+- Database reporting views or Supabase RPCs, if app-side aggregation becomes insufficient
+- Advanced accounting or tax reporting

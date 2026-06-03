@@ -37,7 +37,6 @@ Not built:
 - invoice cancel
 - utility reading capture and utility billing
 - invoice PDFs, downloads, email, and WhatsApp delivery
-- dashboard billing metrics
 
 ## Payments
 
@@ -53,7 +52,6 @@ Not built:
 - overpayment allocation
 - payment gateway integration
 - bank reconciliation
-- dashboard collection metrics
 
 ## Receipts
 
@@ -94,8 +92,20 @@ Not built:
 - recurring maintenance
 - payment linkage
 - cost ledger
-- dashboard maintenance metrics
 
 ## Reporting / Dashboard Metrics
 
-Status: not started.
+Status: first dashboard metrics slice built. Advanced reporting refinements are deferred.
+
+Not built:
+
+- custom date range picker
+- CSV/export
+- saved reports
+- database reporting views
+- Supabase reporting RPCs
+- advanced accounting reports
+- tax reports
+- automated overdue logic
+- chart drilldowns
+- cross-module workflow changes from dashboard cards
