@@ -1,42 +1,58 @@
 # Reporting / Dashboard Metrics Validation Checklist
 
-Validate the first Reporting / Dashboard metrics slice manually after implementation. This checklist covers `/dashboard` only.
+Status: functional manual validation complete.
+
+Validation note: Reporting / Dashboard metrics were validated on `/dashboard` across the implemented preset range and chart behaviors. A UI/UX quality issue remains known and is explicitly deferred as out of scope for this validation closeout.
 
 ## Scope
 
-- [ ] `/dashboard` loads for authenticated and onboarded users.
-- [ ] Unauthenticated users cannot access `/dashboard` and are redirected through the existing route gate.
-- [ ] The dashboard shows preset range controls for This month, Last month, Last 3 months, and This year.
-- [ ] The default range is This month.
-- [ ] Switching preset ranges refreshes period-limited metrics.
-- [ ] Unit metrics show current total, occupied, and vacant unit counts.
-- [ ] Expected rent uses non-cancelled invoices in the selected billing period range.
-- [ ] Collected rent uses payments attached to non-cancelled invoices in the selected billing period range.
-- [ ] Outstanding rent is expected minus collected and never below zero.
-- [ ] Invoice attention count includes unpaid, partially paid, and overdue invoices in the selected billing period range.
-- [ ] Open maintenance count includes open and in-progress tickets.
-- [ ] Reminder counts use reminders attached to selected-period invoices.
-- [ ] Cancelled invoices do not contribute to expected rent, collected rent, outstanding rent, or invoice attention metrics.
-- [ ] Cancelled reminders do not appear as active reminder attention items.
-- [ ] Collection chart renders expected versus collected data when invoices or payments exist.
-- [ ] Invoice status chart renders when selected-period invoices exist.
-- [ ] Maintenance status chart renders when maintenance tickets exist.
-- [ ] Reminder status chart renders when reminder records exist for selected-period invoices.
-- [ ] Empty chart states render cleanly when no chart data exists.
-- [ ] Loading state appears while dashboard metrics are being fetched.
-- [ ] Error state appears if dashboard metrics fail to load.
-- [ ] Dashboard layout is readable on desktop.
-- [ ] Dashboard layout is readable on mobile.
-- [ ] Browser console shows no errors during dashboard load or range switching.
+- [x] `/dashboard` loads for authenticated and onboarded users.
+- [x] Unauthenticated users cannot access `/dashboard` and are redirected through the existing route gate.
+- [x] The dashboard shows preset range controls for This month, Last month, Last 3 months, and This year.
+- [x] The default range is This month.
+- [x] Switching preset ranges refreshes period-limited metrics.
+- [x] Unit metrics show current total, occupied, and vacant unit counts.
+- [x] Expected rent uses non-cancelled invoices in the selected billing period range.
+- [x] Collected rent uses payments attached to non-cancelled invoices in the selected billing period range.
+- [x] Outstanding rent is expected minus collected and never below zero.
+- [x] Invoice attention count includes unpaid, partially paid, and overdue invoices in the selected billing period range.
+- [x] Open maintenance count includes open and in-progress tickets.
+- [x] Reminder counts use reminders attached to selected-period invoices.
+- [x] Cancelled invoices do not contribute to expected rent, collected rent, outstanding rent, or invoice attention metrics.
+- [x] Cancelled reminders do not appear as active reminder attention items.
+- [x] Collection chart renders expected versus collected data when invoices or payments exist.
+- [x] Invoice status chart renders when selected-period invoices exist.
+- [x] Maintenance status chart renders when maintenance tickets exist.
+- [x] Reminder status chart renders when reminder records exist for selected-period invoices.
+- [x] Empty chart states render cleanly when no chart data exists.
+- [x] Loading state appears while dashboard metrics are being fetched.
+- [x] Error state appears if dashboard metrics fail to load.
+- [ ] Detailed dashboard/reporting UI/UX polish remains deferred and out of scope for this validation pass.
+- [x] Browser console shows no errors during dashboard load or range switching.
 
 ## Boundaries
 
-- [ ] No custom date range picker is introduced.
-- [ ] No CSV/export is introduced.
-- [ ] No Supabase migrations are introduced.
-- [ ] No Supabase RPCs or database views are introduced.
-- [ ] No invoice, payment, reminder, or maintenance workflow behavior is changed.
-- [ ] The rest of the app is not migrated to shadcn/ui.
+- [x] No custom date range picker is introduced.
+- [x] No CSV/export is introduced.
+- [x] No Supabase migrations are introduced.
+- [x] No Supabase RPCs or database views are introduced.
+- [x] No invoice, payment, reminder, or maintenance workflow behavior is changed.
+- [x] The rest of the app is not migrated to shadcn/ui.
+
+## Closeout
+
+Functional dashboard/reporting validation is complete. The first slice remains intentionally limited to preset ranges, app-side aggregation, and simple chart summaries over existing records.
+
+Deferred scope:
+
+- dashboard/reporting UI/UX polish
+- custom date range picker
+- CSV/export
+- saved reports
+- database reporting views or Supabase RPCs
+- advanced accounting or tax reports
+- automated overdue logic
+- workflow changes in billing, payments, reminders, or maintenance
 
 ## Validation Commands
 

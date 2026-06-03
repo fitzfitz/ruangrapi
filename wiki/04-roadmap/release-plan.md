@@ -18,11 +18,11 @@ Built:
 
 ## Recommended next sequence
 
-1. Manually validate Reporting / Dashboard metrics
-2. Record Reporting / Dashboard validation results
-3. Choose the next focused MVP gap after dashboard validation
+1. Review the remaining focused MVP gap bucket
+2. Choose one approved next task from ready-soon or later candidates
+3. Keep dashboard/reporting UI/UX polish separate from functional validation closeout
 
-Next recommended task: Reporting / Dashboard metrics validation.
+Next recommended task: choose the next focused MVP gap from the task bucket.
 
 ## Reporting baseline
 
@@ -37,6 +37,7 @@ It summarizes current unit status, selected-period rent collection, invoice atte
 
 Deferred reporting scope:
 
+- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
 - saved reports

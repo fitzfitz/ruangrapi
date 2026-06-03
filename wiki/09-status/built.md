@@ -328,7 +328,7 @@ Deferred:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard slice implemented. Manual validation checklist is ready.
+Status: first dashboard slice implemented and functionally validated. UI/UX polish is deferred.
 
 Routes:
 
@@ -353,8 +353,10 @@ Built:
 
 Deferred:
 
+- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
+- saved reports
 - database reporting views or Supabase RPCs
 - advanced accounting or tax reports
 - automated overdue logic

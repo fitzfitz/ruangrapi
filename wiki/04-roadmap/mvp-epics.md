@@ -121,7 +121,7 @@ Deferred:
 - automatic overdue status jobs
 - utility reading capture and utility billing
 - invoice PDFs, downloads, email, and WhatsApp delivery
-- dashboard metrics
+- advanced dashboard/reporting refinements
 
 ## Epic 7: Receipts and Reminders
 
@@ -131,6 +131,6 @@ Goal: support proof of payment and follow-up workflows.
 
 ## Epic 8: Maintenance and Reporting
 
-Status: Maintenance baseline built and manually validated; Reporting / Dashboard metrics planning is next
+Status: Maintenance baseline built and manually validated; Reporting / Dashboard metrics first slice built and functionally validated
 
 Goal: support operational issue tracking and business visibility.

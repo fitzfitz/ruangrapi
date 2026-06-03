@@ -66,6 +66,7 @@
 
 ## Reporting
 
+- Dashboard/reporting UI/UX polish
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting saved reports

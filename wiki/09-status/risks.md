@@ -47,4 +47,6 @@ Risk: dashboard metrics become decorative without leases, invoices, and payments
 Mitigation:
 
 - build operational records first
-- dashboard/reporting later
+- Reporting / Dashboard metrics were built after the core operational records existed
+- functional validation is complete
+- defer UI/UX polish as a separate task instead of mixing it into validation closeout

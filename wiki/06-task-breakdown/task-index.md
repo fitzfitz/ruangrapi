@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Reporting / Dashboard metrics validation
+- Next focused MVP gap review
 
 ## Completed candidates
 
@@ -41,9 +41,11 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Maintenance validation checklist
 - Reporting / Dashboard metrics planning
 - Reporting / Dashboard metrics implementation
+- Reporting / Dashboard metrics validation
 
 ## Later candidates
 
+- Dashboard/reporting UI/UX polish
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns

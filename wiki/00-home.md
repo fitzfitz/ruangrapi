@@ -14,7 +14,7 @@ RuangRapi is a property rental operations SaaS for Indonesian rental owners and 
 - Receipts module: browsing baseline and manual validation complete.
 - Reminders module: manual MVP and manual validation complete.
 - Maintenance module: MVP baseline and manual validation complete.
-- Next recommended module: Reporting / Dashboard metrics planning.
+- Reporting / Dashboard metrics: first slice built and functionally validated.
 
 ## How this wiki should be used
 
@@ -71,4 +71,4 @@ Repo docs define implementation constraints
 
 ## Next recommended step
 
-Start Reporting / Dashboard metrics planning. Payments, Receipts, Reminders, and Maintenance have completed manual validation, so the next slice should summarize existing operational records without adding advanced workflows.
+Choose the next focused MVP gap from the task bucket. Dashboard/reporting UI/UX polish is known but deferred outside the functional validation closeout.
