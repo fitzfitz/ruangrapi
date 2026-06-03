@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/ui_ux_pro_max_prompt.py",
+            "statusMessage": "Adding RuangRapi UI/UX Pro Max policy context"
+          }
+        ]
+      }
+    ]
+  }
+}

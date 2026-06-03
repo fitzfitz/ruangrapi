@@ -63,6 +63,14 @@ Before completing implementation-affecting work, run:
 
 Add task-specific manual validation when relevant, and report validation results in the final summary. After a task is completed and verified, use Superpowers brainstorming to identify the next recommended task. Record next-step recommendations in the relevant planning or wiki docs when the work changes module status.
 
+## UI/UX Pro Max Workflow
+
+Always use the installed `ui-ux-pro-max` skill for project work that can affect interface structure, visual design, interaction quality, accessibility, responsive behavior, or frontend user experience. Invoke it before design, implementation, or review work for pages, layouts, components, forms, tables, charts, navigation, visual polish, animation, and UI/UX quality checks.
+
+Backend-only, SQL-only, infrastructure, and direct informational tasks may skip `ui-ux-pro-max` when they do not change how users see, understand, or interact with the product. Continue to use the relevant Superpowers workflow for those tasks.
+
+RuangRapi also has a project-local Codex `UserPromptSubmit` hook under `.codex/` that injects this reminder into Codex sessions. Review and trust the hook with `/hooks` if Codex reports that project hooks need approval.
+
 ## Security & Agent-Specific Instructions
 
 Never commit real secrets or modify environment files that may contain them. Keep `.env.local` local and document only placeholders in `.env.example`. Before repository-level or architectural changes, read `README.md`, `HERMES.md`, and the relevant `docs/` files. Ask before adding dependencies, changing scope, or altering database schema/RLS behavior.

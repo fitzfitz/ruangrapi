@@ -21,6 +21,7 @@
 ### Task 1: Add Repository Policy
 
 **Files:**
+
 - Modify: `AGENTS.md`
 
 - [ ] **Step 1: Add a `UI/UX Pro Max Workflow` section**
@@ -36,6 +37,7 @@ Expected: the Superpowers section and new UI/UX Pro Max section are both present
 ### Task 2: Add Codex Hook Reminder
 
 **Files:**
+
 - Create: `.codex/hooks.json`
 - Create: `.codex/hooks/ui_ux_pro_max_prompt.py`
 
@@ -60,6 +62,7 @@ Expected: valid JSON containing `hookEventName` set to `UserPromptSubmit` and re
 ### Task 3: Validate and Review
 
 **Files:**
+
 - Review all modified files.
 
 - [ ] **Step 1: Run formatting check**
