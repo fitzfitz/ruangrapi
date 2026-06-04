@@ -2,19 +2,81 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
 }
 
 .app-header {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   border-bottom: 1px solid var(--border);
-  padding: 20px 32px;
+  padding: 14px 24px;
+  background: color-mix(in srgb, var(--surface-raised) 94%, transparent);
+  backdrop-filter: blur(14px);
 }
 
-.app-header h1 {
-  margin: 0;
-  font-size: 24px;
-  letter-spacing: -0.02em;
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-h);
+  text-decoration: none;
+}
+
+.app-brand__mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--border));
+  border-radius: 8px;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-brand__name,
+.app-brand__tagline {
+  display: block;
+}
+
+.app-brand__name {
+  color: var(--text-h);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.app-brand__tagline {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.app-header__menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-height: 38px;
+  padding: 8px 11px;
+  color: var(--text-h);
+  background: var(--surface);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.app-header__menu svg {
+  width: 18px;
+  height: 18px;
 }
 
 .app-layout__body {
@@ -24,11 +86,15 @@
 }
 
 .app-sidebar {
-  width: 220px;
-  flex: 0 0 220px;
+  position: sticky;
+  top: 67px;
+  width: 244px;
+  height: calc(100svh - 67px);
+  flex: 0 0 244px;
   border-right: 1px solid var(--border);
-  padding: 24px 16px;
-  background: var(--surface);
+  padding: 18px 14px;
+  background: var(--sidebar);
+  overflow-y: auto;
 }
 
 .app-sidebar ul {
@@ -48,27 +114,49 @@
 
 .app-sidebar a,
 .app-sidebar__coming-soon {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   border-radius: 8px;
-  padding: 10px 12px;
+  min-height: 40px;
+  padding: 9px 11px;
 }
 
 .app-sidebar a {
   color: var(--text-h);
   text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.app-sidebar a svg,
+.app-sidebar__coming-soon svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+
+.app-sidebar a:hover,
+.app-sidebar a:focus-visible {
+  background: var(--secondary);
 }
 
 .app-sidebar a.active {
-  background: #e2e8f0;
+  color: var(--sidebar-accent-foreground);
+  background: var(--sidebar-accent);
 }
 
 .app-sidebar__coming-soon {
   color: var(--text);
+  opacity: 0.72;
 }
 
 .app-main {
   flex: 1;
-  padding: 32px;
+  min-width: 0;
+  padding: 28px;
 }
 
 .dashboard-shell {
@@ -2084,10 +2172,672 @@
   color: var(--text);
 }
 
+/* Warm Admin Ledger system migration */
+.dashboard-shell,
+.properties-page,
+.tenants-page,
+.leases-page,
+.invoices-page,
+.payments-page,
+.receipts-page,
+.reminders-page,
+.receipt-detail-page,
+.maintenance-page,
+.property-detail-page {
+  width: min(100%, 1120px);
+  max-width: 1120px;
+}
+
+.auth-page,
+.onboarding-page,
+.account-state-placeholder {
+  margin-inline: auto;
+}
+
+.create-property-page,
+.create-tenant-page,
+.create-lease-page,
+.create-invoice-page,
+.create-payment-page,
+.edit-tenant-page,
+.edit-property-page,
+.create-unit-page,
+.edit-unit-page,
+.create-maintenance-ticket-page {
+  width: min(100%, 720px);
+  max-width: 720px;
+}
+
+.dashboard-shell__header,
+.properties-page__header,
+.tenants-page__header,
+.leases-page__header,
+.invoices-page__header,
+.payments-page__header,
+.receipts-page__header,
+.reminders-page__header,
+.receipt-detail-page__header,
+.maintenance-page__header,
+.create-property-page__header,
+.create-tenant-page__header,
+.create-lease-page__header,
+.create-invoice-page__header,
+.create-payment-page__header,
+.create-maintenance-ticket-page__header,
+.edit-tenant-page__header,
+.property-detail-page__header,
+.edit-property-page__header,
+.create-unit-page__header,
+.edit-unit-page__header,
+.property-units-section__header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 18px;
+}
+
+.dashboard-shell__header h2,
+.properties-page__header h2,
+.tenants-page__header h2,
+.leases-page__header h2,
+.invoices-page__header h2,
+.payments-page__header h2,
+.receipts-page__header h2,
+.reminders-page__header h2,
+.receipt-detail-page__header h2,
+.maintenance-page__header h2,
+.create-property-page__header h2,
+.create-tenant-page__header h2,
+.create-lease-page__header h2,
+.create-invoice-page__header h2,
+.create-payment-page__header h2,
+.create-maintenance-ticket-page__header h2,
+.edit-tenant-page__header h2,
+.property-detail-page__header h2,
+.edit-property-page__header h2,
+.create-unit-page__header h2,
+.edit-unit-page__header h2 {
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.16;
+}
+
+.dashboard-shell__header p,
+.properties-page__header p,
+.tenants-page__header p,
+.leases-page__header p,
+.invoices-page__header p,
+.payments-page__header p,
+.receipts-page__header p,
+.reminders-page__header p,
+.receipt-detail-page__header p,
+.maintenance-page__header p,
+.create-property-page__header p,
+.create-tenant-page__header p,
+.create-lease-page__header p,
+.create-invoice-page__header p,
+.create-payment-page__header p,
+.create-maintenance-ticket-page__header p,
+.edit-tenant-page__header p,
+.property-detail-page__header p,
+.edit-property-page__header p,
+.create-unit-page__header p,
+.edit-unit-page__header p,
+.auth-page__intro p,
+.onboarding-page__intro p,
+.account-state-placeholder p {
+  max-width: 72ch;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.properties-page__header a,
+.tenants-page__header a,
+.leases-page__header a,
+.invoices-page__header a,
+.payments-page__header a,
+.receipts-page__header a,
+.reminders-page__header a,
+.receipt-detail-page__header a,
+.receipt-detail-page__header button,
+.maintenance-page__header a,
+.maintenance-page__empty a,
+.create-tenant-page__header a,
+.create-invoice-page__header a,
+.create-payment-page__header a,
+.create-lease-page__header a,
+.create-maintenance-ticket-page__header a,
+.edit-tenant-page__header a,
+.property-detail-page__header a,
+.edit-property-page__header a,
+.create-property-page__header a,
+.create-unit-page__header a,
+.edit-unit-page__header a,
+.property-units-section__header a,
+.receipt-card__action,
+.payment-card__receipt-action,
+.reminders-page__empty-actions a,
+.reminders-prepare__actions button,
+.reminder-card__actions button,
+.reminder-card__actions a,
+.maintenance-card__actions button,
+.maintenance-form__actions button,
+.maintenance-ticket-form__actions button,
+.invoice-card__issue-form button,
+.sign-in-form button,
+.sign-up-form button,
+.onboarding-form button,
+.create-property-form__actions button,
+.edit-property-form__actions button,
+.tenant-form__actions button,
+.lease-form__actions button,
+.invoice-form__actions button,
+.payment-form__actions button,
+.create-unit-form__actions button,
+.edit-unit-form__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+  white-space: nowrap;
+}
+
+.properties-page__header a,
+.tenants-page__header a,
+.leases-page__header a,
+.invoices-page__header a,
+.payments-page__header a,
+.receipts-page__header a,
+.maintenance-page__header a,
+.maintenance-page__empty a,
+.reminders-page__empty-actions a:first-child,
+.reminders-prepare__actions button,
+.reminder-card__actions a,
+.payment-card__receipt-action,
+.receipt-card__action,
+.invoice-card__issue-form button,
+.sign-in-form button,
+.sign-up-form button,
+.onboarding-form button,
+.create-property-form__actions button,
+.edit-property-form__actions button,
+.tenant-form__actions button,
+.lease-form__actions button,
+.invoice-form__actions button,
+.payment-form__actions button,
+.create-unit-form__actions button,
+.edit-unit-form__actions button,
+.maintenance-form__actions button,
+.maintenance-ticket-form__actions button {
+  border: 1px solid var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+  box-shadow: var(--shadow-card);
+}
+
+.properties-page__header a:hover,
+.tenants-page__header a:hover,
+.leases-page__header a:hover,
+.invoices-page__header a:hover,
+.payments-page__header a:hover,
+.receipts-page__header a:hover,
+.maintenance-page__header a:hover,
+.maintenance-page__empty a:hover,
+.reminders-page__empty-actions a:first-child:hover,
+.reminders-prepare__actions button:hover:not(:disabled),
+.reminder-card__actions a:hover,
+.payment-card__receipt-action:hover,
+.receipt-card__action:hover,
+.invoice-card__issue-form button:hover:not(:disabled),
+.sign-in-form button:hover:not(:disabled),
+.sign-up-form button:hover:not(:disabled),
+.onboarding-form button:hover:not(:disabled),
+.create-property-form__actions button:hover:not(:disabled),
+.edit-property-form__actions button:hover:not(:disabled),
+.tenant-form__actions button:hover:not(:disabled),
+.lease-form__actions button:hover:not(:disabled),
+.invoice-form__actions button:hover:not(:disabled),
+.payment-form__actions button:hover:not(:disabled),
+.create-unit-form__actions button:hover:not(:disabled),
+.edit-unit-form__actions button:hover:not(:disabled),
+.maintenance-form__actions button:hover:not(:disabled),
+.maintenance-ticket-form__actions button:hover:not(:disabled) {
+  border-color: #115e59;
+  background: #115e59;
+}
+
+.receipt-detail-page__header a,
+.receipt-detail-page__header button,
+.reminders-page__header a,
+.create-tenant-page__header a,
+.create-invoice-page__header a,
+.create-payment-page__header a,
+.create-lease-page__header a,
+.create-maintenance-ticket-page__header a,
+.edit-tenant-page__header a,
+.property-detail-page__header a,
+.edit-property-page__header a,
+.create-property-page__header a,
+.create-unit-page__header a,
+.edit-unit-page__header a,
+.property-units-section__header a,
+.reminder-card__actions button,
+.maintenance-card__actions button,
+.reminders-page__empty-actions a,
+.create-property-form__actions a,
+.edit-property-form__actions a,
+.tenant-form__actions a,
+.lease-form__actions a,
+.invoice-form__actions a,
+.payment-form__actions a,
+.create-unit-form__actions a,
+.edit-unit-form__actions a,
+.maintenance-form__actions a,
+.maintenance-ticket-form__actions a {
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  background: var(--surface);
+}
+
+.receipt-detail-page__header a:hover,
+.receipt-detail-page__header button:hover,
+.reminders-page__header a:hover,
+.create-tenant-page__header a:hover,
+.create-invoice-page__header a:hover,
+.create-payment-page__header a:hover,
+.create-lease-page__header a:hover,
+.create-maintenance-ticket-page__header a:hover,
+.edit-tenant-page__header a:hover,
+.property-detail-page__header a:hover,
+.edit-property-page__header a:hover,
+.create-property-page__header a:hover,
+.create-unit-page__header a:hover,
+.edit-unit-page__header a:hover,
+.property-units-section__header a:hover,
+.reminder-card__actions button:hover:not(:disabled),
+.maintenance-card__actions button:hover:not(:disabled),
+.reminders-page__empty-actions a:hover,
+.create-property-form__actions a:hover,
+.edit-property-form__actions a:hover,
+.tenant-form__actions a:hover,
+.lease-form__actions a:hover,
+.invoice-form__actions a:hover,
+.payment-form__actions a:hover,
+.create-unit-form__actions a:hover,
+.edit-unit-form__actions a:hover,
+.maintenance-form__actions a:hover,
+.maintenance-ticket-form__actions a:hover {
+  border-color: var(--border-strong);
+  background: var(--secondary);
+}
+
+.dashboard-shell__status,
+.properties-page__status,
+.tenants-page__status,
+.leases-page__status,
+.invoices-page__status,
+.payments-page__status,
+.receipts-page__status,
+.reminders-page__status,
+.maintenance-page__status,
+.create-invoice-page__status,
+.create-payment-page__status,
+.create-lease-page__status,
+.create-maintenance-ticket-page__status,
+.edit-tenant-page__status,
+.property-detail-page__status,
+.edit-property-page__status,
+.create-unit-page__status,
+.edit-unit-page__status,
+.property-units-section__status {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--text);
+  background: var(--surface-subtle);
+}
+
+.dashboard-shell__error,
+.properties-page__error,
+.tenants-page__error,
+.leases-page__error,
+.invoices-page__error,
+.payments-page__error,
+.receipts-page__error,
+.reminders-page__error,
+.maintenance-page__error,
+.create-invoice-page__error,
+.create-payment-page__error,
+.create-maintenance-ticket-page__error,
+.edit-tenant-page__error,
+.property-detail-page__error,
+.edit-property-page__error,
+.create-unit-page__error,
+.edit-unit-page__error,
+.property-units-section__error {
+  border: 1px solid #f3b8b2;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--destructive);
+  background: #fff5f3;
+}
+
+.properties-page__empty,
+.tenants-page__empty,
+.leases-page__empty,
+.invoices-page__empty,
+.payments-page__empty,
+.receipts-page__empty,
+.reminders-page__empty,
+.receipt-detail-page__empty,
+.maintenance-page__empty,
+.create-invoice-page__empty,
+.create-payment-page__empty,
+.create-lease-page__empty,
+.create-maintenance-ticket-page__empty,
+.edit-tenant-page__empty,
+.property-detail-page__empty,
+.edit-property-page__empty,
+.create-unit-page__empty,
+.edit-unit-page__empty,
+.property-units-section__empty {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface-subtle);
+}
+
+.dashboard-shell__metric,
+.dashboard-shell__chart,
+.property-card,
+.tenant-card,
+.lease-card,
+.invoice-card,
+.payment-card,
+.receipt-card,
+.reminder-card,
+.maintenance-card,
+.property-detail-card,
+.property-units-section,
+.unit-card,
+.reminders-prepare,
+.receipt-document,
+.sign-in-form,
+.sign-up-form,
+.onboarding-form,
+.create-property-form,
+.edit-property-form,
+.tenant-form,
+.lease-form,
+.invoice-form,
+.payment-form,
+.create-unit-form,
+.edit-unit-form,
+.maintenance-form,
+.maintenance-ticket-form {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.property-card,
+.tenant-card,
+.lease-card,
+.invoice-card,
+.payment-card,
+.receipt-card,
+.reminder-card,
+.maintenance-card,
+.unit-card {
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.property-card:hover,
+.tenant-card:hover,
+.lease-card:hover,
+.invoice-card:hover,
+.payment-card:hover,
+.receipt-card:hover,
+.reminder-card:hover,
+.maintenance-card:hover,
+.unit-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 6px 18px rgb(79 62 38 / 0.08);
+}
+
+.dashboard-shell__metric span,
+.receipt-card__label,
+.maintenance-card__property,
+.reminders-prepare__summary span,
+.reminders-prepare__message span,
+.reminder-card__message span,
+.receipt-document__eyebrow,
+.receipt-document__meta span,
+.receipt-document__summary span,
+.receipt-document__parties span {
+  color: #746758;
+  letter-spacing: 0;
+}
+
+.dashboard-shell__metric strong,
+.receipt-card__amount strong,
+.payment-card__receipt-number,
+.receipt-document__summary div:first-child strong,
+.receipt-document__brand {
+  color: var(--primary);
+}
+
+.lease-card__status,
+.invoice-card__status,
+.payment-card__method,
+.reminder-card__status,
+.maintenance-card__status,
+.payment-card__receipt-status,
+.receipt-document__status {
+  border-color: var(--border);
+  color: var(--text-h);
+  background: var(--secondary);
+}
+
+.receipt-card,
+.payment-card__receipt--issued,
+.receipt-document {
+  border-left-color: var(--success);
+}
+
+.reminder-card,
+.maintenance-card {
+  border-left-color: var(--warning);
+}
+
+.payment-card__receipt--pending {
+  border-color: var(--border);
+  border-left-color: var(--info);
+  background: #f7f9ff;
+}
+
+.payment-card__receipt--issued,
+.receipt-document__summary div:first-child {
+  border-color: #acd7c0;
+  background: #f2fbf6;
+}
+
+.sign-in-form__field input,
+.sign-up-form__field input,
+.onboarding-form__field input,
+.create-property-form__field input,
+.create-property-form__field textarea,
+.edit-property-form__field input,
+.edit-property-form__field textarea,
+.tenant-form__field input,
+.tenant-form__field textarea,
+.lease-form__field input,
+.lease-form__field select,
+.invoice-form__field input,
+.invoice-form__field select,
+.invoice-form__field textarea,
+.payment-form__field input,
+.payment-form__field select,
+.payment-form__field textarea,
+.create-unit-form__field input,
+.create-unit-form__field select,
+.create-unit-form__field textarea,
+.edit-unit-form__field input,
+.edit-unit-form__field select,
+.edit-unit-form__field textarea,
+.maintenance-form__field input,
+.maintenance-form__field select,
+.maintenance-form__field textarea,
+.maintenance-ticket-form__field input,
+.maintenance-ticket-form__field select,
+.maintenance-ticket-form__field textarea,
+.reminders-prepare__field select,
+.invoice-card__issue-form input {
+  min-height: 40px;
+  border: 1px solid var(--input);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 rgb(24 34 48 / 0.02);
+}
+
+.sign-in-form__field input:focus,
+.sign-up-form__field input:focus,
+.onboarding-form__field input:focus,
+.create-property-form__field input:focus,
+.create-property-form__field textarea:focus,
+.edit-property-form__field input:focus,
+.edit-property-form__field textarea:focus,
+.tenant-form__field input:focus,
+.tenant-form__field textarea:focus,
+.lease-form__field input:focus,
+.lease-form__field select:focus,
+.invoice-form__field input:focus,
+.invoice-form__field select:focus,
+.invoice-form__field textarea:focus,
+.payment-form__field input:focus,
+.payment-form__field select:focus,
+.payment-form__field textarea:focus,
+.create-unit-form__field input:focus,
+.create-unit-form__field select:focus,
+.create-unit-form__field textarea:focus,
+.edit-unit-form__field input:focus,
+.edit-unit-form__field select:focus,
+.edit-unit-form__field textarea:focus,
+.maintenance-form__field input:focus,
+.maintenance-form__field select:focus,
+.maintenance-form__field textarea:focus,
+.maintenance-ticket-form__field input:focus,
+.maintenance-ticket-form__field select:focus,
+.maintenance-ticket-form__field textarea:focus,
+.reminders-prepare__field select:focus,
+.invoice-card__issue-form input:focus {
+  border-color: var(--ring);
+  outline: 3px solid color-mix(in srgb, var(--ring) 24%, transparent);
+  outline-offset: 0;
+}
+
+.sign-in-form__field input:disabled,
+.sign-up-form__field input:disabled,
+.onboarding-form__field input:disabled,
+.create-property-form__field input:disabled,
+.create-property-form__field textarea:disabled,
+.edit-property-form__field input:disabled,
+.edit-property-form__field textarea:disabled,
+.tenant-form__field input:disabled,
+.tenant-form__field textarea:disabled,
+.lease-form__field input:disabled,
+.lease-form__field select:disabled,
+.invoice-form__field input:disabled,
+.invoice-form__field select:disabled,
+.invoice-form__field textarea:disabled,
+.payment-form__field input:disabled,
+.payment-form__field select:disabled,
+.payment-form__field textarea:disabled,
+.create-unit-form__field input:disabled,
+.create-unit-form__field select:disabled,
+.create-unit-form__field textarea:disabled,
+.edit-unit-form__field input:disabled,
+.edit-unit-form__field select:disabled,
+.edit-unit-form__field textarea:disabled,
+.maintenance-form__field input:disabled,
+.maintenance-form__field select:disabled,
+.maintenance-form__field textarea:disabled,
+.maintenance-ticket-form__field input:disabled,
+.maintenance-ticket-form__field select:disabled,
+.maintenance-ticket-form__field textarea:disabled,
+.reminders-prepare__field select:disabled {
+  color: var(--text);
+  background: var(--muted);
+}
+
+.sign-in-form__error,
+.sign-up-form__error,
+.onboarding-form__error,
+.create-property-form__error,
+.edit-property-form__error,
+.tenant-form__error,
+.lease-form__error,
+.create-lease-page__error,
+.invoice-form__error,
+.create-invoice-page__error,
+.payment-form__error,
+.create-payment-page__error,
+.maintenance-card__error,
+.reminder-card__error,
+.invoice-card__issue-error,
+.payment-card__receipt-error,
+.create-unit-form__error,
+.edit-unit-form__error {
+  color: var(--destructive);
+  font-weight: 700;
+}
+
+.sign-up-form__success {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.dashboard-shell__range-button {
+  border-color: var(--border);
+  color: var(--text-h);
+  background: var(--surface);
+}
+
+.dashboard-shell__range-button:hover,
+.dashboard-shell__range-button:focus-visible,
+.dashboard-shell__range-button--active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--accent);
+}
+
 @media (max-width: 720px) {
   .app-header,
   .app-main {
     padding: 20px;
+  }
+
+  .app-header {
+    align-items: center;
+  }
+
+  .app-brand__tagline {
+    display: none;
+  }
+
+  .app-header__menu {
+    display: inline-flex;
   }
 
   .app-layout__body {
@@ -2095,15 +2845,27 @@
   }
 
   .app-sidebar {
+    position: static;
+    display: none;
     width: auto;
+    height: auto;
     flex-basis: auto;
     border-right: 0;
     border-bottom: 1px solid var(--border);
     padding: 16px 20px;
   }
 
+  .app-sidebar--open {
+    display: block;
+  }
+
   .app-sidebar ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-sidebar a,
+  .app-sidebar__coming-soon {
+    min-width: 0;
   }
 
   .dashboard-shell__header,

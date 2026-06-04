@@ -15,6 +15,11 @@ Built:
 - route gating
 - sign-in, signup, onboarding UI
 - dashboard shell
+- Warm Admin Ledger design-system foundation
+- Base UI-backed shadcn component configuration with `base-rhea`
+- self-hosted Plus Jakarta Sans typography
+- responsive product shell with active sidebar navigation and mobile menu
+- shared page, card, form, alert, badge, action, loading, empty, and print-safe visual patterns
 
 ## Properties
 
@@ -328,7 +333,7 @@ Deferred:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard slice implemented and functionally validated. UI/UX polish is deferred.
+Status: first dashboard slice implemented, functionally validated, and migrated to the Warm Admin Ledger design system.
 
 Routes:
 
@@ -349,11 +354,12 @@ Built:
 - maintenance status chart
 - reminder status chart
 - shadcn chart setup with Tailwind CSS and Recharts
+- Warm Admin Ledger dashboard card, chart, range selector, focus, and responsive styling
 - Reporting / Dashboard validation checklist
 
 Deferred:
 
-- dashboard/reporting UI/UX polish
+- deeper dashboard/reporting UI/UX polish after real usage feedback
 - custom date range picker
 - CSV/export
 - saved reports
@@ -361,3 +367,26 @@ Deferred:
 - advanced accounting or tax reports
 - automated overdue logic
 - workflow changes in billing, payments, reminders, or maintenance
+
+## Design System
+
+Status: foundation implemented.
+
+Built:
+
+- Warm Admin Ledger token layer in `src/index.css`
+- Tailwind 4 theme variables for colors, radius, typography, focus rings, chart colors, and sidebar colors
+- Base UI dependency and `base-rhea` shadcn configuration
+- self-hosted Plus Jakarta Sans font loading
+- shared UI primitives for button, input, textarea, select, label, form, badge, alert, card, and separator
+- refreshed app shell with branded header, compact sidebar, active navigation states, and mobile menu
+- broad current-screen migration across dashboard, properties, units, tenants, leases, invoices, payments, receipts, reminders, maintenance, auth, signup, and onboarding
+- receipt print styling preserved with print-safe overrides
+
+Deferred:
+
+- full markup replacement of every domain-local BEM class with shared React primitives
+- dark mode
+- data-table density controls
+- advanced dashboard interactions
+- screenshot-backed visual regression tooling

@@ -15,14 +15,33 @@ Built:
 - Reminders manual MVP
 - Maintenance baseline
 - Reporting / Dashboard metrics first slice
+- Warm Admin Ledger design-system foundation
 
 ## Recommended next sequence
 
 1. Review the remaining focused MVP gap bucket
 2. Choose one approved next task from ready-soon or later candidates
-3. Keep dashboard/reporting UI/UX polish separate from functional validation closeout
+3. Use the design-system foundation for future UI work without reopening product scope
 
 Next recommended task: choose the next focused MVP gap from the task bucket.
+
+## Design-system baseline
+
+The Warm Admin Ledger foundation gives RuangRapi a compact operations UI across current screens:
+
+- warm neutral background and ledger-like card surfaces
+- teal primary actions and clear secondary actions
+- semantic error, success, warning, info, and chart colors
+- Plus Jakarta Sans typography
+- responsive branded shell with active navigation
+- shared Base UI/shadcn primitives for future component work
+
+Deferred design-system scope:
+
+- replacing every remaining domain-local BEM class with shared React primitives
+- dark mode
+- visual regression automation
+- additional dashboard interaction polish
 
 ## Reporting baseline
 

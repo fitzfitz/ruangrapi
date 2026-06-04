@@ -26,11 +26,11 @@ import { useDashboardMetricsQuery } from './application/use-dashboard-metrics-qu
 const collectionChartConfig = {
   expected: {
     label: 'Expected',
-    color: '#2563eb',
+    color: 'var(--chart-2)',
   },
   collected: {
     label: 'Collected',
-    color: '#16a34a',
+    color: 'var(--chart-1)',
   },
 } satisfies ChartConfig
 

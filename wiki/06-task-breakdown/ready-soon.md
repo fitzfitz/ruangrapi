@@ -13,26 +13,28 @@ These are candidates likely to become approved tasks soon.
 - Reporting / Dashboard metrics planning
 - Reporting / Dashboard metrics implementation
 - Reporting / Dashboard metrics validation
+- Warm Admin Ledger design-system foundation
 
 ## Candidate: Next focused MVP gap review
 
 Purpose:
 
 - choose one focused next task from the remaining later candidates
-- keep dashboard/reporting UI/UX polish separate from functional validation closeout
+- keep deeper dashboard/reporting UI/UX polish separate from the design-system foundation
 - avoid reopening broad module scope now that the first reporting slice is validated
 
 Current bucket options:
 
-- Dashboard/reporting UI/UX polish
+- Dashboard/reporting UI/UX polish based on the new design-system foundation
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
 - Receipt detail or list refinements
 - Payment edit/correction guardrails
+- Replace remaining domain-local BEM markup with shared UI primitives
 
 Status:
 
-- next likely candidate after Reporting / Dashboard metrics functional validation
+- next likely candidate after the Warm Admin Ledger design-system foundation
 
 Next likely candidate: choose the next focused MVP gap from `task-index.md`.

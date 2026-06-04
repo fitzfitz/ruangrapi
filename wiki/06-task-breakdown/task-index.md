@@ -42,10 +42,12 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Reporting / Dashboard metrics planning
 - Reporting / Dashboard metrics implementation
 - Reporting / Dashboard metrics validation
+- Warm Admin Ledger design-system foundation
 
 ## Later candidates
 
-- Dashboard/reporting UI/UX polish
+- Dashboard/reporting UI/UX polish based on the design-system foundation
+- Replace remaining domain-local BEM markup with shared UI primitives
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
