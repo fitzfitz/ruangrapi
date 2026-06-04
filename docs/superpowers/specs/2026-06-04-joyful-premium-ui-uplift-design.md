@@ -31,7 +31,9 @@ This pass changes interface presentation only. It does not add product flows, da
 
 In scope:
 
+- design-system evolution from Warm Admin Ledger to Joyful Premium Ops
 - design-token expansion in `src/index.css`
+- shared component visual variants and default styling updates under `src/components/ui/`
 - app shell visual uplift in `src/App.css` and `src/app/layouts/app-layout.tsx` only if markup changes are needed for presentation
 - dashboard card, chart, range selector, and status styling
 - shared list, form, detail, empty, loading, error, action, badge, and receipt-card styling
@@ -49,6 +51,17 @@ Out of scope:
 - changing receipt content or print layout semantics
 
 ## Visual System
+
+This design becomes the next RuangRapi design-system direction. The existing Warm Admin Ledger system remains the foundation for compact operational readability, but it should be updated with a stronger Joyful Premium Ops layer.
+
+Design-system updates should include:
+
+- token additions for deep navy, indigo, orange, premium surface gradients, glass highlights, and stronger shadow levels
+- revised radius and elevation scales that distinguish expressive dashboard surfaces from dense work surfaces
+- button, badge, alert, card, input, select, and textarea visual defaults aligned with the new direction
+- sidebar and navigation tokens for the premium dark shell
+- chart colors aligned with teal, indigo, orange, green, amber, red, and blue semantics
+- documented usage guidance for when to use expressive treatments versus restrained operational treatments
 
 ### Color
 
@@ -104,7 +117,7 @@ No in-app instructional copy should be added just to explain the UI.
 
 Prefer a CSS-token and shared-pattern pass before changing domain markup. The current app already maps broad BEM selectors through `src/App.css`; use that layer for the first uplift so behavior remains untouched.
 
-Use component edits only where they improve shared primitives:
+Update shared primitives where they define design-system defaults:
 
 - `src/components/ui/button.tsx`
 - `src/components/ui/card.tsx`
@@ -115,6 +128,8 @@ Use component edits only where they improve shared primitives:
 - `src/components/ui/textarea.tsx`
 
 Keep edits scoped to presentation. Do not change domain hooks, repositories, schemas, route paths, or Supabase code.
+
+Documentation closeout should update the existing design-system status in `wiki/09-status/built.md`, the roadmap/task pages that reference UI polish, and any plan/spec docs created for this uplift. The closeout should record that Joyful Premium Ops supersedes Warm Admin Ledger as the active visual direction while preserving Warm Admin Ledger's operational-density principles.
 
 ## Validation
 
