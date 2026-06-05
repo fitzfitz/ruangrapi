@@ -16,9 +16,11 @@ Built:
 - sign-in, signup, onboarding UI
 - dashboard shell
 - Warm Admin Ledger design-system foundation
+- Joyful Premium Ops active visual direction
 - Base UI-backed shadcn component configuration with `base-rhea`
 - self-hosted Plus Jakarta Sans typography
-- responsive product shell with active sidebar navigation and mobile menu
+- premium dark responsive product shell with active sidebar navigation and mobile menu
+- teal, indigo, and orange signature accent system
 - shared page, card, form, alert, badge, action, loading, empty, and print-safe visual patterns
 
 ## Properties
@@ -333,7 +335,7 @@ Deferred:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard slice implemented, functionally validated, and migrated to the Warm Admin Ledger design system.
+Status: first dashboard slice implemented, functionally validated, and migrated to the Joyful Premium Ops design system.
 
 Routes:
 
@@ -354,7 +356,7 @@ Built:
 - maintenance status chart
 - reminder status chart
 - shadcn chart setup with Tailwind CSS and Recharts
-- Warm Admin Ledger dashboard card, chart, range selector, focus, and responsive styling
+- Joyful Premium Ops dashboard card, chart, range selector, focus, and responsive styling
 - Reporting / Dashboard validation checklist
 
 Deferred:
@@ -370,15 +372,22 @@ Deferred:
 
 ## Design System
 
-Status: foundation implemented.
+Status: Joyful Premium Ops foundation implemented.
 
 Built:
 
+- Joyful Premium Ops active visual direction
+- Warm Admin Ledger operational-density principles preserved
 - Warm Admin Ledger token layer in `src/index.css`
+- Joyful Premium Ops token layer in `src/index.css`
 - Tailwind 4 theme variables for colors, radius, typography, focus rings, chart colors, and sidebar colors
 - Base UI dependency and `base-rhea` shadcn configuration
 - self-hosted Plus Jakarta Sans font loading
 - shared UI primitives for button, input, textarea, select, label, form, badge, alert, card, and separator
+- premium dark navigation shell
+- teal, indigo, and orange signature accent system
+- expressive dashboard cards, chart surfaces, and priority states
+- restrained list, form, detail, and receipt print surfaces
 - refreshed app shell with branded header, compact sidebar, active navigation states, and mobile menu
 - broad current-screen migration across dashboard, properties, units, tenants, leases, invoices, payments, receipts, reminders, maintenance, auth, signup, and onboarding
 - receipt print styling preserved with print-safe overrides

@@ -2822,6 +2822,332 @@
   background: var(--accent);
 }
 
+/* Joyful Premium Ops active design-system layer */
+.app-header {
+  border-bottom: 1px solid var(--sidebar-border);
+  background:
+    radial-gradient(circle at 8% 0%, rgb(45 212 191 / 0.2), transparent 28%),
+    linear-gradient(90deg, var(--navy) 0%, var(--navy-2) 62%, #172554 100%);
+  color: var(--sidebar-foreground);
+  backdrop-filter: none;
+}
+
+.app-brand {
+  color: #ffffff;
+}
+
+.app-brand__mark {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 16px;
+  color: #ffffff;
+  background: var(--gradient-brand);
+  font-weight: 900;
+  box-shadow: 0 16px 34px rgb(20 184 166 / 0.28);
+}
+
+.app-brand__name {
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.app-brand__tagline {
+  color: #c7d2fe;
+  font-weight: 700;
+}
+
+.app-header__menu {
+  border-color: var(--sidebar-border);
+  color: var(--sidebar-foreground);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.app-header__menu:hover,
+.app-header__menu:focus-visible {
+  background: rgb(255 255 255 / 0.16);
+}
+
+.app-sidebar {
+  border-right-color: var(--sidebar-border);
+  background:
+    radial-gradient(circle at 24% 8%, rgb(45 212 191 / 0.3), transparent 32%),
+    radial-gradient(circle at 84% 0%, rgb(129 140 248 / 0.28), transparent 36%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 52%, #172554 100%);
+  color: var(--sidebar-foreground);
+}
+
+.app-sidebar li {
+  color: var(--sidebar-foreground);
+}
+
+.app-sidebar a {
+  color: #e5e7eb;
+  font-weight: 800;
+}
+
+.app-sidebar a:hover,
+.app-sidebar a:focus-visible {
+  color: #ffffff;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.app-sidebar a.active {
+  color: var(--sidebar-accent-foreground);
+  background: linear-gradient(
+    135deg,
+    rgb(45 212 191 / 0.22),
+    rgb(99 102 241 / 0.2)
+  );
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12);
+}
+
+.app-sidebar__coming-soon {
+  color: #cbd5e1;
+}
+
+.app-main {
+  background:
+    radial-gradient(circle at 92% 0%, rgb(249 115 22 / 0.1), transparent 30%),
+    transparent;
+}
+
+.dashboard-shell__header {
+  border: 1px solid rgb(255 255 255 / 0.78);
+  border-radius: 24px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 92% 12%, rgb(20 184 166 / 0.26), transparent 30%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.88), rgb(239 246 255 / 0.68));
+  box-shadow: var(--shadow-raised);
+}
+
+.dashboard-shell__header h2 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+}
+
+.dashboard-shell__range-button {
+  border-color: rgb(99 102 241 / 0.2);
+  border-radius: 999px;
+  color: #3730a3;
+  background: rgb(255 255 255 / 0.78);
+  box-shadow: 0 8px 18px rgb(15 23 42 / 0.05);
+}
+
+.dashboard-shell__range-button:hover,
+.dashboard-shell__range-button:focus-visible,
+.dashboard-shell__range-button--active {
+  border-color: rgb(99 102 241 / 0.4);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--teal), var(--indigo));
+}
+
+.dashboard-shell__metric {
+  border-radius: 22px;
+  padding: 20px;
+  background: var(--gradient-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashboard-shell__metric:first-child,
+.dashboard-shell__metric:nth-child(5) {
+  border-color: rgb(20 184 166 / 0.34);
+  box-shadow: var(--shadow-glow);
+}
+
+.dashboard-shell__metric span {
+  color: var(--teal);
+  font-weight: 900;
+}
+
+.dashboard-shell__metric strong {
+  font-weight: 900;
+}
+
+.dashboard-shell__chart {
+  border-radius: 22px;
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: var(--shadow-card);
+}
+
+.property-card,
+.tenant-card,
+.lease-card,
+.invoice-card,
+.payment-card,
+.receipt-card,
+.reminder-card,
+.maintenance-card,
+.property-detail-card,
+.property-units-section,
+.unit-card {
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 10px 26px rgb(15 23 42 / 0.06);
+}
+
+.property-card:hover,
+.tenant-card:hover,
+.lease-card:hover,
+.invoice-card:hover,
+.payment-card:hover,
+.receipt-card:hover,
+.reminder-card:hover,
+.maintenance-card:hover,
+.unit-card:hover {
+  box-shadow: 0 16px 34px rgb(15 23 42 / 0.1);
+}
+
+.sign-in-form,
+.sign-up-form,
+.onboarding-form,
+.create-property-form,
+.edit-property-form,
+.tenant-form,
+.lease-form,
+.invoice-form,
+.payment-form,
+.create-unit-form,
+.edit-unit-form,
+.maintenance-form,
+.maintenance-ticket-form {
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 10px 24px rgb(15 23 42 / 0.05);
+}
+
+.properties-page__empty,
+.tenants-page__empty,
+.leases-page__empty,
+.invoices-page__empty,
+.payments-page__empty,
+.receipts-page__empty,
+.reminders-page__empty,
+.receipt-detail-page__empty,
+.maintenance-page__empty,
+.create-invoice-page__empty,
+.create-payment-page__empty,
+.create-lease-page__empty,
+.create-maintenance-ticket-page__empty,
+.edit-tenant-page__empty,
+.property-detail-page__empty,
+.edit-property-page__empty,
+.create-unit-page__empty,
+.edit-unit-page__empty,
+.property-units-section__empty {
+  border-color: #fed7aa;
+  background:
+    radial-gradient(circle at 100% 0%, rgb(249 115 22 / 0.12), transparent 34%),
+    #fffaf2;
+  box-shadow: 0 10px 24px rgb(15 23 42 / 0.05);
+}
+
+.lease-card__status,
+.invoice-card__status,
+.payment-card__method,
+.reminder-card__status,
+.maintenance-card__status,
+.payment-card__receipt-status,
+.receipt-document__status {
+  border-color: rgb(99 102 241 / 0.22);
+  color: #3730a3;
+  background: #eef2ff;
+  font-weight: 900;
+}
+
+.payment-card__receipt--pending {
+  border-color: #bfdbfe;
+  border-left-color: var(--info);
+  background: #eff6ff;
+}
+
+.payment-card__receipt--issued,
+.receipt-card,
+.receipt-document {
+  border-left-color: var(--success);
+}
+
+.payment-card__receipt--issued .payment-card__receipt-status,
+.receipt-document__status {
+  border-color: #bbf7d0;
+  color: #047857;
+  background: #ecfdf5;
+}
+
+.reminder-card {
+  border-left-color: var(--orange);
+}
+
+.maintenance-card {
+  border-left-color: var(--indigo);
+}
+
+.properties-page__header a,
+.tenants-page__header a,
+.leases-page__header a,
+.invoices-page__header a,
+.payments-page__header a,
+.receipts-page__header a,
+.maintenance-page__header a,
+.maintenance-page__empty a,
+.reminders-page__empty-actions a:first-child,
+.reminders-prepare__actions button,
+.reminder-card__actions a,
+.payment-card__receipt-action,
+.receipt-card__action,
+.invoice-card__issue-form button,
+.sign-in-form button,
+.sign-up-form button,
+.onboarding-form button,
+.create-property-form__actions button,
+.edit-property-form__actions button,
+.tenant-form__actions button,
+.lease-form__actions button,
+.invoice-form__actions button,
+.payment-form__actions button,
+.create-unit-form__actions button,
+.edit-unit-form__actions button,
+.maintenance-form__actions button,
+.maintenance-ticket-form__actions button {
+  border-color: transparent;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--teal), var(--indigo));
+  box-shadow: var(--shadow-glow);
+}
+
+.properties-page__header a:hover,
+.tenants-page__header a:hover,
+.leases-page__header a:hover,
+.invoices-page__header a:hover,
+.payments-page__header a:hover,
+.receipts-page__header a:hover,
+.maintenance-page__header a:hover,
+.maintenance-page__empty a:hover,
+.reminders-page__empty-actions a:first-child:hover,
+.reminders-prepare__actions button:hover:not(:disabled),
+.reminder-card__actions a:hover,
+.payment-card__receipt-action:hover,
+.receipt-card__action:hover,
+.invoice-card__issue-form button:hover:not(:disabled),
+.sign-in-form button:hover:not(:disabled),
+.sign-up-form button:hover:not(:disabled),
+.onboarding-form button:hover:not(:disabled),
+.create-property-form__actions button:hover:not(:disabled),
+.edit-property-form__actions button:hover:not(:disabled),
+.tenant-form__actions button:hover:not(:disabled),
+.lease-form__actions button:hover:not(:disabled),
+.invoice-form__actions button:hover:not(:disabled),
+.payment-form__actions button:hover:not(:disabled),
+.create-unit-form__actions button:hover:not(:disabled),
+.edit-unit-form__actions button:hover:not(:disabled),
+.maintenance-form__actions button:hover:not(:disabled),
+.maintenance-ticket-form__actions button:hover:not(:disabled) {
+  border-color: transparent;
+  background: linear-gradient(135deg, #115e59, #4f46e5);
+}
+
 @media (max-width: 720px) {
   .app-header,
   .app-main {
