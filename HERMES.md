@@ -16,38 +16,32 @@ The MVP helps owners manage properties, units, tenants, leases, monthly billing,
 
 ## Current Development Phase
 
-The project is in initialization phase.
+The project has moved beyond initialization into the MVP baseline refinement phase.
 
-Hermes must not jump directly into feature implementation.
+The foundation, Supabase/RLS baseline, app shell, and first operational modules have been built in small slices. Current built baselines include Properties, Units, Tenants, Leases, Billing / Invoices, Payments, Receipts, Reminders, Maintenance, the first Reporting / Dashboard metrics slice, and the Joyful Premium Ops UI direction.
 
-The first priority is:
-
-1. Repository setup
-2. Source-of-truth documentation
-3. Architecture baseline
-4. Domain model draft
-5. Data model draft
-6. RLS strategy
-7. Development workflow
-8. Only then, small implementation tasks
+Hermes must continue to work in small, reviewable tasks. Choose one focused approved MVP gap at a time from the repo docs and wiki task bucket instead of reopening broad product scope or bundling unrelated modules.
 
 ## Required Documentation Reading
 
 For repository-level work, Hermes must read the relevant source-of-truth documentation before changing files:
 
-1. `README.md`
-2. `HERMES.md`
-3. `docs/00-product-brief.md`
-4. `docs/01-mvp-scope.md`
-5. `docs/02-domain-model.md`
-6. `docs/03-architecture.md`
-7. `docs/04-data-model-draft.md`
-8. `docs/05-agent-workflow.md`
-9. `docs/06-development-checklist.md`
-10. `docs/07-rls-strategy.md`
-11. Relevant ADRs in `docs/decisions/`
+1. `AGENTS.md`
+2. `README.md`
+3. `HERMES.md`
+4. `docs/00-product-brief.md`
+5. `docs/01-mvp-scope.md`
+6. `docs/02-domain-model.md`
+7. `docs/03-architecture.md`
+8. `docs/04-data-model-draft.md`
+9. `docs/05-agent-workflow.md`
+10. `docs/06-development-checklist.md`
+11. `docs/07-rls-strategy.md`
+12. Relevant ADRs in `docs/decisions/`
+13. Relevant plans/specs in `docs/superpowers/`
+14. Relevant wiki pages in `wiki/`
 
-Hermes must also follow `docs/05-agent-workflow.md` for task flow and validation expectations.
+Hermes must also follow `AGENTS.md` and `docs/05-agent-workflow.md` for task flow, Superpowers workflow expectations, Context7 usage, UI/UX Pro Max usage, and validation expectations.
 
 ## Tech Stack
 
@@ -58,9 +52,13 @@ Frontend:
 - React
 - TypeScript
 - Vite
+- React Router
 - TanStack Query
 - React Hook Form
 - Zod
+- Tailwind CSS
+- Base UI / shadcn-style primitives
+- Recharts
 
 Backend / Database:
 
@@ -84,6 +82,10 @@ Hermes must:
 - Work in small steps
 - Explain the purpose of each change
 - Prefer simple, boring, maintainable solutions
+- Treat `AGENTS.md` as the most up-to-date repository workflow guide
+- Use the documented Superpowers workflow for implementation-affecting work when available
+- Use Context7 for version-sensitive external library/API work before implementation
+- Use the installed `ui-ux-pro-max` skill for UI/UX-affecting work when available
 - Ask before adding new dependencies
 - Keep files organized by domain/module
 - Update documentation when architectural decisions change
@@ -114,7 +116,11 @@ Before any Supabase, RLS, SQL, schema, or migration-related task, Hermes must re
 - `docs/03-architecture.md`
 - `docs/06-development-checklist.md`
 
-Migration gate:
+Migration gate status:
+
+The initial migration gate has been completed and the initial Supabase migrations have been locally validated. Future Supabase/RLS/schema work still requires fresh task-specific review and owner approval before changing migrations, SQL, policies, or schema behavior.
+
+Historical migration gate:
 
 1. `docs/04-data-model-draft.md` reviewed
 2. `docs/07-rls-strategy.md` reviewed
@@ -122,9 +128,7 @@ Migration gate:
 4. Remaining RLS questions resolved
 5. Owner approval received
 
-Only after this gate may Hermes create migrations, SQL files, SQL policies, or schema changes.
-
-Until then, database work must remain planning documentation only.
+Only after the relevant gate and task-specific approval may Hermes create or modify migrations, SQL files, SQL policies, or schema changes.
 
 ## Environment Safety Rules
 
@@ -136,8 +140,9 @@ Until then, database work must remain planning documentation only.
 
 ## Validation Expectations
 
-- Documentation tasks should run `git diff --check` when appropriate.
-- Source, TypeScript, React, Vite, or tooling tasks should run `npm run build` and `npm run lint` when applicable.
+- Documentation-only tasks should run `git diff --check` when appropriate.
+- Implementation-affecting tasks should run `npm run format:check`, `npm run build`, `npm run lint`, and `git diff --check` when applicable.
+- Source, TypeScript, React, Vite, UI, or tooling tasks should run `npm run build` and `npm run lint` when applicable.
 - If a validation script does not exist, report that instead of inventing a replacement.
 - Before final response, check changed files when useful to confirm the task stayed in scope.
 

@@ -124,6 +124,30 @@ Keep first domain work small:
 - [x] Start with types, schemas, and simple queries only after the data model and RLS strategy are approved
 - [ ] Do not build unrelated product features in the same task
 
+## Current MVP Baseline Status
+
+The project has advanced beyond the original first-domain-module phase. Current built baselines:
+
+- [x] Foundation, auth/session, onboarding, route gating, and dashboard shell
+- [x] Supabase/RLS baseline and onboarding RPC
+- [x] Properties MVP baseline
+- [x] Units MVP baseline
+- [x] Tenants MVP baseline
+- [x] Leases MVP baseline
+- [x] Billing / Invoices MVP baseline
+- [x] Payments MVP baseline and manual validation
+- [x] Receipts browsing/manual generation baseline and manual validation
+- [x] Reminders manual MVP and manual validation
+- [x] Maintenance MVP baseline and manual validation
+- [x] Reporting / Dashboard metrics first slice and functional validation
+- [x] Joyful Premium Ops UI direction
+
+Current workflow:
+
+- Choose one focused MVP gap from the docs/wiki task bucket.
+- Follow `AGENTS.md`, `HERMES.md`, and `docs/05-agent-workflow.md` before changing files.
+- Keep future UI polish, reporting refinements, exports, automation, gateways, and advanced workflows as separate approved tasks.
+
 ### Manual validation: read-only Properties module
 
 Validate the first Properties slice manually before the owner commits it. This checklist is for the read-only `/dashboard/properties` page only.
@@ -604,3 +628,5 @@ Validate the committed Billing / Invoices baseline manually before the owner clo
 - [ ] Confirm receipts are still deferred.
 - [ ] Confirm reminders and overdue automation are still deferred.
 - [ ] Confirm the next recommended module is Payments.
+
+Historical note: Payments, Receipts, Reminders, Maintenance, and the first Reporting / Dashboard metrics slice were completed after this Billing / Invoices checklist was written. Keep the checklist as historical validation context for the Billing slice; use the Current MVP Baseline Status section above for current project status.
