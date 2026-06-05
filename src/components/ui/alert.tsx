@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const alertVariants = cva(
-  'grid gap-1 rounded-md border p-4 text-sm shadow-xs',
+  'grid gap-1 rounded-[14px] border p-4 text-sm shadow-[var(--shadow-card)]',
   {
     variants: {
       variant: {

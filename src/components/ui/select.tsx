@@ -17,7 +17,7 @@ function SelectTrigger({
     <BaseSelect.Trigger
       data-slot="select-trigger"
       className={cn(
-        'flex h-10 w-full items-center justify-between gap-2 rounded-md border border-input bg-card px-3 py-2 text-sm font-medium text-foreground shadow-xs transition-colors disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-70',
+        'flex h-10 w-full items-center justify-between gap-2 rounded-[12px] border border-input bg-card px-3 py-2 text-sm font-medium text-foreground shadow-xs transition-colors disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-70',
         className,
       )}
       {...props}
@@ -41,7 +41,7 @@ function SelectContent({
         <BaseSelect.Popup
           data-slot="select-content"
           className={cn(
-            'z-50 max-h-72 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-lg',
+            'z-50 max-h-72 min-w-[8rem] overflow-hidden rounded-[12px] border border-border bg-popover p-1 text-popover-foreground shadow-lg',
             className,
           )}
           {...props}
