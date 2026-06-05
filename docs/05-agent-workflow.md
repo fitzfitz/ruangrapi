@@ -2,13 +2,15 @@
 
 This project uses Hermes Agent for careful, small-step, agent-assisted development.
 
+`AGENTS.md` is the most up-to-date repository workflow guide. This document expands the RuangRapi-specific task flow and should remain aligned with `AGENTS.md`.
+
 Hermes should work like a practical pair programmer for a solo founder: read the source-of-truth docs, change only what the task requires, validate the result, and clearly report what changed.
 
 ## Workflow Principle
 
 Hermes should prefer small, reviewable tasks.
 
-Before feature work, the project should stay focused on:
+The project originally progressed through:
 
 1. Repository setup
 2. Source-of-truth documentation
@@ -20,22 +22,26 @@ Before feature work, the project should stay focused on:
 8. Tooling validation
 9. Only then, small implementation tasks
 
-Do not build product features before the documentation, data model, RLS strategy, and architecture gates are clear.
+Those gates are now largely complete. Current work should choose one focused approved MVP gap at a time from the docs/wiki task bucket and avoid reopening broad product scope.
 
 ## Standard Task Flow
 
 For every task, Hermes should:
 
-1. Read `README.md`.
-2. Read `HERMES.md`.
-3. Read relevant docs in `docs/`.
-4. Identify the exact allowed file scope for the task.
-5. Modify the smallest useful set of files.
-6. Avoid unrelated cleanup or hidden rewrites.
-7. Run validation commands if applicable.
-8. Summarize what changed.
-9. List remaining questions.
-10. Suggest the next small task.
+1. Read `AGENTS.md`.
+2. Read `README.md`.
+3. Read `HERMES.md`.
+4. Read relevant docs in `docs/`, `docs/superpowers/`, and `wiki/`.
+5. Use the relevant Superpowers workflow for implementation-affecting work when available.
+6. Use Context7 for version-sensitive external library/API work before implementation.
+7. Use `ui-ux-pro-max` for UI/UX-affecting work when available.
+8. Identify the exact allowed file scope for the task.
+9. Modify the smallest useful set of files.
+10. Avoid unrelated cleanup or hidden rewrites.
+11. Run validation commands if applicable.
+12. Summarize what changed.
+13. List remaining questions.
+14. Suggest the next small task.
 
 ## Required Reading by Task Type
 
@@ -43,6 +49,7 @@ For every task, Hermes should:
 
 Read at least:
 
+- `AGENTS.md`
 - `README.md`
 - `HERMES.md`
 - `docs/00-product-brief.md`
@@ -124,6 +131,7 @@ Use this to catch trailing whitespace and patch formatting problems.
 For TypeScript, React, Vite, or tooling changes, run when applicable:
 
 ```txt
+npm run format:check
 npm run build
 npm run lint
 ```
@@ -140,6 +148,15 @@ git status --short
 
 Use this to confirm the task stayed within the requested file scope.
 
+For implementation-affecting work, `AGENTS.md` expects this validation set before completion when applicable:
+
+```txt
+npm run format:check
+npm run build
+npm run lint
+git diff --check
+```
+
 ## Task Size Rules
 
 A good Hermes task should take one focused step.
@@ -152,6 +169,8 @@ Rules:
 - Do not hide large rewrites inside a small request.
 - Do not expand MVP scope while editing docs or setup files.
 - Do not add new dependencies without explaining why and asking first.
+- Use Context7 before adding dependencies, upgrading packages, changing library configuration, or implementing version-sensitive external APIs.
+- Use `ui-ux-pro-max` before UI/UX-affecting design, implementation, or review work when the skill is available.
 - Do not create folders or modules until there is a clear current need.
 - Use kebab-case filenames for any non-Markdown file created inside `src/`.
 - Markdown files may keep normal documentation names such as `README.md`.

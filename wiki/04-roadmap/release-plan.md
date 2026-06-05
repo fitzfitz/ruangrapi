@@ -69,4 +69,4 @@ Deferred reporting scope:
 
 ## Release principle
 
-Do not jump into dashboard metrics until the underlying operational records exist.
+The first dashboard metrics slice was built after the underlying operational records existed. Future release work should still protect the same sequencing principle: build or refine one focused MVP gap at a time, and avoid adding advanced analytics, automation, exports, gateways, or workflow expansions before the owning module has a stable baseline and approved scope.

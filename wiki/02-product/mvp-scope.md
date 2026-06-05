@@ -39,16 +39,65 @@ The MVP should prove the core rental operations loop.
 - create unit under a property
 - edit unit under a property
 
-## Not built yet
+### Tenants
 
-- tenants
-- leases
-- billing/invoices
-- payments
-- receipts
-- reminders
-- maintenance
-- reporting/dashboard metrics
+- list tenants
+- create tenant
+- edit tenant
+
+### Leases
+
+- list leases
+- create lease
+
+### Billing / Invoices
+
+- list invoices
+- create draft rent invoice
+- issue draft invoice
+
+### Payments
+
+- list payments
+- record manual payment
+- update invoice status after payment recording
+
+### Receipts
+
+- manually generate receipt from a payment
+- browse receipts
+- view and print receipt detail
+
+### Reminders
+
+- prepare manual WhatsApp-style reminders
+- copy reminder text
+- open manual WhatsApp link
+- update reminder status
+
+### Maintenance
+
+- list maintenance tickets
+- create maintenance ticket
+- update ticket status
+
+### Reporting / Dashboard
+
+- first dashboard metrics slice
+- preset date ranges
+- operational charts and summary cards
+
+## Remaining MVP gaps / deferred refinements
+
+- deeper dashboard/reporting UI/UX polish after real usage feedback
+- custom reporting date ranges, export, saved reports, and drilldowns
+- payment edit/correction, refunds, gateways, and bank reconciliation
+- receipt PDF/download and delivery workflows
+- reminder automation, templates, bulk reminders, and delivery tracking
+- maintenance vendors, work orders, comments, attachments, recurring maintenance, and cost ledger
+- lease edit/end/cancel workflows and occupancy synchronization
+- utility reading capture and utility billing
+- archive/status workflows where historical records must be preserved
 
 ## MVP success definition
 

@@ -77,9 +77,11 @@ RuangRapi should be developed in small, reviewable steps using agent-assisted de
 
 ## Current Status
 
-Project initialization phase.
+The project has moved beyond initialization into the MVP baseline refinement phase.
 
-No production features should be implemented until the documentation baseline is approved.
+Built and validated baselines now include the foundation, Properties, Units, Tenants, Leases, Billing / Invoices, Payments, Receipts, Reminders, Maintenance, the first Reporting / Dashboard metrics slice, and the Joyful Premium Ops UI direction.
+
+Future work should choose one focused MVP gap at a time from the repo docs and wiki task bucket. Do not reopen broad product scope or bundle unrelated modules into one task.
 
 ## Repository Rules
 
