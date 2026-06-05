@@ -51,7 +51,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </span>
           <span>
             <span className="app-brand__name">RuangRapi</span>
-            <span className="app-brand__tagline">Rental operations ledger</span>
+            <span className="app-brand__tagline">Rental ops with rhythm</span>
           </span>
         </NavLink>
 

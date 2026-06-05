@@ -35,7 +35,7 @@
 - Read: `src/components/ui/*.tsx`
 - Read: `src/app/layouts/app-layout.tsx`
 
-- [ ] **Step 1: Create or confirm an isolated workspace**
+- [x] **Step 1: Create or confirm an isolated workspace**
 
 Run:
 
@@ -47,7 +47,7 @@ git rev-parse --git-common-dir
 
 Expected: clean branch state before edits. If working from `main`, use `superpowers:using-git-worktrees` and create a branch named `joyful-premium-ui-uplift`.
 
-- [ ] **Step 2: Run baseline validation**
+- [x] **Step 2: Run baseline validation**
 
 Run:
 
@@ -66,7 +66,7 @@ Expected: all commands pass before presentation edits. If `build` reports missin
 
 - Modify: `src/index.css`
 
-- [ ] **Step 1: Replace the current root token block with Joyful Premium Ops tokens**
+- [x] **Step 1: Replace the current root token block with Joyful Premium Ops tokens**
 
 Update `:root` so these token names exist and retain the existing app aliases:
 
@@ -149,7 +149,7 @@ Update `:root` so these token names exist and retain the existing app aliases:
 }
 ```
 
-- [ ] **Step 2: Extend Tailwind theme variables**
+- [x] **Step 2: Extend Tailwind theme variables**
 
 Add these entries inside `@theme inline` while keeping existing mappings:
 
@@ -162,7 +162,7 @@ Add these entries inside `@theme inline` while keeping existing mappings:
 --radius-xl: var(--radius-xl);
 ```
 
-- [ ] **Step 3: Update body background**
+- [x] **Step 3: Update body background**
 
 Set `body` background to a vivid but light operational canvas:
 
@@ -173,7 +173,7 @@ background:
   linear-gradient(180deg, #fffaf2 0%, #f8fafc 54%, #fff7ed 100%);
 ```
 
-- [ ] **Step 4: Verify token-only build**
+- [x] **Step 4: Verify token-only build**
 
 Run:
 
@@ -195,7 +195,7 @@ Expected: TypeScript and Vite build pass.
 - Modify: `src/components/ui/select.tsx`
 - Modify: `src/components/ui/textarea.tsx`
 
-- [ ] **Step 1: Update `Button` classes**
+- [x] **Step 1: Update `Button` classes**
 
 In `src/components/ui/button.tsx`, keep the API unchanged. Update `buttonVariants` with these classes:
 
@@ -231,7 +231,7 @@ const buttonVariants = cva(
 )
 ```
 
-- [ ] **Step 2: Update `Card` default surface**
+- [x] **Step 2: Update `Card` default surface**
 
 In `src/components/ui/card.tsx`, keep exports unchanged. Update the root `Card` class to:
 
@@ -241,7 +241,7 @@ In `src/components/ui/card.tsx`, keep exports unchanged. Update the root `Card` 
 
 Keep `CardHeader`, `CardContent`, and `CardFooter` spacing at `px-5`.
 
-- [ ] **Step 3: Update `Badge` variants**
+- [x] **Step 3: Update `Badge` variants**
 
 In `src/components/ui/badge.tsx`, update `badgeVariants` to:
 
@@ -266,7 +266,7 @@ const badgeVariants = cva(
 )
 ```
 
-- [ ] **Step 4: Update form control defaults**
+- [x] **Step 4: Update form control defaults**
 
 Update `Input`, `SelectTrigger`, and `Textarea` root classes to use rounded `12px`, calm white backgrounds, and border/input tokens. The input class should include:
 
@@ -276,7 +276,7 @@ Update `Input`, `SelectTrigger`, and `Textarea` root classes to use rounded `12p
 
 Apply the same visual direction to `Textarea` and `SelectTrigger`, preserving their component structure and Base UI usage.
 
-- [ ] **Step 5: Run primitive validation**
+- [x] **Step 5: Run primitive validation**
 
 Run:
 
@@ -294,7 +294,7 @@ Expected: lint and build pass with no Fast Refresh export errors.
 - Modify: `src/App.css`
 - Modify: `src/app/layouts/app-layout.tsx`
 
-- [ ] **Step 1: Keep `AppLayout` route behavior unchanged**
+- [x] **Step 1: Keep `AppLayout` route behavior unchanged**
 
 Inspect `src/app/layouts/app-layout.tsx`. Keep:
 
@@ -307,7 +307,7 @@ onClick={() => {
 
 Do not change route paths, nav item order, or protected-route behavior.
 
-- [ ] **Step 2: Update brand tagline**
+- [x] **Step 2: Update brand tagline**
 
 Change the brand tagline from:
 
@@ -321,7 +321,7 @@ to:
 <span className="app-brand__tagline">Rental ops with rhythm</span>
 ```
 
-- [ ] **Step 3: Update shell CSS**
+- [x] **Step 3: Update shell CSS**
 
 In `src/App.css`, update the shell selectors so the header and sidebar use the dark premium shell:
 
@@ -372,7 +372,7 @@ In `src/App.css`, update the shell selectors so the header and sidebar use the d
 
 Also update `.app-sidebar`, `.app-sidebar a`, `.app-sidebar a.active`, and `.app-sidebar__coming-soon` to use dark backgrounds, translucent active states, and light text. Preserve sticky positioning and mobile show/hide behavior.
 
-- [ ] **Step 4: Verify shell behavior**
+- [x] **Step 4: Verify shell behavior**
 
 Run:
 
@@ -389,7 +389,7 @@ Expected: build passes. Manual check after dev server start: mobile menu still t
 - Modify: `src/App.css`
 - Modify: `src/modules/dashboard/dashboard-shell.tsx`
 
-- [ ] **Step 1: Align dashboard chart colors**
+- [x] **Step 1: Align dashboard chart colors**
 
 In `src/modules/dashboard/dashboard-shell.tsx`, keep the existing data keys and labels. Confirm:
 
@@ -400,7 +400,7 @@ color: 'var(--chart-1)'
 
 Expected: no data fetching, metric, or chart structure changes.
 
-- [ ] **Step 2: Add expressive dashboard CSS**
+- [x] **Step 2: Add expressive dashboard CSS**
 
 In `src/App.css`, add or update these selectors:
 
@@ -443,11 +443,11 @@ In `src/App.css`, add or update these selectors:
 
 Keep dashboard grid behavior and chart heights stable.
 
-- [ ] **Step 3: Update range selector**
+- [x] **Step 3: Update range selector**
 
 Style `.dashboard-shell__range-button` and active state with rounded pill-like controls, teal/indigo active colors, and no layout-shifting hover effects.
 
-- [ ] **Step 4: Run dashboard validation**
+- [x] **Step 4: Run dashboard validation**
 
 Run:
 
@@ -464,7 +464,7 @@ Expected: both pass.
 
 - Modify: `src/App.css`
 
-- [ ] **Step 1: Update shared work-card selectors**
+- [x] **Step 1: Update shared work-card selectors**
 
 Keep list and form surfaces calmer than dashboard. Update shared card selectors so list cards use:
 
@@ -490,7 +490,7 @@ Apply to:
 .unit-card
 ```
 
-- [ ] **Step 2: Keep forms calm**
+- [x] **Step 2: Keep forms calm**
 
 Update form selectors so forms use a restrained white surface, `14px` radius, low elevation, and normal input backgrounds. Apply to:
 
@@ -510,11 +510,11 @@ Update form selectors so forms use a restrained white surface, `14px` radius, lo
 .maintenance-ticket-form
 ```
 
-- [ ] **Step 3: Make empty states warmer**
+- [x] **Step 3: Make empty states warmer**
 
 Update empty state selectors to use warm backgrounds, orange/teal accents, and helpful visual emphasis without adding instructional UI copy. Do not change React text strings in domain pages.
 
-- [ ] **Step 4: Make statuses easier to distinguish**
+- [x] **Step 4: Make statuses easier to distinguish**
 
 Update status badge-like selectors:
 
@@ -530,11 +530,11 @@ Update status badge-like selectors:
 
 Use semantic color backgrounds and keep text contrast at least 4.5:1.
 
-- [ ] **Step 5: Preserve receipt print**
+- [x] **Step 5: Preserve receipt print**
 
 Inspect the `@media print` block in `src/App.css`. Do not add gradients, shadows, dark backgrounds, or decorative accents inside print rules. Receipt print should remain black-on-white and compact.
 
-- [ ] **Step 6: Run work-surface validation**
+- [x] **Step 6: Run work-surface validation**
 
 Run:
 
@@ -557,7 +557,7 @@ Expected: all pass.
 - Modify: `wiki/06-task-breakdown/task-index.md`
 - Modify: `docs/superpowers/plans/2026-06-04-joyful-premium-ui-uplift.md`
 
-- [ ] **Step 1: Update built status**
+- [x] **Step 1: Update built status**
 
 In `wiki/09-status/built.md`, update the Design System section to say:
 
@@ -574,7 +574,7 @@ Built:
 - restrained list, form, detail, and receipt print surfaces
 ```
 
-- [ ] **Step 2: Update release plan**
+- [x] **Step 2: Update release plan**
 
 In `wiki/04-roadmap/release-plan.md`, replace the design-system baseline heading with:
 
@@ -586,11 +586,11 @@ Joyful Premium Ops is the active visual direction. It supersedes Warm Admin Ledg
 
 Keep deferred scope for shared primitive migration and visual regression automation.
 
-- [ ] **Step 3: Update task tracking pages**
+- [x] **Step 3: Update task tracking pages**
 
 In `wiki/06-task-breakdown/ready-soon.md` and `wiki/06-task-breakdown/task-index.md`, move Joyful Premium UI uplift into completed candidates and keep "Replace remaining domain-local BEM markup with shared UI primitives" as a future candidate.
 
-- [ ] **Step 4: Record verification in this plan**
+- [x] **Step 4: Record verification in this plan**
 
 After validation, update this plan's final task checklist with actual command results and any manual validation limitations.
 
@@ -600,7 +600,7 @@ After validation, update this plan's final task checklist with actual command re
 
 - Review all modified files.
 
-- [ ] **Step 1: Run required automated validation**
+- [x] **Step 1: Run required automated validation**
 
 Run:
 
@@ -613,7 +613,7 @@ git diff --check
 
 Expected: all commands pass.
 
-- [ ] **Step 2: Start local dev server**
+- [x] **Step 2: Start local dev server**
 
 Run:
 
@@ -623,7 +623,7 @@ npm run dev -- --host 127.0.0.1
 
 Expected: Vite prints a local URL, usually `http://127.0.0.1:5173/`.
 
-- [ ] **Step 3: Smoke-check representative routes**
+- [x] **Step 3: Smoke-check representative routes**
 
 Run outside the sandbox if local HTTP is blocked:
 
@@ -673,6 +673,15 @@ git commit -m "feat: uplift joyful premium design system"
 ```
 
 Expected: one focused implementation commit after all checks pass.
+
+## Verification Results
+
+- Baseline validation in isolated worktree: `npm run format:check`, `npm run build`, `npm run lint`, and `git diff --check` passed before edits.
+- Final automated validation: `npm run format:check`, `npm run build`, `npm run lint`, and `git diff --check` passed after edits.
+- Local dev server started at `http://127.0.0.1:5173/`.
+- Route smoke checks returned HTTP 200 for `/dashboard`, `/dashboard/properties`, `/dashboard/properties/new`, `/dashboard/reminders`, `/dashboard/maintenance`, and `/auth`.
+- Full interactive browser checklist and screenshot capture were not performed because Playwright/Chromium is not configured in this worktree.
+- Receipt print CSS was preserved in the existing `@media print` block; no decorative gradients or dark shell styles were added to print rules.
 
 ## Self-Review Notes
 

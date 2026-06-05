@@ -16,6 +16,7 @@ Built:
 - Maintenance baseline
 - Reporting / Dashboard metrics first slice
 - Warm Admin Ledger design-system foundation
+- Joyful Premium Ops UI uplift
 
 ## Recommended next sequence
 
@@ -27,10 +28,12 @@ Next recommended task: choose the next focused MVP gap from the task bucket.
 
 ## Design-system baseline
 
-The Warm Admin Ledger foundation gives RuangRapi a compact operations UI across current screens:
+Joyful Premium Ops is the active visual direction. It supersedes Warm Admin Ledger visually while preserving its compact operational-density principles.
 
-- warm neutral background and ledger-like card surfaces
-- teal primary actions and clear secondary actions
+- premium dark navigation shell
+- teal, indigo, and orange signature accents
+- expressive dashboard cards, chart surfaces, and priority states
+- restrained list, form, detail, and receipt print surfaces
 - semantic error, success, warning, info, and chart colors
 - Plus Jakarta Sans typography
 - responsive branded shell with active navigation

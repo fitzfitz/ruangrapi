@@ -43,10 +43,11 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Reporting / Dashboard metrics implementation
 - Reporting / Dashboard metrics validation
 - Warm Admin Ledger design-system foundation
+- Joyful Premium UI uplift
 
 ## Later candidates
 
-- Dashboard/reporting UI/UX polish based on the design-system foundation
+- Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Replace remaining domain-local BEM markup with shared UI primitives
 - Reporting custom date range picker
 - Reporting CSV/export
