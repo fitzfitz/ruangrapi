@@ -23,6 +23,23 @@ import {
 } from './domain/dashboard-metrics'
 import { useDashboardMetricsQuery } from './application/use-dashboard-metrics-query'
 
+type DashboardMetricTone = 'neutral' | 'positive' | 'warning' | 'attention'
+
+type DashboardMetricGroup = {
+  id: string
+  title: string
+  summary: string
+  metrics: DashboardMetricCardView[]
+}
+
+type DashboardMetricCardView = {
+  id: string
+  label: string
+  value: string
+  helper: string
+  tone: DashboardMetricTone
+}
+
 const collectionChartConfig = {
   expected: {
     label: 'Expected',
@@ -46,67 +63,141 @@ function formatNumber(value: number) {
   return new Intl.NumberFormat('id-ID').format(value)
 }
 
-function buildMetricCards(metrics: DashboardMetrics) {
+function buildMetricGroups(metrics: DashboardMetrics): DashboardMetricGroup[] {
   return [
     {
-      id: 'total-units',
-      label: 'Total units',
-      value: formatNumber(metrics.totalUnits),
-      helper: 'Current portfolio state',
+      id: 'portfolio',
+      title: 'Portfolio state',
+      summary: 'Current unit availability',
+      metrics: [
+        {
+          id: 'total-units',
+          label: 'Total units',
+          value: formatNumber(metrics.totalUnits),
+          helper: 'Current portfolio',
+          tone: 'neutral',
+        },
+        {
+          id: 'occupied-units',
+          label: 'Occupied units',
+          value: formatNumber(metrics.occupiedUnits),
+          helper: 'Currently occupied',
+          tone: 'positive',
+        },
+        {
+          id: 'vacant-units',
+          label: 'Vacant units',
+          value: formatNumber(metrics.vacantUnits),
+          helper: 'Available to fill',
+          tone: metrics.vacantUnits > 0 ? 'warning' : 'positive',
+        },
+      ],
     },
     {
-      id: 'occupied-units',
-      label: 'Occupied units',
-      value: formatNumber(metrics.occupiedUnits),
-      helper: 'Current unit status',
+      id: 'collection',
+      title: 'Collection health',
+      summary: metrics.range.label,
+      metrics: [
+        {
+          id: 'expected-rent',
+          label: 'Expected rent',
+          value: formatCurrency(metrics.expectedRent),
+          helper: metrics.range.label,
+          tone: 'neutral',
+        },
+        {
+          id: 'collected-rent',
+          label: 'Collected rent',
+          value: formatCurrency(metrics.collectedRent),
+          helper: metrics.range.label,
+          tone: 'positive',
+        },
+        {
+          id: 'outstanding-rent',
+          label: 'Outstanding rent',
+          value: formatCurrency(metrics.outstandingRent),
+          helper: metrics.range.label,
+          tone: metrics.outstandingRent > 0 ? 'attention' : 'positive',
+        },
+      ],
     },
     {
-      id: 'vacant-units',
-      label: 'Vacant units',
-      value: formatNumber(metrics.vacantUnits),
-      helper: 'Current unit status',
-    },
-    {
-      id: 'expected-rent',
-      label: 'Expected rent',
-      value: formatCurrency(metrics.expectedRent),
-      helper: metrics.range.label,
-    },
-    {
-      id: 'collected-rent',
-      label: 'Collected rent',
-      value: formatCurrency(metrics.collectedRent),
-      helper: metrics.range.label,
-    },
-    {
-      id: 'outstanding-rent',
-      label: 'Outstanding rent',
-      value: formatCurrency(metrics.outstandingRent),
-      helper: metrics.range.label,
-    },
-    {
-      id: 'attention-invoices',
-      label: 'Invoices needing attention',
-      value: formatNumber(metrics.attentionInvoiceCount),
-      helper: 'Unpaid, partial, or overdue',
-    },
-    {
-      id: 'open-maintenance',
-      label: 'Open maintenance',
-      value: formatNumber(metrics.openMaintenanceTicketCount),
-      helper: 'Open or in progress',
-    },
-    {
-      id: 'prepared-reminders',
-      label: 'Prepared reminders',
-      value: formatNumber(metrics.reminderCounts.prepared),
-      helper: metrics.range.label,
+      id: 'attention',
+      title: 'Attention workload',
+      summary: 'Records to monitor',
+      metrics: [
+        {
+          id: 'attention-invoices',
+          label: 'Invoices needing attention',
+          value: formatNumber(metrics.attentionInvoiceCount),
+          helper: 'Unpaid, partial, or overdue',
+          tone: metrics.attentionInvoiceCount > 0 ? 'attention' : 'positive',
+        },
+        {
+          id: 'open-maintenance',
+          label: 'Open maintenance',
+          value: formatNumber(metrics.openMaintenanceTicketCount),
+          helper: 'Open or in progress',
+          tone:
+            metrics.openMaintenanceTicketCount > 0 ? 'warning' : 'positive',
+        },
+        {
+          id: 'prepared-reminders',
+          label: 'Prepared reminders',
+          value: formatNumber(metrics.reminderCounts.prepared),
+          helper: metrics.range.label,
+          tone: metrics.reminderCounts.prepared > 0 ? 'warning' : 'neutral',
+        },
+      ],
     },
   ]
 }
 
 function EmptyChart({ label }: { label: string }) {
   return <p className="dashboard-shell__empty-chart">{label}</p>
+}
+
+function ChartLegendList({ data }: { data: DashboardBreakdownItem[] }) {
+  if (data.length === 0) {
+    return null
+  }
+
+  return (
+    <ul className="dashboard-shell__legend" aria-label="Chart legend">
+      {data.map((item) => (
+        <li key={item.name}>
+          <span
+            className="dashboard-shell__legend-swatch"
+            style={{ backgroundColor: item.fill }}
+            aria-hidden="true"
+          />
+          <span>{item.name}</span>
+          <strong>{formatNumber(item.value)}</strong>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function CollectionLegend() {
+  return (
+    <ul className="dashboard-shell__legend dashboard-shell__legend--inline">
+      <li>
+        <span
+          className="dashboard-shell__legend-swatch dashboard-shell__legend-swatch--expected"
+          aria-hidden="true"
+        />
+        <span>Expected</span>
+      </li>
+      <li>
+        <span
+          className="dashboard-shell__legend-swatch dashboard-shell__legend-swatch--collected"
+          aria-hidden="true"
+        />
+        <span>Collected</span>
+      </li>
+    </ul>
+  )
 }
 
 function BreakdownChart({
@@ -130,16 +221,19 @@ function BreakdownChart({
   }, {})
 
   return (
-    <ChartContainer config={chartConfig} className="dashboard-shell__pie">
-      <PieChart>
-        <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
-        <Pie data={data} dataKey="value" nameKey="name" innerRadius={54}>
-          {data.map((item) => (
-            <Cell key={item.name} fill={item.fill} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ChartContainer>
+    <div className="dashboard-shell__breakdown">
+      <ChartContainer config={chartConfig} className="dashboard-shell__pie">
+        <PieChart>
+          <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+          <Pie data={data} dataKey="value" nameKey="name" innerRadius={54}>
+            {data.map((item) => (
+              <Cell key={item.name} fill={item.fill} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ChartContainer>
+      <ChartLegendList data={data} />
+    </div>
   )
 }
 
@@ -183,27 +277,51 @@ export function DashboardShell() {
       </div>
 
       {metricsQuery.isLoading ? (
-        <p className="dashboard-shell__status">Loading dashboard metrics...</p>
+        <div className="dashboard-shell__status" aria-live="polite">
+          <span className="dashboard-shell__status-kicker">Loading</span>
+          <strong>Preparing dashboard metrics</strong>
+          <p>
+            Collection, invoice, reminder, and maintenance summaries are being
+            loaded.
+          </p>
+        </div>
       ) : null}
 
       {metricsQuery.isError ? (
-        <p className="dashboard-shell__error" role="alert">
-          We could not load dashboard metrics right now. Please try again later.
-        </p>
+        <div className="dashboard-shell__error" role="alert">
+          <span className="dashboard-shell__status-kicker">
+            Dashboard unavailable
+          </span>
+          <strong>We could not load dashboard metrics right now.</strong>
+          <p>Please try again later.</p>
+        </div>
       ) : null}
 
       {metricsQuery.isSuccess ? (
         <>
           <div
-            className="dashboard-shell__metrics"
+            className="dashboard-shell__metric-groups"
             aria-label="Dashboard metrics"
           >
-            {buildMetricCards(metricsQuery.data).map((metric) => (
-              <article className="dashboard-shell__metric" key={metric.id}>
-                <span>{metric.label}</span>
-                <strong>{metric.value}</strong>
-                <p>{metric.helper}</p>
-              </article>
+            {buildMetricGroups(metricsQuery.data).map((group) => (
+              <section className="dashboard-shell__metric-group" key={group.id}>
+                <div className="dashboard-shell__metric-group-header">
+                  <h3>{group.title}</h3>
+                  <p>{group.summary}</p>
+                </div>
+                <div className="dashboard-shell__metrics">
+                  {group.metrics.map((metric) => (
+                    <article
+                      className={`dashboard-shell__metric dashboard-shell__metric--${metric.tone}`}
+                      key={metric.id}
+                    >
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}</strong>
+                      <p>{metric.helper}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
 
@@ -212,6 +330,7 @@ export function DashboardShell() {
               <div className="dashboard-shell__chart-header">
                 <h3>Collection by month</h3>
                 <p>{metricsQuery.data.range.label}</p>
+                <CollectionLegend />
               </div>
               {metricsQuery.data.monthlyCollections.some(
                 (item) => item.expected > 0 || item.collected > 0,
