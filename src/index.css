@@ -11,19 +11,32 @@
     BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --text: #475569;
   --text-h: #111827;
-  --bg: #fff7ed;
+  --bg: var(--lagoon-bg);
   --surface: #ffffff;
-  --surface-subtle: #fffaf2;
+  --surface-subtle: #f0f9ff;
   --surface-raised: #ffffff;
   --surface-glass: rgba(255, 255, 255, 0.78);
-  --border: #eadfd0;
-  --border-strong: #d8c7b2;
+  --border: #bfdbfe;
+  --border-strong: #7dd3fc;
   --navy: #080b16;
   --navy-2: #111827;
-  --indigo: #6366f1;
+  --indigo: #4f46e5;
   --orange: #f97316;
-  --teal: #0f766e;
-  --mint: #2dd4bf;
+  --teal: #0284c7;
+  --mint: #38bdf8;
+  --lagoon-50: #f0f9ff;
+  --lagoon-100: #e0f7ff;
+  --lagoon-200: #bae6fd;
+  --lagoon-300: #7dd3fc;
+  --lagoon-400: #38bdf8;
+  --lagoon-500: #0ea5e9;
+  --lagoon-600: #0284c7;
+  --lagoon-700: #0369a1;
+  --lagoon-900: #082f49;
+  --lagoon-bg: #e0f7ff;
+  --lagoon-surface: rgba(255, 255, 255, 0.86);
+  --lagoon-glass: rgba(255, 255, 255, 0.72);
+  --lagoon-nav: rgba(8, 47, 73, 0.9);
   --background: var(--bg);
   --foreground: var(--text-h);
   --card: var(--surface);
@@ -32,12 +45,12 @@
   --popover-foreground: var(--text-h);
   --muted: #f3eadc;
   --muted-foreground: var(--text);
-  --accent: #eef2ff;
-  --accent-foreground: #3730a3;
+  --accent: #dbeafe;
+  --accent-foreground: #1e3a8a;
   --primary: var(--teal);
   --primary-foreground: #ffffff;
-  --secondary: #fff1e6;
-  --secondary-foreground: #9a3412;
+  --secondary: #e0f2fe;
+  --secondary-foreground: #075985;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
   --success: #16704a;
@@ -46,8 +59,8 @@
   --warning-foreground: #2f2107;
   --info: #2563eb;
   --info-foreground: #ffffff;
-  --ring: #2dd4bf;
-  --input: #ded2c2;
+  --ring: #38bdf8;
+  --input: #93c5fd;
   --radius: 0.75rem;
   --radius-sm: 0.625rem;
   --radius-lg: 1.25rem;
@@ -137,13 +150,10 @@ body {
   min-height: 100svh;
   color: var(--text);
   background:
-    radial-gradient(circle at 82% 2%, rgb(249 115 22 / 0.22), transparent 30%),
-    radial-gradient(
-      circle at 42% -16%,
-      rgb(20 184 166 / 0.32),
-      transparent 36%
-    ),
-    linear-gradient(180deg, #fffaf2 0%, #f8fafc 54%, #fff7ed 100%);
+    radial-gradient(circle at 12% 4%, rgb(14 165 233 / 0.34), transparent 30%),
+    radial-gradient(circle at 88% 0%, rgb(37 99 235 / 0.22), transparent 28%),
+    radial-gradient(circle at 52% 86%, rgb(45 212 191 / 0.2), transparent 34%),
+    linear-gradient(180deg, #e0f7ff 0%, #eef6ff 44%, #f8fbff 100%);
 }
 
 button,
