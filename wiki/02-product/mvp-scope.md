@@ -89,7 +89,7 @@ The MVP should prove the core rental operations loop.
 
 ## Remaining MVP gaps / deferred refinements
 
-- deeper dashboard/reporting UI/UX polish after real usage feedback
+- advanced dashboard/reporting interaction refinements after real usage feedback
 - custom reporting date ranges, export, saved reports, and drilldowns
 - payment edit/correction, refunds, gateways, and bank reconciliation
 - receipt PDF/download and delivery workflows
