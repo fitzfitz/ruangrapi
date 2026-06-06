@@ -112,6 +112,13 @@ const ReceiptDetailPage = lazy(() =>
     }),
   ),
 )
+const ReceiptPrintPage = lazy(() =>
+  import('../../modules/receipts/presentation/receipt-print-page').then(
+    (module) => ({
+      default: module.ReceiptPrintPage,
+    }),
+  ),
+)
 const ReceiptsPage = lazy(() =>
   import('../../modules/receipts/presentation/receipts-page').then(
     (module) => ({
@@ -282,6 +289,14 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <CreatePaymentPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardReceiptPrint}
+            element={
+              <RouteAccessGate route="dashboard">
+                <ReceiptPrintPage />
               </RouteAccessGate>
             }
           />
