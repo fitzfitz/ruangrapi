@@ -312,6 +312,141 @@
   box-shadow: 0 14px 28px rgb(15 118 110 / 0.2);
 }
 
+.dashboard-shell__highlights {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 0.85fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.dashboard-shell__highlight {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  min-height: 150px;
+  border: 1px solid rgb(255 255 255 / 0.78);
+  border-radius: 28px;
+  padding: 22px;
+  background: var(--lagoon-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashboard-shell__highlight span {
+  color: var(--lagoon-700);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dashboard-shell__highlight strong {
+  color: var(--text-h);
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-shell__highlight p {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dashboard-shell__highlight--collection {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--lagoon-700), #2563eb);
+  box-shadow: 0 22px 44px rgb(2 132 199 / 0.28);
+}
+
+.dashboard-shell__highlight--collection span,
+.dashboard-shell__highlight--collection strong,
+.dashboard-shell__highlight--collection p {
+  color: #ffffff;
+}
+
+.dashboard-shell__highlight--attention span {
+  color: var(--orange);
+}
+
+.dashboard-shell__command-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 16px;
+  min-width: 0;
+}
+
+.dashboard-shell__chart--collection {
+  grid-column: auto;
+  min-height: 320px;
+}
+
+.dashboard-shell__attention-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  background: var(--lagoon-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashboard-shell__attention-header h3 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.dashboard-shell__attention-header p {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dashboard-shell__attention-list {
+  display: grid;
+  gap: 10px;
+}
+
+.dashboard-shell__attention-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  border-radius: 16px;
+  padding: 12px;
+  background: rgb(255 255 255 / 0.72);
+}
+
+.dashboard-shell__attention-item span,
+.dashboard-shell__attention-item p {
+  min-width: 0;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dashboard-shell__attention-item span {
+  color: var(--text-h);
+}
+
+.dashboard-shell__attention-item strong {
+  grid-row: span 2;
+  color: var(--text-h);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.dashboard-shell__attention-item--attention {
+  background: #fff7ed;
+}
+
+.dashboard-shell__charts--compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .dashboard-shell__status,
 .dashboard-shell__error {
   border: 1px solid var(--border);
@@ -500,6 +635,10 @@
 
 .dashboard-shell__chart--wide {
   grid-column: span 3;
+}
+
+.dashboard-shell__command-grid .dashboard-shell__chart--collection {
+  grid-column: auto;
 }
 
 .dashboard-shell__chart-header {
@@ -3438,7 +3577,18 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .dashboard-shell__highlights,
+  .dashboard-shell__command-grid,
+  .dashboard-shell__charts--compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .dashboard-shell__chart--wide {
+    grid-column: span 2;
+  }
+
+  .dashboard-shell__highlight--collection,
+  .dashboard-shell__command-grid .dashboard-shell__chart--collection {
     grid-column: span 2;
   }
 }
@@ -3484,7 +3634,18 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .dashboard-shell__highlights,
+  .dashboard-shell__command-grid,
+  .dashboard-shell__charts--compact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .dashboard-shell__chart--wide {
+    grid-column: span 1;
+  }
+
+  .dashboard-shell__highlight--collection,
+  .dashboard-shell__command-grid .dashboard-shell__chart--collection {
     grid-column: span 1;
   }
 
@@ -3613,6 +3774,15 @@
 
   .dashboard-shell__header {
     padding: 18px;
+  }
+
+  .dashboard-shell__highlight {
+    min-height: 132px;
+    padding: 18px;
+  }
+
+  .dashboard-shell__highlight strong {
+    font-size: 32px;
   }
 
   .dashboard-shell__header h2 {

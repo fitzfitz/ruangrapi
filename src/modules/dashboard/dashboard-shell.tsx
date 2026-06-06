@@ -40,6 +40,16 @@ type DashboardMetricCardView = {
   tone: DashboardMetricTone
 }
 
+type DashboardHighlightTone = 'collection' | 'occupancy' | 'attention'
+
+type DashboardHighlight = {
+  id: string
+  label: string
+  value: string
+  helper: string
+  tone: DashboardHighlightTone
+}
+
 const collectionChartConfig = {
   expected: {
     label: 'Expected',
@@ -61,6 +71,54 @@ function formatCurrency(value: number) {
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat('id-ID').format(value)
+}
+
+function formatPercent(value: number) {
+  return new Intl.NumberFormat('id-ID', {
+    maximumFractionDigits: 0,
+    style: 'percent',
+  }).format(value)
+}
+
+function calculateOccupancyRate(metrics: DashboardMetrics) {
+  if (metrics.totalUnits === 0) {
+    return 0
+  }
+
+  return metrics.occupiedUnits / metrics.totalUnits
+}
+
+function buildDashboardHighlights(
+  metrics: DashboardMetrics,
+): DashboardHighlight[] {
+  const attentionTotal =
+    metrics.attentionInvoiceCount +
+    metrics.openMaintenanceTicketCount +
+    metrics.reminderCounts.prepared
+
+  return [
+    {
+      id: 'collection-health',
+      label: 'Collection health',
+      value: formatCurrency(metrics.collectedRent),
+      helper: `Collected in ${metrics.range.label}`,
+      tone: 'collection',
+    },
+    {
+      id: 'occupancy',
+      label: 'Occupancy',
+      value: formatPercent(calculateOccupancyRate(metrics)),
+      helper: `${formatNumber(metrics.occupiedUnits)} of ${formatNumber(metrics.totalUnits)} units occupied`,
+      tone: 'occupancy',
+    },
+    {
+      id: 'attention',
+      label: 'Needs attention',
+      value: formatNumber(attentionTotal),
+      helper: 'Invoices, tickets, and prepared reminders',
+      tone: attentionTotal > 0 ? 'attention' : 'occupancy',
+    },
+  ]
 }
 
 function buildMetricGroups(metrics: DashboardMetrics): DashboardMetricGroup[] {
@@ -199,6 +257,26 @@ function CollectionLegend() {
   )
 }
 
+function DashboardHighlights({ metrics }: { metrics: DashboardMetrics }) {
+  return (
+    <div
+      className="dashboard-shell__highlights"
+      aria-label="Dashboard highlights"
+    >
+      {buildDashboardHighlights(metrics).map((highlight) => (
+        <article
+          className={`dashboard-shell__highlight dashboard-shell__highlight--${highlight.tone}`}
+          key={highlight.id}
+        >
+          <span>{highlight.label}</span>
+          <strong>{highlight.value}</strong>
+          <p>{highlight.helper}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 function BreakdownChart({
   data,
   emptyLabel,
@@ -298,34 +376,10 @@ export function DashboardShell() {
 
       {metricsQuery.isSuccess ? (
         <>
-          <div
-            className="dashboard-shell__metric-groups"
-            aria-label="Dashboard metrics"
-          >
-            {buildMetricGroups(metricsQuery.data).map((group) => (
-              <section className="dashboard-shell__metric-group" key={group.id}>
-                <div className="dashboard-shell__metric-group-header">
-                  <h3>{group.title}</h3>
-                  <p>{group.summary}</p>
-                </div>
-                <div className="dashboard-shell__metrics">
-                  {group.metrics.map((metric) => (
-                    <article
-                      className={`dashboard-shell__metric dashboard-shell__metric--${metric.tone}`}
-                      key={metric.id}
-                    >
-                      <span>{metric.label}</span>
-                      <strong>{metric.value}</strong>
-                      <p>{metric.helper}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
+          <DashboardHighlights metrics={metricsQuery.data} />
 
-          <div className="dashboard-shell__charts">
-            <article className="dashboard-shell__chart dashboard-shell__chart--wide">
+          <div className="dashboard-shell__command-grid">
+            <article className="dashboard-shell__chart dashboard-shell__chart--wide dashboard-shell__chart--collection">
               <div className="dashboard-shell__chart-header">
                 <h3>Collection by month</h3>
                 <p>{metricsQuery.data.range.label}</p>
@@ -357,12 +411,12 @@ export function DashboardShell() {
                     <Bar
                       dataKey="expected"
                       fill="var(--color-expected)"
-                      radius={4}
+                      radius={8}
                     />
                     <Bar
                       dataKey="collected"
                       fill="var(--color-collected)"
-                      radius={4}
+                      radius={8}
                     />
                   </BarChart>
                 </ChartContainer>
@@ -371,6 +425,55 @@ export function DashboardShell() {
               )}
             </article>
 
+            <section className="dashboard-shell__attention-panel">
+              <div className="dashboard-shell__attention-header">
+                <h3>Attention queue</h3>
+                <p>Current workload signals</p>
+              </div>
+              <div className="dashboard-shell__attention-list">
+                {buildMetricGroups(metricsQuery.data)[2].metrics.map(
+                  (metric) => (
+                    <article
+                      className={`dashboard-shell__attention-item dashboard-shell__attention-item--${metric.tone}`}
+                      key={metric.id}
+                    >
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}</strong>
+                      <p>{metric.helper}</p>
+                    </article>
+                  ),
+                )}
+              </div>
+            </section>
+          </div>
+
+          <div
+            className="dashboard-shell__metric-groups"
+            aria-label="Dashboard metrics"
+          >
+            {buildMetricGroups(metricsQuery.data).map((group) => (
+              <section className="dashboard-shell__metric-group" key={group.id}>
+                <div className="dashboard-shell__metric-group-header">
+                  <h3>{group.title}</h3>
+                  <p>{group.summary}</p>
+                </div>
+                <div className="dashboard-shell__metrics">
+                  {group.metrics.map((metric) => (
+                    <article
+                      className={`dashboard-shell__metric dashboard-shell__metric--${metric.tone}`}
+                      key={metric.id}
+                    >
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}</strong>
+                      <p>{metric.helper}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div className="dashboard-shell__charts dashboard-shell__charts--compact">
             <article className="dashboard-shell__chart">
               <div className="dashboard-shell__chart-header">
                 <h3>Invoice status</h3>
