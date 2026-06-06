@@ -71,4 +71,4 @@ Repo docs define implementation constraints
 
 ## Next recommended step
 
-Choose the next focused MVP gap from the task bucket. Dashboard/reporting UI/UX polish is known but deferred outside the functional validation closeout.
+Choose the next focused MVP gap from the remaining task bucket. Dashboard/reporting UI/UX polish has been completed as an in-place polish pass; custom ranges, exports, saved reports, drilldowns, and cross-module workflow links remain deferred.

@@ -22,7 +22,7 @@
 - Receipt detail, receipt list, receipt edit/delete, print/download, PDF generation, delivery workflows, automatic generation, payment edit blocking after receipt generation, and payment correction workflows remain deferred.
 - Payments, Receipts, Reminders, and Maintenance manual validation are complete.
 - Reporting / Dashboard metrics first slice is built and functionally validated.
-- Dashboard/reporting UI/UX polish remains deferred and out of scope for the validation closeout.
+- Dashboard/reporting UI/UX polish was completed separately as an in-place polish pass.
 - Next recommended step: choose the next focused MVP gap from the task bucket.
 
 ## Related pages
