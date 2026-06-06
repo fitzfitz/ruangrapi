@@ -2,8 +2,11 @@ import { Link, useParams } from 'react-router-dom'
 
 import { AppLayout } from '../../../app/layouts'
 import { routePaths } from '../../../app/router/route-paths'
-import type { ReceiptDetail } from '../domain/receipt'
 import { useReceiptQuery } from '../application/use-receipt-query'
+
+function getReceiptPrintPath(receiptId: string) {
+  return routePaths.dashboardReceiptPrint.replace(':receiptId', receiptId)
+}
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat('id-ID', {
@@ -38,118 +41,13 @@ function formatOptionalText(value: string | null) {
   return value?.trim() || 'Not added'
 }
 
-function ReceiptDocument({ receipt }: { receipt: ReceiptDetail }) {
-  return (
-    <article className="receipt-document">
-      <div className="receipt-document__header">
-        <div>
-          <p className="receipt-document__brand">RuangRapi</p>
-          <h3>Payment receipt</h3>
-          <p className="receipt-document__eyebrow">
-            Proof of payment for rental billing
-          </p>
-        </div>
-        <div className="receipt-document__meta">
-          <span className="receipt-document__status">Paid</span>
-          <div>
-            <span>Receipt no.</span>
-            <strong>{receipt.receipt_number}</strong>
-          </div>
-        </div>
-      </div>
-
-      <div className="receipt-document__summary">
-        <div>
-          <span>Amount received</span>
-          <strong>{formatCurrency(receipt.payment_amount)}</strong>
-        </div>
-        <div>
-          <span>Issued</span>
-          <strong>{formatDate(receipt.issued_at)}</strong>
-        </div>
-        <div>
-          <span>Payment date</span>
-          <strong>{formatDate(receipt.payment_date)}</strong>
-        </div>
-        <div>
-          <span>Method</span>
-          <strong>{formatPaymentMethod(receipt.payment_method)}</strong>
-        </div>
-      </div>
-
-      <div className="receipt-document__parties">
-        <div>
-          <span>Received from</span>
-          <strong>{receipt.tenant_name}</strong>
-          <p>
-            {receipt.unit_name} - {formatOptionalText(receipt.property_name)}
-          </p>
-        </div>
-        <div>
-          <span>Received by</span>
-          <strong>RuangRapi</strong>
-          <p>Recorded through RuangRapi property management.</p>
-        </div>
-      </div>
-
-      <div className="receipt-document__grid">
-        <section>
-          <h4>Payment for</h4>
-          <dl>
-            <div>
-              <dt>Billing period</dt>
-              <dd>{formatBillingPeriod(receipt.invoice_billing_period)}</dd>
-            </div>
-            <div>
-              <dt>Invoice status</dt>
-              <dd>{receipt.invoice_status}</dd>
-            </div>
-            <div>
-              <dt>Invoice total</dt>
-              <dd>{formatCurrency(receipt.invoice_total_amount)}</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section>
-          <h4>Payment details</h4>
-          <dl>
-            <div>
-              <dt>Date</dt>
-              <dd>{formatDate(receipt.payment_date)}</dd>
-            </div>
-            <div>
-              <dt>Method</dt>
-              <dd>{formatPaymentMethod(receipt.payment_method)}</dd>
-            </div>
-            <div>
-              <dt>Reference</dt>
-              <dd>{formatOptionalText(receipt.payment_reference_number)}</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section className="receipt-document__notes">
-          <h4>Notes</h4>
-          <p>{formatOptionalText(receipt.payment_notes)}</p>
-        </section>
-      </div>
-
-      <p className="receipt-document__footer">
-        This receipt confirms that the amount above was recorded as received for
-        the payment shown.
-      </p>
-    </article>
-  )
+function formatPropertyName(value: string | null) {
+  return value?.trim() || 'No property name'
 }
 
 export function ReceiptDetailPage() {
   const { receiptId } = useParams<{ receiptId: string }>()
   const receiptQuery = useReceiptQuery(receiptId)
-
-  function handlePrint() {
-    window.print()
-  }
 
   return (
     <AppLayout>
@@ -160,14 +58,14 @@ export function ReceiptDetailPage() {
         <div className="receipt-detail-page__header">
           <div>
             <h2 id="receipt-detail-title">Receipt</h2>
-            <p>Review and print a proof of payment for a generated receipt.</p>
+            <p>Review a generated proof of payment before print preview.</p>
           </div>
           <div className="receipt-detail-page__actions">
             <Link to={routePaths.dashboardReceipts}>Back to receipts</Link>
             {receiptQuery.isSuccess && receiptQuery.data !== null ? (
-              <button type="button" onClick={handlePrint}>
-                Print
-              </button>
+              <Link to={getReceiptPrintPath(receiptQuery.data.id)}>
+                Open print preview
+              </Link>
             ) : null}
           </div>
         </div>
@@ -197,7 +95,74 @@ export function ReceiptDetailPage() {
         ) : null}
 
         {receiptQuery.isSuccess && receiptQuery.data !== null ? (
-          <ReceiptDocument receipt={receiptQuery.data} />
+          <article className="receipt-detail-card">
+            <div className="receipt-detail-card__hero">
+              <div>
+                <p className="receipt-detail-card__label">Receipt number</p>
+                <h3>{receiptQuery.data.receipt_number}</h3>
+                <p>Generated proof of payment ready for print preview.</p>
+              </div>
+              <strong>
+                {formatCurrency(receiptQuery.data.payment_amount)}
+              </strong>
+            </div>
+            <dl className="receipt-detail-card__details">
+              <div>
+                <dt>Tenant</dt>
+                <dd>{receiptQuery.data.tenant_name}</dd>
+              </div>
+              <div>
+                <dt>Unit</dt>
+                <dd>{receiptQuery.data.unit_name}</dd>
+              </div>
+              <div>
+                <dt>Property</dt>
+                <dd>{formatPropertyName(receiptQuery.data.property_name)}</dd>
+              </div>
+              <div>
+                <dt>Issued</dt>
+                <dd>{formatDate(receiptQuery.data.issued_at)}</dd>
+              </div>
+              <div>
+                <dt>Payment date</dt>
+                <dd>{formatDate(receiptQuery.data.payment_date)}</dd>
+              </div>
+              <div>
+                <dt>Payment method</dt>
+                <dd>{formatPaymentMethod(receiptQuery.data.payment_method)}</dd>
+              </div>
+              <div>
+                <dt>Payment reference</dt>
+                <dd>
+                  {formatOptionalText(
+                    receiptQuery.data.payment_reference_number,
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt>Billing period</dt>
+                <dd>
+                  {formatBillingPeriod(
+                    receiptQuery.data.invoice_billing_period,
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt>Invoice status</dt>
+                <dd>{receiptQuery.data.invoice_status}</dd>
+              </div>
+              <div>
+                <dt>Invoice total</dt>
+                <dd>
+                  {formatCurrency(receiptQuery.data.invoice_total_amount)}
+                </dd>
+              </div>
+              <div className="receipt-detail-card__notes">
+                <dt>Payment notes</dt>
+                <dd>{formatOptionalText(receiptQuery.data.payment_notes)}</dd>
+              </div>
+            </dl>
+          </article>
         ) : null}
       </section>
     </AppLayout>
