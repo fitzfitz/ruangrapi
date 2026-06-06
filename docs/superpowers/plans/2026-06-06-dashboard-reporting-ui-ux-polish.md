@@ -41,6 +41,7 @@
 ### Task 1: Refactor Dashboard Presentation Markup
 
 **Files:**
+
 - Modify: `src/modules/dashboard/dashboard-shell.tsx`
 
 - [ ] **Step 1: Add presentational metric types near the imports**
@@ -148,8 +149,7 @@ function buildMetricGroups(metrics: DashboardMetrics): DashboardMetricGroup[] {
           label: 'Open maintenance',
           value: formatNumber(metrics.openMaintenanceTicketCount),
           helper: 'Open or in progress',
-          tone:
-            metrics.openMaintenanceTicketCount > 0 ? 'warning' : 'positive',
+          tone: metrics.openMaintenanceTicketCount > 0 ? 'warning' : 'positive',
         },
         {
           id: 'prepared-reminders',
@@ -222,21 +222,21 @@ Expected: Legends are presentational only and do not add click behavior.
 Replace the successful return in `BreakdownChart` with:
 
 ```tsx
-  return (
-    <div className="dashboard-shell__breakdown">
-      <ChartContainer config={chartConfig} className="dashboard-shell__pie">
-        <PieChart>
-          <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
-          <Pie data={data} dataKey="value" nameKey="name" innerRadius={54}>
-            {data.map((item) => (
-              <Cell key={item.name} fill={item.fill} />
-            ))}
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-      <ChartLegendList data={data} />
-    </div>
-  )
+return (
+  <div className="dashboard-shell__breakdown">
+    <ChartContainer config={chartConfig} className="dashboard-shell__pie">
+      <PieChart>
+        <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+        <Pie data={data} dataKey="value" nameKey="name" innerRadius={54}>
+          {data.map((item) => (
+            <Cell key={item.name} fill={item.fill} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ChartContainer>
+    <ChartLegendList data={data} />
+  </div>
+)
 ```
 
 Expected: Existing pie charts render with the same data and a readable static legend.
@@ -246,21 +246,28 @@ Expected: Existing pie charts render with the same data and a readable static le
 Replace:
 
 ```tsx
-      {metricsQuery.isLoading ? (
-        <p className="dashboard-shell__status">Loading dashboard metrics...</p>
-      ) : null}
+{
+  metricsQuery.isLoading ? (
+    <p className="dashboard-shell__status">Loading dashboard metrics...</p>
+  ) : null
+}
 ```
 
 with:
 
 ```tsx
-      {metricsQuery.isLoading ? (
-        <div className="dashboard-shell__status" aria-live="polite">
-          <span className="dashboard-shell__status-kicker">Loading</span>
-          <strong>Preparing dashboard metrics</strong>
-          <p>Collection, invoice, reminder, and maintenance summaries are being loaded.</p>
-        </div>
-      ) : null}
+{
+  metricsQuery.isLoading ? (
+    <div className="dashboard-shell__status" aria-live="polite">
+      <span className="dashboard-shell__status-kicker">Loading</span>
+      <strong>Preparing dashboard metrics</strong>
+      <p>
+        Collection, invoice, reminder, and maintenance summaries are being
+        loaded.
+      </p>
+    </div>
+  ) : null
+}
 ```
 
 Expected: Loading remains non-blocking and accessible.
@@ -270,23 +277,29 @@ Expected: Loading remains non-blocking and accessible.
 Replace:
 
 ```tsx
-      {metricsQuery.isError ? (
-        <p className="dashboard-shell__error" role="alert">
-          We could not load dashboard metrics right now. Please try again later.
-        </p>
-      ) : null}
+{
+  metricsQuery.isError ? (
+    <p className="dashboard-shell__error" role="alert">
+      We could not load dashboard metrics right now. Please try again later.
+    </p>
+  ) : null
+}
 ```
 
 with:
 
 ```tsx
-      {metricsQuery.isError ? (
-        <div className="dashboard-shell__error" role="alert">
-          <span className="dashboard-shell__status-kicker">Dashboard unavailable</span>
-          <strong>We could not load dashboard metrics right now.</strong>
-          <p>Please try again later.</p>
-        </div>
-      ) : null}
+{
+  metricsQuery.isError ? (
+    <div className="dashboard-shell__error" role="alert">
+      <span className="dashboard-shell__status-kicker">
+        Dashboard unavailable
+      </span>
+      <strong>We could not load dashboard metrics right now.</strong>
+      <p>Please try again later.</p>
+    </div>
+  ) : null
+}
 ```
 
 Expected: Error keeps `role="alert"` and remains high-contrast.
@@ -296,31 +309,28 @@ Expected: Error keeps `role="alert"` and remains high-contrast.
 Replace the current `dashboard-shell__metrics` block with:
 
 ```tsx
-          <div
-            className="dashboard-shell__metric-groups"
-            aria-label="Dashboard metrics"
+<div className="dashboard-shell__metric-groups" aria-label="Dashboard metrics">
+  {buildMetricGroups(metricsQuery.data).map((group) => (
+    <section className="dashboard-shell__metric-group" key={group.id}>
+      <div className="dashboard-shell__metric-group-header">
+        <h3>{group.title}</h3>
+        <p>{group.summary}</p>
+      </div>
+      <div className="dashboard-shell__metrics">
+        {group.metrics.map((metric) => (
+          <article
+            className={`dashboard-shell__metric dashboard-shell__metric--${metric.tone}`}
+            key={metric.id}
           >
-            {buildMetricGroups(metricsQuery.data).map((group) => (
-              <section className="dashboard-shell__metric-group" key={group.id}>
-                <div className="dashboard-shell__metric-group-header">
-                  <h3>{group.title}</h3>
-                  <p>{group.summary}</p>
-                </div>
-                <div className="dashboard-shell__metrics">
-                  {group.metrics.map((metric) => (
-                    <article
-                      className={`dashboard-shell__metric dashboard-shell__metric--${metric.tone}`}
-                      key={metric.id}
-                    >
-                      <span>{metric.label}</span>
-                      <strong>{metric.value}</strong>
-                      <p>{metric.helper}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
+            <span>{metric.label}</span>
+            <strong>{metric.value}</strong>
+            <p>{metric.helper}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>
 ```
 
 Expected: Cards are grouped but remain non-clickable articles.
@@ -330,7 +340,7 @@ Expected: Cards are grouped but remain non-clickable articles.
 Inside the `Collection by month` chart header, after `<p>{metricsQuery.data.range.label}</p>`, add:
 
 ```tsx
-                <CollectionLegend />
+<CollectionLegend />
 ```
 
 Expected: The bar chart explains Expected and Collected without relying only on tooltip discovery.
@@ -361,6 +371,7 @@ Expected: Commit includes only `src/modules/dashboard/dashboard-shell.tsx`.
 ### Task 2: Apply Dashboard Styling and Responsive Polish
 
 **Files:**
+
 - Modify: `src/App.css`
 
 - [ ] **Step 1: Replace the dashboard CSS block**
@@ -801,6 +812,7 @@ Expected: Commit includes only `src/App.css`.
 ### Task 3: Documentation Closeout
 
 **Files:**
+
 - Modify: `docs/26-reporting-dashboard-validation-checklist.md`
 - Modify: `wiki/03-domain/reporting.md`
 - Modify: `wiki/04-roadmap/release-plan.md`
@@ -909,6 +921,7 @@ Expected: Commit includes only the listed documentation files.
 ### Task 4: Final Verification and Manual Dashboard Review
 
 **Files:**
+
 - Read: `src/modules/dashboard/dashboard-shell.tsx`
 - Read: `src/App.css`
 - Read: documentation files modified in Task 3

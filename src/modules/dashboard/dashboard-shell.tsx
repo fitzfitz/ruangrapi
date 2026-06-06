@@ -138,8 +138,7 @@ function buildMetricGroups(metrics: DashboardMetrics): DashboardMetricGroup[] {
           label: 'Open maintenance',
           value: formatNumber(metrics.openMaintenanceTicketCount),
           helper: 'Open or in progress',
-          tone:
-            metrics.openMaintenanceTicketCount > 0 ? 'warning' : 'positive',
+          tone: metrics.openMaintenanceTicketCount > 0 ? 'warning' : 'positive',
         },
         {
           id: 'prepared-reminders',
