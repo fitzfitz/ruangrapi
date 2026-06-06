@@ -16,10 +16,12 @@ Built:
 - sign-in, signup, onboarding UI
 - dashboard shell
 - Warm Admin Ledger design-system foundation
-- Joyful Premium Ops active visual direction
+- Joyful Premium Ops visual foundation
+- Lagoon Command Center shell/dashboard visual direction
+- floating rounded bottom navigation replacing the persistent sidebar
 - Base UI-backed shadcn component configuration with `base-rhea`
 - self-hosted Plus Jakarta Sans typography
-- premium dark responsive product shell with active sidebar navigation and mobile menu
+- blue responsive product shell with active bottom navigation and secondary More menu
 - teal, indigo, and orange signature accent system
 - shared page, card, form, alert, badge, action, loading, empty, and print-safe visual patterns
 
@@ -335,7 +337,7 @@ Deferred:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard slice implemented, functionally validated, and polished in place using the Joyful Premium Ops design system.
+Status: first dashboard slice implemented, functionally validated, and polished in place using the Lagoon Command Center shell/dashboard direction.
 
 Routes:
 
@@ -356,8 +358,10 @@ Built:
 - maintenance status chart
 - reminder status chart
 - shadcn chart setup with Tailwind CSS and Recharts
+- Recharts retained for dashboard charts
 - Joyful Premium Ops dashboard card, chart, range selector, focus, and responsive styling
 - in-place dashboard/reporting UI/UX polish based on Joyful Premium Ops
+- Lagoon Command Center dashboard highlight cards, command-grid collection chart, compact attention queue, and compact breakdown chart layout
 - Reporting / Dashboard validation checklist
 
 Deferred:
@@ -365,6 +369,7 @@ Deferred:
 - custom date range picker
 - CSV/export
 - saved reports
+- ApexCharts evaluation or migration
 - database reporting views or Supabase RPCs
 - advanced accounting or tax reports
 - automated overdue logic
@@ -373,23 +378,26 @@ Deferred:
 
 ## Design System
 
-Status: Joyful Premium Ops foundation implemented.
+Status: Lagoon Command Center shell/dashboard direction implemented on top of the Joyful Premium Ops foundation.
 
 Built:
 
-- Joyful Premium Ops active visual direction
+- Lagoon Command Center active shell/dashboard visual direction
+- floating rounded bottom navigation with secondary More menu
+- Joyful Premium Ops visual foundation
 - Warm Admin Ledger operational-density principles preserved
 - Warm Admin Ledger token layer in `src/index.css`
 - Joyful Premium Ops token layer in `src/index.css`
+- Lagoon blue token layer in `src/index.css`
 - Tailwind 4 theme variables for colors, radius, typography, focus rings, chart colors, and sidebar colors
 - Base UI dependency and `base-rhea` shadcn configuration
 - self-hosted Plus Jakarta Sans font loading
 - shared UI primitives for button, input, textarea, select, label, form, badge, alert, card, and separator
-- premium dark navigation shell
-- teal, indigo, and orange signature accent system
+- blue lagoon navigation shell
+- blue, sky, cyan, teal, indigo, and orange signature accent system
 - expressive dashboard cards, chart surfaces, and priority states
 - restrained list, form, detail, and receipt print surfaces
-- refreshed app shell with branded header, compact sidebar, active navigation states, and mobile menu
+- refreshed app shell with branded header, active bottom navigation states, and More menu
 - broad current-screen migration across dashboard, properties, units, tenants, leases, invoices, payments, receipts, reminders, maintenance, auth, signup, and onboarding
 - receipt print styling preserved with print-safe overrides
 

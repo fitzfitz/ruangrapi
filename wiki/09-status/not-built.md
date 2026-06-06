@@ -102,10 +102,12 @@ Not built:
 - custom date range picker
 - CSV/export
 - saved reports
+- ApexCharts evaluation or migration
 - database reporting views
 - Supabase reporting RPCs
 - advanced accounting reports
 - tax reports
 - automated overdue logic
 - chart drilldowns
+- chart/image export
 - cross-module workflow changes from dashboard cards

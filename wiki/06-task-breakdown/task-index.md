@@ -45,9 +45,11 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Warm Admin Ledger design-system foundation
 - Joyful Premium UI uplift
 - Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
+- Lagoon Command Center UI uplift
 
 ## Later candidates
 
+- ApexCharts evaluation or migration
 - Replace remaining domain-local BEM markup with shared UI primitives
 - Reporting custom date range picker
 - Reporting CSV/export

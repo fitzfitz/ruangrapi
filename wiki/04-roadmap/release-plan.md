@@ -18,6 +18,7 @@ Built:
 - Warm Admin Ledger design-system foundation
 - Joyful Premium Ops UI uplift
 - Dashboard/reporting UI/UX polish
+- Lagoon Command Center shell/dashboard uplift
 
 ## Recommended next sequence
 
@@ -29,10 +30,10 @@ Next recommended task: choose the next focused MVP gap from the task bucket.
 
 ## Design-system baseline
 
-Joyful Premium Ops is the active visual direction. It supersedes Warm Admin Ledger visually while preserving its compact operational-density principles.
+Lagoon Command Center is the active shell and dashboard visual direction. It supersedes the Joyful Premium Ops sidebar shell while preserving Warm Admin Ledger's compact operational-density principles and the Joyful Premium Ops emphasis on expressive operational surfaces.
 
-- premium dark navigation shell
-- teal, indigo, and orange signature accents
+- floating rounded bottom navigation
+- blue, sky, cyan, and teal lagoon accents with orange attention states
 - expressive dashboard cards, chart surfaces, and priority states
 - restrained list, form, detail, and receipt print surfaces
 - semantic error, success, warning, info, and chart colors
@@ -55,10 +56,11 @@ The first `/dashboard` reporting slice uses existing operational records and pre
 - Last 3 months
 - This year
 
-It summarizes current unit status, selected-period rent collection, invoice attention, reminder status, and current maintenance workload. It uses app-side aggregation over existing Supabase tables and shadcn/Recharts charts.
+It summarizes current unit status, selected-period rent collection, invoice attention, reminder status, and current maintenance workload. It uses app-side aggregation over existing Supabase tables and shadcn/Recharts charts. Recharts remains the active charting library for this pass; ApexCharts evaluation is deferred until advanced reporting needs justify richer chart interactions.
 
 Deferred reporting scope:
 
+- ApexCharts evaluation or migration
 - custom date range picker
 - CSV/export
 - saved reports
