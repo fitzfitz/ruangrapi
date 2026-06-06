@@ -42,6 +42,7 @@
 ### Task 1: App Shell Bottom Navigation Markup
 
 **Files:**
+
 - Modify: `src/app/layouts/app-layout.tsx`
 
 - [ ] **Step 1: Replace imports**
@@ -168,10 +169,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <span>More</span>
             </button>
             {isMoreOpen ? (
-              <div
-                className="app-bottom-nav__menu"
-                id="secondary-navigation"
-              >
+              <div className="app-bottom-nav__menu" id="secondary-navigation">
                 {secondaryNavigationItems.map((item) => {
                   const Icon = item.icon
 
@@ -227,6 +225,7 @@ Expected: Commit includes only `src/app/layouts/app-layout.tsx`.
 ### Task 2: Lagoon Tokens and App Shell CSS
 
 **Files:**
+
 - Modify: `src/index.css`
 - Modify: `src/App.css`
 
@@ -235,37 +234,37 @@ Expected: Commit includes only `src/app/layouts/app-layout.tsx`.
 Inside `:root`, after `--mint`, add:
 
 ```css
-  --lagoon-50: #f0f9ff;
-  --lagoon-100: #e0f7ff;
-  --lagoon-200: #bae6fd;
-  --lagoon-300: #7dd3fc;
-  --lagoon-400: #38bdf8;
-  --lagoon-500: #0ea5e9;
-  --lagoon-600: #0284c7;
-  --lagoon-700: #0369a1;
-  --lagoon-900: #082f49;
-  --lagoon-bg: #e0f7ff;
-  --lagoon-surface: rgba(255, 255, 255, 0.86);
-  --lagoon-glass: rgba(255, 255, 255, 0.72);
-  --lagoon-nav: rgba(8, 47, 73, 0.9);
+--lagoon-50: #f0f9ff;
+--lagoon-100: #e0f7ff;
+--lagoon-200: #bae6fd;
+--lagoon-300: #7dd3fc;
+--lagoon-400: #38bdf8;
+--lagoon-500: #0ea5e9;
+--lagoon-600: #0284c7;
+--lagoon-700: #0369a1;
+--lagoon-900: #082f49;
+--lagoon-bg: #e0f7ff;
+--lagoon-surface: rgba(255, 255, 255, 0.86);
+--lagoon-glass: rgba(255, 255, 255, 0.72);
+--lagoon-nav: rgba(8, 47, 73, 0.9);
 ```
 
 Then update these existing variables:
 
 ```css
-  --bg: var(--lagoon-bg);
-  --surface-subtle: #f0f9ff;
-  --border: #bfdbfe;
-  --border-strong: #7dd3fc;
-  --indigo: #4f46e5;
-  --teal: #0284c7;
-  --mint: #38bdf8;
-  --accent: #dbeafe;
-  --accent-foreground: #1e3a8a;
-  --secondary: #e0f2fe;
-  --secondary-foreground: #075985;
-  --ring: #38bdf8;
-  --input: #93c5fd;
+--bg: var(--lagoon-bg);
+--surface-subtle: #f0f9ff;
+--border: #bfdbfe;
+--border-strong: #7dd3fc;
+--indigo: #4f46e5;
+--teal: #0284c7;
+--mint: #38bdf8;
+--accent: #dbeafe;
+--accent-foreground: #1e3a8a;
+--secondary: #e0f2fe;
+--secondary-foreground: #075985;
+--ring: #38bdf8;
+--input: #93c5fd;
 ```
 
 Expected: The app gets a blue-forward token set while preserving semantic token names used elsewhere.
@@ -275,11 +274,11 @@ Expected: The app gets a blue-forward token set while preserving semantic token 
 Replace the current `body` background with:
 
 ```css
-  background:
-    radial-gradient(circle at 12% 4%, rgb(14 165 233 / 0.34), transparent 30%),
-    radial-gradient(circle at 88% 0%, rgb(37 99 235 / 0.22), transparent 28%),
-    radial-gradient(circle at 52% 86%, rgb(45 212 191 / 0.2), transparent 34%),
-    linear-gradient(180deg, #e0f7ff 0%, #eef6ff 44%, #f8fbff 100%);
+background:
+  radial-gradient(circle at 12% 4%, rgb(14 165 233 / 0.34), transparent 30%),
+  radial-gradient(circle at 88% 0%, rgb(37 99 235 / 0.22), transparent 28%),
+  radial-gradient(circle at 52% 86%, rgb(45 212 191 / 0.2), transparent 34%),
+  linear-gradient(180deg, #e0f7ff 0%, #eef6ff 44%, #f8fbff 100%);
 ```
 
 Expected: The global workspace background becomes lagoon-blue.
@@ -601,6 +600,7 @@ Expected: Commit includes only `src/index.css` and `src/App.css`.
 ### Task 3: Dashboard Lagoon Composition
 
 **Files:**
+
 - Modify: `src/modules/dashboard/dashboard-shell.tsx`
 - Modify: `src/App.css`
 
@@ -638,7 +638,9 @@ function calculateOccupancyRate(metrics: DashboardMetrics) {
   return metrics.occupiedUnits / metrics.totalUnits
 }
 
-function buildDashboardHighlights(metrics: DashboardMetrics): DashboardHighlight[] {
+function buildDashboardHighlights(
+  metrics: DashboardMetrics,
+): DashboardHighlight[] {
   const attentionTotal =
     metrics.attentionInvoiceCount +
     metrics.openMaintenanceTicketCount +
@@ -679,7 +681,10 @@ Below `CollectionLegend`, add:
 ```tsx
 function DashboardHighlights({ metrics }: { metrics: DashboardMetrics }) {
   return (
-    <div className="dashboard-shell__highlights" aria-label="Dashboard highlights">
+    <div
+      className="dashboard-shell__highlights"
+      aria-label="Dashboard highlights"
+    >
       {buildDashboardHighlights(metrics).map((highlight) => (
         <article
           className={`dashboard-shell__highlight dashboard-shell__highlight--${highlight.tone}`}
@@ -983,44 +988,44 @@ Expected: Dashboard now has the Lagoon mockup structure.
 Inside `@media (max-width: 980px)`, add:
 
 ```css
-  .dashboard-shell__highlights,
-  .dashboard-shell__command-grid,
-  .dashboard-shell__charts--compact {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.dashboard-shell__highlights,
+.dashboard-shell__command-grid,
+.dashboard-shell__charts--compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
-  .dashboard-shell__highlight--collection,
-  .dashboard-shell__chart--collection {
-    grid-column: span 2;
-  }
+.dashboard-shell__highlight--collection,
+.dashboard-shell__chart--collection {
+  grid-column: span 2;
+}
 ```
 
 Inside `@media (max-width: 720px)`, add:
 
 ```css
-  .dashboard-shell__highlights,
-  .dashboard-shell__command-grid,
-  .dashboard-shell__charts--compact {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.dashboard-shell__highlights,
+.dashboard-shell__command-grid,
+.dashboard-shell__charts--compact {
+  grid-template-columns: minmax(0, 1fr);
+}
 
-  .dashboard-shell__highlight--collection,
-  .dashboard-shell__chart--collection {
-    grid-column: span 1;
-  }
+.dashboard-shell__highlight--collection,
+.dashboard-shell__chart--collection {
+  grid-column: span 1;
+}
 ```
 
 Inside `@media (max-width: 640px)`, add:
 
 ```css
-  .dashboard-shell__highlight {
-    min-height: 132px;
-    padding: 18px;
-  }
+.dashboard-shell__highlight {
+  min-height: 132px;
+  padding: 18px;
+}
 
-  .dashboard-shell__highlight strong {
-    font-size: 32px;
-  }
+.dashboard-shell__highlight strong {
+  font-size: 32px;
+}
 ```
 
 Expected: Dashboard does not overlap or horizontally scroll on mobile.
@@ -1052,6 +1057,7 @@ Expected: Commit includes only dashboard markup and dashboard CSS.
 ### Task 4: Documentation Closeout
 
 **Files:**
+
 - Create: `docs/27-lagoon-command-center-validation-checklist.md`
 - Modify: `wiki/04-roadmap/release-plan.md`
 - Modify: `wiki/09-status/built.md`
@@ -1176,6 +1182,7 @@ Expected: Commit includes only the listed docs/wiki files.
 ### Task 5: Final Verification and Browser Review
 
 **Files:**
+
 - Read: all files changed by Tasks 1-4
 
 - [ ] **Step 1: Run required automated checks**
