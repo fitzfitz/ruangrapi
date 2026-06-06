@@ -95,11 +95,10 @@ Not built:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard metrics slice built and functionally validated. Advanced reporting refinements and UI/UX polish are deferred.
+Status: first dashboard metrics slice built, functionally validated, and polished in place. Advanced reporting refinements remain deferred.
 
 Not built:
 
-- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
 - saved reports

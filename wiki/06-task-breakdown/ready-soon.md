@@ -15,18 +15,18 @@ These are candidates likely to become approved tasks soon.
 - Reporting / Dashboard metrics validation
 - Warm Admin Ledger design-system foundation
 - Joyful Premium UI uplift
+- Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 
 ## Candidate: Next focused MVP gap review
 
 Purpose:
 
 - choose one focused next task from the remaining later candidates
-- keep deeper dashboard/reporting UI/UX polish separate from the Joyful Premium Ops foundation
+- choose from remaining MVP gaps after the first dashboard metrics slice and in-place UI/UX polish
 - avoid reopening broad module scope now that the first reporting slice is validated
 
 Current bucket options:
 
-- Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
@@ -36,6 +36,6 @@ Current bucket options:
 
 Status:
 
-- next likely candidate after the Warm Admin Ledger design-system foundation
+- next likely candidate after the dashboard/reporting UI/UX polish closeout
 
-Next likely candidate: choose the next focused MVP gap from `task-index.md`.
+Next likely candidate: choose the next focused MVP gap from the remaining task bucket.

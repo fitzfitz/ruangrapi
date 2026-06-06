@@ -335,7 +335,7 @@ Deferred:
 
 ## Reporting / Dashboard Metrics
 
-Status: first dashboard slice implemented, functionally validated, and migrated to the Joyful Premium Ops design system.
+Status: first dashboard slice implemented, functionally validated, and polished in place using the Joyful Premium Ops design system.
 
 Routes:
 
@@ -357,11 +357,11 @@ Built:
 - reminder status chart
 - shadcn chart setup with Tailwind CSS and Recharts
 - Joyful Premium Ops dashboard card, chart, range selector, focus, and responsive styling
+- in-place dashboard/reporting UI/UX polish based on Joyful Premium Ops
 - Reporting / Dashboard validation checklist
 
 Deferred:
 
-- deeper dashboard/reporting UI/UX polish after real usage feedback
 - custom date range picker
 - CSV/export
 - saved reports
@@ -369,6 +369,7 @@ Deferred:
 - advanced accounting or tax reports
 - automated overdue logic
 - workflow changes in billing, payments, reminders, or maintenance
+- cross-module workflow links from dashboard cards
 
 ## Design System
 

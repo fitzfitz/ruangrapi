@@ -17,6 +17,7 @@ Built:
 - Reporting / Dashboard metrics first slice
 - Warm Admin Ledger design-system foundation
 - Joyful Premium Ops UI uplift
+- Dashboard/reporting UI/UX polish
 
 ## Recommended next sequence
 
@@ -44,7 +45,6 @@ Deferred design-system scope:
 - replacing every remaining domain-local BEM class with shared React primitives
 - dark mode
 - visual regression automation
-- additional dashboard interaction polish
 
 ## Reporting baseline
 
@@ -59,7 +59,6 @@ It summarizes current unit status, selected-period rent collection, invoice atte
 
 Deferred reporting scope:
 
-- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
 - saved reports

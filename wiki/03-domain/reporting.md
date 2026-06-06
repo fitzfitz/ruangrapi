@@ -4,7 +4,7 @@ Reporting and dashboard metrics summarize existing operational records.
 
 ## Current status
 
-First dashboard metrics slice implemented and functionally validated on `/dashboard`.
+First dashboard metrics slice built, functionally validated, and polished in place on `/dashboard`.
 
 ## First dashboard slice
 
@@ -48,18 +48,19 @@ It shows:
 
 Not included in the first slice:
 
-- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
 - saved reports
 - database views or reporting RPCs
 - advanced accounting reports
+- tax reports
 - automated overdue logic
 - workflow changes in billing, payments, reminders, or maintenance
+- cross-module workflow links from dashboard cards
 
 ## Validation closeout
 
-Functional dashboard/reporting validation is complete. The known UI/UX quality issue is deferred and should be handled as a separate UI/UX polish task, not as part of this validation closeout.
+Functional dashboard/reporting validation is complete. Detailed dashboard/reporting UI/UX polish was completed separately as an in-place pass, while advanced reporting and workflow refinements remain deferred.
 
 ## Related pages
 

@@ -2,7 +2,7 @@
 
 Status: functional manual validation complete.
 
-Validation note: Reporting / Dashboard metrics were validated on `/dashboard` across the implemented preset range and chart behaviors. A UI/UX quality issue remains known and is explicitly deferred as out of scope for this validation closeout.
+Validation note: Reporting / Dashboard metrics were validated on `/dashboard` across the implemented preset range and chart behaviors. Detailed dashboard/reporting UI/UX polish was completed separately as an in-place polish pass.
 
 ## Scope
 
@@ -27,7 +27,7 @@ Validation note: Reporting / Dashboard metrics were validated on `/dashboard` ac
 - [x] Empty chart states render cleanly when no chart data exists.
 - [x] Loading state appears while dashboard metrics are being fetched.
 - [x] Error state appears if dashboard metrics fail to load.
-- [ ] Detailed dashboard/reporting UI/UX polish remains deferred and out of scope for this validation pass.
+- [x] Detailed dashboard/reporting UI/UX polish was completed separately as an in-place polish pass.
 - [x] Browser console shows no errors during dashboard load or range switching.
 
 ## Boundaries
@@ -41,11 +41,10 @@ Validation note: Reporting / Dashboard metrics were validated on `/dashboard` ac
 
 ## Closeout
 
-Functional dashboard/reporting validation is complete. The first slice remains intentionally limited to preset ranges, app-side aggregation, and simple chart summaries over existing records.
+Functional dashboard/reporting validation and in-place UI/UX polish are complete. The first slice remains intentionally limited to preset ranges, app-side aggregation, and simple chart summaries over existing records.
 
 Deferred scope:
 
-- dashboard/reporting UI/UX polish
 - custom date range picker
 - CSV/export
 - saved reports
