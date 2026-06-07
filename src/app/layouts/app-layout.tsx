@@ -112,9 +112,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation()
   const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
   const isMoreRouteActive = activePrimaryIndex === primaryNavigationItems.length
-  const displayedActiveIndex = isMoreOpen
-    ? primaryNavigationItems.length
-    : activePrimaryIndex
+  const displayedActiveIndex = activePrimaryIndex
 
   const getMeasuredActivePlate = useCallback(() => {
     const navElement = navRef.current
@@ -256,7 +254,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <li className="app-bottom-nav__more">
             <button
               className={
-                isMoreOpen || isMoreRouteActive
+                isMoreRouteActive
                   ? 'app-bottom-nav__item app-bottom-nav__item--active'
                   : 'app-bottom-nav__item'
               }
@@ -267,7 +265,6 @@ export function AppLayout({ children }: AppLayoutProps) {
               aria-expanded={isMoreOpen}
               aria-controls="secondary-navigation"
               onClick={() => {
-                rememberCurrentPlate()
                 setIsMoreOpen((current) => !current)
               }}
             >
