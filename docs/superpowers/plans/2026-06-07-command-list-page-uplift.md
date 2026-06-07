@@ -37,6 +37,7 @@ Do not modify Maintenance, Reminders, create pages, edit pages, or detail pages 
 ### Task 1: Shared Command-List CSS Foundation
 
 **Files:**
+
 - Modify: `src/App.css`
 
 - [ ] **Step 1: Add shared command-list selectors near the grouped page styles**
@@ -251,6 +252,7 @@ git commit -m "feat: add command list page shell styles"
 ### Task 2: Properties Command List Page
 
 **Files:**
+
 - Modify: `src/modules/properties/presentation/properties-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -259,8 +261,8 @@ Add above `PropertiesPage`:
 
 ```tsx
 function buildPropertySummary(properties: Property[]) {
-  const withAddressCount = properties.filter(
-    (property) => property.address?.trim(),
+  const withAddressCount = properties.filter((property) =>
+    property.address?.trim(),
   ).length
   const withNotesCount = properties.filter((property) =>
     property.notes?.trim(),
@@ -345,6 +347,7 @@ git commit -m "feat: uplift properties command list"
 ### Task 3: Tenants Command List Page
 
 **Files:**
+
 - Modify: `src/modules/tenants/presentation/tenants-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -390,7 +393,10 @@ Render summary before content. Wrap content:
 
 ```tsx
 <div className="command-list-grid">
-  <div className="tenants-page__list command-list-surface" aria-label="Tenant list">
+  <div
+    className="tenants-page__list command-list-surface"
+    aria-label="Tenant list"
+  >
     {/* existing tenant cards */}
   </div>
   <aside className="command-list-rail" aria-label="Tenant data quality">
@@ -436,6 +442,7 @@ git commit -m "feat: uplift tenants command list"
 ### Task 4: Leases Command List Page
 
 **Files:**
+
 - Modify: `src/modules/leases/presentation/leases-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -475,7 +482,10 @@ Render content grid:
 
 ```tsx
 <div className="command-list-grid">
-  <div className="leases-page__list command-list-surface" aria-label="Lease list">
+  <div
+    className="leases-page__list command-list-surface"
+    aria-label="Lease list"
+  >
     {/* existing lease cards */}
   </div>
   <aside className="command-list-rail" aria-label="Lease status breakdown">
@@ -521,6 +531,7 @@ git commit -m "feat: uplift leases command list"
 ### Task 5: Invoices Command List Page
 
 **Files:**
+
 - Modify: `src/modules/invoices/presentation/invoices-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -529,9 +540,15 @@ Add above `InvoicesPage`:
 
 ```tsx
 function buildInvoiceSummary(invoices: InvoiceListItem[]) {
-  const draftCount = invoices.filter((invoice) => invoice.status === 'draft').length
-  const issuedCount = invoices.filter((invoice) => invoice.status === 'issued').length
-  const paidCount = invoices.filter((invoice) => invoice.status === 'paid').length
+  const draftCount = invoices.filter(
+    (invoice) => invoice.status === 'draft',
+  ).length
+  const issuedCount = invoices.filter(
+    (invoice) => invoice.status === 'issued',
+  ).length
+  const paidCount = invoices.filter(
+    (invoice) => invoice.status === 'paid',
+  ).length
 
   return [
     {
@@ -610,6 +627,7 @@ git commit -m "feat: uplift invoices command list"
 ### Task 6: Payments Command List Page
 
 **Files:**
+
 - Modify: `src/modules/payments/presentation/payments-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -671,8 +689,7 @@ Wrap list:
         <span>Pending receipt</span>
         <strong>
           {(
-            paymentsQuery.data.length -
-            Number(paymentSummary[1].value)
+            paymentsQuery.data.length - Number(paymentSummary[1].value)
           ).toString()}
         </strong>
       </div>
@@ -705,6 +722,7 @@ git commit -m "feat: uplift payments command list"
 ### Task 7: Receipts Command List Page
 
 **Files:**
+
 - Modify: `src/modules/receipts/presentation/receipts-page.tsx`
 
 - [ ] **Step 1: Add summary helper**
@@ -717,9 +735,8 @@ function buildReceiptSummary(receipts: ReceiptListItem[]) {
     (sum, receipt) => sum + receipt.payment_amount,
     0,
   )
-  const uniqueTenants = new Set(
-    receipts.map((receipt) => receipt.tenant_name),
-  ).size
+  const uniqueTenants = new Set(receipts.map((receipt) => receipt.tenant_name))
+    .size
 
   return [
     {
@@ -782,6 +799,7 @@ git commit -m "feat: uplift receipts command list"
 ### Task 8: Responsive Polish And Final Validation
 
 **Files:**
+
 - Modify: `src/App.css`
 - Review: docs/wiki pages touched by this UI/UX work.
 
@@ -867,6 +885,7 @@ git commit -m "chore: polish command list responsive layout"
 ### Task 9: Closeout
 
 **Files:**
+
 - Modify: relevant docs/wiki pages only if module status or next task recommendations need updates.
 
 - [ ] **Step 1: Record deferred follow-up**
