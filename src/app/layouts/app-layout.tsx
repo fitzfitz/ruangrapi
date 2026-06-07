@@ -63,6 +63,9 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation()
   const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
   const isMoreRouteActive = activePrimaryIndex === primaryNavigationItems.length
+  const displayedActiveIndex = isMoreOpen
+    ? primaryNavigationItems.length
+    : activePrimaryIndex
 
   return (
     <div className="app-layout">
@@ -95,7 +98,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         id="primary-navigation"
         style={
           {
-            '--app-bottom-nav-active-index': activePrimaryIndex,
+            '--app-bottom-nav-active-index': displayedActiveIndex,
           } as CSSProperties
         }
       >
