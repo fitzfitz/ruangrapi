@@ -13,6 +13,33 @@ function formatPropertyNotes(property: Property) {
   return property.notes?.trim() || 'No notes.'
 }
 
+function buildPropertySummary(properties: Property[]) {
+  const withAddressCount = properties.filter((property) =>
+    property.address?.trim(),
+  ).length
+  const withNotesCount = properties.filter((property) =>
+    property.notes?.trim(),
+  ).length
+
+  return [
+    {
+      label: 'Total properties',
+      value: properties.length.toString(),
+      helper: 'Rental locations in workspace',
+    },
+    {
+      label: 'With address',
+      value: withAddressCount.toString(),
+      helper: 'Ready for unit mapping',
+    },
+    {
+      label: 'Missing notes',
+      value: (properties.length - withNotesCount).toString(),
+      helper: 'Need operational context',
+    },
+  ]
+}
+
 export function PropertiesPage() {
   const propertiesQuery = usePropertiesQuery()
 
@@ -50,27 +77,56 @@ export function PropertiesPage() {
           </div>
         ) : null}
 
-        {propertiesQuery.isSuccess && propertiesQuery.data.length > 0 ? (
-          <div className="properties-page__list" aria-label="Property list">
-            {propertiesQuery.data.map((property) => (
-              <article className="property-card" key={property.id}>
-                <div>
-                  <h3>
-                    <Link
-                      to={`${routePaths.dashboardProperties}/${property.id}`}
+        {propertiesQuery.isSuccess && propertiesQuery.data.length > 0
+          ? (() => {
+              const propertySummary = buildPropertySummary(propertiesQuery.data)
+
+              return (
+                <>
+                  <div
+                    className="command-list-summary"
+                    aria-label="Property summary"
+                  >
+                    {propertySummary.map((item) => (
+                      <article
+                        className="command-list-summary__item"
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        <strong>{item.value}</strong>
+                        <p>{item.helper}</p>
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="command-list-grid command-list-grid--single">
+                    <div
+                      className="properties-page__list command-list-surface"
+                      aria-label="Property list"
                     >
-                      {property.name}
-                    </Link>
-                  </h3>
-                  <p>{formatPropertyAddress(property)}</p>
-                </div>
-                <p className="property-card__notes">
-                  {formatPropertyNotes(property)}
-                </p>
-              </article>
-            ))}
-          </div>
-        ) : null}
+                      {propertiesQuery.data.map((property) => (
+                        <article className="property-card" key={property.id}>
+                          <div>
+                            <h3>
+                              <Link
+                                to={`${routePaths.dashboardProperties}/${property.id}`}
+                              >
+                                {property.name}
+                              </Link>
+                            </h3>
+                            <p>{formatPropertyAddress(property)}</p>
+                          </div>
+                          <p className="property-card__notes">
+                            {formatPropertyNotes(property)}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )
+            })()
+          : null}
       </section>
     </AppLayout>
   )
