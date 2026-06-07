@@ -66,6 +66,9 @@ export function AppLayout({ children }: AppLayoutProps) {
   const displayedActiveIndex = isMoreOpen
     ? primaryNavigationItems.length
     : activePrimaryIndex
+  const activePlateStyle = {
+    transform: `translate3d(calc(${displayedActiveIndex} * (var(--app-bottom-nav-item-width) + var(--app-bottom-nav-gap))), 0, 0)`,
+  } as CSSProperties
 
   return (
     <div className="app-layout">
@@ -96,13 +99,12 @@ export function AppLayout({ children }: AppLayoutProps) {
         className="app-bottom-nav"
         aria-label="Primary app sections"
         id="primary-navigation"
-        style={
-          {
-            '--app-bottom-nav-active-index': displayedActiveIndex,
-          } as CSSProperties
-        }
       >
-        <span className="app-bottom-nav__active-plate" aria-hidden="true" />
+        <span
+          className="app-bottom-nav__active-plate"
+          aria-hidden="true"
+          style={activePlateStyle}
+        />
         <ul className="app-bottom-nav__list">
           {primaryNavigationItems.map((item) => {
             const Icon = item.icon
