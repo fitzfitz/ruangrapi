@@ -17,17 +17,21 @@ These are candidates likely to become approved tasks soon.
 - Joyful Premium UI uplift
 - Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Lagoon Command Center UI uplift
+- Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 
-## Candidate: Next focused MVP gap review
+## Candidate: Maintenance and Reminders workflow UI uplift
 
 Purpose:
 
-- choose one focused next task from the remaining later candidates
-- choose from remaining MVP gaps after the first dashboard metrics slice and Lagoon Command Center UI uplift
-- avoid reopening broad module scope now that the first reporting slice is validated
+- apply the Lagoon Command Center visual language to Maintenance and Reminders
+- use a queue/workflow structure that fits operational follow-up work
+- keep create, edit, and detail pages deferred for the next UI batch
 
 Current bucket options:
 
+- Maintenance queue/workflow layout
+- Reminders queue/workflow layout
+- Guided create/edit/detail layout uplift
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
@@ -38,6 +42,6 @@ Current bucket options:
 
 Status:
 
-- next likely candidate after the Lagoon Command Center UI uplift closeout
+- next likely candidate after the command list page UI/UX uplift closeout
 
-Next likely candidate: choose the next focused MVP gap from the remaining task bucket.
+Next likely candidate: apply a queue/workflow layout to Maintenance and Reminders, then apply a guided form/detail layout to create/edit/detail pages.

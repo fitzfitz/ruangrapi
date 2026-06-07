@@ -19,14 +19,15 @@ Built:
 - Joyful Premium Ops UI uplift
 - Dashboard/reporting UI/UX polish
 - Lagoon Command Center shell/dashboard uplift
+- Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 
 ## Recommended next sequence
 
-1. Review the remaining focused MVP gap bucket
-2. Choose one approved next task from ready-soon or later candidates
-3. Use the design-system foundation for future UI work without reopening product scope
+1. Apply a queue/workflow layout to Maintenance and Reminders
+2. Apply a guided form/detail layout to create, edit, and detail pages
+3. Review the remaining focused MVP gap bucket
 
-Next recommended task: choose the next focused MVP gap from the task bucket.
+Next recommended task: Maintenance and Reminders workflow UI uplift.
 
 ## Design-system baseline
 
@@ -40,10 +41,13 @@ Lagoon Command Center is the active shell and dashboard visual direction. It sup
 - Plus Jakarta Sans typography
 - responsive branded shell with active navigation
 - shared Base UI/shadcn primitives for future component work
+- command-list summary/list/rail structure for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 
 Deferred design-system scope:
 
 - replacing every remaining domain-local BEM class with shared React primitives
+- Maintenance and Reminders workflow layout
+- create/edit/detail guided layout uplift
 - dark mode
 - visual regression automation
 

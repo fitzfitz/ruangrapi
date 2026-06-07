@@ -4,7 +4,8 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Next focused MVP gap review
+- Maintenance and Reminders workflow UI uplift
+- Create/edit/detail guided layout uplift
 
 ## Completed candidates
 
@@ -46,9 +47,11 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Joyful Premium UI uplift
 - Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Lagoon Command Center UI uplift
+- Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 
 ## Later candidates
 
+- Next focused MVP gap review
 - ApexCharts evaluation or migration
 - Replace remaining domain-local BEM markup with shared UI primitives
 - Reporting custom date range picker

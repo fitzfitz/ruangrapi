@@ -888,15 +888,27 @@ git commit -m "chore: polish command list responsive layout"
 
 - Modify: relevant docs/wiki pages only if module status or next task recommendations need updates.
 
-- [ ] **Step 1: Record deferred follow-up**
+- [x] **Step 1: Record deferred follow-up**
 
-If docs/wiki closeout is required, record:
+Closeout recorded in task-tracking docs:
 
 ```markdown
 Next UI/UX task: apply a queue/workflow layout to Maintenance and Reminders, then apply a guided form/detail layout to create/edit/detail pages.
 ```
 
-- [ ] **Step 2: Final validation after docs**
+Implemented scope:
+
+- Properties, Tenants, Leases, Invoices, Payments, and Receipts now use the shared command-list page structure.
+- List pages gained summary strips; Tenants, Leases, Invoices, and Payments also gained context rails.
+- Responsive polish keeps command-list cards denser below 520px and protects long summary values from overflow.
+
+Deferred scope:
+
+- Maintenance and Reminders workflow layouts.
+- Create, edit, and detail page guided-layout uplift.
+- Advanced reporting features, ApexCharts evaluation/migration, exports, saved reports, and drilldowns.
+
+- [x] **Step 2: Final validation after docs**
 
 Run:
 
@@ -909,7 +921,7 @@ git diff --check
 
 Expected: all commands exit 0.
 
-- [ ] **Step 3: Final summary**
+- [x] **Step 3: Final summary**
 
 Report:
 
