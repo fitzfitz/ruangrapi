@@ -33,10 +33,16 @@
   --lagoon-600: #0284c7;
   --lagoon-700: #0369a1;
   --lagoon-900: #082f49;
-  --lagoon-bg: #e0f7ff;
+  --lagoon-bg: #f8fdff;
   --lagoon-surface: rgba(255, 255, 255, 0.86);
   --lagoon-glass: rgba(255, 255, 255, 0.72);
   --lagoon-nav: rgba(8, 47, 73, 0.9);
+  --lagoon-shell-max: 1440px;
+  --lagoon-shell-gutter: 28px;
+  --lagoon-light-bg: #f8fdff;
+  --lagoon-light-surface: rgba(255, 255, 255, 0.82);
+  --lagoon-light-panel: rgba(255, 255, 255, 0.64);
+  --lagoon-light-border: rgba(186, 230, 253, 0.9);
   --background: var(--bg);
   --foreground: var(--text-h);
   --card: var(--surface);
@@ -150,10 +156,14 @@ body {
   min-height: 100svh;
   color: var(--text);
   background:
-    radial-gradient(circle at 12% 4%, rgb(14 165 233 / 0.34), transparent 30%),
-    radial-gradient(circle at 88% 0%, rgb(37 99 235 / 0.22), transparent 28%),
-    radial-gradient(circle at 52% 86%, rgb(45 212 191 / 0.2), transparent 34%),
-    linear-gradient(180deg, #e0f7ff 0%, #eef6ff 44%, #f8fbff 100%);
+    radial-gradient(circle at 14% 0%, rgb(186 230 253 / 0.72), transparent 30%),
+    radial-gradient(circle at 88% 6%, rgb(224 247 255 / 0.94), transparent 34%),
+    radial-gradient(
+      circle at 50% 96%,
+      rgb(204 251 241 / 0.38),
+      transparent 38%
+    ),
+    linear-gradient(180deg, #f8fdff 0%, #f1fbff 48%, #ffffff 100%);
 }
 
 button,

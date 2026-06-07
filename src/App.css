@@ -8,14 +8,19 @@
   position: sticky;
   z-index: 30;
   top: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.72);
+  background: color-mix(in srgb, var(--lagoon-light-surface) 92%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.app-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  border-bottom: 1px solid rgb(255 255 255 / 0.62);
-  padding: 16px 28px;
-  background: color-mix(in srgb, var(--lagoon-glass) 88%, transparent);
-  backdrop-filter: blur(18px);
+  width: min(100%, var(--lagoon-shell-max));
+  margin: 0 auto;
+  padding: 14px var(--lagoon-shell-gutter);
 }
 
 .app-brand {
@@ -29,17 +34,17 @@
 
 .app-brand__mark {
   display: grid;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid rgb(255 255 255 / 0.42);
+  border: 1px solid rgb(255 255 255 / 0.92);
   border-radius: 18px;
-  color: #ffffff;
-  background: linear-gradient(135deg, var(--lagoon-500), var(--indigo));
+  color: var(--lagoon-700);
+  background: linear-gradient(135deg, #e0f7ff, var(--lagoon-200));
   font-size: 13px;
   font-weight: 900;
-  box-shadow: 0 18px 36px rgb(2 132 199 / 0.24);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.92);
 }
 
 .app-brand__name,
@@ -64,11 +69,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgb(255 255 255 / 0.72);
+  border: 1px solid var(--lagoon-light-border);
   border-radius: 999px;
   padding: 8px 12px;
-  background: rgb(255 255 255 / 0.76);
-  box-shadow: var(--shadow-card);
+  background: #e0f7ff;
+  box-shadow: 0 14px 30px rgb(14 116 144 / 0.08);
 }
 
 .app-header__status span {
@@ -85,7 +90,13 @@
 
 .app-main {
   min-width: 0;
-  padding: 24px 28px 128px;
+  padding: 20px var(--lagoon-shell-gutter) 128px;
+}
+
+.app-main__inner {
+  width: min(100%, var(--lagoon-shell-max));
+  margin: 0 auto;
+  min-width: 0;
 }
 
 .app-bottom-nav {
@@ -216,9 +227,8 @@
 
 .dashboard-shell {
   display: grid;
-  gap: 26px;
-  width: min(100%, 1180px);
-  max-width: 1180px;
+  gap: 18px;
+  width: 100%;
   min-width: 0;
 }
 
@@ -226,14 +236,18 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 28px;
+  gap: 22px;
   min-width: 0;
   border: 1px solid rgb(255 255 255 / 0.78);
   border-radius: var(--radius-xl);
-  padding: 24px;
+  padding: 20px;
   background:
-    radial-gradient(circle at 92% 12%, rgb(20 184 166 / 0.26), transparent 30%),
-    linear-gradient(135deg, rgb(255 255 255 / 0.94), rgb(238 242 255 / 0.74));
+    radial-gradient(
+      circle at 92% 12%,
+      rgb(186 230 253 / 0.58),
+      transparent 30%
+    ),
+    linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(240 249 255 / 0.68));
   box-shadow: var(--shadow-raised);
 }
 
@@ -315,7 +329,7 @@
 .dashboard-shell__highlights {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) repeat(2, minmax(0, 0.85fr));
-  gap: 14px;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -323,10 +337,10 @@
   display: grid;
   gap: 10px;
   min-width: 0;
-  min-height: 150px;
+  min-height: 132px;
   border: 1px solid rgb(255 255 255 / 0.78);
   border-radius: 28px;
-  padding: 22px;
+  padding: 18px;
   background: var(--lagoon-surface);
   box-shadow: var(--shadow-card);
 }
@@ -372,7 +386,7 @@
 .dashboard-shell__command-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-  gap: 16px;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -498,7 +512,7 @@
 
 .dashboard-shell__metric-groups {
   display: grid;
-  gap: 22px;
+  gap: 18px;
   min-width: 0;
 }
 
@@ -532,7 +546,7 @@
 .dashboard-shell__metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -619,7 +633,7 @@
 .dashboard-shell__charts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 12px;
   min-width: 0;
 }
 
@@ -3594,9 +3608,8 @@
 }
 
 @media (max-width: 720px) {
-  .app-header {
-    align-items: center;
-    padding: 14px 18px;
+  .app-header__inner {
+    padding: 12px 16px;
   }
 
   .app-brand__tagline,
@@ -3605,7 +3618,7 @@
   }
 
   .app-main {
-    padding: 18px 18px 122px;
+    padding: 16px 16px 122px;
   }
 
   .app-bottom-nav {
@@ -3765,7 +3778,7 @@
 
 @media (max-width: 640px) {
   .app-main {
-    padding: 18px 18px 122px;
+    padding: 14px 14px 122px;
   }
 
   .dashboard-shell {

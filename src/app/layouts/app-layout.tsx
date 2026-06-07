@@ -44,23 +44,27 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="app-layout">
       <header className="app-header">
-        <NavLink className="app-brand" to={routePaths.dashboard}>
-          <span className="app-brand__mark" aria-hidden="true">
-            RR
-          </span>
-          <span>
-            <span className="app-brand__name">RuangRapi</span>
-            <span className="app-brand__tagline">Rental ops with rhythm</span>
-          </span>
-        </NavLink>
+        <div className="app-header__inner">
+          <NavLink className="app-brand" to={routePaths.dashboard}>
+            <span className="app-brand__mark" aria-hidden="true">
+              RR
+            </span>
+            <span>
+              <span className="app-brand__name">RuangRapi</span>
+              <span className="app-brand__tagline">Rental ops with rhythm</span>
+            </span>
+          </NavLink>
 
-        <div className="app-header__status" aria-label="Workspace status">
-          <span>Lagoon command</span>
-          <strong>Live ops</strong>
+          <div className="app-header__status" aria-label="Workspace status">
+            <span>Lagoon command</span>
+            <strong>Live ops</strong>
+          </div>
         </div>
       </header>
 
-      <main className="app-main">{children}</main>
+      <main className="app-main">
+        <div className="app-main__inner">{children}</div>
+      </main>
 
       <nav
         className="app-bottom-nav"
