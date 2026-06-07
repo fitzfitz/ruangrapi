@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import {
   Banknote,
   Bell,
@@ -11,7 +11,7 @@ import {
   Users,
   Wrench,
 } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import { routePaths } from '../router/route-paths'
 
@@ -34,12 +34,35 @@ const secondaryNavigationItems = [
   { label: 'Maintenance', path: routePaths.dashboardMaintenance, icon: Wrench },
 ]
 
+function getActivePrimaryIndex(pathname: string) {
+  const activeIndex = primaryNavigationItems.findIndex((item) => {
+    if (item.path === routePaths.dashboard) {
+      return pathname === item.path
+    }
+
+    return pathname === item.path || pathname.startsWith(`${item.path}/`)
+  })
+
+  if (activeIndex !== -1) {
+    return activeIndex
+  }
+
+  const isSecondaryRouteActive = secondaryNavigationItems.some(
+    (item) => pathname === item.path || pathname.startsWith(`${item.path}/`),
+  )
+
+  return isSecondaryRouteActive ? primaryNavigationItems.length : 0
+}
+
 type AppLayoutProps = {
   children: ReactNode
 }
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [isMoreOpen, setIsMoreOpen] = useState(false)
+  const location = useLocation()
+  const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
+  const isMoreRouteActive = activePrimaryIndex === primaryNavigationItems.length
 
   return (
     <div className="app-layout">
@@ -70,7 +93,13 @@ export function AppLayout({ children }: AppLayoutProps) {
         className="app-bottom-nav"
         aria-label="Primary app sections"
         id="primary-navigation"
+        style={
+          {
+            '--app-bottom-nav-active-index': activePrimaryIndex,
+          } as CSSProperties
+        }
       >
+        <span className="app-bottom-nav__active-plate" aria-hidden="true" />
         <ul className="app-bottom-nav__list">
           {primaryNavigationItems.map((item) => {
             const Icon = item.icon
@@ -94,7 +123,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <li className="app-bottom-nav__more">
             <button
               className={
-                isMoreOpen
+                isMoreOpen || isMoreRouteActive
                   ? 'app-bottom-nav__item app-bottom-nav__item--active'
                   : 'app-bottom-nav__item'
               }
