@@ -30,7 +30,7 @@ No automated test runner is configured yet. Until one is added, validate source 
 
 ## Commit & Pull Request Guidelines
 
-Recent history uses short imperative or conventional-style subjects, such as `feat: initialize wiki documentation...` and `Document units module closeout`. Keep commits focused on one logical change. Pull requests should include a concise summary, validation performed, linked issue or planning document when relevant, and screenshots for visible UI changes.
+Recent history uses short imperative or conventional-style subjects, such as `feat: initialize wiki documentation...` and `Document units module closeout`. Keep commits focused on one logical change. Pull requests should include a concise summary, validation performed, linked issue or planning document when relevant, and screenshots for visible UI changes. Always wait for the user's explicit approval before staging (`git add`) and committing (`git commit`) any code or document changes. Do not auto-stage/commit changes unless the user has reviewed and explicitly approved them.
 
 ## Superpowers Workflow
 
@@ -43,6 +43,8 @@ Use the Superpowers workflow for implementation-affecting work, including featur
 - Use `systematic-debugging` for bugs, failing validation, or unexpected behavior before proposing fixes.
 - Use `verification-before-completion` before claiming work is complete, fixed, or passing.
 - Use `finishing-a-development-branch` when deciding whether to merge, push, open a pull request, or clean up a completed branch.
+- If the user has comments, feedback, or requested changes, always use the relevant Superpowers workflow (e.g. brainstorming, writing plans, systematic debugging) to plan and execute the revisions rather than making direct, unapproved code modifications.
+- Always adhere strictly to the established workspace workflows (such as Superpowers and UI/UX Pro Max). Never make assumptions, and never introduce any custom or alternative workflows on your own.
 
 Documentation closeout is part of implementation-affecting work. When a task changes module behavior, module status, roadmap state, or development process, update the relevant docs and wiki pages before completion:
 
