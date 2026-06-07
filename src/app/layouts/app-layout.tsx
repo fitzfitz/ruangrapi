@@ -1,5 +1,6 @@
 import {
-  useLayoutEffect,
+  useCallback,
+  useEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -40,6 +41,42 @@ const secondaryNavigationItems = [
   { label: 'Maintenance', path: routePaths.dashboardMaintenance, icon: Wrench },
 ]
 
+const activePlateStorageKey = 'ruangrapi:app-bottom-nav-active-plate'
+
+type StoredActivePlate = {
+  width: number
+  height: number
+  x: number
+  y: number
+}
+
+function toActivePlateStyle(plate: StoredActivePlate): CSSProperties {
+  return {
+    width: plate.width,
+    height: plate.height,
+    transform: `translate3d(${plate.x}px, ${plate.y}px, 0)`,
+  }
+}
+
+function getStoredActivePlateStyle() {
+  if (typeof window === 'undefined') {
+    return {}
+  }
+
+  const storedValue = window.sessionStorage.getItem(activePlateStorageKey)
+
+  if (!storedValue) {
+    return {}
+  }
+
+  try {
+    return toActivePlateStyle(JSON.parse(storedValue) as StoredActivePlate)
+  } catch {
+    window.sessionStorage.removeItem(activePlateStorageKey)
+    return {}
+  }
+}
+
 function getActivePrimaryIndex(pathname: string) {
   const activeIndex = primaryNavigationItems.findIndex((item) => {
     if (item.path === routePaths.dashboard) {
@@ -66,8 +103,11 @@ type AppLayoutProps = {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [isMoreOpen, setIsMoreOpen] = useState(false)
-  const [activePlateStyle, setActivePlateStyle] = useState<CSSProperties>({})
+  const [activePlateStyle, setActivePlateStyle] = useState<CSSProperties>(
+    getStoredActivePlateStyle,
+  )
   const navRef = useRef<HTMLElement | null>(null)
+  const activePlateRef = useRef<HTMLSpanElement | null>(null)
   const navItemRefs = useRef<Array<HTMLElement | null>>([])
   const location = useLocation()
   const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
@@ -76,34 +116,81 @@ export function AppLayout({ children }: AppLayoutProps) {
     ? primaryNavigationItems.length
     : activePrimaryIndex
 
-  useLayoutEffect(() => {
-    function syncActivePlate() {
-      const navElement = navRef.current
-      const activeItem = navItemRefs.current[displayedActiveIndex]
+  const getMeasuredActivePlate = useCallback(() => {
+    const navElement = navRef.current
+    const activeItem = navItemRefs.current[displayedActiveIndex]
 
-      if (!navElement || !activeItem) {
+    if (!navElement || !activeItem) {
+      return null
+    }
+
+    const navRect = navElement.getBoundingClientRect()
+    const itemRect = activeItem.getBoundingClientRect()
+
+    return {
+      width: itemRect.width,
+      height: itemRect.height,
+      x: itemRect.left - navRect.left,
+      y: itemRect.top - navRect.top,
+    }
+  }, [displayedActiveIndex])
+
+  const rememberCurrentPlate = useCallback(() => {
+    const navElement = navRef.current
+    const activePlate = activePlateRef.current
+
+    if (!navElement || !activePlate) {
+      return
+    }
+
+    const navRect = navElement.getBoundingClientRect()
+    const plateRect = activePlate.getBoundingClientRect()
+
+    window.sessionStorage.setItem(
+      activePlateStorageKey,
+      JSON.stringify({
+        width: plateRect.width,
+        height: plateRect.height,
+        x: plateRect.left - navRect.left,
+        y: plateRect.top - navRect.top,
+      } satisfies StoredActivePlate),
+    )
+  }, [])
+
+  useEffect(() => {
+    const measuredPlate = getMeasuredActivePlate()
+
+    if (!measuredPlate) {
+      return
+    }
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      setActivePlateStyle(toActivePlateStyle(measuredPlate))
+      window.sessionStorage.removeItem(activePlateStorageKey)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+    }
+  }, [getMeasuredActivePlate])
+
+  useEffect(() => {
+    function syncActivePlate() {
+      const measuredPlate = getMeasuredActivePlate()
+
+      if (!measuredPlate) {
         return
       }
 
-      const navRect = navElement.getBoundingClientRect()
-      const itemRect = activeItem.getBoundingClientRect()
-
-      setActivePlateStyle({
-        width: itemRect.width,
-        height: itemRect.height,
-        transform: `translate3d(${itemRect.left - navRect.left}px, ${
-          itemRect.top - navRect.top
-        }px, 0)`,
-      })
+      setActivePlateStyle(toActivePlateStyle(measuredPlate))
     }
 
-    syncActivePlate()
     window.addEventListener('resize', syncActivePlate)
 
     return () => {
       window.removeEventListener('resize', syncActivePlate)
     }
-  }, [displayedActiveIndex, location.pathname])
+  }, [getMeasuredActivePlate])
 
   return (
     <div className="app-layout">
@@ -137,6 +224,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         id="primary-navigation"
       >
         <span
+          ref={activePlateRef}
           className="app-bottom-nav__active-plate"
           aria-hidden="true"
           style={activePlateStyle}
@@ -155,6 +243,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                     navItemRefs.current[index] = node
                   }}
                   onClick={() => {
+                    rememberCurrentPlate()
                     setIsMoreOpen(false)
                   }}
                 >
@@ -178,6 +267,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               aria-expanded={isMoreOpen}
               aria-controls="secondary-navigation"
               onClick={() => {
+                rememberCurrentPlate()
                 setIsMoreOpen((current) => !current)
               }}
             >
@@ -195,6 +285,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                       key={item.path}
                       to={item.path}
                       onClick={() => {
+                        rememberCurrentPlate()
                         setIsMoreOpen(false)
                       }}
                     >
