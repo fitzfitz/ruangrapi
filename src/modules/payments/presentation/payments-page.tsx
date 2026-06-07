@@ -58,6 +58,34 @@ function getReceiptDetailPath(receiptId: string) {
   return routePaths.dashboardReceiptDetail.replace(':receiptId', receiptId)
 }
 
+function buildPaymentSummary(payments: PaymentListItem[]) {
+  const withReceiptCount = payments.filter(
+    (payment) => payment.receipt_id !== null,
+  ).length
+  const collectedAmount = payments.reduce(
+    (total, payment) => total + payment.amount,
+    0,
+  )
+
+  return [
+    {
+      label: 'Total payments',
+      value: payments.length.toString(),
+      helper: 'Recorded collections',
+    },
+    {
+      label: 'With receipt',
+      value: withReceiptCount.toString(),
+      helper: 'Proof of payment generated',
+    },
+    {
+      label: 'Collected',
+      value: formatCurrency(collectedAmount),
+      helper: 'Total money received',
+    },
+  ]
+}
+
 type ReceiptPaymentState = Record<string, true>
 
 export function PaymentsPage() {
@@ -156,130 +184,187 @@ export function PaymentsPage() {
           </div>
         ) : null}
 
-        {paymentsQuery.isSuccess && paymentsQuery.data.length > 0 ? (
-          <div className="payments-page__list" aria-label="Payment list">
-            {paymentsQuery.data.map((payment) => {
-              const isGeneratingReceipt =
-                generatingReceiptPaymentIds[payment.id] === true
-              const hasReceiptError =
-                receiptErrorPaymentIds[payment.id] === true
-              const hasReceipt = payment.receipt_id !== null
+        {paymentsQuery.isSuccess && paymentsQuery.data.length > 0
+          ? (() => {
+              const paymentSummary = buildPaymentSummary(paymentsQuery.data)
 
               return (
-                <article className="payment-card" key={payment.id}>
-                  <div className="payment-card__header">
-                    <div>
-                      <h3>{payment.tenant_name}</h3>
-                      <p>
-                        {payment.unit_name} - {formatPropertyName(payment)}
-                      </p>
-                    </div>
-                    <span className="payment-card__method">
-                      {formatPaymentMethod(payment.payment_method)}
-                    </span>
+                <>
+                  <div
+                    className="command-list-summary"
+                    aria-label="Payment summary"
+                  >
+                    {paymentSummary.map((item) => (
+                      <article
+                        className="command-list-summary__item"
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        <strong>{item.value}</strong>
+                        <p>{item.helper}</p>
+                      </article>
+                    ))}
                   </div>
 
-                  <dl className="payment-card__details">
-                    <div>
-                      <dt>Payment date</dt>
-                      <dd>{formatDate(payment.payment_date)}</dd>
-                    </div>
-                    <div>
-                      <dt>Amount</dt>
-                      <dd>{formatCurrency(payment.amount)}</dd>
-                    </div>
-                    <div>
-                      <dt>Billing period</dt>
-                      <dd>
-                        {formatBillingPeriod(payment.invoice_billing_period)}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Invoice status</dt>
-                      <dd>{payment.invoice_status}</dd>
-                    </div>
-                    <div>
-                      <dt>Reference</dt>
-                      <dd>{formatReference(payment.reference_number)}</dd>
-                    </div>
-                  </dl>
+                  <div className="command-list-grid">
+                    <div
+                      className="payments-page__list command-list-surface"
+                      aria-label="Payment list"
+                    >
+                      {paymentsQuery.data.map((payment) => {
+                        const isGeneratingReceipt =
+                          generatingReceiptPaymentIds[payment.id] === true
+                        const hasReceiptError =
+                          receiptErrorPaymentIds[payment.id] === true
+                        const hasReceipt = payment.receipt_id !== null
 
-                  {hasReceipt ? (
-                    <div className="payment-card__receipt payment-card__receipt--issued">
-                      <div>
-                        <div className="payment-card__receipt-heading">
-                          <p className="payment-card__receipt-label">
-                            Receipt issued
-                          </p>
-                          <span className="payment-card__receipt-status">
-                            Issued
-                          </span>
-                        </div>
-                        <div className="payment-card__receipt-main">
-                          <p className="payment-card__receipt-number">
-                            {payment.receipt_number}
-                          </p>
-                          {payment.receipt_issued_at !== null ? (
-                            <p className="payment-card__receipt-helper">
-                              Issued{' '}
-                              {formatReceiptIssuedAt(payment.receipt_issued_at)}
-                            </p>
-                          ) : null}
-                        </div>
-                      </div>
-                      {payment.receipt_id !== null ? (
-                        <Link
-                          className="payment-card__receipt-action"
-                          to={getReceiptDetailPath(payment.receipt_id)}
-                        >
-                          View receipt
-                        </Link>
-                      ) : null}
+                        return (
+                          <article className="payment-card" key={payment.id}>
+                            <div className="payment-card__header">
+                              <div>
+                                <h3>{payment.tenant_name}</h3>
+                                <p>
+                                  {payment.unit_name} -{' '}
+                                  {formatPropertyName(payment)}
+                                </p>
+                              </div>
+                              <span className="payment-card__method">
+                                {formatPaymentMethod(payment.payment_method)}
+                              </span>
+                            </div>
+
+                            <dl className="payment-card__details">
+                              <div>
+                                <dt>Payment date</dt>
+                                <dd>{formatDate(payment.payment_date)}</dd>
+                              </div>
+                              <div>
+                                <dt>Amount</dt>
+                                <dd>{formatCurrency(payment.amount)}</dd>
+                              </div>
+                              <div>
+                                <dt>Billing period</dt>
+                                <dd>
+                                  {formatBillingPeriod(
+                                    payment.invoice_billing_period,
+                                  )}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>Invoice status</dt>
+                                <dd>{payment.invoice_status}</dd>
+                              </div>
+                              <div>
+                                <dt>Reference</dt>
+                                <dd>
+                                  {formatReference(payment.reference_number)}
+                                </dd>
+                              </div>
+                            </dl>
+
+                            {hasReceipt ? (
+                              <div className="payment-card__receipt payment-card__receipt--issued">
+                                <div>
+                                  <div className="payment-card__receipt-heading">
+                                    <p className="payment-card__receipt-label">
+                                      Receipt issued
+                                    </p>
+                                    <span className="payment-card__receipt-status">
+                                      Issued
+                                    </span>
+                                  </div>
+                                  <div className="payment-card__receipt-main">
+                                    <p className="payment-card__receipt-number">
+                                      {payment.receipt_number}
+                                    </p>
+                                    {payment.receipt_issued_at !== null ? (
+                                      <p className="payment-card__receipt-helper">
+                                        Issued{' '}
+                                        {formatReceiptIssuedAt(
+                                          payment.receipt_issued_at,
+                                        )}
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                </div>
+                                {payment.receipt_id !== null ? (
+                                  <Link
+                                    className="payment-card__receipt-action"
+                                    to={getReceiptDetailPath(
+                                      payment.receipt_id,
+                                    )}
+                                  >
+                                    View receipt
+                                  </Link>
+                                ) : null}
+                              </div>
+                            ) : (
+                              <div className="payment-card__receipt payment-card__receipt--pending">
+                                <div>
+                                  <div className="payment-card__receipt-heading">
+                                    <p className="payment-card__receipt-label">
+                                      Receipt
+                                    </p>
+                                    <span className="payment-card__receipt-status">
+                                      Pending
+                                    </span>
+                                  </div>
+                                  <p className="payment-card__receipt-title">
+                                    Not generated yet
+                                  </p>
+                                  <p className="payment-card__receipt-helper">
+                                    Create one receipt for this payment.
+                                  </p>
+                                  {hasReceiptError ? (
+                                    <p
+                                      className="payment-card__receipt-error"
+                                      role="alert"
+                                    >
+                                      We could not generate this receipt. Please
+                                      try again.
+                                    </p>
+                                  ) : null}
+                                </div>
+                                <button
+                                  className="payment-card__receipt-action"
+                                  type="button"
+                                  disabled={isGeneratingReceipt}
+                                  onClick={() => {
+                                    void handleGenerateReceipt(payment)
+                                  }}
+                                >
+                                  {isGeneratingReceipt
+                                    ? 'Generating...'
+                                    : 'Generate receipt'}
+                                </button>
+                              </div>
+                            )}
+                          </article>
+                        )
+                      })}
                     </div>
-                  ) : (
-                    <div className="payment-card__receipt payment-card__receipt--pending">
-                      <div>
-                        <div className="payment-card__receipt-heading">
-                          <p className="payment-card__receipt-label">Receipt</p>
-                          <span className="payment-card__receipt-status">
-                            Pending
-                          </span>
-                        </div>
-                        <p className="payment-card__receipt-title">
-                          Not generated yet
-                        </p>
-                        <p className="payment-card__receipt-helper">
-                          Create one receipt for this payment.
-                        </p>
-                        {hasReceiptError ? (
-                          <p
-                            className="payment-card__receipt-error"
-                            role="alert"
-                          >
-                            We could not generate this receipt. Please try
-                            again.
-                          </p>
-                        ) : null}
+
+                    <aside
+                      className="command-list-rail"
+                      aria-label="Payment receipt coverage"
+                    >
+                      <span>Receipt coverage</span>
+                      <strong>{paymentSummary[1].value}</strong>
+                      <p>payments already have generated receipts.</p>
+                      <div className="command-list-rail__items">
+                        <span className="command-list-rail__item">
+                          {paymentSummary[2].value} collected
+                        </span>
+                        <span className="command-list-rail__item">
+                          {paymentSummary[0].value} payments total
+                        </span>
                       </div>
-                      <button
-                        className="payment-card__receipt-action"
-                        type="button"
-                        disabled={isGeneratingReceipt}
-                        onClick={() => {
-                          void handleGenerateReceipt(payment)
-                        }}
-                      >
-                        {isGeneratingReceipt
-                          ? 'Generating...'
-                          : 'Generate receipt'}
-                      </button>
-                    </div>
-                  )}
-                </article>
+                    </aside>
+                  </div>
+                </>
               )
-            })}
-          </div>
-        ) : null}
+            })()
+          : null}
       </section>
     </AppLayout>
   )
