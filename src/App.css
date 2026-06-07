@@ -2939,6 +2939,7 @@
   color: var(--text-h);
   font-size: 24px;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .command-list-summary__item p {
@@ -4108,6 +4109,25 @@
 
   .dashboard-shell__bar {
     min-height: 240px;
+  }
+}
+
+@media (max-width: 520px) {
+  .command-list-summary__item {
+    padding: 12px;
+  }
+
+  .command-list-surface {
+    padding: 6px;
+  }
+
+  .properties-page .property-card,
+  .tenants-page .tenant-card,
+  .leases-page .lease-card,
+  .invoices-page .invoice-card,
+  .payments-page .payment-card,
+  .receipts-page .receipt-card {
+    padding: 14px;
   }
 }
 
