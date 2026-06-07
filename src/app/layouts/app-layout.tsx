@@ -103,12 +103,14 @@ type AppLayoutProps = {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [isMoreOpen, setIsMoreOpen] = useState(false)
+  const [isBottomNavHidden, setIsBottomNavHidden] = useState(false)
   const [activePlateStyle, setActivePlateStyle] = useState<CSSProperties>(
     getStoredActivePlateStyle,
   )
   const navRef = useRef<HTMLElement | null>(null)
   const activePlateRef = useRef<HTMLSpanElement | null>(null)
   const navItemRefs = useRef<Array<HTMLElement | null>>([])
+  const lastScrollYRef = useRef(0)
   const location = useLocation()
   const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
   const isMoreRouteActive = activePrimaryIndex === primaryNavigationItems.length
@@ -190,6 +192,48 @@ export function AppLayout({ children }: AppLayoutProps) {
     }
   }, [getMeasuredActivePlate])
 
+  useEffect(() => {
+    let animationFrame = 0
+
+    function updateBottomNavVisibility() {
+      const currentScrollY = Math.max(window.scrollY, 0)
+      const documentHeight = document.documentElement.scrollHeight
+      const viewportHeight = window.innerHeight
+      const maxScrollY = Math.max(documentHeight - viewportHeight, 0)
+      const scrollDelta = currentScrollY - lastScrollYRef.current
+      const isNearTop = currentScrollY < 32
+      const isNearBottom = maxScrollY - currentScrollY < 32
+
+      if (isNearTop || scrollDelta < -6) {
+        setIsBottomNavHidden(false)
+      } else if ((scrollDelta > 6 && currentScrollY > 72) || isNearBottom) {
+        setIsBottomNavHidden(true)
+      }
+
+      lastScrollYRef.current = currentScrollY
+      animationFrame = 0
+    }
+
+    function handleScroll() {
+      if (animationFrame !== 0) {
+        return
+      }
+
+      animationFrame = window.requestAnimationFrame(updateBottomNavVisibility)
+    }
+
+    lastScrollYRef.current = Math.max(window.scrollY, 0)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+
+      if (animationFrame !== 0) {
+        window.cancelAnimationFrame(animationFrame)
+      }
+    }
+  }, [])
+
   return (
     <div className="app-layout">
       <header className="app-header">
@@ -217,7 +261,11 @@ export function AppLayout({ children }: AppLayoutProps) {
 
       <nav
         ref={navRef}
-        className="app-bottom-nav"
+        className={
+          isBottomNavHidden && !isMoreOpen
+            ? 'app-bottom-nav app-bottom-nav--hidden'
+            : 'app-bottom-nav'
+        }
         aria-label="Primary app sections"
         id="primary-navigation"
       >
