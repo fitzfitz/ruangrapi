@@ -2883,9 +2883,7 @@
 .invoices-page,
 .payments-page,
 .receipts-page,
-.reminders-page,
 .receipt-detail-page,
-.maintenance-page,
 .property-detail-page {
   width: min(100%, 1120px);
   max-width: 1120px;
@@ -2896,7 +2894,9 @@
 .leases-page,
 .invoices-page,
 .payments-page,
-.receipts-page {
+.receipts-page,
+.reminders-page,
+.maintenance-page {
   gap: 18px;
   width: min(100%, var(--lagoon-shell-max));
   max-width: var(--lagoon-shell-max);
@@ -2972,11 +2972,12 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: rgb(255 255 255 / 0.4);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: var(--lagoon-light-surface);
+  border: 1px solid var(--lagoon-light-border);
+  border-radius: 16px;
   padding: 12px;
   min-height: 500px;
+  box-shadow: 0 12px 30px rgb(14 116 144 / 0.04);
 }
 
 .maintenance-column__header {
@@ -3063,21 +3064,22 @@
 }
 
 .reminders-prepare-column {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--lagoon-light-surface);
+  border: 1px solid var(--lagoon-light-border);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 12px 30px rgb(14 116 144 / 0.04);
 }
 
 .reminders-queue-column {
-  background: rgb(255 255 255 / 0.5);
-  border: 1px solid var(--border);
+  background: var(--lagoon-light-surface);
+  border: 1px solid var(--lagoon-light-border);
   border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 12px 30px rgb(14 116 144 / 0.04);
 }
 
 .reminders-queue-column h3 {
@@ -3802,6 +3804,25 @@
 .payments-page .payment-card:hover,
 .receipts-page .receipt-card:hover {
   border-color: rgb(14 165 233 / 0.26);
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgb(14 116 144 / 0.1);
+}
+
+.maintenance-page .maintenance-card,
+.reminders-page .reminder-card {
+  border: 1px solid var(--lagoon-light-border);
+  border-left-width: 4px;
+  border-radius: 12px;
+  padding: 16px;
+  background: #f8fcff;
+  box-shadow: none;
+}
+
+.maintenance-page .maintenance-card:hover,
+.reminders-page .reminder-card:hover {
+  border-top-color: rgb(14 165 233 / 0.26);
+  border-right-color: rgb(14 165 233 / 0.26);
+  border-bottom-color: rgb(14 165 233 / 0.26);
   background: #ffffff;
   box-shadow: 0 12px 26px rgb(14 116 144 / 0.1);
 }
