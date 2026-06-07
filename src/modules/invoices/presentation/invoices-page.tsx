@@ -50,6 +50,33 @@ function formatLeasePeriod(invoice: InvoiceListItem) {
   )}`
 }
 
+function buildInvoiceSummary(invoices: InvoiceListItem[]) {
+  const draftCount = invoices.filter(
+    (invoice) => invoice.status === 'draft',
+  ).length
+  const issuedOrPaidCount = invoices.filter(
+    (invoice) => invoice.issued_at !== null || invoice.status === 'paid',
+  ).length
+
+  return [
+    {
+      label: 'Total invoices',
+      value: invoices.length.toString(),
+      helper: 'Billing records in workspace',
+    },
+    {
+      label: 'Draft',
+      value: draftCount.toString(),
+      helper: 'Need due date and issue action',
+    },
+    {
+      label: 'Issued or paid',
+      value: issuedOrPaidCount.toString(),
+      helper: 'Moved into collection flow',
+    },
+  ]
+}
+
 export function InvoicesPage() {
   const invoicesQuery = useInvoicesQuery()
   const currentProfileQuery = useCurrentProfileQuery()
@@ -138,84 +165,150 @@ export function InvoicesPage() {
           </div>
         ) : null}
 
-        {invoicesQuery.isSuccess && invoicesQuery.data.length > 0 ? (
-          <div className="invoices-page__list" aria-label="Invoice list">
-            {invoicesQuery.data.map((invoice) => {
-              const draftDueDate = dueDatesByInvoiceId[invoice.id] ?? ''
-              const isIssuingInvoice = issuingInvoiceId === invoice.id
-              const canIssueInvoice =
-                organizationId !== null &&
-                draftDueDate !== '' &&
-                !isIssuingInvoice
+        {invoicesQuery.isSuccess && invoicesQuery.data.length > 0
+          ? (() => {
+              const invoiceSummary = buildInvoiceSummary(invoicesQuery.data)
 
               return (
-                <article className="invoice-card" key={invoice.id}>
-                  <div className="invoice-card__header">
-                    <div>
-                      <h3>{invoice.tenant_name}</h3>
-                      <p>
-                        {invoice.unit_name} - {formatPropertyName(invoice)}
-                      </p>
-                    </div>
-                    <span className="invoice-card__status">
-                      {invoice.status}
-                    </span>
+                <>
+                  <div
+                    className="command-list-summary"
+                    aria-label="Invoice summary"
+                  >
+                    {invoiceSummary.map((item) => (
+                      <article
+                        className="command-list-summary__item"
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        <strong>{item.value}</strong>
+                        <p>{item.helper}</p>
+                      </article>
+                    ))}
                   </div>
 
-                  <dl className="invoice-card__details">
-                    <div>
-                      <dt>Billing period</dt>
-                      <dd>{formatBillingPeriod(invoice.billing_period)}</dd>
-                    </div>
-                    <div>
-                      <dt>Due date</dt>
-                      <dd>{formatDate(invoice.due_date, 'No due date')}</dd>
-                    </div>
-                    <div>
-                      <dt>Total</dt>
-                      <dd>{formatCurrency(invoice.total_amount)}</dd>
-                    </div>
-                    <div>
-                      <dt>Lease period</dt>
-                      <dd>{formatLeasePeriod(invoice)}</dd>
-                    </div>
-                  </dl>
-
-                  {invoice.status === 'draft' ? (
-                    <form
-                      className="invoice-card__issue-form"
-                      onSubmit={(event) => {
-                        event.preventDefault()
-                        handleIssueInvoice(invoice)
-                      }}
+                  <div className="command-list-grid">
+                    <div
+                      className="invoices-page__list command-list-surface"
+                      aria-label="Invoice list"
                     >
-                      <label htmlFor={`invoice-${invoice.id}-due-date`}>
-                        Due date
-                      </label>
-                      <input
-                        id={`invoice-${invoice.id}-due-date`}
-                        type="date"
-                        value={draftDueDate}
-                        disabled={isIssuingInvoice}
-                        onChange={(event) => {
-                          updateDraftDueDate(invoice.id, event.target.value)
-                        }}
-                      />
-                      <button type="submit" disabled={!canIssueInvoice}>
-                        {isIssuingInvoice ? 'Issuing...' : 'Issue invoice'}
-                      </button>
-                      {issueErrorInvoiceId === invoice.id ? (
-                        <p className="invoice-card__issue-error" role="alert">
-                          We could not issue this invoice. Please try again.
-                        </p>
-                      ) : null}
-                    </form>
-                  ) : null}
-                </article>
+                      {invoicesQuery.data.map((invoice) => {
+                        const draftDueDate =
+                          dueDatesByInvoiceId[invoice.id] ?? ''
+                        const isIssuingInvoice = issuingInvoiceId === invoice.id
+                        const canIssueInvoice =
+                          organizationId !== null &&
+                          draftDueDate !== '' &&
+                          !isIssuingInvoice
+
+                        return (
+                          <article className="invoice-card" key={invoice.id}>
+                            <div className="invoice-card__header">
+                              <div>
+                                <h3>{invoice.tenant_name}</h3>
+                                <p>
+                                  {invoice.unit_name} -{' '}
+                                  {formatPropertyName(invoice)}
+                                </p>
+                              </div>
+                              <span className="invoice-card__status">
+                                {invoice.status}
+                              </span>
+                            </div>
+
+                            <dl className="invoice-card__details">
+                              <div>
+                                <dt>Billing period</dt>
+                                <dd>
+                                  {formatBillingPeriod(invoice.billing_period)}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>Due date</dt>
+                                <dd>
+                                  {formatDate(invoice.due_date, 'No due date')}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>Total</dt>
+                                <dd>{formatCurrency(invoice.total_amount)}</dd>
+                              </div>
+                              <div>
+                                <dt>Lease period</dt>
+                                <dd>{formatLeasePeriod(invoice)}</dd>
+                              </div>
+                            </dl>
+
+                            {invoice.status === 'draft' ? (
+                              <form
+                                className="invoice-card__issue-form"
+                                onSubmit={(event) => {
+                                  event.preventDefault()
+                                  handleIssueInvoice(invoice)
+                                }}
+                              >
+                                <label
+                                  htmlFor={`invoice-${invoice.id}-due-date`}
+                                >
+                                  Due date
+                                </label>
+                                <input
+                                  id={`invoice-${invoice.id}-due-date`}
+                                  type="date"
+                                  value={draftDueDate}
+                                  disabled={isIssuingInvoice}
+                                  onChange={(event) => {
+                                    updateDraftDueDate(
+                                      invoice.id,
+                                      event.target.value,
+                                    )
+                                  }}
+                                />
+                                <button
+                                  type="submit"
+                                  disabled={!canIssueInvoice}
+                                >
+                                  {isIssuingInvoice
+                                    ? 'Issuing...'
+                                    : 'Issue invoice'}
+                                </button>
+                                {issueErrorInvoiceId === invoice.id ? (
+                                  <p
+                                    className="invoice-card__issue-error"
+                                    role="alert"
+                                  >
+                                    We could not issue this invoice. Please try
+                                    again.
+                                  </p>
+                                ) : null}
+                              </form>
+                            ) : null}
+                          </article>
+                        )
+                      })}
+                    </div>
+
+                    <aside
+                      className="command-list-rail"
+                      aria-label="Invoice billing flow"
+                    >
+                      <span>Billing flow</span>
+                      <strong>{invoiceSummary[1].value}</strong>
+                      <p>draft invoices still need due dates before issuing.</p>
+                      <div className="command-list-rail__items">
+                        <span className="command-list-rail__item">
+                          {invoiceSummary[2].value} issued or paid
+                        </span>
+                        <span className="command-list-rail__item">
+                          {invoiceSummary[0].value} invoices total
+                        </span>
+                      </div>
+                    </aside>
+                  </div>
+                </>
               )
-            })}
-          </div>
-        ) : null}
+            })()
+          : null}
       </section>
     </AppLayout>
   )
