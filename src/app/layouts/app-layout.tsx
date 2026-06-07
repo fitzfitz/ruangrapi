@@ -1,4 +1,10 @@
-import { useState, type CSSProperties, type ReactNode } from 'react'
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
 import {
   Banknote,
   Bell,
@@ -60,15 +66,44 @@ type AppLayoutProps = {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [isMoreOpen, setIsMoreOpen] = useState(false)
+  const [activePlateStyle, setActivePlateStyle] = useState<CSSProperties>({})
+  const navRef = useRef<HTMLElement | null>(null)
+  const navItemRefs = useRef<Array<HTMLElement | null>>([])
   const location = useLocation()
   const activePrimaryIndex = getActivePrimaryIndex(location.pathname)
   const isMoreRouteActive = activePrimaryIndex === primaryNavigationItems.length
   const displayedActiveIndex = isMoreOpen
     ? primaryNavigationItems.length
     : activePrimaryIndex
-  const activePlateStyle = {
-    transform: `translate3d(calc(${displayedActiveIndex} * (var(--app-bottom-nav-item-width) + var(--app-bottom-nav-gap))), 0, 0)`,
-  } as CSSProperties
+
+  useLayoutEffect(() => {
+    function syncActivePlate() {
+      const navElement = navRef.current
+      const activeItem = navItemRefs.current[displayedActiveIndex]
+
+      if (!navElement || !activeItem) {
+        return
+      }
+
+      const navRect = navElement.getBoundingClientRect()
+      const itemRect = activeItem.getBoundingClientRect()
+
+      setActivePlateStyle({
+        width: itemRect.width,
+        height: itemRect.height,
+        transform: `translate3d(${itemRect.left - navRect.left}px, ${
+          itemRect.top - navRect.top
+        }px, 0)`,
+      })
+    }
+
+    syncActivePlate()
+    window.addEventListener('resize', syncActivePlate)
+
+    return () => {
+      window.removeEventListener('resize', syncActivePlate)
+    }
+  }, [displayedActiveIndex, location.pathname])
 
   return (
     <div className="app-layout">
@@ -96,6 +131,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       </main>
 
       <nav
+        ref={navRef}
         className="app-bottom-nav"
         aria-label="Primary app sections"
         id="primary-navigation"
@@ -106,7 +142,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           style={activePlateStyle}
         />
         <ul className="app-bottom-nav__list">
-          {primaryNavigationItems.map((item) => {
+          {primaryNavigationItems.map((item, index) => {
             const Icon = item.icon
 
             return (
@@ -115,6 +151,9 @@ export function AppLayout({ children }: AppLayoutProps) {
                   className="app-bottom-nav__item"
                   end={item.path === routePaths.dashboard}
                   to={item.path}
+                  ref={(node) => {
+                    navItemRefs.current[index] = node
+                  }}
                   onClick={() => {
                     setIsMoreOpen(false)
                   }}
@@ -132,6 +171,9 @@ export function AppLayout({ children }: AppLayoutProps) {
                   ? 'app-bottom-nav__item app-bottom-nav__item--active'
                   : 'app-bottom-nav__item'
               }
+              ref={(node) => {
+                navItemRefs.current[primaryNavigationItems.length] = node
+              }}
               type="button"
               aria-expanded={isMoreOpen}
               aria-controls="secondary-navigation"

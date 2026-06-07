@@ -129,8 +129,8 @@
 .app-bottom-nav__active-plate {
   position: absolute;
   z-index: 0;
-  top: var(--app-bottom-nav-padding);
-  left: var(--app-bottom-nav-padding);
+  top: 0;
+  left: 0;
   width: var(--app-bottom-nav-active-width);
   height: 46px;
   border-radius: 999px;
