@@ -43,17 +43,17 @@ function buildLeaseSummary(leases: LeaseListItem[]) {
     {
       label: 'Total leases',
       value: leases.length.toString(),
-      helper: 'Agreements in workspace',
+      helper: 'Tenant-unit agreements',
     },
     {
       label: 'Active',
       value: activeCount.toString(),
-      helper: 'Currently occupying units',
+      helper: 'Currently billing',
     },
     {
       label: 'Ended',
       value: endedCount.toString(),
-      helper: 'Completed rental periods',
+      helper: 'Closed agreements',
     },
   ]
 }
@@ -165,18 +165,21 @@ export function LeasesPage() {
 
                     <aside
                       className="command-list-rail"
-                      aria-label="Lease lifecycle"
+                      aria-label="Lease status breakdown"
                     >
-                      <span>Lifecycle</span>
-                      <strong>{leaseSummary[1].value}</strong>
-                      <p>leases are currently active across occupied units.</p>
+                      <div>
+                        <h3>Lifecycle</h3>
+                        <p>Lease status at a glance.</p>
+                      </div>
                       <div className="command-list-rail__items">
-                        <span className="command-list-rail__item">
-                          {leaseSummary[2].value} ended
-                        </span>
-                        <span className="command-list-rail__item">
-                          {leaseSummary[0].value} total agreements
-                        </span>
+                        <div className="command-list-rail__item">
+                          <span>Active</span>
+                          <strong>{leaseSummary[1].value}</strong>
+                        </div>
+                        <div className="command-list-rail__item">
+                          <span>Ended</span>
+                          <strong>{leaseSummary[2].value}</strong>
+                        </div>
                       </div>
                     </aside>
                   </div>

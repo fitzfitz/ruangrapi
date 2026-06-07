@@ -62,17 +62,17 @@ function buildInvoiceSummary(invoices: InvoiceListItem[]) {
     {
       label: 'Total invoices',
       value: invoices.length.toString(),
-      helper: 'Billing records in workspace',
+      helper: 'Billing records',
     },
     {
       label: 'Draft',
       value: draftCount.toString(),
-      helper: 'Need due date and issue action',
+      helper: 'Need issue date',
     },
     {
       label: 'Issued or paid',
       value: issuedOrPaidCount.toString(),
-      helper: 'Moved into collection flow',
+      helper: 'Sent into collection',
     },
   ]
 }
@@ -290,18 +290,24 @@ export function InvoicesPage() {
 
                     <aside
                       className="command-list-rail"
-                      aria-label="Invoice billing flow"
+                      aria-label="Invoice status breakdown"
                     >
-                      <span>Billing flow</span>
-                      <strong>{invoiceSummary[1].value}</strong>
-                      <p>draft invoices still need due dates before issuing.</p>
+                      <div>
+                        <h3>Billing flow</h3>
+                        <p>
+                          Draft invoices should be issued before payment
+                          collection.
+                        </p>
+                      </div>
                       <div className="command-list-rail__items">
-                        <span className="command-list-rail__item">
-                          {invoiceSummary[2].value} issued or paid
-                        </span>
-                        <span className="command-list-rail__item">
-                          {invoiceSummary[0].value} invoices total
-                        </span>
+                        <div className="command-list-rail__item">
+                          <span>Draft</span>
+                          <strong>{invoiceSummary[1].value}</strong>
+                        </div>
+                        <div className="command-list-rail__item">
+                          <span>Issued or paid</span>
+                          <strong>{invoiceSummary[2].value}</strong>
+                        </div>
                       </div>
                     </aside>
                   </div>

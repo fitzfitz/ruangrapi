@@ -58,14 +58,14 @@ function buildReceiptSummary(receipts: ReceiptListItem[]) {
       helper: 'Generated proof records',
     },
     {
-      label: 'Unique tenants',
+      label: 'Tenants covered',
       value: uniqueTenantCount.toString(),
-      helper: 'Covered by receipt history',
+      helper: 'Distinct receipt parties',
     },
     {
-      label: 'Receipted',
+      label: 'Receipted amount',
       value: formatCurrency(receiptedAmount),
-      helper: 'Total payment proof issued',
+      helper: 'Total payment proof',
     },
   ]
 }

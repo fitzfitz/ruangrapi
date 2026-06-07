@@ -22,25 +22,25 @@ function getTenantEditPath(tenantId: string) {
 
 function buildTenantSummary(tenants: Tenant[]) {
   const withEmailCount = tenants.filter((tenant) => tenant.email?.trim()).length
-  const withEmergencyContactCount = tenants.filter((tenant) =>
-    tenant.emergency_contact_name?.trim(),
+  const missingEmergencyContactCount = tenants.filter(
+    (tenant) => !tenant.emergency_contact_name?.trim(),
   ).length
 
   return [
     {
       label: 'Total tenants',
       value: tenants.length.toString(),
-      helper: 'Renter records in workspace',
+      helper: 'Contact records in workspace',
     },
     {
       label: 'With email',
       value: withEmailCount.toString(),
-      helper: 'Ready for billing updates',
+      helper: 'Reachable by digital notice',
     },
     {
       label: 'Missing emergency',
-      value: (tenants.length - withEmergencyContactCount).toString(),
-      helper: 'Need backup contact details',
+      value: missingEmergencyContactCount.toString(),
+      helper: 'Needs backup contact',
     },
   ]
 }
@@ -144,16 +144,19 @@ export function TenantsPage() {
                       className="command-list-rail"
                       aria-label="Tenant data quality"
                     >
-                      <span>Data quality</span>
-                      <strong>{tenantSummary[2].value}</strong>
-                      <p>tenants still need emergency contact details.</p>
+                      <div>
+                        <h3>Data quality</h3>
+                        <p>Keep contacts complete before lease work starts.</p>
+                      </div>
                       <div className="command-list-rail__items">
-                        <span className="command-list-rail__item">
-                          {tenantSummary[1].value} with email
-                        </span>
-                        <span className="command-list-rail__item">
-                          {tenantSummary[0].value} records total
-                        </span>
+                        <div className="command-list-rail__item">
+                          <span>Email contacts</span>
+                          <strong>{tenantSummary[1].value}</strong>
+                        </div>
+                        <div className="command-list-rail__item">
+                          <span>Missing emergency</span>
+                          <strong>{tenantSummary[2].value}</strong>
+                        </div>
                       </div>
                     </aside>
                   </div>

@@ -62,26 +62,23 @@ function buildPaymentSummary(payments: PaymentListItem[]) {
   const withReceiptCount = payments.filter(
     (payment) => payment.receipt_id !== null,
   ).length
-  const collectedAmount = payments.reduce(
-    (total, payment) => total + payment.amount,
-    0,
-  )
+  const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0)
 
   return [
     {
       label: 'Total payments',
       value: payments.length.toString(),
-      helper: 'Recorded collections',
+      helper: 'Recorded receipts of money',
     },
     {
       label: 'With receipt',
       value: withReceiptCount.toString(),
-      helper: 'Proof of payment generated',
+      helper: 'Proof generated',
     },
     {
       label: 'Collected',
-      value: formatCurrency(collectedAmount),
-      helper: 'Total money received',
+      value: formatCurrency(totalAmount),
+      helper: 'Total recorded amount',
     },
   ]
 }
@@ -348,16 +345,27 @@ export function PaymentsPage() {
                       className="command-list-rail"
                       aria-label="Payment receipt coverage"
                     >
-                      <span>Receipt coverage</span>
-                      <strong>{paymentSummary[1].value}</strong>
-                      <p>payments already have generated receipts.</p>
+                      <div>
+                        <h3>Receipt coverage</h3>
+                        <p>
+                          Generate receipts for payments that still need proof
+                          records.
+                        </p>
+                      </div>
                       <div className="command-list-rail__items">
-                        <span className="command-list-rail__item">
-                          {paymentSummary[2].value} collected
-                        </span>
-                        <span className="command-list-rail__item">
-                          {paymentSummary[0].value} payments total
-                        </span>
+                        <div className="command-list-rail__item">
+                          <span>With receipt</span>
+                          <strong>{paymentSummary[1].value}</strong>
+                        </div>
+                        <div className="command-list-rail__item">
+                          <span>Pending receipt</span>
+                          <strong>
+                            {(
+                              paymentsQuery.data.length -
+                              Number(paymentSummary[1].value)
+                            ).toString()}
+                          </strong>
+                        </div>
                       </div>
                     </aside>
                   </div>
