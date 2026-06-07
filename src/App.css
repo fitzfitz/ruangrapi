@@ -2891,6 +2891,131 @@
   max-width: 1120px;
 }
 
+.properties-page,
+.tenants-page,
+.leases-page,
+.invoices-page,
+.payments-page,
+.receipts-page {
+  gap: 18px;
+  width: min(100%, var(--lagoon-shell-max));
+  max-width: var(--lagoon-shell-max);
+}
+
+.command-list-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.command-list-summary__item {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  overflow: hidden;
+  border: 1px solid var(--lagoon-light-border);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: 0 10px 24px rgb(14 116 144 / 0.08);
+}
+
+.command-list-summary__item::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--lagoon-500);
+}
+
+.command-list-summary__item span {
+  color: #52697a;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.command-list-summary__item strong {
+  color: var(--text-h);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.command-list-summary__item p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.command-list-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 14px;
+  align-items: start;
+}
+
+.command-list-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.command-list-surface,
+.command-list-rail {
+  border: 1px solid var(--lagoon-light-border);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.88);
+  box-shadow: 0 12px 28px rgb(14 116 144 / 0.08);
+}
+
+.command-list-surface {
+  display: grid;
+  gap: 0;
+  padding: 8px;
+}
+
+.command-list-rail {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.command-list-rail h3 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 15px;
+}
+
+.command-list-rail p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.command-list-rail__items {
+  display: grid;
+  gap: 8px;
+}
+
+.command-list-rail__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 10px;
+  padding: 9px 10px;
+  background: #f4fbff;
+}
+
+.command-list-rail__item span {
+  color: #52697a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.command-list-rail__item strong {
+  color: var(--text-h);
+  font-size: 14px;
+}
+
 .auth-page,
 .onboarding-page,
 .account-state-placeholder {
@@ -3524,6 +3649,34 @@
   box-shadow: 0 16px 34px rgb(15 23 42 / 0.1);
 }
 
+.properties-page .property-card,
+.tenants-page .tenant-card,
+.leases-page .lease-card,
+.invoices-page .invoice-card,
+.payments-page .payment-card,
+.receipts-page .receipt-card {
+  border-color: transparent;
+  border-radius: 12px;
+  padding: 16px;
+  background: #f8fcff;
+  box-shadow: none;
+}
+
+.command-list-surface > article + article {
+  border-top: 1px solid var(--lagoon-light-border);
+}
+
+.properties-page .property-card:hover,
+.tenants-page .tenant-card:hover,
+.leases-page .lease-card:hover,
+.invoices-page .invoice-card:hover,
+.payments-page .payment-card:hover,
+.receipts-page .receipt-card:hover {
+  border-color: rgb(14 165 233 / 0.26);
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgb(14 116 144 / 0.1);
+}
+
 .sign-in-form,
 .sign-up-form,
 .onboarding-form,
@@ -3708,6 +3861,10 @@
   .dashboard-shell__command-grid .dashboard-shell__chart--collection {
     grid-column: span 2;
   }
+
+  .command-list-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 720px) {
@@ -3774,6 +3931,15 @@
   .dashboard-shell__highlight--collection,
   .dashboard-shell__command-grid .dashboard-shell__chart--collection {
     grid-column: span 1;
+  }
+
+  .command-list-summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .command-list-surface,
+  .command-list-rail {
+    border-radius: 14px;
   }
 
   .maintenance-page__header,
