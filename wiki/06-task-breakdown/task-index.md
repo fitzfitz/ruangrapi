@@ -4,7 +4,6 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Maintenance and Reminders workflow UI uplift
 - Create/edit/detail guided layout uplift
 
 ## Completed candidates
@@ -48,6 +47,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Lagoon Command Center UI uplift
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
+- Maintenance and Reminders workflow UI uplift
 
 ## Later candidates
 

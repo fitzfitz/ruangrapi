@@ -4,10 +4,13 @@ Maintenance tracks property and unit issue tickets.
 
 ## Current status
 
-MVP baseline implementation and manual validation complete.
+MVP implementation, Kanban workflow board, and manual validation complete.
 
 ## Built
 
+- 3-column Kanban-style board layout (Open, In Progress, Completed/Closed)
+- top 3-card metrics summary strip (Open, In Progress, Resolved)
+- contextual transition actions directly on ticket cards
 - Maintenance list route
 - create Maintenance ticket route
 - property-only tickets

@@ -4,10 +4,13 @@ Reminders help owners follow up manually with tenants about rent, overdue invoic
 
 ## Current status
 
-Manual MVP baseline and manual validation complete.
+MVP implementation, split-column workspace, and manual validation complete.
 
 ## Built
 
+- 2-column split-column workspace (Prepare Panel on left, Follow-up Queue on right)
+- top 3-card metrics summary strip (Prepared, Sent, Cancelled)
+- contextual actions in follow-up queue (Copy Message, Open WhatsApp, status transitions)
 - Reminders page
 - payable invoice reminder preparation
 - generated WhatsApp-style message text

@@ -109,7 +109,9 @@ function ReminderDetails({
 function buildReminderSummary(reminders: ReminderListItem[]) {
   const preparedCount = reminders.filter((r) => r.status === 'prepared').length
   const sentCount = reminders.filter((r) => r.status === 'sent').length
-  const cancelledCount = reminders.filter((r) => r.status === 'cancelled').length
+  const cancelledCount = reminders.filter(
+    (r) => r.status === 'cancelled',
+  ).length
 
   return [
     {
@@ -489,7 +491,11 @@ export function RemindersPage() {
             {formOptionsQuery.isSuccess && hasInvoiceOptions ? (
               <div
                 className="reminders-prepare__body"
-                style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '14px',
+                }}
               >
                 <div className="reminders-prepare__field">
                   <label htmlFor="reminder-invoice">Invoice</label>
@@ -641,7 +647,11 @@ export function RemindersPage() {
               <div
                 className="reminders-queue__list"
                 aria-label="Reminder list"
-                style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                }}
               >
                 {(remindersQuery.data || []).map((reminder) =>
                   renderReminderCard(reminder),

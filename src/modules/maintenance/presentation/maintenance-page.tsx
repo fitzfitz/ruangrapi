@@ -246,7 +246,9 @@ export function MaintenancePage() {
               <button
                 className="reminder-card__actions button"
                 disabled={isUpdating}
-                onClick={() => void handleUpdateTicketStatus(ticket, 'cancelled')}
+                onClick={() =>
+                  void handleUpdateTicketStatus(ticket, 'cancelled')
+                }
                 type="button"
               >
                 Cancel
@@ -258,7 +260,9 @@ export function MaintenancePage() {
             <>
               <button
                 disabled={isUpdating}
-                onClick={() => void handleUpdateTicketStatus(ticket, 'resolved')}
+                onClick={() =>
+                  void handleUpdateTicketStatus(ticket, 'resolved')
+                }
                 type="button"
               >
                 Resolve
@@ -274,7 +278,9 @@ export function MaintenancePage() {
               <button
                 className="reminder-card__actions button"
                 disabled={isUpdating}
-                onClick={() => void handleUpdateTicketStatus(ticket, 'cancelled')}
+                onClick={() =>
+                  void handleUpdateTicketStatus(ticket, 'cancelled')
+                }
                 type="button"
               >
                 Cancel

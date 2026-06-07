@@ -263,7 +263,7 @@ Deferred:
 
 ## Maintenance
 
-Status: MVP baseline implementation and manual validation complete.
+Status: MVP implementation, Kanban workflow board, and manual validation complete.
 
 Routes:
 
@@ -272,6 +272,9 @@ Routes:
 
 Built:
 
+- 3-column Kanban-style board layout (Open, In Progress, Completed/Closed)
+- top 3-card metrics summary strip (Open, In Progress, Resolved)
+- contextual transition actions directly on ticket cards
 - read-only Maintenance list
 - create Maintenance ticket flow
 - property-only tickets
@@ -308,7 +311,7 @@ Deferred:
 
 ## Reminders
 
-Status: manual MVP baseline and manual validation complete.
+Status: MVP implementation, split-column workspace, and manual validation complete.
 
 Routes:
 
@@ -316,6 +319,9 @@ Routes:
 
 Built:
 
+- 2-column split-column workspace (Prepare Panel on left, Follow-up Queue on right)
+- top 3-card metrics summary strip (Prepared, Sent, Cancelled)
+- contextual actions in follow-up queue (Copy Message, Open WhatsApp, status transitions)
 - Reminders page
 - top-level Reminders navigation
 - payable invoice reminder preparation

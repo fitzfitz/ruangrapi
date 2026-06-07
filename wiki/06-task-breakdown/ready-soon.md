@@ -18,19 +18,17 @@ These are candidates likely to become approved tasks soon.
 - Dashboard/reporting UI/UX polish based on the Joyful Premium Ops foundation
 - Lagoon Command Center UI uplift
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
+- Maintenance and Reminders workflow UI uplift
 
-## Candidate: Maintenance and Reminders workflow UI uplift
+## Candidate: Create/edit/detail guided layout uplift
 
 Purpose:
 
-- apply the Lagoon Command Center visual language to Maintenance and Reminders
-- use a queue/workflow structure that fits operational follow-up work
-- keep create, edit, and detail pages deferred for the next UI batch
+- apply the Lagoon Command Center visual language to create, edit, and detail views
+- structure forms to be highly readable, clear, and guided
 
 Current bucket options:
 
-- Maintenance queue/workflow layout
-- Reminders queue/workflow layout
 - Guided create/edit/detail layout uplift
 - Reporting custom date range picker
 - Reporting CSV/export
@@ -42,6 +40,6 @@ Current bucket options:
 
 Status:
 
-- next likely candidate after the command list page UI/UX uplift closeout
+- next likely candidate after the Maintenance and Reminders workflow UI uplift closeout
 
-Next likely candidate: apply a queue/workflow layout to Maintenance and Reminders, then apply a guided form/detail layout to create/edit/detail pages.
+Next likely candidate: apply a guided form/detail layout to create/edit/detail pages.
