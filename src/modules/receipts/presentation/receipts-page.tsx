@@ -42,6 +42,34 @@ function getReceiptDetailPath(receiptId: string) {
   return routePaths.dashboardReceiptDetail.replace(':receiptId', receiptId)
 }
 
+function buildReceiptSummary(receipts: ReceiptListItem[]) {
+  const uniqueTenantCount = new Set(
+    receipts.map((receipt) => receipt.tenant_name.trim()).filter(Boolean),
+  ).size
+  const receiptedAmount = receipts.reduce(
+    (total, receipt) => total + receipt.payment_amount,
+    0,
+  )
+
+  return [
+    {
+      label: 'Total receipts',
+      value: receipts.length.toString(),
+      helper: 'Generated proof records',
+    },
+    {
+      label: 'Unique tenants',
+      value: uniqueTenantCount.toString(),
+      helper: 'Covered by receipt history',
+    },
+    {
+      label: 'Receipted',
+      value: formatCurrency(receiptedAmount),
+      helper: 'Total payment proof issued',
+    },
+  ]
+}
+
 export function ReceiptsPage() {
   const receiptsQuery = useReceiptsQuery()
 
@@ -79,57 +107,92 @@ export function ReceiptsPage() {
           </div>
         ) : null}
 
-        {receiptsQuery.isSuccess && receiptsQuery.data.length > 0 ? (
-          <div className="receipts-page__list" aria-label="Receipt list">
-            {receiptsQuery.data.map((receipt) => (
-              <article className="receipt-card" key={receipt.id}>
-                <div className="receipt-card__header">
-                  <div>
-                    <p className="receipt-card__label">Receipt</p>
-                    <h3>{receipt.receipt_number}</h3>
-                  </div>
-                  <div className="receipt-card__amount">
-                    <span>Amount</span>
-                    <strong>{formatCurrency(receipt.payment_amount)}</strong>
-                  </div>
-                </div>
+        {receiptsQuery.isSuccess && receiptsQuery.data.length > 0
+          ? (() => {
+              const receiptSummary = buildReceiptSummary(receiptsQuery.data)
 
-                <p className="receipt-card__party">
-                  {receipt.tenant_name} - {receipt.unit_name} -{' '}
-                  {formatPropertyName(receipt)}
-                </p>
+              return (
+                <>
+                  <div
+                    className="command-list-summary"
+                    aria-label="Receipt summary"
+                  >
+                    {receiptSummary.map((item) => (
+                      <article
+                        className="command-list-summary__item"
+                        key={item.label}
+                      >
+                        <span>{item.label}</span>
+                        <strong>{item.value}</strong>
+                        <p>{item.helper}</p>
+                      </article>
+                    ))}
+                  </div>
 
-                <dl className="receipt-card__details">
-                  <div>
-                    <dt>Issued</dt>
-                    <dd>{formatDate(receipt.issued_at)}</dd>
-                  </div>
-                  <div>
-                    <dt>Payment date</dt>
-                    <dd>{formatDate(receipt.payment_date)}</dd>
-                  </div>
-                  <div>
-                    <dt>Method</dt>
-                    <dd>{formatPaymentMethod(receipt.payment_method)}</dd>
-                  </div>
-                  <div>
-                    <dt>Billing period</dt>
-                    <dd>
-                      {formatBillingPeriod(receipt.invoice_billing_period)}
-                    </dd>
-                  </div>
-                </dl>
+                  <div className="command-list-grid command-list-grid--single">
+                    <div
+                      className="receipts-page__list command-list-surface"
+                      aria-label="Receipt list"
+                    >
+                      {receiptsQuery.data.map((receipt) => (
+                        <article className="receipt-card" key={receipt.id}>
+                          <div className="receipt-card__header">
+                            <div>
+                              <p className="receipt-card__label">Receipt</p>
+                              <h3>{receipt.receipt_number}</h3>
+                            </div>
+                            <div className="receipt-card__amount">
+                              <span>Amount</span>
+                              <strong>
+                                {formatCurrency(receipt.payment_amount)}
+                              </strong>
+                            </div>
+                          </div>
 
-                <Link
-                  className="receipt-card__action"
-                  to={getReceiptDetailPath(receipt.id)}
-                >
-                  View receipt
-                </Link>
-              </article>
-            ))}
-          </div>
-        ) : null}
+                          <p className="receipt-card__party">
+                            {receipt.tenant_name} - {receipt.unit_name} -{' '}
+                            {formatPropertyName(receipt)}
+                          </p>
+
+                          <dl className="receipt-card__details">
+                            <div>
+                              <dt>Issued</dt>
+                              <dd>{formatDate(receipt.issued_at)}</dd>
+                            </div>
+                            <div>
+                              <dt>Payment date</dt>
+                              <dd>{formatDate(receipt.payment_date)}</dd>
+                            </div>
+                            <div>
+                              <dt>Method</dt>
+                              <dd>
+                                {formatPaymentMethod(receipt.payment_method)}
+                              </dd>
+                            </div>
+                            <div>
+                              <dt>Billing period</dt>
+                              <dd>
+                                {formatBillingPeriod(
+                                  receipt.invoice_billing_period,
+                                )}
+                              </dd>
+                            </div>
+                          </dl>
+
+                          <Link
+                            className="receipt-card__action"
+                            to={getReceiptDetailPath(receipt.id)}
+                          >
+                            View receipt
+                          </Link>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )
+            })()
+          : null}
       </section>
     </AppLayout>
   )
