@@ -106,6 +106,30 @@ function ReminderDetails({
   )
 }
 
+function buildReminderSummary(reminders: ReminderListItem[]) {
+  const preparedCount = reminders.filter((r) => r.status === 'prepared').length
+  const sentCount = reminders.filter((r) => r.status === 'sent').length
+  const cancelledCount = reminders.filter((r) => r.status === 'cancelled').length
+
+  return [
+    {
+      label: 'Prepared',
+      value: preparedCount.toString(),
+      helper: 'Ready to copy & send',
+    },
+    {
+      label: 'Sent',
+      value: sentCount.toString(),
+      helper: 'Delivered follow-ups',
+    },
+    {
+      label: 'Cancelled',
+      value: cancelledCount.toString(),
+      helper: 'Skipped reminders',
+    },
+  ]
+}
+
 export function RemindersPage() {
   const formOptionsQuery = useReminderFormOptionsQuery()
   const remindersQuery = useRemindersQuery()
@@ -236,6 +260,158 @@ export function RemindersPage() {
     )
   }
 
+  const reminderSummary = buildReminderSummary(remindersQuery.data || [])
+
+  function renderReminderCard(reminder: ReminderListItem) {
+    const isUpdating = updatingReminderIds[reminder.id] === true
+    const hasUpdateError = updateErrorReminderIds[reminder.id] === true
+    const isCopied = copiedReminderIds[reminder.id] === true
+
+    return (
+      <article className="reminder-card" key={reminder.id}>
+        <div className="reminder-card__header">
+          <div>
+            <h3>{reminder.tenant_name}</h3>
+            <p>
+              {reminder.unit_name} -{' '}
+              {formatPropertyName(reminder.property_name)}
+            </p>
+          </div>
+          <span className="reminder-card__status">
+            {formatStatus(reminder.status)}
+          </span>
+        </div>
+
+        <ReminderDetails
+          dueDate={reminder.invoice_due_date}
+          billingPeriod={reminder.invoice_billing_period}
+          invoiceTotal={reminder.invoice_total_amount}
+        />
+
+        <dl className="reminder-card__meta">
+          <div>
+            <dt>Channel</dt>
+            <dd>{formatChannel(reminder.channel)}</dd>
+          </div>
+          <div>
+            <dt>Updated</dt>
+            <dd>{formatDateTime(reminder.updated_at)}</dd>
+          </div>
+        </dl>
+
+        <div className="reminder-card__message">
+          <span>Message</span>
+          <p>{reminder.message}</p>
+        </div>
+
+        {hasUpdateError ? (
+          <p className="reminder-card__error" role="alert">
+            We could not update this reminder. Please try again.
+          </p>
+        ) : null}
+
+        <div
+          className="reminder-card__actions"
+          style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+        >
+          {reminder.status === 'prepared' || reminder.status === 'sent' ? (
+            <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+              <button
+                onClick={() => {
+                  void handleCopyReminder(reminder)
+                }}
+                style={{ flex: 1 }}
+                type="button"
+              >
+                {isCopied ? 'Copied' : 'Copy message'}
+              </button>
+              {reminder.whatsapp_url !== null ? (
+                <a
+                  href={reminder.whatsapp_url}
+                  rel="noreferrer"
+                  style={{ flex: 1 }}
+                  target="_blank"
+                >
+                  Open WhatsApp
+                </a>
+              ) : null}
+            </div>
+          ) : null}
+
+          <div
+            style={{
+              display: 'flex',
+              gap: '8px',
+              width: '100%',
+              justifyContent: 'flex-end',
+            }}
+          >
+            {reminder.status === 'prepared' ? (
+              <>
+                <button
+                  disabled={isUpdating}
+                  onClick={() =>
+                    void handleUpdateReminderStatus(reminder, 'sent')
+                  }
+                  type="button"
+                >
+                  Mark sent
+                </button>
+                <button
+                  className="reminder-card__actions button"
+                  disabled={isUpdating}
+                  onClick={() =>
+                    void handleUpdateReminderStatus(reminder, 'cancelled')
+                  }
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </>
+            ) : null}
+
+            {reminder.status === 'sent' ? (
+              <>
+                <button
+                  className="reminder-card__actions button"
+                  disabled={isUpdating}
+                  onClick={() =>
+                    void handleUpdateReminderStatus(reminder, 'prepared')
+                  }
+                  type="button"
+                >
+                  Revert to prepared
+                </button>
+                <button
+                  className="reminder-card__actions button"
+                  disabled={isUpdating}
+                  onClick={() =>
+                    void handleUpdateReminderStatus(reminder, 'cancelled')
+                  }
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </>
+            ) : null}
+
+            {reminder.status === 'cancelled' ? (
+              <button
+                disabled={isUpdating}
+                onClick={() =>
+                  void handleUpdateReminderStatus(reminder, 'prepared')
+                }
+                type="button"
+              >
+                Restore
+              </button>
+            ) : null}
+          </div>
+        </div>
+      </article>
+    )
+  }
+
   return (
     <AppLayout>
       <section className="reminders-page" aria-labelledby="reminders-title">
@@ -249,262 +425,231 @@ export function RemindersPage() {
           </div>
         </div>
 
-        <section
-          className="reminders-prepare"
-          aria-labelledby="reminders-prepare-title"
-        >
-          <div className="reminders-prepare__header">
-            <div>
-              <h3 id="reminders-prepare-title">Prepare reminder</h3>
-              <p>Select a payable invoice to preview the generated message.</p>
-            </div>
+        {remindersQuery.isSuccess ? (
+          <div className="command-list-summary" aria-label="Reminders summary">
+            {reminderSummary.map((item) => (
+              <article className="command-list-summary__item" key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+                <p>{item.helper}</p>
+              </article>
+            ))}
           </div>
+        ) : null}
 
-          {formOptionsQuery.isLoading ? (
-            <p className="reminders-page__status">
-              Loading payable invoices...
+        <div className="reminders-split-grid">
+          {/* Column 1: Prepare Panel */}
+          <aside
+            className="reminders-prepare-column"
+            aria-labelledby="prepare-title"
+          >
+            <h3
+              id="prepare-title"
+              style={{ margin: '0 0 4px', fontSize: '15px', fontWeight: 800 }}
+            >
+              Prepare Reminder
+            </h3>
+            <p
+              style={{
+                margin: '0 0 16px',
+                fontSize: '13px',
+                color: 'var(--text)',
+              }}
+            >
+              Select a payable invoice to preview the generated message.
             </p>
-          ) : null}
 
-          {formOptionsQuery.isError ? (
-            <p className="reminders-page__error" role="alert">
-              We could not load payable invoices right now. Please try again
-              later.
-            </p>
-          ) : null}
-
-          {formOptionsQuery.isSuccess && !hasInvoiceOptions ? (
-            <div className="reminders-page__empty">
-              <h3>No payable invoices</h3>
-              <p>
-                Reminder options will appear after an invoice is unpaid,
-                partially paid, or overdue.
+            {formOptionsQuery.isLoading ? (
+              <p className="reminders-page__status">
+                Loading payable invoices...
               </p>
-              <div className="reminders-page__empty-actions">
-                <Link to={routePaths.dashboardInvoices}>View invoices</Link>
-                <Link to={routePaths.dashboardInvoicesNew}>Add invoice</Link>
-              </div>
-            </div>
-          ) : null}
+            ) : null}
 
-          {formOptionsQuery.isSuccess && hasInvoiceOptions ? (
-            <div className="reminders-prepare__body">
-              <div className="reminders-prepare__field">
-                <label htmlFor="reminder-invoice">Invoice</label>
-                <select
-                  id="reminder-invoice"
-                  value={selectedInvoiceId}
-                  disabled={isCreatingReminder}
-                  onChange={(event) => {
-                    setSelectedInvoiceId(event.target.value)
-                    setCreateError(false)
-                  }}
-                >
-                  <option value="">Select a payable invoice</option>
-                  {invoices.map((invoice) => (
-                    <option value={invoice.id} key={invoice.id}>
-                      {formatInvoiceOption(invoice)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {formOptionsQuery.isError ? (
+              <p className="reminders-page__error" role="alert">
+                We could not load payable invoices right now. Please try again
+                later.
+              </p>
+            ) : null}
 
-              {selectedInvoice !== null ? (
-                <div className="reminders-prepare__preview">
-                  <div className="reminders-prepare__summary">
-                    <div>
-                      <span>Tenant</span>
-                      <strong>{selectedInvoice.tenant_name}</strong>
-                    </div>
-                    <div>
-                      <span>Unit / property</span>
-                      <strong>
-                        {selectedInvoice.unit_name} -{' '}
-                        {formatPropertyName(selectedInvoice.property_name)}
-                      </strong>
-                    </div>
-                    <div>
-                      <span>Billing period</span>
-                      <strong>
-                        {formatBillingPeriod(selectedInvoice.billing_period)}
-                      </strong>
-                    </div>
-                    <div>
-                      <span>Due date</span>
-                      <strong>
-                        {formatDate(selectedInvoice.due_date, 'No due date')}
-                      </strong>
-                    </div>
-                    <div>
-                      <span>Remaining amount</span>
-                      <strong>
-                        {formatCurrency(selectedInvoice.remaining_amount)}
-                      </strong>
-                    </div>
-                  </div>
-
-                  <div className="reminders-prepare__message">
-                    <span>Generated message</span>
-                    <p>{selectedInvoice.generated_message}</p>
-                  </div>
-                </div>
-              ) : null}
-
-              {createError ? (
-                <p className="reminders-page__error" role="alert">
-                  We could not prepare this reminder. Please try again.
+            {formOptionsQuery.isSuccess && !hasInvoiceOptions ? (
+              <div className="reminders-page__empty">
+                <h3>No payable invoices</h3>
+                <p>
+                  Reminder options will appear after an invoice is unpaid,
+                  partially paid, or overdue.
                 </p>
-              ) : null}
-
-              <div className="reminders-prepare__actions">
-                <button
-                  type="button"
-                  disabled={!canPrepareReminder || isCreatingReminder}
-                  onClick={handlePrepareReminder}
-                >
-                  {isCreatingReminder
-                    ? 'Preparing reminder...'
-                    : 'Prepare reminder'}
-                </button>
+                <div className="reminders-page__empty-actions">
+                  <Link to={routePaths.dashboardInvoices}>View invoices</Link>
+                  <Link to={routePaths.dashboardInvoicesNew}>Add invoice</Link>
+                </div>
               </div>
-            </div>
-          ) : null}
-        </section>
+            ) : null}
 
-        <section className="reminders-queue" aria-labelledby="reminders-queue">
-          <div className="reminders-queue__header">
-            <div>
-              <h3 id="reminders-queue">Queue</h3>
-              <p>Prepared and sent reminders remain visible for follow-up.</p>
-            </div>
-          </div>
+            {formOptionsQuery.isSuccess && hasInvoiceOptions ? (
+              <div
+                className="reminders-prepare__body"
+                style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+              >
+                <div className="reminders-prepare__field">
+                  <label htmlFor="reminder-invoice">Invoice</label>
+                  <select
+                    disabled={isCreatingReminder}
+                    id="reminder-invoice"
+                    onChange={(event) => {
+                      setSelectedInvoiceId(event.target.value)
+                      setCreateError(false)
+                    }}
+                    value={selectedInvoiceId}
+                  >
+                    <option value="">Select a payable invoice</option>
+                    {invoices.map((invoice) => (
+                      <option key={invoice.id} value={invoice.id}>
+                        {formatInvoiceOption(invoice)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-          {remindersQuery.isLoading ? (
-            <p className="reminders-page__status">Loading reminders...</p>
-          ) : null}
-
-          {remindersQuery.isError ? (
-            <p className="reminders-page__error" role="alert">
-              We could not load reminders right now. Please try again later.
-            </p>
-          ) : null}
-
-          {remindersQuery.isSuccess && remindersQuery.data.length === 0 ? (
-            <div className="reminders-page__empty">
-              <h3>No reminders prepared</h3>
-              <p>
-                Select a payable invoice above to prepare the first reminder, or
-                review invoices if no options are available yet.
-              </p>
-              <div className="reminders-page__empty-actions">
-                <Link to={routePaths.dashboardInvoices}>View invoices</Link>
-              </div>
-            </div>
-          ) : null}
-
-          {remindersQuery.isSuccess && remindersQuery.data.length > 0 ? (
-            <div className="reminders-queue__list" aria-label="Reminder list">
-              {remindersQuery.data.map((reminder) => {
-                const isUpdating = updatingReminderIds[reminder.id] === true
-                const hasUpdateError =
-                  updateErrorReminderIds[reminder.id] === true
-                const isCopied = copiedReminderIds[reminder.id] === true
-
-                return (
-                  <article className="reminder-card" key={reminder.id}>
-                    <div className="reminder-card__header">
+                {selectedInvoice !== null ? (
+                  <div
+                    className="reminders-prepare__preview"
+                    style={{
+                      background: '#f8fafc',
+                      padding: '12px',
+                      borderRadius: '8px',
+                      border: '1px solid var(--border)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px',
+                        fontSize: '13px',
+                      }}
+                    >
                       <div>
-                        <h3>{reminder.tenant_name}</h3>
-                        <p>
-                          {reminder.unit_name} -{' '}
-                          {formatPropertyName(reminder.property_name)}
-                        </p>
+                        Tenant: <strong>{selectedInvoice.tenant_name}</strong>
                       </div>
-                      <span className="reminder-card__status">
-                        {formatStatus(reminder.status)}
+                      <div>
+                        Unit:{' '}
+                        <strong>
+                          {selectedInvoice.unit_name} -{' '}
+                          {formatPropertyName(selectedInvoice.property_name)}
+                        </strong>
+                      </div>
+                      <div>
+                        Period:{' '}
+                        <strong>
+                          {formatBillingPeriod(selectedInvoice.billing_period)}
+                        </strong>
+                      </div>
+                      <div>
+                        Due:{' '}
+                        <strong>
+                          {formatDate(selectedInvoice.due_date, 'No due date')}
+                        </strong>
+                      </div>
+                      <div>
+                        Remaining:{' '}
+                        <strong>
+                          {formatCurrency(selectedInvoice.remaining_amount)}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div
+                      className="reminders-prepare__message"
+                      style={{
+                        marginTop: '12px',
+                        borderTop: '1px solid var(--border)',
+                        paddingTop: '8px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          color: 'var(--text)',
+                        }}
+                      >
+                        Generated message
                       </span>
-                    </div>
-
-                    <ReminderDetails
-                      dueDate={reminder.invoice_due_date}
-                      billingPeriod={reminder.invoice_billing_period}
-                      invoiceTotal={reminder.invoice_total_amount}
-                    />
-
-                    <dl className="reminder-card__meta">
-                      <div>
-                        <dt>Channel</dt>
-                        <dd>{formatChannel(reminder.channel)}</dd>
-                      </div>
-                      <div>
-                        <dt>Updated</dt>
-                        <dd>{formatDateTime(reminder.updated_at)}</dd>
-                      </div>
-                    </dl>
-
-                    <div className="reminder-card__message">
-                      <span>Message</span>
-                      <p>{reminder.message}</p>
-                    </div>
-
-                    {hasUpdateError ? (
-                      <p className="reminder-card__error" role="alert">
-                        We could not update this reminder. Please try again.
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          margin: '4px 0 0',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {selectedInvoice.generated_message}
                       </p>
-                    ) : null}
-
-                    <div className="reminder-card__actions">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          void handleCopyReminder(reminder)
-                        }}
-                      >
-                        {isCopied ? 'Copied' : 'Copy message'}
-                      </button>
-                      {reminder.whatsapp_url !== null ? (
-                        <a
-                          href={reminder.whatsapp_url}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Open WhatsApp
-                        </a>
-                      ) : null}
-                      <button
-                        type="button"
-                        disabled={isUpdating || reminder.status === 'prepared'}
-                        onClick={() => {
-                          void handleUpdateReminderStatus(reminder, 'prepared')
-                        }}
-                      >
-                        Mark prepared
-                      </button>
-                      <button
-                        type="button"
-                        disabled={isUpdating || reminder.status === 'sent'}
-                        onClick={() => {
-                          void handleUpdateReminderStatus(reminder, 'sent')
-                        }}
-                      >
-                        Mark sent
-                      </button>
-                      <button
-                        type="button"
-                        disabled={isUpdating}
-                        onClick={() => {
-                          void handleUpdateReminderStatus(reminder, 'cancelled')
-                        }}
-                      >
-                        Cancel
-                      </button>
                     </div>
-                  </article>
-                )
-              })}
-            </div>
-          ) : null}
-        </section>
+                  </div>
+                ) : null}
+
+                {createError ? (
+                  <p className="reminders-page__error" role="alert">
+                    We could not prepare this reminder. Please try again.
+                  </p>
+                ) : null}
+
+                <div
+                  className="reminders-prepare__actions"
+                  style={{ marginTop: '6px' }}
+                >
+                  <button
+                    disabled={!canPrepareReminder || isCreatingReminder}
+                    onClick={handlePrepareReminder}
+                    style={{ width: '100%' }}
+                    type="button"
+                  >
+                    {isCreatingReminder ? 'Preparing...' : 'Prepare reminder'}
+                  </button>
+                </div>
+              </div>
+            ) : null}
+          </aside>
+
+          {/* Column 2: Active Queue */}
+          <section
+            className="reminders-queue-column"
+            aria-labelledby="queue-title"
+          >
+            <h3 id="queue-title">Active Follow-up Queue</h3>
+
+            {remindersQuery.isLoading ? (
+              <p className="reminders-page__status">Loading reminders...</p>
+            ) : null}
+
+            {remindersQuery.isError ? (
+              <p className="reminders-page__error" role="alert">
+                We could not load reminders right now. Please try again later.
+              </p>
+            ) : null}
+
+            {remindersQuery.isSuccess && remindersQuery.data.length === 0 ? (
+              <div className="reminders-page__empty">
+                <h3>No reminders prepared</h3>
+                <p>
+                  Select a payable invoice on the left to prepare the first
+                  reminder.
+                </p>
+              </div>
+            ) : (
+              <div
+                className="reminders-queue__list"
+                aria-label="Reminder list"
+                style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+              >
+                {(remindersQuery.data || []).map((reminder) =>
+                  renderReminderCard(reminder),
+                )}
+              </div>
+            )}
+          </section>
+        </div>
       </section>
     </AppLayout>
   )
