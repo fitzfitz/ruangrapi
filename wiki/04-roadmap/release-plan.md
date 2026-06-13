@@ -22,12 +22,13 @@ Built:
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 - Maintenance and Reminders workflow UI uplift
 - Create/edit/detail guided layout uplift
+- Payment edit/correction guardrails
 
 ## Recommended next sequence
 
-1. Review the remaining focused MVP gap bucket
+1. Add invoice payment history context
 
-Next recommended task: review the remaining focused MVP gap bucket.
+Next recommended task: add invoice payment history context.
 
 ## Design-system baseline
 

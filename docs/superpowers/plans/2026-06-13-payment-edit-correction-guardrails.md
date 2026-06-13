@@ -635,7 +635,7 @@
 
   import { AppLayout } from '../../../app/layouts'
   import { routePaths } from '../../../app/router/route-paths'
-  import { useAccountState } from '../../identity/account-state'
+  import { useCurrentProfileQuery } from '../../identity'
   import { usePaymentEditQuery } from '../application/use-payment-edit-query'
   import { useUpdatePaymentMutation } from '../application/use-update-payment-mutation'
   import {
@@ -689,7 +689,7 @@
   export function EditPaymentPage() {
     const { paymentId } = useParams<{ paymentId: string }>()
     const navigate = useNavigate()
-    const accountState = useAccountState()
+    const currentProfileQuery = useCurrentProfileQuery()
     const paymentQuery = usePaymentEditQuery(paymentId)
     const updatePaymentMutation = useUpdatePaymentMutation()
 
@@ -717,7 +717,9 @@
     }, [payment, reset])
 
     async function onSubmit(values: EditPaymentFormValues) {
-      if (!paymentId || !accountState.organizationId || payment === null) {
+      const organizationId = currentProfileQuery.data?.organization_id ?? null
+
+      if (!paymentId || organizationId === null || payment === null) {
         return
       }
 
@@ -728,7 +730,7 @@
       }
 
       await updatePaymentMutation.mutateAsync({
-        organizationId: accountState.organizationId,
+        organizationId,
         paymentId,
         input,
       })

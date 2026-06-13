@@ -2,7 +2,7 @@
 
 ## Status
 
-Status: manual validation complete.
+Status: manual validation complete for the Payments MVP baseline. Payment edit/correction guardrails are implemented and require focused manual validation.
 
 ## Disposable Local Data Setup
 
@@ -82,15 +82,33 @@ Do not add `supabase/seed.sql` for this validation pass. Do not create a migrati
 - [x] After successful creation, the user is redirected to `/dashboard/payments`.
 - [x] The newly created payment appears in the Payments list after redirect.
 
+## Payment Edit / Correction Guardrails
+
+- [ ] Authenticated and onboarded users can open `/dashboard/payments/:paymentId/edit` for an unreceipted payment.
+- [ ] Unauthenticated users cannot access `/dashboard/payments/:paymentId/edit` and are redirected through the existing auth gate.
+- [ ] Unreceipted payment cards show an Edit payment action.
+- [ ] Receipted payment cards do not expose direct edit.
+- [ ] Receipted payment cards explain that direct edits are locked after receipt issuance.
+- [ ] The edit page shows read-only invoice context for tenant, unit, property, billing period, invoice total, currently paid amount, and editable allowance.
+- [ ] The edit page allows amount, payment date, payment method, reference number, and notes changes.
+- [ ] The edit page does not allow invoice assignment changes.
+- [ ] Saving allowed field changes redirects back to `/dashboard/payments`.
+- [ ] Saving allowed field changes updates the Payments list.
+- [ ] Increasing amount above the editable invoice allowance is blocked.
+- [ ] Lowering a payment can move the invoice back to `partially_paid` or `unpaid` based on total paid amount.
+- [ ] Increasing a payment to the full allowance can move the invoice to `paid`.
+- [ ] Opening the edit route for a receipted payment shows a locked state instead of editable fields.
+
 ## Regression Checks
 
 - [x] Browser console has no errors during Payments list navigation, create-page load, payable invoice option loading, validation failures, successful create, redirects, list refresh, or auth redirect checks.
 
 ## Boundaries
 
-- [x] No payment edit flow was introduced.
+- [x] Payment edit is limited to unreceipted payments.
 - [x] No payment delete flow was introduced.
-- [x] No payment correction workflow was introduced.
+- [x] Receipted payment direct edits are blocked.
+- [x] No formal payment correction ledger workflow was introduced.
 - [x] No receipt workflow was introduced during the Payments baseline. Receipts manual generation was implemented later as its own module.
 - [x] No receipt number generation was introduced during the Payments baseline. Receipt numbering was activated later through the Receipts module using existing database-backed sequencing.
 - [x] No refund workflow was introduced.
@@ -105,7 +123,7 @@ Do not add `supabase/seed.sql` for this validation pass. Do not create a migrati
 
 ## Deferred Work
 
-Payment edit, payment delete, correction workflows, refunds, overpayment allocation, payment gateway integration, bank reconciliation, invoice payment history, Supabase RPC-based atomic payment recording, and dashboard collection metrics remain deferred. Receipts were deferred at Payments closeout and were implemented later as their own manual generation module.
+Payment delete, formal correction workflows, receipt invalidation or regeneration after payment changes, refunds, overpayment allocation, payment gateway integration, bank reconciliation, invoice payment history, Supabase RPC-based atomic payment recording, and dashboard collection metrics remain deferred. Receipts were deferred at Payments closeout and were implemented later as their own manual generation module.
 
 ## Closeout
 

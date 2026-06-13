@@ -193,6 +193,7 @@ Routes:
 
 - `/dashboard/payments`
 - `/dashboard/payments/new`
+- `/dashboard/payments/:paymentId/edit`
 
 Built:
 
@@ -206,6 +207,9 @@ Built:
 - invoice status update after payment recording
 - manual receipt generation from payment cards
 - issued receipt state on payment cards
+- guarded edit flow for unreceipted payments
+- direct edit lock for receipt-backed payments
+- invoice status recalculation after allowed payment edits
 - validation checklist
 - Payments implementation closeout
 
@@ -222,15 +226,14 @@ Fields:
 
 Deferred:
 
-- payment edit
 - payment delete
-- payment correction workflow
+- formal payment correction workflow
+- receipt invalidation or regeneration after payment changes
 - receipt edit or delete workflow
 - PDF/download receipt
 - PDF generation
 - email or WhatsApp delivery
 - automatic receipt generation after payment recording
-- payment edit blocking after receipt generation
 - refunds
 - overpayment allocation
 - payment gateway integration

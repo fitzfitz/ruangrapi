@@ -12,6 +12,7 @@ export const routePaths = {
   dashboardInvoicesNew: '/dashboard/invoices/new',
   dashboardPayments: '/dashboard/payments',
   dashboardPaymentsNew: '/dashboard/payments/new',
+  dashboardPaymentEdit: '/dashboard/payments/:paymentId/edit',
   dashboardReceipts: '/dashboard/receipts',
   dashboardReceiptDetail: '/dashboard/receipts/:receiptId',
   dashboardReceiptPrint: '/dashboard/receipts/:receiptId/print',

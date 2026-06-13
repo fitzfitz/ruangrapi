@@ -20,26 +20,27 @@ These are candidates likely to become approved tasks soon.
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 - Maintenance and Reminders workflow UI uplift
 - Create/edit/detail guided layout uplift
+- Payment edit/correction guardrails
 
-## Candidate: Next focused MVP gap review
+## Candidate: Invoice payment history context
 
 Purpose:
 
-- review the remaining MVP gap bucket after the guided layout pass
-- choose the next focused product gap without jumping into advanced reporting, automation, exports, gateways, or workflow expansions
+- show payment history against an invoice before deeper correction, export, or reporting work
+- make invoice balances easier to audit after payment edits and receipt generation
 
 Current bucket options:
 
+- Invoice payment history context
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
 - ApexCharts evaluation or migration
 - Receipt detail or list refinements
-- Payment edit/correction guardrails
 - Replace remaining domain-local BEM markup with shared UI primitives
 
 Status:
 
-- next likely candidate after the create/edit/detail guided layout uplift closeout
+- next likely candidate after payment edit/correction guardrails
 
-Next likely candidate: review the remaining focused MVP gap bucket.
+Next likely candidate: add invoice payment history context.

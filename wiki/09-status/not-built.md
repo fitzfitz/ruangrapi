@@ -44,10 +44,10 @@ Status: MVP baseline implementation and manual validation complete. Receipt manu
 
 Not built:
 
-- payment edit before receipt generation
+- payment edit for receipt-backed records
 - payment delete
-- payment correction workflow
-- payment edit blocking after receipt generation
+- formal payment correction workflow
+- receipt invalidation or regeneration after payment changes
 - refunds
 - overpayment allocation
 - payment gateway integration

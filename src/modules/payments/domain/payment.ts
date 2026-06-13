@@ -25,3 +25,23 @@ export type PaymentListItem = Payment & {
 }
 
 export type PayableInvoiceStatus = 'unpaid' | 'partially_paid' | 'overdue'
+
+export type PaymentEditInvoiceContext = {
+  id: string
+  billing_period: string
+  total_amount: number
+  status: string
+  tenant_name: string
+  unit_name: string
+  property_name: string | null
+  paid_amount: number
+  other_paid_amount: number
+  editable_remaining_amount: number
+}
+
+export type PaymentEditDetail = Payment & {
+  receipt_id: string | null
+  receipt_number: string | null
+  receipt_issued_at: string | null
+  invoice: PaymentEditInvoiceContext
+}

@@ -58,6 +58,10 @@ function getReceiptDetailPath(receiptId: string) {
   return routePaths.dashboardReceiptDetail.replace(':receiptId', receiptId)
 }
 
+function getPaymentEditPath(paymentId: string) {
+  return routePaths.dashboardPaymentEdit.replace(':paymentId', paymentId)
+}
+
 function buildPaymentSummary(payments: PaymentListItem[]) {
   const withReceiptCount = payments.filter(
     (payment) => payment.receipt_id !== null,
@@ -282,6 +286,13 @@ export function PaymentsPage() {
                                         )}
                                       </p>
                                     ) : null}
+                                    <div className="payment-card__guardrail">
+                                      <h4>Edits locked</h4>
+                                      <p>
+                                        Direct edits are locked because this
+                                        payment already has an issued receipt.
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                                 {payment.receipt_id !== null ? (
@@ -322,6 +333,12 @@ export function PaymentsPage() {
                                     </p>
                                   ) : null}
                                 </div>
+                                <Link
+                                  className="payment-card__receipt-action"
+                                  to={getPaymentEditPath(payment.id)}
+                                >
+                                  Edit payment
+                                </Link>
                                 <button
                                   className="payment-card__receipt-action"
                                   type="button"

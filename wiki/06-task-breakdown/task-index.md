@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Next focused MVP gap review
+- Add Invoice payment history context
 
 ## Completed candidates
 
@@ -49,6 +49,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 - Maintenance and Reminders workflow UI uplift
 - Create/edit/detail guided layout uplift
+- Payment edit/correction guardrails
 
 ## Later candidates
 
@@ -58,7 +59,6 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Reporting CSV/export
 - Reporting chart drilldowns
 - Reporting saved reports
-- Add Payment edit before receipt generation
 - Add Invoice payment history context
 - Move payment recording into Supabase RPC
 - Receipt detail page
@@ -68,7 +68,6 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - PDF generation
 - Email or WhatsApp delivery
 - Automatic receipt generation after payment recording
-- Payment edit blocking after receipt generation
 
 ## Deferred candidates
 

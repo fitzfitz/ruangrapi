@@ -873,6 +873,7 @@
 .create-tenant-page,
 .create-invoice-page,
 .create-payment-page,
+.edit-payment-page,
 .edit-tenant-page,
 .property-detail-page,
 .edit-property-page,
@@ -903,6 +904,7 @@
 .create-tenant-page__header,
 .create-invoice-page__header,
 .create-payment-page__header,
+.edit-payment-page__header,
 .create-lease-page__header,
 .edit-tenant-page__header,
 .property-detail-page__header,
@@ -926,6 +928,7 @@
 .create-tenant-page__header h2,
 .create-invoice-page__header h2,
 .create-payment-page__header h2,
+.edit-payment-page__header h2,
 .create-lease-page__header h2,
 .edit-tenant-page__header h2,
 .property-detail-page__header h2,
@@ -954,6 +957,8 @@
 .create-invoice-page__status,
 .create-payment-page__header p,
 .create-payment-page__status,
+.edit-payment-page__header p,
+.edit-payment-page__status,
 .create-lease-page__header p,
 .create-lease-page__status,
 .edit-tenant-page__header p,
@@ -984,6 +989,7 @@
 .create-tenant-page__header a,
 .create-invoice-page__header a,
 .create-payment-page__header a,
+.edit-payment-page__header a,
 .create-lease-page__header a,
 .edit-tenant-page__header a,
 .property-detail-page__header a,
@@ -1021,6 +1027,7 @@
 .reminders-page__error,
 .create-invoice-page__error,
 .create-payment-page__error,
+.edit-payment-page__error,
 .edit-tenant-page__error,
 .property-detail-page__error,
 .edit-property-page__error,
@@ -1046,6 +1053,7 @@
 .receipt-print-page__empty,
 .create-invoice-page__empty,
 .create-payment-page__empty,
+.edit-payment-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -1077,6 +1085,7 @@
 .receipt-print-page__empty,
 .create-invoice-page__empty,
 .create-payment-page__empty,
+.edit-payment-page__empty,
 .create-lease-page__empty,
 .edit-tenant-page__empty,
 .property-detail-page__empty,
@@ -1310,6 +1319,33 @@
   margin-top: 8px;
   color: #b42318;
   font-weight: 700;
+}
+
+.edit-payment-page__locked,
+.payment-card__guardrail {
+  display: grid;
+  gap: 10px;
+  border: 1px solid #f7c948;
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text-h);
+  background: #fff8e6;
+}
+
+.edit-payment-page__locked h3,
+.payment-card__guardrail h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.edit-payment-page__locked p,
+.payment-card__guardrail p {
+  margin: 0;
+  color: var(--text);
+}
+
+.payment-card__receipt-main .payment-card__guardrail {
+  margin-top: 10px;
 }
 
 .payment-card__receipt-action {
@@ -2739,6 +2775,7 @@
 .create-lease-page,
 .create-invoice-page,
 .create-payment-page,
+.edit-payment-page,
 .edit-tenant-page,
 .edit-property-page,
 .create-unit-page,
@@ -2753,6 +2790,7 @@
 .create-lease-page__header,
 .create-invoice-page__header,
 .create-payment-page__header,
+.edit-payment-page__header,
 .edit-tenant-page__header,
 .edit-property-page__header,
 .create-unit-page__header,
@@ -2768,6 +2806,7 @@
 .create-lease-page__header h2,
 .create-invoice-page__header h2,
 .create-payment-page__header h2,
+.edit-payment-page__header h2,
 .edit-tenant-page__header h2,
 .edit-property-page__header h2,
 .create-unit-page__header h2,

@@ -105,6 +105,13 @@ const CreatePaymentPage = lazy(() =>
     }),
   ),
 )
+const EditPaymentPage = lazy(() =>
+  import('../../modules/payments/presentation/edit-payment-page').then(
+    (module) => ({
+      default: module.EditPaymentPage,
+    }),
+  ),
+)
 const ReceiptDetailPage = lazy(() =>
   import('../../modules/receipts/presentation/receipt-detail-page').then(
     (module) => ({
@@ -289,6 +296,14 @@ export function AppRouter() {
             element={
               <RouteAccessGate route="dashboard">
                 <CreatePaymentPage />
+              </RouteAccessGate>
+            }
+          />
+          <Route
+            path={routePaths.dashboardPaymentEdit}
+            element={
+              <RouteAccessGate route="dashboard">
+                <EditPaymentPage />
               </RouteAccessGate>
             }
           />
