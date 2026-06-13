@@ -19,6 +19,7 @@ Built:
 - Joyful Premium Ops visual foundation
 - Lagoon Command Center shell/dashboard visual direction
 - floating rounded bottom navigation replacing the persistent sidebar
+- guided create/edit/detail layout uplift across Properties, Units, Tenants, Leases, Billing / Invoices, Payments, Receipts, and Maintenance
 - Base UI-backed shadcn component configuration with `base-rhea`
 - self-hosted Plus Jakarta Sans typography
 - blue responsive product shell with active bottom navigation and secondary More menu
@@ -405,6 +406,7 @@ Built:
 - restrained list, form, detail, and receipt print surfaces
 - refreshed app shell with branded header, active bottom navigation states, and More menu
 - broad current-screen migration across dashboard, properties, units, tenants, leases, invoices, payments, receipts, reminders, maintenance, auth, signup, and onboarding
+- centered command form containers, guided form sections, property detail split layout, and printable voucher-style receipt detail surface
 - receipt print styling preserved with print-safe overrides
 
 Deferred:

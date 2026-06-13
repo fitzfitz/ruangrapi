@@ -117,7 +117,7 @@ export function CreateMaintenanceTicketPage() {
 
         {formOptionsQuery.isSuccess && hasProperties ? (
           <form
-            className="maintenance-ticket-form"
+            className="maintenance-ticket-form command-form-card"
             onSubmit={handleSubmit((input) => {
               if (organization === null) {
                 return
@@ -144,162 +144,178 @@ export function CreateMaintenanceTicketPage() {
             })}
             noValidate
           >
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-property">Property</label>
-              <select
-                id="maintenance-ticket-property"
-                disabled={isSubmitting}
-                aria-invalid={errors.property_id ? 'true' : 'false'}
-                {...register('property_id')}
-              >
-                <option value="">Select a property</option>
-                {formOptions.properties.map((property) => (
-                  <option value={property.id} key={property.id}>
-                    {property.name}
-                  </option>
-                ))}
-              </select>
-              {errors.property_id?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.property_id.message}
-                </p>
-              ) : null}
+            <div className="form-section">
+              <h3>Ticket Description</h3>
+              <p className="form-section__helper">
+                Specify the property, unit, and details of the maintenance
+                issue.
+              </p>
+
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-property">Property</label>
+                <select
+                  id="maintenance-ticket-property"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.property_id ? 'true' : 'false'}
+                  {...register('property_id')}
+                >
+                  <option value="">Select a property</option>
+                  {formOptions.properties.map((property) => (
+                    <option value={property.id} key={property.id}>
+                      {property.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.property_id?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.property_id.message}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-unit">Unit</label>
+                <select
+                  id="maintenance-ticket-unit"
+                  disabled={isSubmitting || selectedPropertyId.length === 0}
+                  aria-invalid={errors.unit_id ? 'true' : 'false'}
+                  {...register('unit_id')}
+                >
+                  <option value="">No unit / property-level issue</option>
+                  {filteredUnits.map((unit) => (
+                    <option value={unit.id} key={unit.id}>
+                      {unit.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.unit_id?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.unit_id.message}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-title">Title</label>
+                <input
+                  id="maintenance-ticket-title"
+                  type="text"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.title ? 'true' : 'false'}
+                  {...register('title')}
+                />
+                {errors.title?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.title.message}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-description">
+                  Description
+                </label>
+                <textarea
+                  id="maintenance-ticket-description"
+                  rows={4}
+                  disabled={isSubmitting}
+                  aria-invalid={errors.description ? 'true' : 'false'}
+                  {...register('description')}
+                />
+                {errors.description?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.description.message}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-unit">Unit</label>
-              <select
-                id="maintenance-ticket-unit"
-                disabled={isSubmitting || selectedPropertyId.length === 0}
-                aria-invalid={errors.unit_id ? 'true' : 'false'}
-                {...register('unit_id')}
-              >
-                <option value="">No unit / property-level issue</option>
-                {filteredUnits.map((unit) => (
-                  <option value={unit.id} key={unit.id}>
-                    {unit.name}
-                  </option>
-                ))}
-              </select>
-              {errors.unit_id?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.unit_id.message}
-                </p>
-              ) : null}
-            </div>
+            <div className="form-section">
+              <h3>Priority & Budget</h3>
+              <p className="form-section__helper">
+                Set the urgency level, report date, and estimated or actual cost
+                details.
+              </p>
 
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-title">Title</label>
-              <input
-                id="maintenance-ticket-title"
-                type="text"
-                disabled={isSubmitting}
-                aria-invalid={errors.title ? 'true' : 'false'}
-                {...register('title')}
-              />
-              {errors.title?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.title.message}
-                </p>
-              ) : null}
-            </div>
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-priority">Priority</label>
+                <select
+                  id="maintenance-ticket-priority"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.priority ? 'true' : 'false'}
+                  {...register('priority')}
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+                {errors.priority?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.priority.message}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-description">
-                Description
-              </label>
-              <textarea
-                id="maintenance-ticket-description"
-                rows={4}
-                disabled={isSubmitting}
-                aria-invalid={errors.description ? 'true' : 'false'}
-                {...register('description')}
-              />
-              {errors.description?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.description.message}
-                </p>
-              ) : null}
-            </div>
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-reported-at">
+                  Reported date
+                </label>
+                <input
+                  id="maintenance-ticket-reported-at"
+                  type="date"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.reported_at ? 'true' : 'false'}
+                  {...register('reported_at')}
+                />
+                {errors.reported_at?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.reported_at.message}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-priority">Priority</label>
-              <select
-                id="maintenance-ticket-priority"
-                disabled={isSubmitting}
-                aria-invalid={errors.priority ? 'true' : 'false'}
-                {...register('priority')}
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
-              </select>
-              {errors.priority?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.priority.message}
-                </p>
-              ) : null}
-            </div>
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-estimated-cost">
+                  Estimated cost
+                </label>
+                <input
+                  id="maintenance-ticket-estimated-cost"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputMode="numeric"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.estimated_cost ? 'true' : 'false'}
+                  {...register('estimated_cost')}
+                />
+                {errors.estimated_cost?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.estimated_cost.message}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-reported-at">
-                Reported date
-              </label>
-              <input
-                id="maintenance-ticket-reported-at"
-                type="date"
-                disabled={isSubmitting}
-                aria-invalid={errors.reported_at ? 'true' : 'false'}
-                {...register('reported_at')}
-              />
-              {errors.reported_at?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.reported_at.message}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-estimated-cost">
-                Estimated cost
-              </label>
-              <input
-                id="maintenance-ticket-estimated-cost"
-                type="number"
-                min="0"
-                step="1"
-                inputMode="numeric"
-                disabled={isSubmitting}
-                aria-invalid={errors.estimated_cost ? 'true' : 'false'}
-                {...register('estimated_cost')}
-              />
-              {errors.estimated_cost?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.estimated_cost.message}
-                </p>
-              ) : null}
-            </div>
-
-            <div className="maintenance-ticket-form__field">
-              <label htmlFor="maintenance-ticket-actual-cost">
-                Actual cost
-              </label>
-              <input
-                id="maintenance-ticket-actual-cost"
-                type="number"
-                min="0"
-                step="1"
-                inputMode="numeric"
-                disabled={isSubmitting}
-                aria-invalid={errors.actual_cost ? 'true' : 'false'}
-                {...register('actual_cost')}
-              />
-              {errors.actual_cost?.message ? (
-                <p className="maintenance-ticket-form__error" role="alert">
-                  {errors.actual_cost.message}
-                </p>
-              ) : null}
+              <div className="maintenance-ticket-form__field">
+                <label htmlFor="maintenance-ticket-actual-cost">
+                  Actual cost
+                </label>
+                <input
+                  id="maintenance-ticket-actual-cost"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputMode="numeric"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.actual_cost ? 'true' : 'false'}
+                  {...register('actual_cost')}
+                />
+                {errors.actual_cost?.message ? (
+                  <p className="maintenance-ticket-form__error" role="alert">
+                    {errors.actual_cost.message}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             {currentOrganizationQuery.isError ||

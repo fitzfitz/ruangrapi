@@ -112,10 +112,10 @@ export function PropertyDetailPage() {
         ) : null}
 
         {propertyQuery.isSuccess && propertyQuery.data !== null ? (
-          <>
+          <div className="property-detail-layout">
             <PropertyDetailContent property={propertyQuery.data} />
             <PropertyUnitsSection propertyId={propertyQuery.data.id} />
-          </>
+          </div>
         ) : null}
       </section>
     </AppLayout>

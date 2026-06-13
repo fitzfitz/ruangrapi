@@ -4,7 +4,7 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 
 ## Ready soon candidates
 
-- Create/edit/detail guided layout uplift
+- Next focused MVP gap review
 
 ## Completed candidates
 
@@ -48,10 +48,10 @@ This page tracks task candidates. Candidates are not approved for Hermes executi
 - Lagoon Command Center UI uplift
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 - Maintenance and Reminders workflow UI uplift
+- Create/edit/detail guided layout uplift
 
 ## Later candidates
 
-- Next focused MVP gap review
 - ApexCharts evaluation or migration
 - Replace remaining domain-local BEM markup with shared UI primitives
 - Reporting custom date range picker

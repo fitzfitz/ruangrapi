@@ -54,7 +54,7 @@ export function CreateTenantPage() {
         </div>
 
         <form
-          className="tenant-form"
+          className="tenant-form command-form-card"
           onSubmit={handleSubmit((input) => {
             if (organizationId === null) {
               return
@@ -71,125 +71,139 @@ export function CreateTenantPage() {
           })}
           noValidate
         >
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-full-name">Full name</label>
-            <input
-              id="tenant-full-name"
-              type="text"
-              autoComplete="name"
-              disabled={isSubmitting}
-              aria-invalid={errors.full_name ? 'true' : 'false'}
-              {...register('full_name')}
-            />
-            {errors.full_name?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.full_name.message}
-              </p>
-            ) : null}
+          <div className="form-section">
+            <h3>01. Primary Contact Info</h3>
+            <p className="form-section__helper">
+              Provide the tenant's primary name, phone number, and email.
+            </p>
+
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-full-name">Full name</label>
+              <input
+                id="tenant-full-name"
+                type="text"
+                autoComplete="name"
+                disabled={isSubmitting}
+                aria-invalid={errors.full_name ? 'true' : 'false'}
+                {...register('full_name')}
+              />
+              {errors.full_name?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.full_name.message}
+                </p>
+              ) : null}
+            </div>
+
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-phone">Phone</label>
+              <input
+                id="tenant-phone"
+                type="tel"
+                autoComplete="tel"
+                disabled={isSubmitting}
+                aria-invalid={errors.phone ? 'true' : 'false'}
+                {...register('phone')}
+              />
+              {errors.phone?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.phone.message}
+                </p>
+              ) : null}
+            </div>
+
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-email">Email</label>
+              <input
+                id="tenant-email"
+                type="email"
+                autoComplete="email"
+                disabled={isSubmitting}
+                aria-invalid={errors.email ? 'true' : 'false'}
+                {...register('email')}
+              />
+              {errors.email?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.email.message}
+                </p>
+              ) : null}
+            </div>
           </div>
 
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-phone">Phone</label>
-            <input
-              id="tenant-phone"
-              type="tel"
-              autoComplete="tel"
-              disabled={isSubmitting}
-              aria-invalid={errors.phone ? 'true' : 'false'}
-              {...register('phone')}
-            />
-            {errors.phone?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.phone.message}
-              </p>
-            ) : null}
-          </div>
+          <div className="form-section">
+            <h3>02. Identity & Emergency Contacts</h3>
+            <p className="form-section__helper">
+              Record identity parameters and primary emergency contact.
+            </p>
 
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-email">Email</label>
-            <input
-              id="tenant-email"
-              type="email"
-              autoComplete="email"
-              disabled={isSubmitting}
-              aria-invalid={errors.email ? 'true' : 'false'}
-              {...register('email')}
-            />
-            {errors.email?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.email.message}
-              </p>
-            ) : null}
-          </div>
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-identity-notes">Identity notes</label>
+              <textarea
+                id="tenant-identity-notes"
+                rows={3}
+                disabled={isSubmitting}
+                aria-invalid={errors.identity_notes ? 'true' : 'false'}
+                {...register('identity_notes')}
+              />
+              {errors.identity_notes?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.identity_notes.message}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-identity-notes">Identity notes</label>
-            <textarea
-              id="tenant-identity-notes"
-              rows={3}
-              disabled={isSubmitting}
-              aria-invalid={errors.identity_notes ? 'true' : 'false'}
-              {...register('identity_notes')}
-            />
-            {errors.identity_notes?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.identity_notes.message}
-              </p>
-            ) : null}
-          </div>
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-emergency-contact-name">
+                Emergency contact name
+              </label>
+              <input
+                id="tenant-emergency-contact-name"
+                type="text"
+                autoComplete="off"
+                disabled={isSubmitting}
+                aria-invalid={errors.emergency_contact_name ? 'true' : 'false'}
+                {...register('emergency_contact_name')}
+              />
+              {errors.emergency_contact_name?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.emergency_contact_name.message}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-emergency-contact-name">
-              Emergency contact name
-            </label>
-            <input
-              id="tenant-emergency-contact-name"
-              type="text"
-              autoComplete="off"
-              disabled={isSubmitting}
-              aria-invalid={errors.emergency_contact_name ? 'true' : 'false'}
-              {...register('emergency_contact_name')}
-            />
-            {errors.emergency_contact_name?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.emergency_contact_name.message}
-              </p>
-            ) : null}
-          </div>
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-emergency-contact-phone">
+                Emergency contact phone
+              </label>
+              <input
+                id="tenant-emergency-contact-phone"
+                type="tel"
+                autoComplete="off"
+                disabled={isSubmitting}
+                aria-invalid={errors.emergency_contact_phone ? 'true' : 'false'}
+                {...register('emergency_contact_phone')}
+              />
+              {errors.emergency_contact_phone?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.emergency_contact_phone.message}
+                </p>
+              ) : null}
+            </div>
 
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-emergency-contact-phone">
-              Emergency contact phone
-            </label>
-            <input
-              id="tenant-emergency-contact-phone"
-              type="tel"
-              autoComplete="off"
-              disabled={isSubmitting}
-              aria-invalid={errors.emergency_contact_phone ? 'true' : 'false'}
-              {...register('emergency_contact_phone')}
-            />
-            {errors.emergency_contact_phone?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.emergency_contact_phone.message}
-              </p>
-            ) : null}
-          </div>
-
-          <div className="tenant-form__field">
-            <label htmlFor="tenant-notes">Notes</label>
-            <textarea
-              id="tenant-notes"
-              rows={4}
-              disabled={isSubmitting}
-              aria-invalid={errors.notes ? 'true' : 'false'}
-              {...register('notes')}
-            />
-            {errors.notes?.message ? (
-              <p className="tenant-form__error" role="alert">
-                {errors.notes.message}
-              </p>
-            ) : null}
+            <div className="tenant-form__field">
+              <label htmlFor="tenant-notes">Notes</label>
+              <textarea
+                id="tenant-notes"
+                rows={4}
+                disabled={isSubmitting}
+                aria-invalid={errors.notes ? 'true' : 'false'}
+                {...register('notes')}
+              />
+              {errors.notes?.message ? (
+                <p className="tenant-form__error" role="alert">
+                  {errors.notes.message}
+                </p>
+              ) : null}
+            </div>
           </div>
 
           {currentProfileQuery.isError ? (

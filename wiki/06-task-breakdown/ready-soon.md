@@ -19,17 +19,17 @@ These are candidates likely to become approved tasks soon.
 - Lagoon Command Center UI uplift
 - Command list page UI/UX uplift for Properties, Tenants, Leases, Invoices, Payments, and Receipts
 - Maintenance and Reminders workflow UI uplift
+- Create/edit/detail guided layout uplift
 
-## Candidate: Create/edit/detail guided layout uplift
+## Candidate: Next focused MVP gap review
 
 Purpose:
 
-- apply the Lagoon Command Center visual language to create, edit, and detail views
-- structure forms to be highly readable, clear, and guided
+- review the remaining MVP gap bucket after the guided layout pass
+- choose the next focused product gap without jumping into advanced reporting, automation, exports, gateways, or workflow expansions
 
 Current bucket options:
 
-- Guided create/edit/detail layout uplift
 - Reporting custom date range picker
 - Reporting CSV/export
 - Reporting chart drilldowns
@@ -40,6 +40,6 @@ Current bucket options:
 
 Status:
 
-- next likely candidate after the Maintenance and Reminders workflow UI uplift closeout
+- next likely candidate after the create/edit/detail guided layout uplift closeout
 
-Next likely candidate: apply a guided form/detail layout to create/edit/detail pages.
+Next likely candidate: review the remaining focused MVP gap bucket.

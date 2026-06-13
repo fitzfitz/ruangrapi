@@ -130,7 +130,7 @@ export function EditUnitPage() {
         unitQuery.isSuccess &&
         unit !== null ? (
           <form
-            className="edit-unit-form"
+            className="edit-unit-form command-form-card"
             onSubmit={handleSubmit((input) => {
               updateUnitMutation.mutate(
                 {

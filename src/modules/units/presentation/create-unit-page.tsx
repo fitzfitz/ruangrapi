@@ -86,7 +86,7 @@ export function CreateUnitPage() {
 
         {propertyQuery.isSuccess && property !== null ? (
           <form
-            className="create-unit-form"
+            className="create-unit-form command-form-card"
             onSubmit={handleSubmit((input) => {
               if (organizationId === null) {
                 return

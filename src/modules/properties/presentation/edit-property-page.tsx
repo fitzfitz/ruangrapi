@@ -101,7 +101,7 @@ export function EditPropertyPage() {
 
         {propertyQuery.isSuccess && propertyQuery.data !== null ? (
           <form
-            className="edit-property-form"
+            className="edit-property-form command-form-card"
             onSubmit={handleSubmit((input) => {
               if (!propertyId) {
                 return

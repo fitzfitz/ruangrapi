@@ -101,7 +101,7 @@ export function CreateInvoicePage() {
 
         {formOptionsQuery.isSuccess && hasFormOptions ? (
           <form
-            className="invoice-form"
+            className="invoice-form command-form-card"
             onSubmit={handleSubmit((input) => {
               if (organizationId === null) {
                 return
@@ -118,80 +118,94 @@ export function CreateInvoicePage() {
             })}
             noValidate
           >
-            <div className="invoice-form__field">
-              <label htmlFor="invoice-lease">Lease</label>
-              <select
-                id="invoice-lease"
-                disabled={isSubmitting}
-                aria-invalid={errors.lease_id ? 'true' : 'false'}
-                {...register('lease_id')}
-              >
-                <option value="">Select an active lease</option>
-                {formOptions.leases.map((lease) => (
-                  <option value={lease.id} key={lease.id}>
-                    {formatLeaseOption(
-                      lease.tenant_name,
-                      lease.unit_name,
-                      lease.property_name,
-                    )}
-                  </option>
-                ))}
-              </select>
-              {errors.lease_id?.message ? (
-                <p className="invoice-form__error" role="alert">
-                  {errors.lease_id.message}
-                </p>
-              ) : null}
-            </div>
+            <div className="form-section">
+              <h3>01. Lease Context</h3>
+              <p className="form-section__helper">
+                Select an active lease to use as the billing source.
+              </p>
 
-            {selectedLease !== null ? (
-              <div className="invoice-form__context">
-                <span className="invoice-form__context-label">
-                  Invoice source
-                </span>
-                <p>
-                  {selectedLease.tenant_name} / {selectedLease.unit_name}
-                  {selectedLease.property_name === null
-                    ? ''
-                    : ` - ${selectedLease.property_name}`}
-                </p>
-                <p>
-                  Monthly rent:{' '}
-                  {formatCurrency(selectedLease.monthly_rent_amount)}
-                </p>
+              <div className="invoice-form__field">
+                <label htmlFor="invoice-lease">Lease</label>
+                <select
+                  id="invoice-lease"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.lease_id ? 'true' : 'false'}
+                  {...register('lease_id')}
+                >
+                  <option value="">Select an active lease</option>
+                  {formOptions.leases.map((lease) => (
+                    <option value={lease.id} key={lease.id}>
+                      {formatLeaseOption(
+                        lease.tenant_name,
+                        lease.unit_name,
+                        lease.property_name,
+                      )}
+                    </option>
+                  ))}
+                </select>
+                {errors.lease_id?.message ? (
+                  <p className="invoice-form__error" role="alert">
+                    {errors.lease_id.message}
+                  </p>
+                ) : null}
               </div>
-            ) : null}
 
-            <div className="invoice-form__field">
-              <label htmlFor="invoice-billing-period">Billing period</label>
-              <input
-                id="invoice-billing-period"
-                type="month"
-                disabled={isSubmitting}
-                aria-invalid={errors.billing_period ? 'true' : 'false'}
-                {...register('billing_period')}
-              />
-              {errors.billing_period?.message ? (
-                <p className="invoice-form__error" role="alert">
-                  {errors.billing_period.message}
-                </p>
+              {selectedLease !== null ? (
+                <div className="invoice-form__context">
+                  <span className="invoice-form__context-label">
+                    Invoice source
+                  </span>
+                  <p>
+                    {selectedLease.tenant_name} / {selectedLease.unit_name}
+                    {selectedLease.property_name === null
+                      ? ''
+                      : ` - ${selectedLease.property_name}`}
+                  </p>
+                  <p>
+                    Monthly rent:{' '}
+                    {formatCurrency(selectedLease.monthly_rent_amount)}
+                  </p>
+                </div>
               ) : null}
             </div>
 
-            <div className="invoice-form__field">
-              <label htmlFor="invoice-notes">Notes</label>
-              <textarea
-                id="invoice-notes"
-                rows={4}
-                disabled={isSubmitting}
-                aria-invalid={errors.notes ? 'true' : 'false'}
-                {...register('notes')}
-              />
-              {errors.notes?.message ? (
-                <p className="invoice-form__error" role="alert">
-                  {errors.notes.message}
-                </p>
-              ) : null}
+            <div className="form-section">
+              <h3>02. Invoice Details</h3>
+              <p className="form-section__helper">
+                Specify the billing month and add optional notes.
+              </p>
+
+              <div className="invoice-form__field">
+                <label htmlFor="invoice-billing-period">Billing period</label>
+                <input
+                  id="invoice-billing-period"
+                  type="month"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.billing_period ? 'true' : 'false'}
+                  {...register('billing_period')}
+                />
+                {errors.billing_period?.message ? (
+                  <p className="invoice-form__error" role="alert">
+                    {errors.billing_period.message}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="invoice-form__field">
+                <label htmlFor="invoice-notes">Notes</label>
+                <textarea
+                  id="invoice-notes"
+                  rows={4}
+                  disabled={isSubmitting}
+                  aria-invalid={errors.notes ? 'true' : 'false'}
+                  {...register('notes')}
+                />
+                {errors.notes?.message ? (
+                  <p className="invoice-form__error" role="alert">
+                    {errors.notes.message}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             {currentProfileQuery.isError ? (

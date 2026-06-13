@@ -131,7 +131,7 @@ export function CreatePaymentPage() {
 
         {formOptionsQuery.isSuccess && hasFormOptions ? (
           <form
-            className="payment-form"
+            className="payment-form command-form-card"
             onSubmit={handleSubmit((input) => {
               if (organizationId === null) {
                 return
@@ -164,148 +164,174 @@ export function CreatePaymentPage() {
             })}
             noValidate
           >
-            <div className="payment-form__field">
-              <label htmlFor="payment-invoice">Invoice</label>
-              <select
-                id="payment-invoice"
-                disabled={isSubmitting}
-                aria-invalid={errors.invoice_id ? 'true' : 'false'}
-                {...register('invoice_id')}
-              >
-                <option value="">Select a payable invoice</option>
-                {formOptions.invoices.map((invoice) => (
-                  <option value={invoice.id} key={invoice.id}>
-                    {formatInvoiceOption(invoice)}
-                  </option>
-                ))}
-              </select>
-              {errors.invoice_id?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.invoice_id.message}
-                </p>
-              ) : null}
-            </div>
+            <div className="form-section">
+              <h3>Invoice Context & Balance</h3>
+              <p className="form-section__helper">
+                Select the target invoice to apply the payment toward and verify
+                the balance.
+              </p>
 
-            {selectedInvoice !== null ? (
-              <div className="payment-form__context">
-                <span className="payment-form__context-label">
-                  Invoice balance
-                </span>
-                <p>
-                  {selectedInvoice.tenant_name} / {selectedInvoice.unit_name}
-                  {selectedInvoice.property_name === null
-                    ? ''
-                    : ` - ${selectedInvoice.property_name}`}
-                </p>
-                <dl>
-                  <div>
-                    <dt>Total</dt>
-                    <dd>{formatCurrency(selectedInvoice.total_amount)}</dd>
-                  </div>
-                  <div>
-                    <dt>Paid</dt>
-                    <dd>{formatCurrency(selectedInvoice.paid_amount)}</dd>
-                  </div>
-                  <div>
-                    <dt>Remaining</dt>
-                    <dd>{formatCurrency(selectedInvoice.remaining_amount)}</dd>
-                  </div>
-                </dl>
+              <div className="payment-form__field">
+                <label htmlFor="payment-invoice">Invoice</label>
+                <select
+                  id="payment-invoice"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.invoice_id ? 'true' : 'false'}
+                  {...register('invoice_id')}
+                >
+                  <option value="">Select a payable invoice</option>
+                  {formOptions.invoices.map((invoice) => (
+                    <option value={invoice.id} key={invoice.id}>
+                      {formatInvoiceOption(invoice)}
+                    </option>
+                  ))}
+                </select>
+                {errors.invoice_id?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.invoice_id.message}
+                  </p>
+                ) : null}
               </div>
-            ) : null}
 
-            <div className="payment-form__field">
-              <label htmlFor="payment-date">Payment date</label>
-              <input
-                id="payment-date"
-                type="date"
-                disabled={isSubmitting}
-                aria-invalid={errors.payment_date ? 'true' : 'false'}
-                {...register('payment_date')}
-              />
-              {errors.payment_date?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.payment_date.message}
-                </p>
+              {selectedInvoice !== null ? (
+                <div className="payment-form__context">
+                  <span className="payment-form__context-label">
+                    Invoice balance
+                  </span>
+                  <p>
+                    {selectedInvoice.tenant_name} / {selectedInvoice.unit_name}
+                    {selectedInvoice.property_name === null
+                      ? ''
+                      : ` - ${selectedInvoice.property_name}`}
+                  </p>
+                  <dl>
+                    <div>
+                      <dt>Total</dt>
+                      <dd>{formatCurrency(selectedInvoice.total_amount)}</dd>
+                    </div>
+                    <div>
+                      <dt>Paid</dt>
+                      <dd>{formatCurrency(selectedInvoice.paid_amount)}</dd>
+                    </div>
+                    <div>
+                      <dt>Remaining</dt>
+                      <dd>
+                        {formatCurrency(selectedInvoice.remaining_amount)}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
               ) : null}
             </div>
 
-            <div className="payment-form__field">
-              <label htmlFor="payment-amount">Amount</label>
-              <input
-                id="payment-amount"
-                type="number"
-                min="1"
-                step="1"
-                inputMode="numeric"
-                disabled={isSubmitting}
-                aria-invalid={
-                  errors.amount || exceedsRemainingBalance ? 'true' : 'false'
-                }
-                {...register('amount')}
-              />
-              {errors.amount?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.amount.message}
-                </p>
-              ) : null}
-              {!errors.amount && exceedsRemainingBalance ? (
-                <p className="payment-form__error" role="alert">
-                  Amount cannot exceed the invoice remaining balance.
-                </p>
-              ) : null}
+            <div className="form-section">
+              <h3>Payment Details</h3>
+              <p className="form-section__helper">
+                Enter the transaction date, total amount, and payment method
+                used.
+              </p>
+
+              <div className="payment-form__field">
+                <label htmlFor="payment-date">Payment date</label>
+                <input
+                  id="payment-date"
+                  type="date"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.payment_date ? 'true' : 'false'}
+                  {...register('payment_date')}
+                />
+                {errors.payment_date?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.payment_date.message}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="payment-form__field">
+                <label htmlFor="payment-amount">Amount</label>
+                <input
+                  id="payment-amount"
+                  type="number"
+                  min="1"
+                  step="1"
+                  inputMode="numeric"
+                  disabled={isSubmitting}
+                  aria-invalid={
+                    errors.amount || exceedsRemainingBalance ? 'true' : 'false'
+                  }
+                  {...register('amount')}
+                />
+                {errors.amount?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.amount.message}
+                  </p>
+                ) : null}
+                {!errors.amount && exceedsRemainingBalance ? (
+                  <p className="payment-form__error" role="alert">
+                    Amount cannot exceed the invoice remaining balance.
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="payment-form__field">
+                <label htmlFor="payment-method">Payment method</label>
+                <select
+                  id="payment-method"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.payment_method ? 'true' : 'false'}
+                  {...register('payment_method')}
+                >
+                  <option value="cash">Cash</option>
+                  <option value="bank_transfer">Bank transfer</option>
+                  <option value="e_wallet">E-wallet</option>
+                  <option value="other">Other</option>
+                </select>
+                {errors.payment_method?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.payment_method.message}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
-            <div className="payment-form__field">
-              <label htmlFor="payment-method">Payment method</label>
-              <select
-                id="payment-method"
-                disabled={isSubmitting}
-                aria-invalid={errors.payment_method ? 'true' : 'false'}
-                {...register('payment_method')}
-              >
-                <option value="cash">Cash</option>
-                <option value="bank_transfer">Bank transfer</option>
-                <option value="e_wallet">E-wallet</option>
-                <option value="other">Other</option>
-              </select>
-              {errors.payment_method?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.payment_method.message}
-                </p>
-              ) : null}
-            </div>
+            <div className="form-section">
+              <h3>Reference & Notes</h3>
+              <p className="form-section__helper">
+                Optionally add a transaction ID or memo for administrative
+                record-keeping.
+              </p>
 
-            <div className="payment-form__field">
-              <label htmlFor="payment-reference">Reference number</label>
-              <input
-                id="payment-reference"
-                type="text"
-                disabled={isSubmitting}
-                aria-invalid={errors.reference_number ? 'true' : 'false'}
-                {...register('reference_number')}
-              />
-              {errors.reference_number?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.reference_number.message}
-                </p>
-              ) : null}
-            </div>
+              <div className="payment-form__field">
+                <label htmlFor="payment-reference">Reference number</label>
+                <input
+                  id="payment-reference"
+                  type="text"
+                  disabled={isSubmitting}
+                  aria-invalid={errors.reference_number ? 'true' : 'false'}
+                  {...register('reference_number')}
+                />
+                {errors.reference_number?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.reference_number.message}
+                  </p>
+                ) : null}
+              </div>
 
-            <div className="payment-form__field">
-              <label htmlFor="payment-notes">Notes</label>
-              <textarea
-                id="payment-notes"
-                rows={4}
-                disabled={isSubmitting}
-                aria-invalid={errors.notes ? 'true' : 'false'}
-                {...register('notes')}
-              />
-              {errors.notes?.message ? (
-                <p className="payment-form__error" role="alert">
-                  {errors.notes.message}
-                </p>
-              ) : null}
+              <div className="payment-form__field">
+                <label htmlFor="payment-notes">Notes</label>
+                <textarea
+                  id="payment-notes"
+                  rows={4}
+                  disabled={isSubmitting}
+                  aria-invalid={errors.notes ? 'true' : 'false'}
+                  {...register('notes')}
+                />
+                {errors.notes?.message ? (
+                  <p className="payment-form__error" role="alert">
+                    {errors.notes.message}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             {currentProfileQuery.isError ? (

@@ -2043,12 +2043,16 @@
 
 .receipt-detail-card {
   display: grid;
-  gap: 20px;
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: clamp(20px, 4vw, 28px);
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
+  gap: 16px;
+  border: 2px dashed var(--lagoon-light-border);
+  border-radius: 16px;
+  padding: 24px;
+  background: rgb(255 255 255 / 0.88);
+  box-shadow: 0 12px 30px rgb(14 116 144 / 0.04);
+  backdrop-filter: blur(8px);
+  max-width: 580px;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .receipt-detail-card__hero {
@@ -2056,8 +2060,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 18px;
   color: #ffffff;
   background: var(--gradient-brand);
 }
@@ -2071,17 +2075,17 @@
 
 .receipt-detail-card__hero h3 {
   margin: 4px 0;
-  font-size: clamp(24px, 4vw, 34px);
+  font-size: clamp(20px, 3.5vw, 28px);
 }
 
 .receipt-detail-card__hero strong {
-  font-size: clamp(22px, 4vw, 32px);
+  font-size: clamp(18px, 3.5vw, 26px);
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
 .receipt-detail-card__label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2090,14 +2094,14 @@
 .receipt-detail-card__details {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
   margin: 0;
 }
 
 .receipt-detail-card__details > div {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
+  border: 1px solid var(--lagoon-light-border);
+  border-radius: 12px;
+  padding: 12px;
   background: #ffffff;
 }
 
@@ -4375,4 +4379,90 @@
   .receipt-document__footer {
     grid-template-columns: 1.4fr 1fr;
   }
+}
+
+/* Centered form container selectors */
+.create-property-page,
+.create-tenant-page,
+.create-lease-page,
+.create-invoice-page,
+.create-payment-page,
+.edit-tenant-page,
+.edit-property-page,
+.create-unit-page,
+.edit-unit-page {
+  display: grid;
+  gap: 24px;
+  max-width: 640px;
+  width: 100%;
+  margin-inline: auto; /* Centers the forms */
+}
+
+/* Maintenance page layouts centering */
+.create-maintenance-page,
+.create-maintenance-ticket-page {
+  display: grid;
+  gap: 24px;
+  max-width: 720px;
+  width: 100%;
+  margin-inline: auto; /* Centers the forms */
+}
+
+/* Unified Form Card Container */
+.command-form-card {
+  background: rgb(255 255 255 / 0.88);
+  border: 1px solid var(--lagoon-light-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgb(14 116 144 / 0.04);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Guided Form Sections */
+.form-section {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+  margin-bottom: 12px;
+}
+
+.form-section:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.form-section h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-h);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-section__helper {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* Split detail layout on desktop */
+.property-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 440px;
+  gap: 16px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+/* Form inputs focus state override */
+.command-form-card input:focus,
+.command-form-card select:focus,
+.command-form-card textarea:focus {
+  outline: none;
+  border-color: var(--lagoon-500);
+  box-shadow: 0 0 0 3px rgb(6 182 212 / 0.15);
 }

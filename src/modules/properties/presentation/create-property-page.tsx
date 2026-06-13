@@ -50,7 +50,7 @@ export function CreatePropertyPage() {
         </div>
 
         <form
-          className="create-property-form"
+          className="create-property-form command-form-card"
           onSubmit={handleSubmit((input) => {
             if (organizationId === null) {
               return
